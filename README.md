@@ -29,6 +29,7 @@ Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como fa
 	 - Consultoria Tributária
 	 - Câmara de Arbitragem
 
+
 ## Estrutura inicial do projeto JUS-Consultoria
 
  -   **documentacao**:
@@ -70,7 +71,7 @@ Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como fa
     
 
 
-### Explicação da Estrutura Proposta:
+## Explicação da Estrutura Proposta:
 
  -   **raiz_projeto**: Pasta principal do projeto.
     
@@ -103,13 +104,13 @@ Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como fa
 	 - testes_unitario.py: Testes unitários para as diferentes partes do código.
 
 
-### Links para nossa organização
+## Links para nossa organização
 
  - Trello: https://trello.com/b/cJ3QsjEh/gestao-de-projetos-bugware
  - Discord: https://discord.gg/g4U6AY4g
 
 
-### Tkinter
+## Tkinter
 Tkinter ou Tk Interface é um dos pacotes Python mais populares e também a forma padrão de criar GUIs de desktop em Python.
 
 Tkinter é a combinação de Tk; Um kit de ferramentas de código aberto para criar widgets de elementos como botões, menus, telas, textos e assim por diante. mais código Python que permite controlar essas interfaces.
@@ -121,7 +122,7 @@ Também não possui nenhum tipo de software para projetar interfaces gráficas v
 https://github.com/ParthJadhav/Tkinter-Designer
  
  
-### Padrão de projeto MVC
+## Padrão de projeto MVC
 
 O padrão de projeto Model-View-Controller (MVC) é um padrão arquitetural, isto é, significa que ele diz como será a arquitetura do sistema. Ele também é uma especialização do Padrão Arquitetural em Camada.  
 Esse padrão de projeto foco em três partes, são elas:
@@ -134,3 +135,34 @@ Esse padrão de projeto foco em três partes, são elas:
 
 Segue um projeto escolhido para exemplificar o MVC em um projeto Python:
 [https://github.com/MarcosDias/PythonMVC]
+
+## Pyodbc
+
+O PyODBC é uma biblioteca Python que fornece uma interface para acessar bancos de dados relacionais usando o padrão ODBC (Open Database Connectivity). Ele permite que os desenvolvedores se conectem e interajam com uma ampla variedade de bancos de dados, como SQL Server, MySQL, PostgreSQL, Oracle, entre outros.
+
+Aqui está um exemplo simples de como usar o PyODBC para se conectar a um banco de dados e executar uma consulta SQL:
+```
+import pyodbc
+
+# Conectando ao banco de dados
+conn = pyodbc.connect('Driver={SQL Server};'
+                      'Server=nome_do_servidor;'
+                      'Database=nome_do_banco_de_dados;'
+                      'UID=nome_de_usuario;'
+                      'PWD=senha;')
+
+# Criando um cursor para executar consultas SQL
+cursor = conn.cursor()
+
+# Executando uma consulta SQL
+cursor.execute('SELECT * FROM tabela')
+
+# Iterando sobre os resultados e imprimindo-os
+for row in cursor:
+    print(row)
+
+# Fechando o cursor e a conexão
+cursor.close()
+conn.close()
+
+```
