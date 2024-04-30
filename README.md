@@ -11,7 +11,7 @@ informações.
 - Cadastro/modificação e exclusão de novos contratos e pareceres jurídicos no sistema.
 - Envio do contrato ou parecer jurídico para assinatura por meio de link externo
 - Armazenar os contratos assinados em um banco de dados respeitando a LGPD. 
-- 
+
 ## Arquitetura da Solução
 
 ```mermaid
