@@ -11,7 +11,6 @@ informações.
 - Cadastro/modificação e exclusão de novos contratos e pareceres jurídicos no sistema.
 - Envio do contrato ou parecer jurídico para assinatura por meio de link externo
 - Armazenar os contratos assinados em um banco de dados respeitando a LGPD. 
-
 ## Arquitetura da Solução
 
 ```mermaid
@@ -42,6 +41,7 @@ Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como fa
 -   **lib**: (bibliotecas úteis, exemplo Spacy, Pandas)
     
 -   **src**:
+  
 	-   **contratos**:
 		-   controladores.py (lógica de negócio para gerenciamento de contratos)
 		-   modelos.py (modelos de dados para contratos)
@@ -79,35 +79,24 @@ Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como fa
  -   **imagens**: imagens, logotipos e outros recursos visuais.
     
  -   **lib**: Bibliotecas de terceiros que não fazem parte da biblioteca padrão do Python.
-    
- -   **src**: Pasta principal do código-fonte, dividida em subpastas:
-    
+ 
+ -    **src**: Pasta principal do código-fonte, dividida em subpastas:
 
-	-   **contratos**, **empresa**, **usuário**: Contém o código relacionado à funcionalidade de gerenciamento de contratos.
+ 	  -    **contratos**, **empresa**, **usuário**: Contém o código relacionado à funcionalidade de gerenciamento de contratos.
     
+ 			-   **controladores**.py: Lógica de negócio para operações com contratos (criar, editar, excluir, pesquisar, etc.).
+			-   **modelos**.py: Definição dos modelos de dados para representar contratos no banco de dados.
+			-   **visualizacoes**.py: Interface gráfica para interação com os contratos (telas, widgets, etc.).
 
-		-   **controladores**.py: Lógica de negócio para operações com contratos (criar, editar, excluir, pesquisar, etc.).
-    
-		-   **modelos**.py: Definição dos modelos de dados para representar contratos no banco de dados.
-    
-		-   **visualizacoes**.py: Interface gráfica para interação com os contratos (telas, widgets, etc.).
-    
+	  -   **interface**: Contém o código da interface principal da aplicação e outras interfaces.
+     
+	 		-   janela_principal.py: Interface principal da aplicação, ponto de partida para o usuário.
+			-   outras_janelas.py: Interfaces para outras funcionalidades da aplicação (telas de login, configurações, etc.).
 
-	-   **interface**: Contém o código da interface principal da aplicação e outras interfaces.
-    
-
-		-   janela_principal.py: Interface principal da aplicação, ponto de partida para o usuário.
-    
-		-   outras_janelas.py: Interfaces para outras funcionalidades da aplicação (telas de login, configurações, etc.).
-    
-
-	-   **utilitarios**: Armazena funções auxiliares e configurações gerais da aplicação.
-    
-
-		-   funcoes_auxiliares.py: Funções úteis para diversas partes do projeto.
-    
-		-   configuracoes.py: Definição de configurações gerais da aplicação (caminhos de arquivos, configurações de logging, banco de dados etc.).
-    
+	  -   **utilitarios**: Armazena funções auxiliares e configurações gerais da aplicação.
+     
+			-   funcoes_auxiliares.py: Funções úteis para diversas partes do projeto.
+			-   configuracoes.py: Definição de configurações gerais da aplicação (caminhos de arquivos, configurações de logging, banco de dados etc.)
 
  -   **testes**: Contém testes unitários para verificar o funcionamento do código.
 
