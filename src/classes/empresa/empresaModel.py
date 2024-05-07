@@ -12,8 +12,8 @@ class empresaModel:
     def str(self)->str:
          return (f"Nome: {self.nome}\n"
                 f"CNPJ: {self.cnpj}\n"
-                f"CNAE Principal: {self.cnaeSecundario}\n"
-                f"CNAE Secundario: {self.cnaePrincipal}\n"
+                f"CNAE Principal: {self.cnaePrincipal}\n"
+                f"CNAE Secundario: {self.cnaeSecundario}\n"
                 f"CFOP: {self.cfopPrincipaisProdutos}\n"
                 f"Indústria Setor: {self.industriaSetor}\n"
                 f"Receita Anual: {self.receitaAnual}")

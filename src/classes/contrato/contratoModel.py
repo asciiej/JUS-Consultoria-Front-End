@@ -1,21 +1,14 @@
 import usuario.usuarioModel as usuario
 class contratoModel:
   
-    def init(self,titulo:str,tipo:str,valor:str,formaDePagamento:str,multaEncargos:str,prazoDuracao:str):
+    def init(self,titulo:str,tipo:str):
         self.titulo = titulo
         self.tipo = tipo
-        self.valor = valor
-        self.formaDePagamento = formaDePagamento
-        self.multaEncargos = multaEncargos
-        self.prazoDuracao = prazoDuracao
+        
 
     def str(self)->str:
          return (f"Titulo: {self.titulo}\n"
-                f"Tipo: {self.tipo}\n"
-                f"Valor: {self.valor}\n"
-                f"FormaDePagamento: {self.formaDePagamento}\n"
-                f"MultaEncargos: {self.multaEncargos}\n"
-                f"PrazoDuracao: {self.prazoDuracao}\n")
+                f"Tipo: {self.tipo}")
     
 
 class campoDeUmContrato:
@@ -51,9 +44,20 @@ class parteDeUmContrato:
 class contratoIndividualModel (contratoModel): 
 
     def init(self,titulo:str,tipo:str,valor:str,formaDePagamento:str,multaEncargos:str,prazoDuracao:str,usuario:usuario,camposDeUmContrato:list,partesDeUmContrato:list):
-        super().init(titulo,tipo,valor,formaDePagamento,multaEncargos,prazoDuracao)
+        super().init(titulo,tipo)
+        self.valor = valor
+        self.formaDePagamento = formaDePagamento
+        self.multaEncargos = multaEncargos
+        self.prazoDuracao = prazoDuracao
         self.usuario = usuario
         self.camposDeUmcontrato = camposDeUmContrato
         self.partesDeUmContrato = partesDeUmContrato
+
+    def str(self) ->str:
+        return (f"Usuario: {self.usuario.nome}\n" 
+                f"Valor: {self.valor}\n"
+                f"FormaDePagamento: {self.formaDePagamento}\n"
+                f"MultaEncargos: {self.multaEncargos}\n"
+                f"PrazoDuracao: {self.prazoDuracao}\n")
 
     
