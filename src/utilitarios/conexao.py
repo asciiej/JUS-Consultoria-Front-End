@@ -1,6 +1,6 @@
 import psycopg2
 
-class Database:
+class PostgreSQLConnection:
     def __init__(self, host, database, user, password, port):
         self.host = host
         self.database = database
@@ -8,7 +8,6 @@ class Database:
         self.password = password
         self.port = port
         self.connection = None
-        self.cursor = None
 
     def connect(self):
         try:
@@ -19,48 +18,30 @@ class Database:
                 password=self.password,
                 port=self.port
             )
-            self.cursor = self.connection.cursor()
-            print("Connected to the database!")
+            print("Conexão com o banco de dados estabelecida com sucesso!")
         except psycopg2.Error as e:
-            print(f"Error connecting to the database: {e}")
+            print("Erro ao conectar-se ao banco de dados:", e)
 
     def disconnect(self):
         if self.connection:
-            self.cursor.close()
             self.connection.close()
-            print("Disconnected from the database.")
+            print("Conexão com o banco de dados encerrada.")
 
-    def execute_query(self, query):
-        try:
-            self.cursor.execute(query)
-            self.connection.commit()
-            print("Query executed successfully.")
-        except psycopg2.Error as e:
-            print(f"Error executing query: {e}")
 
-    def fetch_data(self, query):
-        try:
-            self.cursor.execute(query)
-            rows = self.cursor.fetchall()
-            return rows
-        except psycopg2.Error as e:
-            print(f"Error fetching data: {e}")
+# Credenciais de conexão
+host = "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com"
+database = "buzutyolmqat5dwhefa2"
+user = "uxzvrjoyrvfzlsd1rckj"
+password = "wKlpuuKPAOS3c6bRodVc590BRJ14K7"
+port = 50013
 
-# Exemplo de uso:
-if __name__ == "__main__":
-    db = Database(
-        host="buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com",
-        database="buzutyolmqat5dwhefa2",
-        user="uxzvrjoyrvfzlsd1rckj",
-        password="wKlpuuKPAOS3c6bRodVc590BRJ14K7",
-        port="50013"
-    )
+# Criar uma instância da classe de conexão
+db_connection = PostgreSQLConnection(host, database, user, password, port)
 
-    db.connect()
+# Conectar-se ao banco de dados
+db_connection.connect()
 
-    # Exemplo de execução de consulta
-    query = "SELECT * FROM sua_tabela;"
-    data = db.fetch_data(query)
-    print(data)
+# Operações no banco de dados...
 
-    db.disconnect()
+# Desconectar-se do banco de dados
+db_connection.disconnect()
