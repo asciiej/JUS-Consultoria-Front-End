@@ -1,4 +1,3 @@
-import tkinter
 import customtkinter
 from PIL import Image
 
@@ -20,13 +19,14 @@ class telaLogin:
         self.email = customtkinter.CTkEntry(self.janela,placeholder_text="...",width=386,height=37)
         self.email.pack(pady=10)
         
-        self.emailText = customtkinter.CTkLabel(self.janela,text="senha",font=self.font)
-        self.emailText.pack()
+        self.senhaText = customtkinter.CTkLabel(self.janela,text="senha",font=self.font)
+        self.senhaText.pack()
         self.senha = customtkinter.CTkEntry(self.janela,placeholder_text="...",show='*',width=386,height=37)
         self.senha.pack(pady = 10)
 
         self.login = customtkinter.CTkButton(self.janela,text="Login",command = self.clique,width=200,height=42)
         self.login.pack(pady=20)
+
         self.janela.mainloop()
 
     def clique(self):
