@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from ...utilitarios.exceções import *
+from ...utilitarios.excecoes import *
 import re
 import hashlib
 
