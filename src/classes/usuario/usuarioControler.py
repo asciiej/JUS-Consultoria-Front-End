@@ -31,10 +31,10 @@ class usuarioControler():
         if not self._checkSenha(senha,confirmeSenha):
             raise senhaInválido()
 
-        senha = self._calcular_md5(senha)
+        senha = self._calcularMd5(senha) #converter a senha para hash md5 que será armazenado no banco de dados
         
         # aqui usamos as funcionalidades do model para inserir este usuário no banco de dados
-        print(senha)
+        
         
     def _checkNome(self,nome:str,sobrenome:str):
         # Expressão regular para validar nomes com letras maiúsculas e minúsculas e acentos
@@ -74,7 +74,7 @@ class usuarioControler():
     def _checkSenha(self,senha,confirmeSenha):
         return senha==confirmeSenha and ' ' not in senha
     
-    def _calcular_md5(self,texto):
+    def _calcularMd5(self,texto):
         # Codifica o texto em bytes antes de calcular o hash MD5
         texto_codificado = texto.encode('utf-8')
         
@@ -86,4 +86,4 @@ class usuarioControler():
         
 
 
-
+#usuarioControler().cadastro("Lucas","Sabbatini Janot Procópio","lucas.exemplo@ufu.br","+55 12 34567-8901","Programador","ASCII","luc@s123","luc@s123")
