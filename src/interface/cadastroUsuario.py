@@ -41,8 +41,7 @@ class telaCadastro:
 
         self.janela.mainloop()
 
-    def clique(self):
-        print("Clicou")
+
 
 
 
