@@ -1,14 +1,13 @@
 import psycopg2
 
 class PostgreSQLConnection:
-    def __init__(self, host, database, user, password, port):
-        self.host = host
-        self.database = database
-        self.user = user
-        self.password = password
-        self.port = port
-        self.connection = None
-
+    host = "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com"
+    database = "buzutyolmqat5dwhefa2"
+    user = "uxzvrjoyrvfzlsd1rckj"
+    password = "wKlpuuKPAOS3c6bRodVc590BRJ14K7"
+    port = 50013
+    connection = None
+    
     def connect(self):
         try:
             self.connection = psycopg2.connect(
@@ -29,19 +28,14 @@ class PostgreSQLConnection:
 
 
 # Credenciais de conexão
-host = "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com"
-database = "buzutyolmqat5dwhefa2"
-user = "uxzvrjoyrvfzlsd1rckj"
-password = "wKlpuuKPAOS3c6bRodVc590BRJ14K7"
-port = 50013
 
 # Criar uma instância da classe de conexão
-db_connection = PostgreSQLConnection(host, database, user, password, port)
+#db_connection = PostgreSQLConnection()
 
 # Conectar-se ao banco de dados
-db_connection.connect()
+#db_connection.connect()
 
 # Operações no banco de dados...
 
 # Desconectar-se do banco de dados
-db_connection.disconnect()
+#db_connection.disconnect()

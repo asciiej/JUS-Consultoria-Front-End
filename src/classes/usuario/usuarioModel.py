@@ -1,11 +1,12 @@
 class usuarioModel: 
-    def init(self, nome: str, sobrenome: str, email: str, telefone: str, pais: str, cargo: str = None):
+    def __init__(self, nome: str, sobrenome: str, email: str, telefone: str, pais: str, cargo:str,cpf:str):
         self.nome = nome
         self.sobrenome = sobrenome
         self.email = email
         self.telefone = telefone
         self.pais = pais
         self.cargo = cargo
+        self.cpf = cpf
 
     def str(self) -> str:
         return (f"Nome: {self.nome} {self.sobrenome}\n"

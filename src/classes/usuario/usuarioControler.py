@@ -1,16 +1,35 @@
-from abc import abstractmethod
-from ...utilitarios.excecoes import *
+from  ...utilitarios.excecoes import *
+from .usuarioConexaoBD import usuarioManager
 import re
 import hashlib
+import validate_cpf
 
 class usuarioControler():
     def __init__(self):
         pass
     
-    def login(self):
-        pass
+    def login(self,eMail:str,senha:str):
 
-    def cadastro(self,nome:str,sobrenome:str,eMail:str,telefone:str,cargo:str,nomeEmpresa:str,senha:str,confirmeSenha:str):
+        if not self._checkEMail(eMail):
+            raise eMailInválido(eMail)
+        
+        if ' ' in senha:
+            raise senhaInválido()
+        
+        senha = self._calcularMd5(senha)
+
+        #Implementar a funcionalidade de login do crud]
+        try:
+            self.usuarioLogado = usuarioManager().login(eMail,senha)
+        except Exception as e:
+            print(e)
+            return False
+        print(self.usuarioLogado.str())
+        return True
+        #return (true or false) se o usuário for encontrado no banco ou não
+        
+
+    def cadastro(self,nome:str,sobrenome:str,cpf:str,nomeEmpresa:str,cargo:str,eMail:str,telefone:str,pais: str,senha:str,confirmeSenha:str):
 
         if not self._checkNome(nome,sobrenome):
             raise nomeInválido(nome,sobrenome)
@@ -27,14 +46,21 @@ class usuarioControler():
 
         if not self._checkString(nomeEmpresa):
             raise nomeEmpresaInválido(nomeEmpresa)
+        
+        if not self._checkString(pais):
+            raise nomeEmpresaInválido(nomeEmpresa)
 
         if not self._checkSenha(senha,confirmeSenha):
             raise senhaInválido()
 
+        # cpf obrigatóriamente no formato 111.111.111-11
+        if not self._checkCPF(cpf):
+            raise cpfInválido(cpf)
+
         senha = self._calcularMd5(senha) #converter a senha para hash md5 que será armazenado no banco de dados
         
         # aqui usamos as funcionalidades do model para inserir este usuário no banco de dados
-        
+        usuarioManager().cadastroUsuario(nome, sobrenome, cpf, nomeEmpresa, cargo, eMail, telefone, pais, senha)
         
     def _checkNome(self,nome:str,sobrenome:str):
         # Expressão regular para validar nomes com letras maiúsculas e minúsculas e acentos
@@ -73,6 +99,13 @@ class usuarioControler():
 
     def _checkSenha(self,senha,confirmeSenha):
         return senha==confirmeSenha and ' ' not in senha
+    
+    def _checkCPF(self,cpf):
+        padraoCPF = r'^\d{3}\.\d{3}\.\d{3}-\d{2}$'
+        if re.match(padraoCPF, cpf) and validate_cpf.is_valid(cpf):
+            return True
+        else:
+            return False
     
     def _calcularMd5(self,texto):
         # Codifica o texto em bytes antes de calcular o hash MD5

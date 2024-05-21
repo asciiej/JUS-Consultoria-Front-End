@@ -1,10 +1,3 @@
-#Nome ou sobrenome inválido
-#eMail Inválido
-#Telefone Inválido
-#Cargo Inválido
-#Empresa Inválido
-#Senhas inválidas ou diferentes
-
 
 class nomeInválido(Exception):
     def __init__(self, nome,sobrenome):
@@ -32,6 +25,21 @@ class nomeEmpresaInválido(Exception):
         super().__init__(self.mensagem)
 
 class senhaInválido(Exception):
-    def __init__(self, senha):
+    def __init__(self):
         self.mensagem = f'Senhas inválidas ou diferentes'
+        super().__init__(self.mensagem)
+
+class paisInválido(Exception):
+    def __init__(self, pais):
+        self.mensagem = f'País: {pais} inválido'
+        super().__init__(self.mensagem)
+
+class cpfInválido(Exception):
+    def __init__(self,cpf):
+        self.mensagem = f'CPF: {cpf} inválido'
+        super().__init__(self.mensagem)
+
+class usuarioOuSenhaInválido(Exception):
+    def __init__(self):
+        self.mensagem = 'Usuário ou Senha Inválidos'
         super().__init__(self.mensagem)
