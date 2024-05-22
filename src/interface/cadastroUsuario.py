@@ -29,17 +29,23 @@ class telaCadastro:
 
         #retangulo azul
         self.wid = tk.Label(self.janela, image=self.retangulo)
-        self.wid.pack(pady= 0)
-        self.wid.place(relx=0.1, rely= 0.36)
+        self.wid.pack(pady= 0, anchor=tk.W)
+        self.wid.place(relx=0.23, rely=0.35)
+   
 
-        self.wid = tk.Label(self.janela, text="Informações Profissionais: ", font=("Consolas", 30), width=30, bg="#6EC1E4")
-        self.wid.place(relx=0.18, rely=0.40)
+        self.texto = tk.Label(self.wid, text="Informações Profissionais: ", font=("Consolas", 30), width=27, bg="#6EC1E4")
+        self.texto.pack(pady= 0, anchor=tk.W)
+        self.texto.place(relx=0.05, rely=0.10)
 
         #botão
-        self.bot = customtkinter.CTkButton(self.janela,text="Finalizar",command = self.clique,width=293,height=60, fg_color="#325564")
-        self.bot.pack(pady=20)
-        self.bot.place(relx=0.66, rely=0.40)
 
+
+        self.bot = customtkinter.CTkButton(self.wid, text= "", command = self.clique,width=293,height=60, fg_color="#325564")
+        self.bot.pack(pady=30,padx=23)
+        self.bot.place(relx=0.66, rely=0.10)
+
+        self.ret = tk.Label(self.bot, text="Finalizar", font=("Consolas", 20), width=10, height= 0,  bg="#325564", foreground= "white")
+        self.ret.place(relx=0.12, rely=0.15)
 
         self.janela.mainloop()
 
