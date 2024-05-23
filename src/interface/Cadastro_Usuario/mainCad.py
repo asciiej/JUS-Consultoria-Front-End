@@ -69,7 +69,7 @@ entry_1 = Entry(
 )
 entry_1.place(
     x=608.0,
-    y=699.0,
+    y=701.0,
     width=254.0,
     height=43.0
 )
@@ -98,7 +98,7 @@ entry_2 = Entry(
 )
 entry_2.place(
     x=910.0,
-    y=699.0,
+    y=701.0,
     width=291.0,
     height=43.0
 )
@@ -127,7 +127,7 @@ entry_3 = Entry(
 )
 entry_3.place(
     x=238.0,
-    y=699.0,
+    y=701.0,
     width=346.0,
     height=43.0
 )
@@ -156,7 +156,7 @@ entry_4 = Entry(
 )
 entry_4.place(
     x=243.0,
-    y=828.0,
+    y=830.0,
     width=436.0,
     height=43.0
 )
@@ -185,7 +185,7 @@ entry_5 = Entry(
 )
 entry_5.place(
     x=763.0,
-    y=828.0,
+    y=830.0,
     width=451.0,
     height=43.0
 )
@@ -214,7 +214,7 @@ entry_6 = Entry(
 )
 entry_6.place(
     x=238.0,
-    y=586.0,
+    y=587.0,
     width=963.0,
     height=42.0
 )
@@ -243,7 +243,7 @@ entry_7 = Entry(
 )
 entry_7.place(
     x=608.0,
-    y=458.0,
+    y=460.0,
     width=593.0,
     height=49.0
 )
@@ -272,9 +272,9 @@ entry_8 = Entry(
 )
 entry_8.place(
     x=238.0,
-    y=458.0,
+    y=460.0,
     width=336.0,
-    height=49.0
+    height=40.0
 )
 
 canvas.create_text(
@@ -300,6 +300,7 @@ button_image_1 = PhotoImage(
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
+    bg="#6ec1e4",
     highlightthickness=0,
     command=lambda: print("button_1 clicked"),
     relief="flat"
