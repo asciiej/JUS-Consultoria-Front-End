@@ -1,6 +1,5 @@
 
 
-
 import os
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
@@ -8,22 +7,21 @@ from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
 
 ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
 
-
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
 
-window = Tk()
+TkCadastro = Tk()
 
-window.geometry("1440x1024")
-window.configure(bg = "#EFEFEF")
+TkCadastro.geometry("1000x600")
+TkCadastro.configure(bg = "#EFEFEF")
 
 
 canvas = Canvas(
-    window,
+    TkCadastro,
     bg = "#EFEFEF",
-    height = 1024,
-    width = 1440,
+    height = 600,
+    width = 1000,
     bd = 0,
     highlightthickness = 0,
     relief = "ridge"
@@ -33,32 +31,79 @@ canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
-    731.0,
-    584.0,
+    484.0,
+    363.0,
     image=image_image_1
 )
 
-image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
-image_2 = canvas.create_image(
-    731.0,
-    584.0,
-    image=image_image_2
+canvas.create_text(
+    399.0,
+    404.0,
+    anchor="nw",
+    text="Cargo",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
 )
 
-image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
-image_3 = canvas.create_image(
-    731.0,
-    584.0,
-    image=image_image_3
+canvas.create_text(
+    589.0,
+    404.0,
+    anchor="nw",
+    text="Nome da Empresa",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
+)
+
+canvas.create_text(
+    202.0,
+    404.0,
+    anchor="nw",
+    text="Telefone",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
+)
+
+canvas.create_text(
+    206.0,
+    485.0,
+    anchor="nw",
+    text="Senha",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
+)
+
+canvas.create_text(
+    523.0,
+    485.0,
+    anchor="nw",
+    text="Confirme sua Senha",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
+)
+
+canvas.create_text(
+    205.0,
+    321.0,
+    anchor="nw",
+    text="e-mail",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
+)
+
+canvas.create_text(
+    527.0,
+    243.0,
+    anchor="nw",
+    text="Sobrenome",
+    fill="#000000",
+    font=("Calibri", 18 * -1)
 )
 
 entry_image_1 = PhotoImage(
     file=relative_to_assets("entry_1.png"))
 entry_bg_1 = canvas.create_image(
-    735.0,
-    721.5,
+    309.5,
+    290.5,
     image=entry_image_1
 )
 entry_1 = Entry(
@@ -68,26 +113,17 @@ entry_1 = Entry(
     highlightthickness=0
 )
 entry_1.place(
-    x=608.0,
-    y=701.0,
-    width=254.0,
-    height=43.0
-)
-
-canvas.create_text(
-    603.0,
-    658.0,
-    anchor="nw",
-    text="Cargo",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=210.0,
+    y=277.0,
+    width=199.0,
+    height=29.0
 )
 
 entry_image_2 = PhotoImage(
     file=relative_to_assets("entry_2.png"))
 entry_bg_2 = canvas.create_image(
-    1055.5,
-    721.5,
+    285.5,
+    449.5,
     image=entry_image_2
 )
 entry_2 = Entry(
@@ -97,26 +133,17 @@ entry_2 = Entry(
     highlightthickness=0
 )
 entry_2.place(
-    x=910.0,
-    y=701.0,
-    width=291.0,
-    height=43.0
-)
-
-canvas.create_text(
-    905.0,
-    658.0,
-    anchor="nw",
-    text="Nome da Empresa",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=207.0,
+    y=436.0,
+    width=157.0,
+    height=29.0
 )
 
 entry_image_3 = PhotoImage(
     file=relative_to_assets("entry_3.png"))
 entry_bg_3 = canvas.create_image(
-    411.0,
-    721.5,
+    323.5,
+    527.5,
     image=entry_image_3
 )
 entry_3 = Entry(
@@ -126,26 +153,17 @@ entry_3 = Entry(
     highlightthickness=0
 )
 entry_3.place(
-    x=238.0,
-    y=701.0,
-    width=346.0,
-    height=43.0
-)
-
-canvas.create_text(
-    233.0,
-    658.0,
-    anchor="nw",
-    text="Telefone",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=210.0,
+    y=514.0,
+    width=227.0,
+    height=29.0
 )
 
 entry_image_4 = PhotoImage(
     file=relative_to_assets("entry_4.png"))
 entry_bg_4 = canvas.create_image(
-    461.0,
-    850.5,
+    622.5,
+    527.5,
     image=entry_image_4
 )
 entry_4 = Entry(
@@ -155,26 +173,17 @@ entry_4 = Entry(
     highlightthickness=0
 )
 entry_4.place(
-    x=243.0,
-    y=830.0,
-    width=436.0,
-    height=43.0
-)
-
-canvas.create_text(
-    233.0,
-    787.0,
-    anchor="nw",
-    text="Senha",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=509.0,
+    y=514.0,
+    width=227.0,
+    height=29.0
 )
 
 entry_image_5 = PhotoImage(
     file=relative_to_assets("entry_5.png"))
 entry_bg_5 = canvas.create_image(
-    988.5,
-    850.5,
+    655.5,
+    449.5,
     image=entry_image_5
 )
 entry_5 = Entry(
@@ -184,26 +193,17 @@ entry_5 = Entry(
     highlightthickness=0
 )
 entry_5.place(
-    x=763.0,
-    y=830.0,
-    width=451.0,
-    height=43.0
-)
-
-canvas.create_text(
-    745.0,
-    787.0,
-    anchor="nw",
-    text="Confirme sua Senha",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=577.0,
+    y=436.0,
+    width=157.0,
+    height=29.0
 )
 
 entry_image_6 = PhotoImage(
     file=relative_to_assets("entry_6.png"))
 entry_bg_6 = canvas.create_image(
-    719.5,
-    608.0,
+    467.0,
+    449.5,
     image=entry_image_6
 )
 entry_6 = Entry(
@@ -213,26 +213,17 @@ entry_6 = Entry(
     highlightthickness=0
 )
 entry_6.place(
-    x=238.0,
-    y=587.0,
-    width=963.0,
-    height=42.0
-)
-
-canvas.create_text(
-    233.0,
-    537.0,
-    anchor="nw",
-    text="e-mail",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=395.0,
+    y=436.0,
+    width=144.0,
+    height=29.0
 )
 
 entry_image_7 = PhotoImage(
     file=relative_to_assets("entry_7.png"))
 entry_bg_7 = canvas.create_image(
-    904.5,
-    483.5,
+    627.5,
+    290.5,
     image=entry_image_7
 )
 entry_7 = Entry(
@@ -242,26 +233,17 @@ entry_7 = Entry(
     highlightthickness=0
 )
 entry_7.place(
-    x=608.0,
-    y=460.0,
-    width=593.0,
-    height=49.0
-)
-
-canvas.create_text(
-    603.0,
-    406.0,
-    anchor="nw",
-    text="Sobrenome",
-    fill="#000000",
-    font=("Calibri", 24 * -1)
+    x=528.0,
+    y=277.0,
+    width=199.0,
+    height=29.0
 )
 
 entry_image_8 = PhotoImage(
     file=relative_to_assets("entry_8.png"))
 entry_bg_8 = canvas.create_image(
-    406.0,
-    483.5,
+    465.0,
+    368.5,
     image=entry_image_8
 )
 entry_8 = Entry(
@@ -271,28 +253,28 @@ entry_8 = Entry(
     highlightthickness=0
 )
 entry_8.place(
-    x=238.0,
-    y=460.0,
-    width=336.0,
-    height=40.0
+    x=203.0,
+    y=355.0,
+    width=524.0,
+    height=29.0
 )
 
 canvas.create_text(
-    233.0,
-    406.0,
+    205.0,
+    243.0,
     anchor="nw",
     text="Nome",
     fill="#000000",
-    font=("Calibri", 24 * -1)
+    font=("Calibri", 18 * -1)
 )
 
 canvas.create_text(
     154.0,
-    315.0,
+    183.0,
     anchor="nw",
     text=" Informações Profissionais:",
     fill="#000000",
-    font=("Consolas Bold", 48 * -1)
+    font=("Consolas Bold", 28 * -1)
 )
 
 button_image_1 = PhotoImage(
@@ -300,33 +282,33 @@ button_image_1 = PhotoImage(
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
-    bg="#6ec1e4",
     highlightthickness=0,
     command=lambda: print("button_1 clicked"),
+    bg="#6ec1e4",
     relief="flat"
 )
 button_1.place(
-    x=947.0,
-    y=301.0,
-    width=293.0,
-    height=80.0
+    x=623.0,
+    y=173.0,
+    width=180.0,
+    height=51.48387145996094
 )
 
 canvas.create_text(
-    441.0,
-    100.0,
+    311.0,
+    57.0,
     anchor="nw",
     text="Cadastre-se",
     fill="#000000",
-    font=("Consolas Bold", 85 * -1)
+    font=("Consolas Bold", 60 * -1)
 )
 
-image_image_4 = PhotoImage(
-    file=relative_to_assets("image_4.png"))
-image_4 = canvas.create_image(
-    206.0,
-    105.0,
-    image=image_image_4
+image_image_2 = PhotoImage(
+    file=relative_to_assets("image_2.png"))
+image_2 = canvas.create_image(
+    133.0,
+    57.0,
+    image=image_image_2
 )
-window.resizable(False, False)
-window.mainloop()
+
+TkCadastro.mainloop()
