@@ -6,7 +6,10 @@ class telaLogin:
         customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
 
         self.janela = customtkinter.CTk()
-        self.janela.geometry("1000x600")
+        largura = self.janela.winfo.screenwidth()
+        altura = self.janela.winfo.screenheight()
+
+        self.janela.geometry(f"{largura}x{altura}+0+0")
         self.janela.title('JUS Consultorias')
         self.font = customtkinter.CTkFont('Helvetica',14)
         

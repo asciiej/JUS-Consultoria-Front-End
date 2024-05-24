@@ -1,9 +1,11 @@
 import sys
 import os
 # Adiciona o diretório raiz do projeto ao sys.path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
+#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
 
-# from src.interface.login import telaLogin
+from src.interface.login import telaLogin
+
+telaLogin()
 # from src.classes.usuario.usuarioControler import usuarioControler
 # from src.classes.contrato.contract_management import contractManager
 
