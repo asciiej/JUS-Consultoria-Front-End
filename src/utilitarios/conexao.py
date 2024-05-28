@@ -1,41 +1,37 @@
 import psycopg2
 
 class PostgreSQLConnection:
-    host = "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com"
-    database = "buzutyolmqat5dwhefa2"
-    user = "uxzvrjoyrvfzlsd1rckj"
-    password = "wKlpuuKPAOS3c6bRodVc590BRJ14K7"
-    port = 50013
-    connection = None
-    
+    def __init__(self):
+        self.host = "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com"
+        self.database = "buzutyolmqat5dwhefa2"
+        self.user = "uxzvrjoyrvfzlsd1rckj"
+        self.password = "wKlpuuKPAOS3c6bRodVc590BRJ14K7"
+        self.port = 50013
+        self.connection = None
+        self.cursor = None
+
     def connect(self):
-        try:
-            self.connection = psycopg2.connect(
-                host=self.host,
-                database=self.database,
-                user=self.user,
-                password=self.password,
-                port=self.port
-            )
-            print("Conexão com o banco de dados estabelecida com sucesso!")
-        except psycopg2.Error as e:
-            print("Erro ao conectar-se ao banco de dados:", e)
+        if self.cursor is None:
+            self.connection = psycopg2.connect(host=self.host, database=self.database, user=self.user, password=self.password, port=self.port)
+            self.cursor = self.connection.cursor()
+        return self.cursor, self.connection
 
-    def disconnect(self):
-        if self.connection:
+    def close(self):
+        if self.cursor is not None:
+            self.cursor.close()
+        if self.connection is not None:
             self.connection.close()
-            print("Conexão com o banco de dados encerrada.")
+        self.connection = None
+        self.cursor = None
 
-
-# Credenciais de conexão
-
-# Criar uma instância da classe de conexão
-#db_connection = PostgreSQLConnection()
-
-# Conectar-se ao banco de dados
-#db_connection.connect()
-
-# Operações no banco de dados...
-
-# Desconectar-se do banco de dados
-#db_connection.disconnect()
+    def query(self, query, params = None):
+        try:
+            self.connect()
+            self.cursor.execute(query, params)
+            self.connection.commit()
+            return self.cursor.fetchall()
+        except psycopg2.Error as e:
+            self.connection.rollback()
+            print(e)
+        finally:
+            self.close()
