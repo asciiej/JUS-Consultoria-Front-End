@@ -1,7 +1,5 @@
-from .ContractModel import ContractManager
-
 class ContractControler:
-  def __init__(self, manager) -> None:
+  def __init__(self, manager):
     self.contract_manager = manager
 
   def arbitragem(self, contract_data):
@@ -13,31 +11,22 @@ class ContractControler:
   def empresarial(self, contract_data):
     return EmpresarialControler(contract_data, self.contract_manager)
 
-
-class ArbitragemControler():
+class Controler():
   def __init__(self, contract_data, manager):
     self.contract = contract_data
     self.manager = manager
 
+class ArbitragemControler(Controler):
   def create(self):
     print('criando contrato arbitragem')
     self.manager.create_arbitragem_contract(self.contract)
 
-class TributariaControler():
-  def __init__(self, contract_data, manager):
-    self.contract = contract_data
-    self.manager = manager
-
+class TributariaControler(Controler):
   def create(self):
     print('criando contrato tributaria')
     self.manager.create_tributaria_contract(self.contract)
 
-
-class EmpresarialControler():
-  def __init__(self, contract_data, manager):
-    self.contract = contract_data
-    self.manager = manager
-
+class EmpresarialControler(Controler):
   def create(self):
     print('criando contrato empresarial')
     self.manager.create_empresarial_contract(self.contract)

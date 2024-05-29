@@ -39,3 +39,4 @@ class ContractManager:
 
     def create_empresarial_contract(self, contract_dict):
         remuneracao = EmpresarialContract(contract_dict)
+        print(remuneracao.contratante)

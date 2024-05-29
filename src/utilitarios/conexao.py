@@ -1,12 +1,12 @@
 import psycopg2
 
 class PostgreSQLConnection:
-    def __init__(self):
-        self.host = "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com"
-        self.database = "buzutyolmqat5dwhefa2"
-        self.user = "uxzvrjoyrvfzlsd1rckj"
-        self.password = "wKlpuuKPAOS3c6bRodVc590BRJ14K7"
-        self.port = 50013
+    def __init__(self, cfg:dict[str,int]):
+        self.host:str = cfg.host
+        self.database:str = cfg.database
+        self.user:str = cfg.user
+        self.password:str = cfg.password
+        self.port:int = cfg.port
         self.connection = None
         self.cursor = None
 
@@ -24,7 +24,7 @@ class PostgreSQLConnection:
         self.connection = None
         self.cursor = None
 
-    def query(self, query, params = None):
+    def query(self, query:str, params=None):
         try:
             self.connect()
             self.cursor.execute(query, params)
