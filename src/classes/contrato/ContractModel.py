@@ -1,20 +1,20 @@
 class Contract:
-    def __init__(self, nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual):
-        self.nome_empresa = nome_empresa
-        self.cnpj = cnpj
-        self.cnae_principal = cnae_principal
-        self.cnae_secundario = cnae_secundario
-        self.cfop_principais = cfop_principais
-        self.industria_setor = industria_setor
-        self.receita_anual = receita_anual
+    def __init__(self, contract_dict):
+        self.nome_empresa = contract_dict['nome_empresa']
+        self.cnpj = contract_dict['cnpj']
+        self.cnae_principal = contract_dict['cnae_principal']
+        self.cnae_secundario = contract_dict['cnae_secundario']
+        self.cfop_principais = contract_dict['cfop_principais']
+        self.industria_setor = contract_dict['industria_setor']
+        self.receita_anual = contract_dict['receita_anual']
 
 class ArbitragemContract(Contract):
-    def __init__(self, nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual):
-        super().__init__(nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual)
+    def __init__(self, contract_dict):
+        super().__init__(contract_dict)
 
 class TributariaContract(Contract):
-    def __init__(self, nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual):
-        super().__init__(nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual)
+    def __init__(self, contract_dict):
+        super().__init__(contract_dict)
 
 class EmpresarialContract:
     def __init__(self, contract_dict):
@@ -39,5 +39,3 @@ class ContractManager:
 
     def create_empresarial_contract(self, contract_dict):
         remuneracao = EmpresarialContract(contract_dict)
-        self.db.query("""SELECT * FROM contract""")
-        print(remuneracao.contratado)
