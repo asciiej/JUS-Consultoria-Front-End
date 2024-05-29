@@ -4,8 +4,10 @@ import os
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
 
 from src.interface.login import telaLogin
+from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
 
-telaLogin()
+#telaLogin()
+telaCadastro()
 # from src.classes.usuario.usuarioControler import usuarioControler
 # from src.classes.contrato.contract_management import contractManager
 
