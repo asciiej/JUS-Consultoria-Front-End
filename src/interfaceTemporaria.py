@@ -2,11 +2,10 @@ import tkinter as tk
 from tkinter import ttk, filedialog
 
 class ContractApp:
-    def __init__(self, root, contract_controler):
+    def __init__(self, root, controlers):
         self.root = root
         self.root.title("Contract Management")
-
-        self.contract_controler = contract_controler
+        self.controlers = controlers
 
         # Notebook widget for tabs
         self.notebook = ttk.Notebook(root)
@@ -112,19 +111,19 @@ class ContractApp:
     def create_contract(self, button_type):
         if button_type == 'arbitragem':
             contract_data = {attr: getattr(self, attr).get() for attr in ["contract_type", "nome_empresa", "cnpj", "cnae_principal", "cnae_secundario", "cfop_principais", "industria_setor", "receita_anual"]}
-            self.contract_controler.arbitragem(contract_data).create()
+            self.controlers['contract'].arbitragem(contract_data).create()
 
         elif button_type == 'tributaria':
             contract_data = {attr: getattr(self, attr).get() for attr in ["contract_type", "nome_empresa", "cnpj", "cnae_principal", "cnae_secundario", "cfop_principais", "industria_setor", "receita_anual"]}
-            self.contract_controler.tributaria(contract_data).create()
+            self.controlers['contract'].tributaria(contract_data).create()
 
         elif button_type == 'empresarial':
             contract_data = {attr: getattr(self, attr).get() for attr in ["contract_type", "valor", "forma_pagamento", "multa_mora", "juros_mora", "correcao_monetaria", "prazo_duracao"]}
             contract_data["contratante"] = {attr: getattr(self, attr).get() for attr in ["qualificacao", "nome_completo", "nacionalidade", "estado_civil", "profissao", "cpf_cnpj"]}
             contract_data["contratado"] = {attr: getattr(self, attr).get() for attr in ["qualificacao", "nome_completo", "nacionalidade", "estado_civil", "profissao", "cpf_cnpj", "objeto_contrato"]}
-            self.contract_controler.empresarial(contract_data).create()
+            self.controlers['contract'].empresarial(contract_data).create()
 
-def interface(contract_controler):
+def interface(controlers):
     root = tk.Tk()
-    app = ContractApp(root, contract_controler)
+    app = ContractApp(root, controlers)
     root.mainloop()

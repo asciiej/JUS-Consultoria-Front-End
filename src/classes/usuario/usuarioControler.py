@@ -1,33 +1,32 @@
 from  ...utilitarios.excecoes import *
-from .usuarioConexaoBD import usuarioManager
 import re
 import hashlib
 import validate_cpf
 
-class usuarioControler():
-    def __init__(self):
-        pass
-    
+class UsuarioControler():
+    def __init__(self, usuario_manager):
+        self.usuario_manager = usuario_manager
+
     def login(self,eMail:str,senha:str):
 
         if not self._checkEMail(eMail):
             raise eMailInválido(eMail)
-        
+
         if ' ' in senha:
             raise senhaInválido()
-        
+
         senha = self._calcularMd5(senha)
 
         #Implementar a funcionalidade de login do crud]
         try:
-            self.usuarioLogado = usuarioManager().login(eMail,senha)
+            self.usuarioLogado = self.usuario_manager.login(eMail,senha)
         except Exception as e:
             print(e)
             return False
         print(self.usuarioLogado.str())
         return True
         #return (true or false) se o usuário for encontrado no banco ou não
-        
+
 
     def cadastro(self,nome:str,sobrenome:str,cpf:str,nomeEmpresa:str,cargo:str,eMail:str,telefone:str,pais: str,senha:str,confirmeSenha:str):
 
@@ -46,7 +45,7 @@ class usuarioControler():
 
         if not self._checkString(nomeEmpresa):
             raise nomeEmpresaInválido(nomeEmpresa)
-        
+
         if not self._checkString(pais):
             raise nomeEmpresaInválido(nomeEmpresa)
 
@@ -58,10 +57,10 @@ class usuarioControler():
             raise cpfInválido(cpf)
 
         senha = self._calcularMd5(senha) #converter a senha para hash md5 que será armazenado no banco de dados
-        
+
         # aqui usamos as funcionalidades do model para inserir este usuário no banco de dados
-        usuarioManager().cadastroUsuario(nome, sobrenome, cpf, nomeEmpresa, cargo, eMail, telefone, pais, senha)
-        
+        self.usuario_manager.cadastroUsuario(nome, sobrenome, cpf, nomeEmpresa, cargo, eMail, telefone, pais, senha)
+
     def _checkNome(self,nome:str,sobrenome:str):
         # Expressão regular para validar nomes com letras maiúsculas e minúsculas e acentos
         padraoNome = r'^[A-Za-zÀ-ÅÈ-ËÍ-ÏÐ-ÖØ-öø-ÿ]+$'
@@ -73,7 +72,7 @@ class usuarioControler():
             return True
         else:
             return False
-    
+
     def _checkEMail(self,eMail:str):
         # Expressão regular para verificar endereços de e-mail
         padraoEMail = r'^[\w\-.]+@(?:[a-zA-Z0-9]+\.)+[a-zA-Z]{2,}$'
@@ -81,15 +80,15 @@ class usuarioControler():
             return True
         else:
             return False
-        
-    def _checkTelefone(self,telefone:str): 
+
+    def _checkTelefone(self,telefone:str):
         padraoTelefone = r'^\+\d{2}\s\d{2}\s\d{5}-\d{4}$'
-    
+
         if re.match(padraoTelefone, telefone):
             return True
         else:
             return False
-    
+
     def _checkString(self,cargo:str):
         padraoCargo = r'^[A-Za-zÀ-ÅÈ-ËÍ-ÏÐ-ÖØ-öø-ÿ\s]+$'
         if re.match(padraoCargo, cargo):
@@ -99,24 +98,24 @@ class usuarioControler():
 
     def _checkSenha(self,senha,confirmeSenha):
         return senha==confirmeSenha and ' ' not in senha
-    
+
     def _checkCPF(self,cpf):
         padraoCPF = r'^\d{3}\.\d{3}\.\d{3}-\d{2}$'
         if re.match(padraoCPF, cpf) and validate_cpf.is_valid(cpf):
             return True
         else:
             return False
-    
+
     def _calcularMd5(self,texto):
         # Codifica o texto em bytes antes de calcular o hash MD5
         texto_codificado = texto.encode('utf-8')
-        
+
         # Calcula o hash MD5
         md5_hash = hashlib.md5(texto_codificado)
-        
+
         # Retorna o hash MD5 como uma string hexadecimal
         return md5_hash.hexdigest()
-        
+
 
 
 #usuarioControler().cadastro("Lucas","Sabbatini Janot Procópio","lucas.exemplo@ufu.br","+55 12 34567-8901","Programador","ASCII","luc@s123","luc@s123")

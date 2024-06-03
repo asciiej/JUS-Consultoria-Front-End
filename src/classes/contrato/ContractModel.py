@@ -33,10 +33,11 @@ class ContractManager:
 
     def create_arbitragem_contract(self, contract_dict):
         arbitragem = ArbitragemContract(contract_dict)
+        # Add chamadas no DB aqui
 
     def create_tributaria_contract(self, contract_dict):
         tributaria = TributariaContract(contract_dict)
 
     def create_empresarial_contract(self, contract_dict):
         remuneracao = EmpresarialContract(contract_dict)
-        print(remuneracao.contratante)
+

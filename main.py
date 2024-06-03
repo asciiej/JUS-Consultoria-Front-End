@@ -6,10 +6,12 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
 
 #Importando Classes e Funçoes
-from interfaceTemporaria import interface
+from src.interfaceTemporaria import interface
 from src.utilitarios.conexao import PostgreSQLConnection
 from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
+from src.classes.usuario.UsuarioModel import UsuarioManager
+from src.classes.usuario.UsuarioControler import UsuarioControler
 
 if __name__ == "__main__":
   db_cfg = {
@@ -21,13 +23,39 @@ if __name__ == "__main__":
   }
 
   #Instanciando a DB
-  db = PostgreSQLConnection()
+  db = PostgreSQLConnection(db_cfg)
 
-  #Instanciando o ContractManager passando a instância da DB
-  contract_manager = ContractManager(db)
+  #Instanciando os Manager passando a instância da DB separatamente em um dict.
 
-  #Instanciando o ContractControler passando a instância do ContractManager
-  contract_controler = ContractControler(contract_manager)
+  managers = {
+    'contract': ContractManager(db),
+    'usuario': UsuarioManager(db)
+  }
 
-  #Iniciando a interface passando a instância do ContractControler
-  interface(contract_controler)
+  #Instanciando os Controlers passando as instâncias dos Managers separadamente em um dict.
+
+  controlers = {
+    'contract': ContractControler(managers['contract']),
+    'usuario': UsuarioControler(managers['usuario'])
+  }
+
+  # TESTES
+
+  # Teste de manager e controler devem ser feitos diretamente daqui
+
+  # Exemplo:
+
+  contract_data = {
+    'nome_empresa': 'empresaX',
+    'cnpj': '2222321312',
+    'cnae_principal': '222',
+    'cnae_secundario': '111',
+    'cfop_principais': '3213',
+    'industria_setor': 'corretora',
+    'receita_anual': '10000'
+  }
+
+  controlers['contract'].arbitragem(contract_data).create()
+
+  #Iniciando a interface passando o dict com as instâncias dos controlers.
+  # interface(controlers)

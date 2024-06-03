@@ -2,11 +2,11 @@ import psycopg2
 
 class PostgreSQLConnection:
     def __init__(self, cfg:dict[str,int]):
-        self.host:str = cfg.host
-        self.database:str = cfg.database
-        self.user:str = cfg.user
-        self.password:str = cfg.password
-        self.port:int = cfg.port
+        self.host:str = cfg['host']
+        self.database:str = cfg['database']
+        self.user:str = cfg['user']
+        self.password:str = cfg['password']
+        self.port:int = cfg['port']
         self.connection = None
         self.cursor = None
 
