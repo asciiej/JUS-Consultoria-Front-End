@@ -48,26 +48,26 @@ if __name__ == "__main__":
     # controlers['contract'].arbitragem(contract_data).create()
 
     teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
-    teste2 = managers['usuario'].getUserByEmail('beiso@pwi.com.br')
+    teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
     print(teste1)
     print(teste2)
 
-    # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="469.913.858-67", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="beiso@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
-    teste4 = controlers['usuario'].alterarDadosUsuario(
-        cpf = "987.654.321-00",
-        nome = "Murilo",
-        sobrenome = "Beppler",
-        nomeEmpresa = "SimCorp",
-        cargo = "Engenheiro de Cozinha",
-        email = "carlos.Moutinho@example.com",
-        telefone = "+55 12 34567-8901",
-        pais = "EUA",
-        senha = "NovaSenha",
-        novaSenha= "NovaSenha",
-        confirmeNovaSenha= "NovaSenha"
-    )
+    # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="195.096.838-33", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="xxx@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
+    # teste4 = controlers['usuario'].alterarDadosUsuario(
+    #     cpf = "987.654.321-00",
+    #     nome = "Murilo",
+    #     sobrenome = "Beppler",
+    #     nomeEmpresa = "SimCorp",
+    #     cargo = "Engenheiro de Cozinha",
+    #     email = "carlos.Moutinho@example.com",
+    #     telefone = "+55 12 34567-8901",
+    #     pais = "EUA",
+    #     senha = "NovaSenha",
+    #     novaSenha= "NovaSenha",
+    #     confirmeNovaSenha= "NovaSenha"
+    # )
 
-    print(teste4)
+    # print(teste4)
 
 
   #Iniciando a interface passando o dict com as instâncias dos controlers.
