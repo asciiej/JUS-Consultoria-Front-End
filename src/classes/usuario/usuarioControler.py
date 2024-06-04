@@ -101,6 +101,6 @@ class UsuarioControler():
             local_user['user'] = self.usuario_manager.alterarDadosUsuario(cpf,nome,sobrenome,nomeEmpresa,cargo,email,telefone,pais,novaSenhaHash)
 
             if config.DEBUG:
-                print(local_user['user'])
+                print(local_user['user'][9])
 
             return True
