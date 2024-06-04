@@ -1,3 +1,4 @@
+import config
 class ContractControler:
   def __init__(self, manager):
     self.contract_manager = manager
@@ -18,16 +19,22 @@ class Controler():
 
 class ArbitragemControler(Controler):
   def create(self):
-    print('criando contrato arbitragem')
     self.manager.create_arbitragem_contract(self.contract)
+
+    if config.DEBUG:
+      print('criando contrato arbitragem')
 
 class TributariaControler(Controler):
   def create(self):
-    print('criando contrato tributaria')
     self.manager.create_tributaria_contract(self.contract)
+
+    if config.DEBUG:
+      print('criando contrato tributaria')
 
 class EmpresarialControler(Controler):
   def create(self):
-    print('criando contrato empresarial')
     self.manager.create_empresarial_contract(self.contract)
+
+    if config.DEBUG:
+      print('criando contrato empresarial')
 
