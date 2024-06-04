@@ -48,10 +48,11 @@ if __name__ == "__main__":
     # controlers['contract'].arbitragem(contract_data).create()
 
     teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
-    # teste2 = managers['usuario'].getUserByEmail('bruna.santos@example.com')
+    teste2 = managers['usuario'].getUserByEmail('beiso@pwi.com.br')
     print(teste1)
+    print(teste2)
 
-    # teste3 = controlers['usuario'].cadastro(nome="Bruna", sobrenome="Santos", cpf="987.654.321-00", nomeEmpresa="TechCorp", cargo="Engenheira de Software", eMail="bruna.santos@example.com", telefone="+55 12 34567-8901", pais="Brasil", senha="P@ssw0rd", confirmeSenha="P@ssw0rd")
+    # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="469.913.858-67", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="beiso@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
     # teste4 = controlers['usuario'].alterarDadosUsuario(
     #     cpf = "987.654.321-00",
     #     nome = "Carlos",
