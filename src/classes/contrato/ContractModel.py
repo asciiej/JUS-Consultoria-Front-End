@@ -1,3 +1,5 @@
+import config
+
 class Contract:
     def __init__(self, contract_dict):
         self.nome_empresa = contract_dict['nome_empresa']
@@ -37,6 +39,18 @@ class ContractManager:
 
     def create_tributaria_contract(self, contract_dict):
         tributaria = TributariaContract(contract_dict)
+
+        def cadastrarTributaria(self, nomeEmpresa: str, cnpj: str, cnaePrincipal: str, cnaeSecundaria: str, cfopPrincipais: str, industriaSetor: str, receitaAnual: float):
+            try:
+                return self.db.query(
+                    f"""
+                    INSERT INTO contracts.tributaria_contract(nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual)
+                    VALUES ('{nomeEmpresa}', '{cnpj}', '{cnaePrincipal}', '{cnaeSecundaria}', '{cfopPrincipais}', '{industriaSetor}', '{receitaAnual}');
+
+                    """)
+            except Exception as e:
+                if config.DEBUG:
+                    print("Erro ao cadastrar contrato tributário no Banco de Dados")
 
     def create_empresarial_contract(self, contract_dict):
         remuneracao = EmpresarialContract(contract_dict)
