@@ -1,17 +1,33 @@
+
 import sys
 import os
-# Adiciona o diretório raiz do projeto ao sys.path
-#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
 
-from src.interface.login import telaLogin
-from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
+# Adicionando o diretório raiz do projeto ao sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
 
-#telaLogin()
-telaCadastro()
-# from src.classes.usuario.usuarioControler import usuarioControler
-# from src.classes.contrato.contract_management import contractManager
+#Importando Classes e Funçoes
+from src.interfaceTemporaria import interface
+from src.utilitarios.conexao import PostgreSQLConnection
+from src.classes.contrato.ContractModel import ContractManager
+from src.classes.contrato.ContractControler import ContractControler
 
-# usuarioControler().cadastro("Lucas","Sabbatini Janot Procópio","700.302.181-10","ASCII","Programador","lucas.exemplo@ufu.br","+55 12 34567-8901","Brasil","luc@s123","luc@s123")
-# usuarioControler().login("lucas.exemplo@ufu.br","luc@s123")
+if __name__ == "__main__":
+    db_cfg = {
+    'host': "buzutyolmqat5dwhefa2-postgresql.services.clever-cloud.com",
+    'database': "buzutyolmqat5dwhefa2",
+    'user': "uxzvrjoyrvfzlsd1rckj",
+    'password': "wKlpuuKPAOS3c6bRodVc590BRJ14K7",
+    'port': 50013
+    }
+    
+  #Instanciando a DB
+    db = PostgreSQLConnection(db_cfg)
 
-# print(contractManager().listaContratos())
+  #Instanciando o ContractManager passando a instância da DB
+    contract_manager = ContractManager(db)
+
+  #Instanciando o ContractControler passando a instância do ContractManager
+    contract_controler = ContractControler(contract_manager)
+
+  #Iniciando a interface passando a instância do ContractControler
+    interface(contract_controler)
