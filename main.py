@@ -13,8 +13,11 @@ from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
+from src.interface.edicaoContratos import *
 
-if __name__ == "__main__":
+telaEdicaoContrato()
+
+if __name__ != "__main__":
   #Instanciando a DB
   db = PostgreSQLConnection(config.DATABASE_URL)
 
