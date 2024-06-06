@@ -47,12 +47,15 @@ if __name__ == "__main__":
 
     # controlers['contract'].arbitragem(contract_data).create()
 
-    teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
-    teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
-    print(teste1)
-    print(teste2)
+    # teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
+    # teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
+    # print(teste1)
+    # print(teste2)
 
-    # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="195.096.838-33", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="xxx@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
+    teste22 = managers['usuario'].getAllUsers()
+    print(teste22)
+
+    # teste3 = controlers['usuario'].cadastro(nome="Matheus", sobrenome="Canteiro", cpf="526.614.888-80", nomeEmpresa="Adega Heliopolis", cargo="Empresario", eMail="biso@zenk.com.br", telefone="+55 11 90002-3333", pais="Campinas", senha="lago", confirmeSenha="lago")
     # teste4 = controlers['usuario'].alterarDadosUsuario(
     #     cpf = "987.654.321-00",
     #     nome = "Murilo",
