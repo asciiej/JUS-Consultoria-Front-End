@@ -6,11 +6,12 @@ from json import loads, dumps
 from tkinter import ttk
 import customtkinter
 from src.utilitarios.visualizadorPDF import PDFReader
-from src.classes.contrato.ContractControler import convertPDF
+from src.utilitarios.operacoesDocumento import convertPDF
 import sys
 
 class telaEdicaoContrato:
-    def __init__(self):
+    def __init__(self,contractControler):
+        self.contractControler = contractControler
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
         # Setup
@@ -18,8 +19,8 @@ class telaEdicaoContrato:
         self.root.geometry('800x600')
 
         # Used to make title of the application
-        applicationName = 'Edição de Contrato'
-        self.root.title(applicationName)
+        self.applicationName = 'Edição de Contrato'
+        self.root.title(self.applicationName)
 
         # Current File Path
         self.filePath = None
@@ -287,7 +288,6 @@ class telaEdicaoContrato:
         # Bind Ctrl+Z to undo
         self.textArea.bind("<Control-z>", lambda event: self.textArea.edit_undo())
 
-        self.textArea.bind("<Key>", self.keyDown)
 
         self.resetTags()
 
@@ -309,15 +309,10 @@ class telaEdicaoContrato:
 
     def fileManager(self,event=None, action=None):
         global document, filePath
-
         # Open
         if action == 'open':
-            # ask the user for a filename with the native file explorer.
-            filePath = askopenfilename(filetypes=self.validFileTypes, initialdir=self.initialdir)
-
-
-            with open(filePath, 'r') as f:
-                document = loads(f.read())
+            
+            document = loads("Conteúdo do json montado aqui")
 
             # Delete Content
             self.textArea.delete('1.0', END)
@@ -325,8 +320,6 @@ class telaEdicaoContrato:
             # Set Content
             self.textArea.insert('1.0', document['content'])
 
-            # Set Title
-            self.root.title(f'{self.applicationName} - {filePath}')
 
             # Reset all tags
             self.resetTags()
@@ -337,7 +330,7 @@ class telaEdicaoContrato:
                     self.textArea.tag_add(tagName, tagStart, tagEnd)
                     print(tagName, tagStart, tagEnd)
 
-        elif action == 'save':
+        else:
             document = self.defaultContent
             document['content'] = self.textArea.get('1.0', END)
 
@@ -351,10 +344,20 @@ class telaEdicaoContrato:
                 for i, tagRange in enumerate(ranges[::2]):
                     document['tags'][tagName].append([str(tagRange), str(ranges[i+1])])
 
-            return dumps(document)
+            contractContent = dumps(document)
+
+
+            if action == 'save':
+                contract_data = {
+                    "tituloContrato" : "teste",
+                    "tipoContrato" : "teste",
+                    "textoContrato" : contractContent
+                }
+                self.contractControler.modeloDeContrato(contract_data).create()
+            elif action == 'preview':
+                return contractContent
+            
         
-    def keyDown(self,event=None):
-        self.root.title(f'{self.applicationName} - *{filePath}')
 
 
     def tagToggle(self,tagName):
@@ -379,7 +382,7 @@ class telaEdicaoContrato:
             papel_timbrado = './pdfs/papelTimbrado.pdf'
             pdf_com_texto = './pdfs/texto.pdf'
             pdf_saida = './pdfs/pdf_final.pdf'
-            json_input = self.fileManager(None,"save")
+            json_input = self.fileManager(None,"preview")
             # Instanciar e executar a classe
             converter = convertPDF(json_input, papel_timbrado, pdf_com_texto, pdf_saida)
             converter.run()

@@ -15,9 +15,9 @@ from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
 from src.interface.edicaoContratos import *
 
-telaEdicaoContrato()
 
-if __name__ != "__main__":
+
+if __name__ == "__main__":
   #Instanciando a DB
   db = PostgreSQLConnection(config.DATABASE_URL)
 
@@ -33,27 +33,29 @@ if __name__ != "__main__":
     'usuario': UsuarioControler(managers['usuario'])
   }
 
+
+  telaEdicaoContrato(controlers['contract'])
   # TESTES
 
   # Teste de manager e controler devem ser feitos diretamente daqui
 
-  if config.DEBUG:
-    # contract_data = {
-    #   'nome_empresa': 'empresaX',
-    #   'cnpj': '2222321312',
-    #   'cnae_principal': '222',
-    #   'cnae_secundario': '111',
-    #   'cfop_principais': '3213',
-    #   'industria_setor': 'corretora',
-    #   'receita_anual': '10000'
-    # }
+  # if config.DEBUG:
+  #   contract_data = {
+  #     'nome_empresa': 'empresaX',
+  #     'cnpj': '2222321312',
+  #     'cnae_principal': '222',
+  #     'cnae_secundario': '111',
+  #     'cfop_principais': '3213',
+  #     'industria_setor': 'corretora',
+  #     'receita_anual': '10000'
+  #   }
 
-    # controlers['contract'].arbitragem(contract_data).create()
+  #   controlers['contract'].arbitragem(contract_data).create()
 
-    teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
-    teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
-    print(teste1)
-    print(teste2)
+    # teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
+    # teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
+    # print(teste1)
+    # print(teste2)
 
     # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="195.096.838-33", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="xxx@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
     # teste4 = controlers['usuario'].alterarDadosUsuario(

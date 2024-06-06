@@ -41,3 +41,12 @@ class ContractManager:
     def create_empresarial_contract(self, contract_dict):
         remuneracao = EmpresarialContract(contract_dict)
 
+    def create_contract_model(self,tituloContrato : str,tipoContrato : str,textoContrato : list):
+        query = f"INSERT INTO contractcontents.contract_model (tipo,titulo) values ('{tipoContrato}','{tituloContrato}') RETURNING id;"
+        id = self.db.query(query)[0][0]
+        # for ordem,texto in textoContrato:
+        #     query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) values ({texto},{ordem},{id});"
+        #     self.db.query(query)
+        print(id)
+        print(tituloContrato,tipoContrato,textoContrato)
+
