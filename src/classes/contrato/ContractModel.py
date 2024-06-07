@@ -40,43 +40,49 @@ class ContractManager:
     def create_tributaria_contract(self, contract_dict):
         tributaria = TributariaContract(contract_dict)
 
-        def cadastrarTributaria(self, nomeEmpresa: str, cnpj: str, cnaePrincipal: str, cnaeSecundaria: str, cfopPrincipais: str, industriaSetor: str, receitaAnual: float):
-            try:
-                return self.db.query(
-                    f"""
+        query = """
                     INSERT INTO contracts.tributaria_contract(nome_empresa, cnpj, cnae_principal, cnae_secundario, cfop_principais, industria_setor, receita_anual)
-                    VALUES ('{nomeEmpresa}', '{cnpj}', '{cnaePrincipal}', '{cnaeSecundaria}', '{cfopPrincipais}', '{industriaSetor}', '{receitaAnual}');
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)
 
-                    """)
-            except Exception as e:
-                if config.DEBUG:
-                    print("Erro ao cadastrar contrato tributário no Banco de Dados")
+                    """
+        params = (contract_dict['nome_empresa'], contract_dict['cnpj'], contract_dict['cnae_principal'], contract_dict['cnae_secundario'], contract_dict['cfop_principais'], contract_dict['industria_setor'], contract_dict['receita_anual'])
+        return self.db.query(query, params)
 
-        def getContractById(self, id: str):
-            query = "SELECT * FROM  contracts.tributaria_contract WHERE id = %s"
-            result = self.db.query(query, (id,))
-            if result:
-                return result[0]
-            return None           
+    def getContractById(self, id: str):
+        query = "SELECT * FROM  contracts.tributaria_contract WHERE id = %s"
+        result = self.db.query(query, (id,))
+        if result:
+            return result[0]
+        return None
+        
+    def getTributariaContract(self):
+        query = "SELECT * FROM contracts.tributaria_contract"
+        return self.db.query(query)
 
-        def alterarDadosContrato(self, nomeEmpresa: str, cnpj: str, cnaePrincipal: str, cnaeSecundaria: str, cfopPrincipais: str, industriaSetor: str, receitaAnual: float):
-            user = self.getContractById(id)
-            if user:
-                query = """
+
+    def alterarDadosContrato(self, id_contrato: str, nomeEmpresa: str, cnpj: str, cnaePrincipal: str, cnaeSecundaria: str, cfopPrincipais: str, industriaSetor: str, receitaAnual: float):
+        contrato = self.getContractById(id_contrato)
+        if contrato:
+            query = """
                     UPDATE contracts.tributaria_contract
-                    SET nome_empresa = %s
-                    cnpj = %s
-                    cnae_principal = %s
-                    cnae_secundario = %s
-                    cfop_principais = %s
-                    industria_setor = %s
+                    SET nome_empresa = %s,
+                    cnpj = %s,
+                    cnae_principal = %s,
+                    cnae_secundario = %s,
+                    cfop_principais = %s,
+                    industria_setor = %s,
                     receita_anual = %s
                     WHERE id = %s
                 """   
-                params = (nomeEmpresa, cnpj, cnaePrincipal, cnaeSecundaria, cfopPrincipais, industriaSetor, receitaAnual)
-                self.db.query(query, params)
+            params = (nomeEmpresa, cnpj, cnaePrincipal, cnaeSecundaria, cfopPrincipais, industriaSetor, receitaAnual, id_contrato)
+            self.db.query(query, params)
 
-            return self.getContractById(id)  
+        return self.getTributariaContract()
+        
+    def deleteEmpresarialContract(self, id:str):
+        query = "DELETE FROM contracts.tributaria_contract WHERE id = %s"
+        self.db.query(query, (id,))
+        return self.getTributariaContract()
 
 
     def create_empresarial_contract(self, contract_dict):
