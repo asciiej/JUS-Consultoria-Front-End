@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
-from src.classes.usuario.usuarioControler import usuarioControler
+from tkinter import Toplevel, Canvas, Entry, Text, Button, PhotoImage
+from src.classes.usuario.UsuarioControler import UsuarioControler
+import os
 
 # entry_1 nome
 # entry_2 telefone
@@ -16,12 +17,10 @@ from src.classes.usuario.usuarioControler import usuarioControler
 
 class telaCadastro:
 
-    def __init__(self):
-        print("Rodou")
-        self.TkCadastro = Tk()
+    def __init__(self,parent):
+        self.TkCadastro = parent
 
-        self.TkCadastro.geometry("1000x600")
-        self.TkCadastro.configure(bg = "#EFEFEF")
+        #self.TkCadastro.configure(bg = "#EFEFEF")
 
 
         self.canvas = Canvas(
@@ -385,5 +384,5 @@ class telaCadastro:
         return ASSETS_PATH / Path(path)
     
     def buttonOnClick(self):
-        usuarioControler().cadastro(self.entry_1.get(),self.entry_7.get(),self.entry_cpf.get(),self.entry_5.get(),self.entry_6.get(),self.entry_8.get(),self.entry_2.get(),self.entry_paisLocalizacao.get(),self.entry_3.get(),self.entry_4.get())
-        
+        pass
+        #usuarioControler().cadastro(self.entry_1.get(),self.entry_7.get(),self.entry_cpf.get(),self.entry_5.get(),self.entry_6.get(),self.entry_8.get(),self.entry_2.get(),self.entry_paisLocalizacao.get(),self.entry_3.get(),self.entry_4.get())

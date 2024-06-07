@@ -13,7 +13,7 @@ from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
-from src.interface.edicaoContratos import *
+from src.interface.login import *
 
 
 
@@ -33,8 +33,8 @@ if __name__ == "__main__":
     'usuario': UsuarioControler(managers['usuario'])
   }
 
-
-  telaEdicaoContrato(controlers['contract'])
+  TelaLogin(controlers)
+  #telaEdicaoContrato(controlers['contract'])
   # TESTES
 
   # Teste de manager e controler devem ser feitos diretamente daqui
