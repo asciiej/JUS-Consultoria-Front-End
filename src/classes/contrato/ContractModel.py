@@ -52,6 +52,33 @@ class ContractManager:
                 if config.DEBUG:
                     print("Erro ao cadastrar contrato tributário no Banco de Dados")
 
+        def getContractById(self, id: str):
+            query = "SELECT * FROM  contracts.tributaria_contract WHERE id = %s"
+            result = self.db.query(query, (id,))
+            if result:
+                return result[0]
+            return None           
+
+        def alterarDadosContrato(self, nomeEmpresa: str, cnpj: str, cnaePrincipal: str, cnaeSecundaria: str, cfopPrincipais: str, industriaSetor: str, receitaAnual: float):
+            user = self.getContractById(id)
+            if user:
+                query = """
+                    UPDATE contracts.tributaria_contract
+                    SET nome_empresa = %s
+                    cnpj = %s
+                    cnae_principal = %s
+                    cnae_secundario = %s
+                    cfop_principais = %s
+                    industria_setor = %s
+                    receita_anual = %s
+                    WHERE id = %s
+                """   
+                params = (nomeEmpresa, cnpj, cnaePrincipal, cnaeSecundaria, cfopPrincipais, industriaSetor, receitaAnual)
+                self.db.query(query, params)
+
+            return self.getContractById(id)  
+
+
     def create_empresarial_contract(self, contract_dict):
         remuneracao = EmpresarialContract(contract_dict)
 
