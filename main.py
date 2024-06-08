@@ -13,7 +13,8 @@ from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
-from src.classes.contrato.ContractControler import EmpresarialControler
+from src.classes.contrato.ContractControler import TributariaControler
+
 
 if __name__ == "__main__":
   #Instanciando a DB
@@ -36,17 +37,35 @@ if __name__ == "__main__":
   # Teste de manager e controler devem ser feitos diretamente daqui
 
   if config.DEBUG:
-    # contract_data = {
-    #   'nome_empresa': 'empresaX',
-    #   'cnpj': '2222321312',
-    #   'cnae_principal': '222',
-    #   'cnae_secundario': '111',
-    #   'cfop_principais': '3213',
-    #   'industria_setor': 'corretora',
-    #   'receita_anual': '10000'
-    # }
+    contract_data = {
+      'nome_empresa': 'empresaX',
+      'cnpj': '23212',
+      'cnae_principal': '222',
+      'cnae_secundario': '111',
+      'cfop_principais': '3213',
+      'industria_setor': 'corretora',
+      'receita_anual': '10000'
+    }
+
+    # controlers['contract'].tributaria(contract_data).create()
+
+    # contract_data_tributaria = {
+    #   'nome_empresa': 'Empresa X', 
+    #   'cnpj': '13', 
+    #   'cnae_principal': '125', 
+    #   'cnae_secundario':'587', 
+    #   'cfop_principais': '654', 
+    #   'industria_setor': 'Eletronico', 
+    #   'receita_anual': '2000000'
+    # }  
 
     # controlers['contract'].arbitragem(contract_data).create()
+    # managers['contract'].create_tributaria_contract(contract_data_tributaria)
+    # managers['contract'].alterarDadosContrato(8, "Empresa lucas", "684", "793", "47", "456", "Varejo", 77549)
+
+    # teste8 = managers['contract'].getTributariaContract()
+    # for item in teste8:
+    #   print(" | ".join(map(str, item)))
 
     # teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
     # teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
