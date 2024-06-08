@@ -15,6 +15,7 @@ from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
 from src.classes.contrato.ContractControler import TributariaControler
 
+
 if __name__ == "__main__":
   #Instanciando a DB
   db = PostgreSQLConnection(config.DATABASE_URL)
@@ -71,7 +72,32 @@ if __name__ == "__main__":
     # print(teste1)
     # print(teste2)
 
-    # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="195.096.838-33", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="xxx@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
+    # teste22 = managers['usuario'].getAllUsers()
+    # print(teste22)
+
+    contract_data_empresarial = {
+      'contratante': 'empresaX',
+      'contratado': 'empresaY',
+      'valor': '1000',
+      'forma_pagamento': 'pix',
+      'multa_mora': '10',
+      'juros_mora': '5',
+      'correcao_monetaria': '20',
+      'prazo_duracao': '12'
+    }
+     
+
+    # managers['contract'].create_empresarial_contract(contract_data_empresarial)
+    # managers['contract'].alterarDadosContratoEmpresarial(contract_id= 3, contratante="Empresa PWI", contratado='Maurico', valor='400', forma_pagamento='Debito', multa_mora='15', juros_mora='2', correcao_monetaria='10', prazo_duracao='6')
+
+    teste8 = managers['contract'].getEmpresarialContract()
+    for item in teste8:
+      print(" | ".join(map(str, item)))
+
+    # teste7 = managers['contract'].getEmpresarialContract()
+  
+
+    # teste3 = controlers['usuario'].cadastro(nome="Matheus", sobrenome="Canteiro", cpf="526.614.888-80", nomeEmpresa="Adega Heliopolis", cargo="Empresario", eMail="biso@zenk.com.br", telefone="+55 11 90002-3333", pais="Campinas", senha="lago", confirmeSenha="lago")
     # teste4 = controlers['usuario'].alterarDadosUsuario(
     #     cpf = "987.654.321-00",
     #     nome = "Murilo",
