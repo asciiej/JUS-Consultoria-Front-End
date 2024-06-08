@@ -13,6 +13,7 @@ from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
+from src.interface.login import *
 from src.classes.contrato.ContractControler import TributariaControler
 
 
@@ -32,10 +33,25 @@ if __name__ == "__main__":
     'usuario': UsuarioControler(managers['usuario'])
   }
 
+  TelaLogin(controlers)
+  #telaEdicaoContrato(controlers['contract'])
   # TESTES
 
   # Teste de manager e controler devem ser feitos diretamente daqui
 
+
+  # if config.DEBUG:
+  #   contract_data = {
+  #     'nome_empresa': 'empresaX',
+  #     'cnpj': '2222321312',
+  #     'cnae_principal': '222',
+  #     'cnae_secundario': '111',
+  #     'cfop_principais': '3213',
+  #     'industria_setor': 'corretora',
+  #     'receita_anual': '10000'
+  #   }
+
+  #   controlers['contract'].arbitragem(contract_data).create()
   if config.DEBUG:
     contract_data = {
       'nome_empresa': 'empresaX',
@@ -71,31 +87,7 @@ if __name__ == "__main__":
     # teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
     # print(teste1)
     # print(teste2)
-
-    # teste22 = managers['usuario'].getAllUsers()
-    # print(teste22)
-
-    contract_data_empresarial = {
-      'contratante': 'empresaX',
-      'contratado': 'empresaY',
-      'valor': '1000',
-      'forma_pagamento': 'pix',
-      'multa_mora': '10',
-      'juros_mora': '5',
-      'correcao_monetaria': '20',
-      'prazo_duracao': '12'
-    }
-     
-
-    # managers['contract'].create_empresarial_contract(contract_data_empresarial)
-    # managers['contract'].alterarDadosContratoEmpresarial(contract_id= 3, contratante="Empresa PWI", contratado='Maurico', valor='400', forma_pagamento='Debito', multa_mora='15', juros_mora='2', correcao_monetaria='10', prazo_duracao='6')
-
-    teste8 = managers['contract'].getEmpresarialContract()
-    for item in teste8:
-      print(" | ".join(map(str, item)))
-
-    # teste7 = managers['contract'].getEmpresarialContract()
-  
+    
 
     # teste3 = controlers['usuario'].cadastro(nome="Matheus", sobrenome="Canteiro", cpf="526.614.888-80", nomeEmpresa="Adega Heliopolis", cargo="Empresario", eMail="biso@zenk.com.br", telefone="+55 11 90002-3333", pais="Campinas", senha="lago", confirmeSenha="lago")
     # teste4 = controlers['usuario'].alterarDadosUsuario(

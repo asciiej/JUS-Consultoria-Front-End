@@ -60,6 +60,15 @@ class ContractManager:
         return self.db.query(query)
 
 
+    def create_contract_model(self,tituloContrato : str,tipoContrato : str,textoContrato : list):
+        query = f"INSERT INTO contractcontents.contract_model (tipo,titulo) values ('{tipoContrato}','{tituloContrato}') RETURNING id;"
+        id = self.db.query(query)[0][0]
+        for ordem,texto in textoContrato:
+            query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) values ({texto},{ordem},{id});"
+            self.db.query(query)
+        print(id)
+        print(tituloContrato,tipoContrato,textoContrato)
+
     def alterarDadosContrato(self, id_contrato: str, nomeEmpresa: str, cnpj: str, cnaePrincipal: str, cnaeSecundaria: str, cfopPrincipais: str, industriaSetor: str, receitaAnual: float):
         contrato = self.getContractById(id_contrato)
         if contrato:

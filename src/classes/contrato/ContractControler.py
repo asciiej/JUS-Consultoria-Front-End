@@ -1,4 +1,6 @@
 import config
+from src.utilitarios.operacoesDocumento import split_string,recombine_string
+
 class ContractControler:
   def __init__(self, manager):
     self.contract_manager = manager
@@ -11,6 +13,9 @@ class ContractControler:
 
   def empresarial(self, contract_data):
     return EmpresarialControler(contract_data, self.contract_manager)
+  
+  def modeloDeContrato(self,contract_data):
+    return ModeloDeContratoControler(contract_data, self.contract_manager)
 
 class Controler():
   def __init__(self, contract_data, manager):
@@ -38,3 +43,10 @@ class EmpresarialControler(Controler):
     if config.DEBUG:
       print('criando contrato empresarial')
 
+class ModeloDeContratoControler(Controler):
+  def create(self):
+    textoContrato = split_string(self.contract["textoContrato"])
+    self.manager.create_contract_model(self.contract["tituloContrato"],self.contract["tipoContrato"],textoContrato)
+
+    if config.DEBUG:
+      print('criando modelo de contrato')
