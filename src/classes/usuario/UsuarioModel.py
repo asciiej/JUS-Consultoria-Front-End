@@ -43,18 +43,21 @@ class UsuarioManager:
 
     # Metodos de Criação
 
-    def cadastroUsuario(self,nome:str,sobrenome:str,cpf:str,nomeEmpresa:str,cargo:str,email:str,telefone:str,pais: str,senha:str):
-        try:
-            return self.db.query(
-                f"""
-                    INSERT INTO users.clients (nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, senha)
-                    VALUES ('{nome}', '{sobrenome}', '{cpf}', '{nomeEmpresa}', '{cargo}', '{email}', '{telefone}', '{pais}', '{senha}');
-                """)
-        except Exception as e:
-            if config.DEBUG:
-                print("Erro ao cadastrar usuário no Banco de Dados", e)
+
+    def cadastroUsuario(self, nome:str, sobrenome:str, cpf:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais:str, senha:str):
+        query = """
+            INSERT INTO users.clients (nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, senha)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
+        params = (nome, sobrenome, cpf, nomeEmpresa, cargo, email, telefone, pais, senha) 
+        return self.db.query(query, params)
+
 
     # Métodos de leitura, atualização e deleção aqui...
+
+    def getAllUsers(self):
+        query = "SELECT * FROM users.clients"
+        return self.db.query(query)
 
     def getUserByCPF(self, cpf:str):
         query = "SELECT * FROM users.clients WHERE cpf = %s"

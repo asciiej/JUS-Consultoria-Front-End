@@ -14,7 +14,7 @@ from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
 from src.interface.login import *
-
+from src.classes.contrato.ContractControler import TributariaControler
 
 
 if __name__ == "__main__":
@@ -39,6 +39,7 @@ if __name__ == "__main__":
 
   # Teste de manager e controler devem ser feitos diretamente daqui
 
+
   # if config.DEBUG:
   #   contract_data = {
   #     'nome_empresa': 'empresaX',
@@ -51,13 +52,44 @@ if __name__ == "__main__":
   #   }
 
   #   controlers['contract'].arbitragem(contract_data).create()
+  if config.DEBUG:
+    contract_data = {
+      'nome_empresa': 'empresaX',
+      'cnpj': '23212',
+      'cnae_principal': '222',
+      'cnae_secundario': '111',
+      'cfop_principais': '3213',
+      'industria_setor': 'corretora',
+      'receita_anual': '10000'
+    }
+
+    # controlers['contract'].tributaria(contract_data).create()
+
+    # contract_data_tributaria = {
+    #   'nome_empresa': 'Empresa X', 
+    #   'cnpj': '13', 
+    #   'cnae_principal': '125', 
+    #   'cnae_secundario':'587', 
+    #   'cfop_principais': '654', 
+    #   'industria_setor': 'Eletronico', 
+    #   'receita_anual': '2000000'
+    # }  
+
+    # controlers['contract'].arbitragem(contract_data).create()
+    # managers['contract'].create_tributaria_contract(contract_data_tributaria)
+    # managers['contract'].alterarDadosContrato(8, "Empresa lucas", "684", "793", "47", "456", "Varejo", 77549)
+
+    # teste8 = managers['contract'].getTributariaContract()
+    # for item in teste8:
+    #   print(" | ".join(map(str, item)))
 
     # teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
     # teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
     # print(teste1)
     # print(teste2)
+    
 
-    # teste3 = controlers['usuario'].cadastro(nome="Gaspar", sobrenome="Lauri", cpf="195.096.838-33", nomeEmpresa="PWI Sistemas", cargo="Tech Lead", eMail="xxx@pwi.com.br", telefone="+55 16 90002-8922", pais="Angola", senha="P@Sim", confirmeSenha="P@Sim")
+    # teste3 = controlers['usuario'].cadastro(nome="Matheus", sobrenome="Canteiro", cpf="526.614.888-80", nomeEmpresa="Adega Heliopolis", cargo="Empresario", eMail="biso@zenk.com.br", telefone="+55 11 90002-3333", pais="Campinas", senha="lago", confirmeSenha="lago")
     # teste4 = controlers['usuario'].alterarDadosUsuario(
     #     cpf = "987.654.321-00",
     #     nome = "Murilo",
