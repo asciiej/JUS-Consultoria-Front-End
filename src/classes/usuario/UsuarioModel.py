@@ -43,6 +43,7 @@ class UsuarioManager:
 
     # Metodos de Criação
 
+
     def cadastroUsuario(self, nome:str, sobrenome:str, cpf:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais:str, senha:str):
         query = """
             INSERT INTO users.clients (nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, senha)
