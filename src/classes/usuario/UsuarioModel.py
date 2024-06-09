@@ -19,13 +19,14 @@ class UsuarioModel:
                 f"Telefone: {self.telefone}\n"
                 f"País/Localização: {self.pais}")
 
+# TODO: Tratar erros em todos os metodos
 class UsuarioManager:
     def __init__(self, db):
         self.db = db
 
     def login(self,email,senha):
         try:
-            retornoBD = self.getUserByEmail(email)
+            retornoBD = self.get_by_email(email)
         except Exception as e:
             if config.DEBUG:
                 print("Erro ao efeiturar login: ",e)
@@ -38,43 +39,41 @@ class UsuarioManager:
             raise usuarioOuSenhaInválido()
 
         return UsuarioModel(nome = retornoBD[1], sobrenome = retornoBD[2],cpf = retornoBD[3], nomeEmpresa = retornoBD[4],cargo = retornoBD[5],email = retornoBD[6], telefone = retornoBD[7], pais = retornoBD[8])
-    
+
     # (2, 'Carlos', 'Santos', '987.654.321-00', 'SimCorp', 'Engenheiro de Cozinha', 'carlos.santos@example.com', '+55 12 34567-8901', 'EUA', '07cd109ac902429f267f8279f2a0041c')
 
-    # Metodos de Criação
+    def create(self, nome:str, sobrenome:str, cpf:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais:str, senha:str):
+        if self.get_by_cpf(cpf):
+            return 'CPF ja cadastrado'
 
-
-    def cadastroUsuario(self, nome:str, sobrenome:str, cpf:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais:str, senha:str):
         query = """
             INSERT INTO users.clients (nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, senha)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            RETURNING *;
             """
-        params = (nome, sobrenome, cpf, nomeEmpresa, cargo, email, telefone, pais, senha) 
+        params = (nome, sobrenome, cpf, nomeEmpresa, cargo, email, telefone, pais, senha)
         return self.db.query(query, params)
 
-
-    # Métodos de leitura, atualização e deleção aqui...
-
-    def getAllUsers(self):
+    def get_all(self):
         query = "SELECT * FROM users.clients"
         return self.db.query(query)
 
-    def getUserByCPF(self, cpf:str):
+    def get_by_cpf(self, cpf:str):
         query = "SELECT * FROM users.clients WHERE cpf = %s"
         result = self.db.query(query, (cpf,))
         if result:
             return result[0]
-        return None
+        return 'CPF Não encontrado'
 
-    def getUserByEmail(self, email:str):
+    def get_by_email(self, email:str):
         query = "SELECT * FROM users.clients WHERE email = %s"
         result = self.db.query(query, (email,))
         if result:
             return result[0]
-        return None
+        return 'E-mail não encontrado'
 
-    def alterarDadosUsuario(self, cpf:str,nome:str,sobrenome:str,nomeEmpresa:str,cargo:str,email:str,telefone:str,pais: str,senha:str):
-        user = self.getUserByCPF(cpf)
+    def update(self, cpf:str,nome:str,sobrenome:str,nomeEmpresa:str,cargo:str,email:str,telefone:str,pais: str,senha:str):
+        user = self.get_by_cpf(cpf)
         if user:
             query = """
                 UPDATE users.clients
@@ -90,4 +89,11 @@ class UsuarioManager:
                 """
             params = (nome, sobrenome, nomeEmpresa, cargo, email, telefone, pais, senha, cpf)
             self.db.query(query, params)
-        return self.getUserByCPF(cpf)
+        return self.get_by_cpf(cpf)
+
+    def delete(self, cpf:str):
+        user = self.get_by_cpf(cpf)
+        if user:
+            query = "DELETE FROM users.clients WHERE cpf = %s"
+            self.db.query(query, (cpf,))
+        return self.get_by_cpf(cpf)

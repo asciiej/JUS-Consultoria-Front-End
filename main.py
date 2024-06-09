@@ -13,10 +13,8 @@ from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
-from src.interface.login import *
-from src.classes.contrato.ContractControler import TributariaControler
 
-
+# TODO: Testar todo o CRUD dos contratos novamente
 if __name__ == "__main__":
   #Instanciando a DB
   db = PostgreSQLConnection(config.DATABASE_URL)
@@ -32,80 +30,6 @@ if __name__ == "__main__":
     'contract': ContractControler(managers['contract']),
     'usuario': UsuarioControler(managers['usuario'])
   }
-
-  TelaLogin(controlers)
-  #telaEdicaoContrato(controlers['contract'])
-  # TESTES
-
-  # Teste de manager e controler devem ser feitos diretamente daqui
-
-
-  # if config.DEBUG:
-  #   contract_data = {
-  #     'nome_empresa': 'empresaX',
-  #     'cnpj': '2222321312',
-  #     'cnae_principal': '222',
-  #     'cnae_secundario': '111',
-  #     'cfop_principais': '3213',
-  #     'industria_setor': 'corretora',
-  #     'receita_anual': '10000'
-  #   }
-
-  #   controlers['contract'].arbitragem(contract_data).create()
-  if config.DEBUG:
-    contract_data = {
-      'nome_empresa': 'empresaX',
-      'cnpj': '23212',
-      'cnae_principal': '222',
-      'cnae_secundario': '111',
-      'cfop_principais': '3213',
-      'industria_setor': 'corretora',
-      'receita_anual': '10000'
-    }
-
-    # controlers['contract'].tributaria(contract_data).create()
-
-    # contract_data_tributaria = {
-    #   'nome_empresa': 'Empresa X', 
-    #   'cnpj': '13', 
-    #   'cnae_principal': '125', 
-    #   'cnae_secundario':'587', 
-    #   'cfop_principais': '654', 
-    #   'industria_setor': 'Eletronico', 
-    #   'receita_anual': '2000000'
-    # }  
-
-    # controlers['contract'].arbitragem(contract_data).create()
-    # managers['contract'].create_tributaria_contract(contract_data_tributaria)
-    # managers['contract'].alterarDadosContrato(8, "Empresa lucas", "684", "793", "47", "456", "Varejo", 77549)
-
-    # teste8 = managers['contract'].getTributariaContract()
-    # for item in teste8:
-    #   print(" | ".join(map(str, item)))
-
-    # teste1 = managers['usuario'].getUserByCPF('987.654.321-00')
-    # teste2 = managers['usuario'].getUserByEmail('xxx@pwi.com.br')
-    # print(teste1)
-    # print(teste2)
-    
-
-    # teste3 = controlers['usuario'].cadastro(nome="Matheus", sobrenome="Canteiro", cpf="526.614.888-80", nomeEmpresa="Adega Heliopolis", cargo="Empresario", eMail="biso@zenk.com.br", telefone="+55 11 90002-3333", pais="Campinas", senha="lago", confirmeSenha="lago")
-    # teste4 = controlers['usuario'].alterarDadosUsuario(
-    #     cpf = "987.654.321-00",
-    #     nome = "Murilo",
-    #     sobrenome = "Beppler",
-    #     nomeEmpresa = "SimCorp",
-    #     cargo = "Engenheiro de Cozinha",
-    #     email = "carlos.Moutinho@example.com",
-    #     telefone = "+55 12 34567-8901",
-    #     pais = "EUA",
-    #     senha = "NovaSenha",
-    #     novaSenha= "NovaSenha",
-    #     confirmeNovaSenha= "NovaSenha"
-    # )
-
-    # print(teste4)
-
 
   #Iniciando a interface passando o dict com as instâncias dos controlers.
   # interface(controlers)

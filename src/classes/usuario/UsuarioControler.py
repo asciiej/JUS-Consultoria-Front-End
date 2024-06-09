@@ -29,8 +29,21 @@ class UsuarioControler():
         return True
         #return (true or false) se o usuário for encontrado no banco ou não
 
+    def _calcularMd5(self,texto):
+        # Codifica o texto em bytes antes de calcular o hash MD5
+        texto_codificado = texto.encode('utf-8')
 
-    def cadastro(self,nome:str,sobrenome:str,cpf:str,nomeEmpresa:str,cargo:str,eMail:str,telefone:str,pais: str,senha:str,confirmeSenha:str):
+        # Calcula o hash MD5
+        md5_hash = hashlib.md5(texto_codificado)
+
+        # Retorna o hash MD5 como uma string hexadecimal
+        return md5_hash.hexdigest()
+
+    def _validarSenhaAtual(self, senha: str, cpf: str):
+        senhaHash = self._calcularMd5(senha)
+        return self.usuario_manager.get_by_cpf(cpf)[9] == senhaHash
+
+    def register(self,nome:str,sobrenome:str,cpf:str,nomeEmpresa:str,cargo:str,eMail:str,telefone:str,pais: str,senha:str,confirmeSenha:str):
 
         if not Check.Nome(nome,sobrenome):
             raise nomeInválido(nome,sobrenome)
@@ -61,23 +74,9 @@ class UsuarioControler():
         senha = self._calcularMd5(senha) #converter a senha para hash md5 que será armazenado no banco de dados
 
         # aqui usamos as funcionalidades do model para inserir este usuário no banco de dados
-        self.usuario_manager.cadastroUsuario(nome, sobrenome, cpf, nomeEmpresa, cargo, eMail, telefone, pais, senha)
+        return self.usuario_manager.create(nome, sobrenome, cpf, nomeEmpresa, cargo, eMail, telefone, pais, senha)
 
-    def _calcularMd5(self,texto):
-        # Codifica o texto em bytes antes de calcular o hash MD5
-        texto_codificado = texto.encode('utf-8')
-
-        # Calcula o hash MD5
-        md5_hash = hashlib.md5(texto_codificado)
-
-        # Retorna o hash MD5 como uma string hexadecimal
-        return md5_hash.hexdigest()
-
-    def _validarSenhaAtual(self, senha: str, cpf: str):
-        senhaHash = self._calcularMd5(senha)
-        return self.usuario_manager.getUserByCPF(cpf)[9] == senhaHash
-
-    def alterarDadosUsuario(self, cpf:str, nome:str, sobrenome:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais: str, senha:str, novaSenha: str, confirmeNovaSenha: str):
+    def update_user(self, cpf:str, nome:str, sobrenome:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais: str, senha:str, novaSenha: str, confirmeNovaSenha: str):
             if not Check.CPF(cpf):
                 raise cpfInválido(cpf)
             if not Check.Nome(nome, sobrenome):
@@ -98,9 +97,21 @@ class UsuarioControler():
                 raise senhaInválido()
 
             novaSenhaHash = self._calcularMd5(novaSenha)
-            local_user['user'] = self.usuario_manager.alterarDadosUsuario(cpf,nome,sobrenome,nomeEmpresa,cargo,email,telefone,pais,novaSenhaHash)
+            local_user['user'] = self.usuario_manager.update(cpf,nome,sobrenome,nomeEmpresa,cargo,email,telefone,pais,novaSenhaHash)
 
             if config.DEBUG:
                 print(local_user['user'][9])
 
             return True
+
+    def get_all_users(self):
+        return self.usuario_manager.get_all()
+
+    def get_user_by_cpf(self, cpf: str):
+        return self.usuario_manager.get_by_cpf(cpf)
+
+    def get_user_by_email(self, email: str):
+        return self.usuario_manager.get_by_email(email)
+
+    def delete_user(self, cpf: str):
+        return self.usuario_manager.delete(cpf)

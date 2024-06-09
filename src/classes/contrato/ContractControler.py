@@ -1,52 +1,65 @@
 import config
+from .ContractModel import ContractManager
 from src.utilitarios.operacoesDocumento import split_string,recombine_string
 
 class ContractControler:
   def __init__(self, manager):
     self.contract_manager = manager
 
-  def arbitragem(self, contract_data):
-    return ArbitragemControler(contract_data, self.contract_manager)
+  def arbitragem(self, contract_data=None):
+    return ArbitragemControler(self.contract_manager, contract_data)
 
-  def tributaria(self, contract_data):
-    return TributariaControler(contract_data, self.contract_manager)
+  def tributaria(self, contract_data=None):
+    return TributariaControler(self.contract_manager, contract_data)
 
-  def empresarial(self, contract_data):
-    return EmpresarialControler(contract_data, self.contract_manager)
-  
-  def modeloDeContrato(self,contract_data):
-    return ModeloDeContratoControler(contract_data, self.contract_manager)
+  def empresarial(self, contract_data=None):
+    return EmpresarialControler(self.contract_manager, contract_data)
+
+  def modeloDeContrato(self, contract_data=None):
+    return ModeloDeContratoControler(self.contract_manager, contract_data)
 
 class Controler():
-  def __init__(self, contract_data, manager):
-    self.contract = contract_data
+  def __init__(self, manager, contract_data=None):
     self.manager = manager
+    self.contract = contract_data
 
 class ArbitragemControler(Controler):
   def create(self):
-    self.manager.create_arbitragem_contract(self.contract)
-
-    if config.DEBUG:
-      print('criando contrato arbitragem')
+    return self.manager.create_arbitragem(self.contract['nome_empresa'], self.contract['cnpj'], self.contract['cnae_principal'], self.contract['cnae_secundaria'], self.contract['cfop_principais'], self.contract['industria_setor'], self.contract['receita_anual'])
 
 class TributariaControler(Controler):
   def create(self):
-    self.manager.create_tributaria_contract(self.contract)
+    return self.manager.create_tributaria(self.contract['nome_empresa'], self.contract['cnpj'], self.contract['cnae_principal'], self.contract['cnae_secundaria'], self.contract['cfop_principais'], self.contract['industria_setor'], self.contract['receita_anual'])
 
-    if config.DEBUG:
-      print('criando contrato tributaria')
+  def get_by_id(self, contract_id):
+    return self.manager.get_tributaria_by_id(contract_id)
+
+  def get_all(self):
+    return self.manager.get_all_tributaria()
+
+  def update(self, contract_id):
+    return self.manager.update_tributaria(contract_id, self.contract['nomeEmpresa'], self.contract['cnpj'], self.contract['cnaePrincipal'], self.contract['cnaeSecundaria'], self.contract['cfopPrincipais'], self.contract['industriaSetor'], self.contract['receitaAnual'])
+
+  def delete(self, contract_id):
+    return self.manager.delete_tributaria(contract_id)
 
 class EmpresarialControler(Controler):
   def create(self):
-    self.manager.create_empresarial_contract(self.contract)
+    return self.manager.create_empresarial(self.contract)
 
-    if config.DEBUG:
-      print('criando contrato empresarial')
+  def get_by_id(self, contract_id):
+    return self.manager.get_empresarial_by_id(contract_id)
+
+  def get_all(self):
+    return self.manager.get_all_empresarial()
+
+  def update(self):
+    return self.manager.update_empresarial(self.contract['contratante'], self.contract['contratado'], self.contract['valor'], self.contract['forma_pagamento'], self.contract['multa_mora'], self.contract['juros_mora'], self.contract['correcao_monetaria'], self.contract['prazo_duracao'])
+
+  def delete(self, contract_id):
+    return self.manager.delete_empresarial_contract(contract_id)
 
 class ModeloDeContratoControler(Controler):
   def create(self):
     textoContrato = split_string(self.contract["textoContrato"])
     self.manager.create_contract_model(self.contract["tituloContrato"],self.contract["tipoContrato"],textoContrato)
-
-    if config.DEBUG:
-      print('criando modelo de contrato')

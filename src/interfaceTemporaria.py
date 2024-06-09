@@ -89,6 +89,7 @@ class ContractApp:
         self.create_grid_entry(self.remuneracao_frame, "Prazo Duracao", 2, 1)
 
         self.create_button(self.remuneracao_frame, "Create Empresarial Remuneracao", self.create_contract, 'empresarial').grid(row=3, columnspan=2, pady=10)
+        self.create_button(self.remuneracao_frame, "GET Empresarial Remuneracao", self.get_contract_by_id, 'empresarial', 2).grid(row=3, columnspan=3, pady=10)
 
     def create_entry(self, parent, text):
         label = ttk.Label(parent, text=text)
@@ -122,6 +123,10 @@ class ContractApp:
             contract_data["contratante"] = {attr: getattr(self, attr).get() for attr in ["qualificacao", "nome_completo", "nacionalidade", "estado_civil", "profissao", "cpf_cnpj"]}
             contract_data["contratado"] = {attr: getattr(self, attr).get() for attr in ["qualificacao", "nome_completo", "nacionalidade", "estado_civil", "profissao", "cpf_cnpj", "objeto_contrato"]}
             self.controlers['contract'].empresarial(contract_data).create()
+
+    def get_contract_by_id(self ,contract_type, contract_id):
+        retorno = getattr(self.controlers['contract'], contract_type)().get_by_id(contract_id)
+        print(retorno)
 
 def interface(controlers):
     root = tk.Tk()
