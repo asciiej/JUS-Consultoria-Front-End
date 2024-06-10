@@ -13,6 +13,7 @@ from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
+from src.interface.login import TelaLogin
 
 # TODO: Testar todo o CRUD dos contratos novamente
 if __name__ == "__main__":
@@ -30,6 +31,8 @@ if __name__ == "__main__":
     'contract': ContractControler(managers['contract']),
     'usuario': UsuarioControler(managers['usuario'])
   }
+
+  TelaLogin(controlers)
 
   #Iniciando a interface passando o dict com as instâncias dos controlers.
   # interface(controlers)
