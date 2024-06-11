@@ -162,7 +162,7 @@ class telaCadastro:
             ok_button.pack(pady=10)
 
         if not nome or not sobrenome or not cpf or not nome_empresa or not email or not telefone or not pais_localizacao or not cargo or not senha or not confirme_senha:
-            show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
+            messagebox.showerror("", "Todos os campos devem ser preenchidos!")
             return
 
         if not self.validar_cpf(cpf):

@@ -5,7 +5,8 @@ import os
 
 from src.interface.login import telaLogin
 from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
-
+from src.interface.Atualizar_dados.atualizarinform import AtualizaCad
 
 #telaLogin()
-telaCadastro()
+#telaCadastro()
+AtualizaCad()
