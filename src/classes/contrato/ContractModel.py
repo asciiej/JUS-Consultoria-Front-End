@@ -92,8 +92,12 @@ class ContractManager:
         for ordem,texto in textoContrato:
             query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) values ({texto},{ordem},{id});"
             self.db.query(query)
-        print(id)
-        print(tituloContrato,tipoContrato,textoContrato)
+        if config.DEBUG:
+            print(id)
+            print(tituloContrato,tipoContrato,textoContrato)
+
+    def get_contract_model(self,id: int):
+        pass
 
 
     # ============================ Empresarial CRUD ============================

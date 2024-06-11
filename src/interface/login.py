@@ -74,6 +74,7 @@ class TelaLogin:
         except Exception as e:
             self.show_error_message(e)
             return
+        
 
         if not teste:
             self.show_error_message("Usuário ou senha inválidos, tente novamente.")

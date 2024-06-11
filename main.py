@@ -31,7 +31,7 @@ if __name__ == "__main__":
     'contract': ContractControler(managers['contract']),
     'usuario': UsuarioControler(managers['usuario'])
   }
-
+ 
   TelaLogin(controlers)
 
   #Iniciando a interface passando o dict com as instâncias dos controlers.

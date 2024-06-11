@@ -54,10 +54,10 @@ class telaPrincipal:
         self.botao_camara_arbitragem.pack(side=customtkinter.LEFT, padx=(25,0))
         
         # Usuario teste
-        usuario = usuarioModel(nome="João Caio", sobrenome="Pereira", email="email@exemplo.com", telefone="123456789", pais="Brasil", cargo="Desenvolvedor")
-
+        usuario ={}
+        #text=f"{usuario.nome} {usuario.sobrenome}
         # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{usuario.nome} {usuario.sobrenome}")
+        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"Lucas Janot")
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
@@ -106,8 +106,8 @@ class telaPrincipal:
         self.H1_consultoria_empresarial.pack(side=customtkinter.TOP, pady=(80 ,0))
         
         #Frame
-        self.frame_consultoria_empresarial = customtkinter.CTkFrame(self.body_frame, height=280, width=950)
-        self.frame_consultoria_empresarial.pack(pady=(40, 0))
+        self.frame_consultoria_empresarial = customtkinter.CTkScrollableFrame(self.body_frame, height=280, width=900)
+        self.frame_consultoria_empresarial.pack(pady=(80 ,0))
 
         
         # Card customizado
@@ -122,23 +122,23 @@ class telaPrincipal:
 
         #Primeira linha
         self.square1_1 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-        self.square1_1.place(x=50, y=25)
+        self.square1_1.grid(row = 0,column=0,padx = 20,pady = 20)
 
         self.square1_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-        self.square1_2.place(x=350, y=25)
+        self.square1_2.grid(row = 0,column=1,padx = 20,pady = 20)
 
         self.square1_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-        self.square1_3.place(x=650, y=25)
+        self.square1_3.grid(row = 0,column=2,padx = 20,pady = 20)
 
         #Segunda linha
         self.square2_1 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-        self.square2_1.place(x=50, y=70)
+        self.square2_1.grid(row = 1,column=0,padx= 20,pady = 20)
 
         self.square2_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-        self.square2_2.place(x=350, y=90)
+        self.square2_2.grid(row = 1,column=1,padx = 20,pady = 20)
 
         self.square2_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-        self.square2_3.place(x=650, y=220)
+        self.square2_3.grid(row = 1,column=2,padx = 20,pady = 20)
 
         #Consultoria Tributária
 
@@ -214,3 +214,10 @@ class telaPrincipal:
 
     def on_mousewheel(self, event):
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
+
+if __name__ == "__main__":
+    root = customtkinter.CTk()
+    root.geometry("800x600")
+    root.title("Login - Consultorias Arbitragem")
+
+    telaPrincipal(root)
