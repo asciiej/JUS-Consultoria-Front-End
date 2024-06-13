@@ -90,11 +90,11 @@ class ContractManager:
         query = f"INSERT INTO contractcontents.contract_model (tipo,titulo) values ('{tipoContrato}','{tituloContrato}') RETURNING id;"
         id = self.db.query(query)[0][0]
         for ordem,texto in textoContrato:
-            query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) values ({texto},{ordem},{id});"
-            self.db.query(query)
+            query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) values ('{texto}',{ordem},{id});"
+            print(query)
+            retorno = self.db.query(query)
         if config.DEBUG:
-            print(id)
-            print(tituloContrato,tipoContrato,textoContrato)
+            print(retorno)
 
     def get_contract_model(self,id: int):
         pass

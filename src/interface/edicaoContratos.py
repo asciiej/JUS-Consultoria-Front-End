@@ -1,4 +1,5 @@
 from tkinter import *
+import tkinter as tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 import ctypes
 from functools import partial
@@ -7,7 +8,6 @@ from tkinter import ttk
 import customtkinter
 from src.utilitarios.visualizadorPDF import PDFReader
 from src.utilitarios.operacoesDocumento import convertPDF
-import sys
 
 class telaEdicaoContrato:
     def __init__(self,contractControler):
@@ -58,7 +58,7 @@ class telaEdicaoContrato:
             'Code': {'font': f'Consolas {fontSize}', 'background': self.rgbToHex((200, 200, 200))},
 
             # Sizes
-            'Normal Size': {'font': f'{fontName} {fontSize}'},
+            'Normal Size': {'font': f'{fontName} {fontSize + 2}'},
             'Larger Size': {'font': f'{fontName} {fontSize + 5}'},
             'Largest Size': {'font': f'{fontName} {fontSize + 10}'},
 
@@ -121,9 +121,9 @@ class telaEdicaoContrato:
             'Code': 'Código',
 
             # Tamanhos
-            'Normal Size': 'Tamanho Normal',
-            'Larger Size': 'Subtítulo',
-            'Largest Size': 'Título',
+            'Normal Size': 'Subtítulo',
+            'Larger Size': 'Título',
+            'Largest Size': 'Texto maior',
 
             # Cores de Fundo
             'Highlight': 'Destaque',
@@ -328,7 +328,6 @@ class telaEdicaoContrato:
             for tagName in document['tags']:
                 for tagStart, tagEnd in document['tags'][tagName]:
                     self.textArea.tag_add(tagName, tagStart, tagEnd)
-                    print(tagName, tagStart, tagEnd)
 
         else:
             document = self.defaultContent
@@ -342,10 +341,11 @@ class telaEdicaoContrato:
                 ranges = self.textArea.tag_ranges(tagName)
 
                 for i, tagRange in enumerate(ranges[::2]):
+                    i *= 2
                     document['tags'][tagName].append([str(tagRange), str(ranges[i+1])])
+                    i+=1
 
             contractContent = dumps(document)
-
 
             if action == 'save':
                 contract_data = {
@@ -372,7 +372,7 @@ class telaEdicaoContrato:
     def add_custom_info(self,info):
         if info == "customItem":
             info = f"$${self.entryInfoPersonalizada.get()}$$"
-        self.textArea.insert(END, info)
+        self.textArea.insert(tk.INSERT, info)
 
 
     def preview(self):
@@ -384,9 +384,14 @@ class telaEdicaoContrato:
             pdf_saida = './pdfs/pdf_final.pdf'
             json_input = self.fileManager(None,"preview")
             # Instanciar e executar a classe
-            converter = convertPDF(json_input, papel_timbrado, pdf_com_texto, pdf_saida)
-            converter.run()
-            PDFReader(self.frame_texto,self.textArea,pdf_saida)
+            try:
+                converter = convertPDF(json_input, papel_timbrado, pdf_com_texto, pdf_saida)
+                converter.run()
+                PDFReader(self.frame_texto,self.textArea,pdf_saida)
+            except Exception as e:
+                self.textArea.pack(fill=tk.BOTH, expand=True)
+                self.textArea.insert("1.0",e)
+                print(e)
 
 
     def create_rounded_button(self,text, command, fg_color, hover_color, width):
