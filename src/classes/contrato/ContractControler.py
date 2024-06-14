@@ -53,8 +53,11 @@ class EmpresarialControler(Controler):
   def get_all(self):
     return self.manager.get_all_empresarial()
 
-  def update(self):
-    return self.manager.update_empresarial(self.contract['contratante'], self.contract['contratado'], self.contract['valor'], self.contract['forma_pagamento'], self.contract['multa_mora'], self.contract['juros_mora'], self.contract['correcao_monetaria'], self.contract['prazo_duracao'])
+  def update(self, contract_id):
+        return self.manager.update_empresarial(
+            contract_id,
+            self.contract
+        )
 
   def delete(self, contract_id):
     return self.manager.delete_empresarial_contract(contract_id)
