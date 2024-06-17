@@ -113,5 +113,14 @@ class UsuarioControler():
     def get_user_by_email(self, email: str):
         return self.usuario_manager.get_by_email(email)
 
+    def user_has_role(self, cpf: str, role: str):
+        return self.usuario_manager.has_role(cpf, role)
+
+    def user_add_role(self, cpf: str, role: str):
+        return self.usuario_manager.add_role(cpf, role)
+
+    def user_remove_role(self, cpf: str, role: str):
+        return self.usuario_manager.remove_role(cpf, role)
+
     def delete_user(self, cpf: str):
         return self.usuario_manager.delete(cpf)

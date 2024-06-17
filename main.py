@@ -32,7 +32,9 @@ if __name__ == "__main__":
     'usuario': UsuarioControler(managers['usuario'])
   }
 
-  TelaLogin(controlers)
+  managers['usuario'].create(nome='Mat', sobrenome='Fernandes', cpf='202.915.127-04', nomeEmpresa='PWI',  cargo='Faxineiro', email='mat.fer@pwi.com.br', telefone='+55 11 99999-9999', pais='Brazil', senha='222')
+
+  # TelaLogin(controlers)
 
   #Iniciando a interface passando o dict com as instâncias dos controlers.
   # interface(controlers)
