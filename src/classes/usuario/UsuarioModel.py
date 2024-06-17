@@ -44,6 +44,7 @@ class UsuarioManager:
     # (2, 'Carlos', 'Santos', '987.654.321-00', 'SimCorp', 'Engenheiro de Cozinha', 'carlos.santos@example.com', '+55 12 34567-8901', 'EUA', '07cd109ac902429f267f8279f2a0041c')
 
     def create(self, nome:str, sobrenome:str, cpf:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais:str, senha:str):
+        print(self.get_by_cpf(cpf))
         if self.get_by_cpf(cpf):
             return 'CPF ja cadastrado'
 
@@ -64,38 +65,52 @@ class UsuarioManager:
         result = self.db.query(query, (cpf,))
         if result:
             return result[0]
-        return 'CPF Não encontrado'
+        return None
 
     def get_by_email(self, email:str):
         query = "SELECT * FROM users.clients WHERE email = %s"
         result = self.db.query(query, (email,))
         if result:
             return result[0]
-        return 'E-mail não encontrado'
-    
-    def get_by_roles(self, roles:str):
-        query = "SELECT * FROM users.clients WHERE roles = %s"
-        result = self.db.query(query, (roles,))
-        if result:
-            return result[0]
-        return 'roles não encontrado'
+        return None
+
+    def get_roles(self, cpf:str):
+        user = self.get_by_cpf(cpf)
+        return user[10]
 
     def has_role(self, cpf:str, role:str):
         user = self.get_by_cpf(cpf)
         if user:
-            return role in user.roles
+            return role in user[10]
 
-    def add_role(self, cpf:str, role:str):
+    def add_role(self, cpf: str, role: str):
         user = self.get_by_cpf(cpf)
+
         if user:
-            user.roles = user.roles + (role,)
+            query = """
+                UPDATE users.clients
+                SET roles = array_append(roles, %s)
+                WHERE cpf = %s
+                """
+            params = (role, cpf)
+            self.db.query(query, params)
+
         return self.get_by_cpf(cpf)
 
     def remove_role(self, cpf:str, role:str):
         user = self.get_by_cpf(cpf)
+
         if user:
-            user.roles = tuple(role for role in user.roles if role != role)
+            query = """
+                UPDATE users.clients
+                SET roles = array_remove(roles, %s)
+                WHERE cpf = %s
+                """
+            params = (role, cpf)
+            self.db.query(query, params)
+
         return self.get_by_cpf(cpf)
+
 
     def update(self, cpf:str,nome:str,sobrenome:str,nomeEmpresa:str,cargo:str,email:str,telefone:str,pais: str,senha:str):
         user = self.get_by_cpf(cpf)

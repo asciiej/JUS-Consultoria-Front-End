@@ -32,7 +32,9 @@ if __name__ == "__main__":
     'usuario': UsuarioControler(managers['usuario'])
   }
 
-  managers['usuario'].create(nome='Mat', sobrenome='Fernandes', cpf='202.915.127-04', nomeEmpresa='PWI',  cargo='Faxineiro', email='mat.fer@pwi.com.br', telefone='+55 11 99999-9999', pais='Brazil', senha='222')
+  # managers['usuario'].add_role('987.654.321-00', 'admin')
+  # print(managers['usuario'].remove_role('987.654.321-00', 'admin'))
+  # print(managers['usuario'].has_role('987.654.321-00', 'admin'))
 
   # TelaLogin(controlers)
 

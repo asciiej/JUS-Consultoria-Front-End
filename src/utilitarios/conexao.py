@@ -20,15 +20,37 @@ class PostgreSQLConnection:
         self.connection = None
         self.cursor = None
 
-    def query(self, query: str, params=None):
+    def query(self, query: str, params=None, select=False):
+
         try:
             self.connect()
             self.cursor.execute(query, params)
             self.connection.commit()
-            return self.cursor.fetchall()
+            if not select:
+                return self.cursor.fetchall()
+
+            if select:
+                colnames = [desc[0] for desc in self.cursor.description]
+                results = []
+                for row in self.cursor.fetchall():
+                    results.append(dict(zip(colnames, row)))
+                return results
+
         except psycopg2.Error as e:
             self.connection.rollback()
             if config.DEBUG:
                 print(e)
         finally:
             self.close()
+
+        # try:
+        #     self.connect()
+        #     self.cursor.execute(query, params)
+        #     self.connection.commit()
+        #     return self.cursor.fetchall()
+        # except psycopg2.Error as e:
+        #     self.connection.rollback()
+        #     if config.DEBUG:
+        #         print(e)
+        # finally:
+        #     self.close()
