@@ -67,26 +67,28 @@ if config.DEBUG:
         # Dados do contrato empresarial
     contract_data = {
             'valor': 100000.0,
-            'forma_pagamento': 'À vista',
+            'forma_pagamento': 'A vista',
             'multa_mora': 2.0,
             'juros_mora': 1.0,
             'correcao_monetaria': 'IPCA',
-            'prazo_duracao': '12 meses',
+            'prazo_duracao': '12',
             'contratante_id': contratante,
             'contratado_id': contratada
         }
 
         # Criando contrato empresarial
     managers['contract'].create_empresarial_contract(
-        contract_data['contratante_id'],
-        contract_data['contratado_id'],
         contract_data['valor'],
         contract_data['forma_pagamento'],
         contract_data['multa_mora'],
         contract_data['juros_mora'],
         contract_data['correcao_monetaria'],
-        contract_data['prazo_duracao']
+        contract_data['prazo_duracao'],
+        contract_data['contratante_id'],
+        contract_data['contratado_id']
     )
+
+    # managers['contract'].create_empresarial_contract(100000,)
 
         # Obtendo e imprimindo todos os contratos empresariais
     all_contracts = controlers['contract'].empresarial().get_all()

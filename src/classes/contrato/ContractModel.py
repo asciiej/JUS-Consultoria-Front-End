@@ -116,13 +116,13 @@ class ContractManager:
         result = self.db.query(query, params)
         return result[0]['id']
 
-    def create_empresarial_contract(self, contratante_id, contratado_id, valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao):
-            query = """
+    def create_empresarial_contract(self, valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao, contratante_id, contratado_id):
+        query = """
                 INSERT INTO contracts.empresarial_contract (valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao, contratante_id, contratado_id)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """
-            params = (valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao, contratante_id, contratado_id)
-            return self.db.query(query, params)
+        params = (valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao, contratante_id, contratado_id)
+        return self.db.query(query, params)
 
     def get_all_empresarial(self):
         query = "SELECT * FROM contracts.empresarial_contract"
