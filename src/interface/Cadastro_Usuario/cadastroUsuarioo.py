@@ -12,6 +12,7 @@ class telaCadastro:
         self.TkCadastro.geometry("1400x720")
         self.TkCadastro.configure(bg="#EFEFEF")
         #self.TkCadastro.attributes('-fullscreen', True)
+        #self.TkCadastro.bind("<Escape>", self.exit_fullscreen)
 
         self.canvas = Canvas(
             self.TkCadastro,
@@ -37,41 +38,100 @@ class telaCadastro:
         self.canvas.create_text(730.0, 484.0, anchor="nw", text="Confirme sua Senha", fill="#000000", font=("Calibri", 18 * -1))
         self.canvas.create_text(444.0, 334.0, anchor="nw", text="E-mail", fill="#000000", font=("Calibri", 18 * -1))
         self.canvas.create_text(651.0, 263.0, anchor="nw", text="Sobrenome", fill="#000000", font=("Calibri", 18 * -1))
+        
+        def on_focus_in(event):
+            if self.entry_1.get() == "ex: nome":
+                self.entry_1.delete(0, "end")
+                self.entry_1.config(fg="#000716")
+
+        def on_focus_out(event):
+            if self.entry_1.get() == "":
+                self.entry_1.insert(0,"ex: nome")
+                self.entry_1.config(fg="gray")
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(533.0, 310.5, image=self.entry_image_1)
         self.entry_1 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_1.place(x=446.0, y=297.0, width=174.0, height=29.0)  # Nome
+        self.entry_1.insert(0,"ex: nome")
+        self.entry_1.config(fg="gray")
+        self.entry_1.bind("<FocusIn>", on_focus_in)
+        self.entry_1.bind("<FocusOut>", on_focus_out)
+
+        def on_focus_in(event):
+            if self.entry_2.get() == "+55 (DDD) 9....":
+                self.entry_2.delete(0, "end")
+                self.entry_2.config(fg="#000716")
+
+        def on_focus_out(event):
+            if self.entry_2.get() == "":
+                self.entry_2.insert(0,"+55 (DDD) 9....")
+                self.entry_2.config(fg="gray")
 
         self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
         self.entry_bg_2 = self.canvas.create_image(527.5, 449.5, image=self.entry_image_2)
         self.entry_2 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_2.place(x=449.0, y=436.0, width=157.0, height=29.0)  # Telefone
+        self.entry_2.insert(0,"+55 (DDD) 9....")
+        self.entry_2.config(fg="gray")
+        self.entry_2.bind("<FocusIn>", on_focus_in)
+        self.entry_2.bind("<FocusOut>", on_focus_out)
+
 
         self.entry_image_paisLocalizacao = PhotoImage(file=self.relative_to_assets("entry_paisLocalizacao.png"))
         self.entry_bg_paisLocalizacao = self.canvas.create_image(729.5, 449.5, image=self.entry_image_paisLocalizacao)
         self.entry_paisLocalizacao = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_paisLocalizacao.place(x=651.0, y=436.0, width=157.0, height=29.0)  # País
+ 
+        def on_focus_in(event):
+            if self.entry_cpf.get() == " 000.000.000-00":
+                self.entry_cpf.delete(0, "end")
+                self.entry_cpf.config(fg="#000716")
+
+        def on_focus_out(event):
+            if self.entry_cpf.get() == "":
+                self.entry_cpf.insert(0," 000.000.000-00")
+                self.entry_cpf.config(fg="gray")
 
         self.entry_image_cpf = PhotoImage(file=self.relative_to_assets("entry_cpf.png"))
         self.entry_bg_cpf = self.canvas.create_image(949.0, 449.5, image=self.entry_image_cpf)
         self.entry_cpf = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_cpf.place(x=864.0, y=436.0, width=170.0, height=29.0)  # CPF
+        self.entry_cpf.insert(0," 000.000.000-00")
+        self.entry_cpf.config(fg="gray")
+        self.entry_cpf.bind("<FocusIn>", on_focus_in)
+        self.entry_cpf.bind("<FocusOut>", on_focus_out)
 
         self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
         self.entry_bg_3 = self.canvas.create_image(562.5, 529.5, image=self.entry_image_3)
         self.entry_3 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
         self.entry_3.place(x=449.0, y=516.0, width=227.0, height=29.0)  # Senha
+      
 
         self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
         self.entry_bg_4 = self.canvas.create_image(844.5, 527.5, image=self.entry_image_4)
         self.entry_4 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
         self.entry_4.place(x=731.0, y=514.0, width=227.0, height=29.0)  # Confirmar Senha
 
+
+        def on_focus_in(event):
+            if self.entry_5.get() == "ex: nome empresa":
+                self.entry_5.delete(0, "end")
+                self.entry_5.config(fg="#000716")
+
+        def on_focus_out(event):
+            if self.entry_5.get() == "":
+                self.entry_5.insert(0,"ex: nome empresa")
+                self.entry_5.config(fg="gray")
+
         self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
         self.entry_bg_5 = self.canvas.create_image(948.5, 378.5, image=self.entry_image_5)
         self.entry_5 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_5.place(x=863.0, y=365.0, width=171.0, height=29.0)  # Nome da Empresa
+        self.entry_5.insert(0,"ex: nome empresa")
+        self.entry_5.config(fg="gray")
+        self.entry_5.bind("<FocusIn>", on_focus_in)
+        self.entry_5.bind("<FocusOut>", on_focus_out)
 
         # Cargo
         self.image_image_2 = self.load_and_resize_image("image_2.png", (200, 30))
@@ -178,6 +238,9 @@ class telaCadastro:
             return
 
         usuarioControler().cadastro(nome, sobrenome, cpf, nome_empresa, email, telefone, pais_localizacao, cargo, senha, confirme_senha)
+ 
+    def exit_fullscreen(self, event=None):
+        self.TkCadastro.destroy()
 
     def validar_cpf(self, cpf):
         cpf = re.sub(r'\D', '', cpf)
