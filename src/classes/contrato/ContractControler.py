@@ -45,7 +45,18 @@ class TributariaControler(Controler):
 
 class EmpresarialControler(Controler):
   def create(self):
-    return self.manager.create_empresarial(self.contract)
+    contratante_id = self.manager.create_contratante(self.contract['contratante'])
+    contratado_id = self.manager.create_contratado(self.contract['contratado'])
+    return self.manager.create_empresarial_contract(
+            contratante_id,
+            contratado_id,
+            self.contract['valor'],
+            self.contract['forma_pagamento'],
+            self.contract['multa_mora'],
+            self.contract['juros_mora'],
+            self.contract['correcao_monetaria'],
+            self.contract['prazo_duracao']
+        )
 
   def get_by_id(self, contract_id):
     return self.manager.get_empresarial_by_id(contract_id)
