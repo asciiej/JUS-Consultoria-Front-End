@@ -67,7 +67,7 @@ if config.DEBUG:
         # Dados do contrato empresarial
     contract_data = {
             'valor': 100000.0,
-            'forma_pagamento': 'A vista',
+            'forma_pagamento': 'À vista',
             'multa_mora': 2.0,
             'juros_mora': 1.0,
             'correcao_monetaria': 'IPCA',
