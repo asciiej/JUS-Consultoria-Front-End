@@ -31,10 +31,9 @@ class UsuarioManager:
             if config.DEBUG:
                 print("Erro ao efeiturar login: ",e)
 
-        if len(retornoBD) == 0:
+        if retornoBD == 'E-mail não encontrado':
             raise usuarioOuSenhaInválido()
 
-        retornoBD = retornoBD[0]
         if retornoBD[9] != senha:
             raise usuarioOuSenhaInválido()
 
@@ -43,7 +42,7 @@ class UsuarioManager:
     # (2, 'Carlos', 'Santos', '987.654.321-00', 'SimCorp', 'Engenheiro de Cozinha', 'carlos.santos@example.com', '+55 12 34567-8901', 'EUA', '07cd109ac902429f267f8279f2a0041c')
 
     def create(self, nome:str, sobrenome:str, cpf:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais:str, senha:str):
-        if self.get_by_cpf(cpf):
+        if self.get_by_cpf(cpf) != 'CPF Não encontrado':
             return 'CPF ja cadastrado'
 
         query = """
