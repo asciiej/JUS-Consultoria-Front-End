@@ -22,7 +22,7 @@ class PDFReader:
         self.open_pdf()
 
         self.open_button = ctk.CTkButton(self.toolbar, text="Voltar", command=self.voltar,fg_color="#00343D",hover_color="#002F37", width=200, font=('Calibri', 15, 'bold'))
-        self.open_button.pack(side=tk.LEFT, padx=2, pady=2)
+        if self.textArea: self.open_button.pack(side=tk.LEFT, padx=2, pady=2)
 
         self.next_button = ctk.CTkButton(self.toolbar, text="Próxima Página", command=self.next_page,fg_color="#00343D",hover_color="#002F37", width=200, font=('Calibri', 15, 'bold'))
         self.next_button.pack(side=tk.RIGHT, padx=2, pady=2)

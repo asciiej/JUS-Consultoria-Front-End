@@ -8,13 +8,15 @@ class TelaLogin:
         # Configuração inicial da janela
         ctk.set_default_color_theme("lib/temaTkinterCustom.json")
         self.root = ctk.CTk()
-        self.root.geometry("800x600")
+        largura_tela = self.root.winfo_screenwidth()
+        altura_tela = self.root.winfo_screenheight()
+        self.root.geometry(f"{largura_tela}x{altura_tela}-10+0")
         self.root.title("Login - Consultorias Arbitragem")
         self.controlers = controlers
         self.added = 0
 
         # Centralizar a janela
-        self.center_window(800, 600)
+        #self.center_window(800, 600)
 
         # Carregar e redimensionar o logotipo
         self.logoJUS = ctk.CTkImage(Image.open('imagens/JUS_Consultoria_Arbitragem.png'), size=(400, 161))
@@ -81,7 +83,7 @@ class TelaLogin:
             return
         print(teste)
         self.clear_login_screen()
-        telaPrincipal(self.root)
+        telaPrincipal(self.root,self.controlers)
         print(f"Email: {email}, Password: {password}")
 
     def on_register(self):

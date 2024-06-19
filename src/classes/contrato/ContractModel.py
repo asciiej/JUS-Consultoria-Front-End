@@ -95,10 +95,19 @@ class ContractManager:
         if config.DEBUG:
             print(retorno)
 
-    def get_contract_model(self,id: int):
+    def get_contract_model_byId(self,id: int):
         query = f"SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
         return self.db.query(query)
 
+    def get_contract_model_byTitle(self,title):
+        query = f"SELECT id FROM contractcontents.contract_model WHERE titulo = '{title}';"
+
+        id = self.db.query(query)[0][0]
+        query = f"SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
+        return self.db.query(query)
+
+    def udate_contract_model(self,id):
+        pass
 
 
     # ============================ Empresarial CRUD ============================

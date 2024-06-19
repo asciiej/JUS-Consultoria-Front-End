@@ -10,7 +10,9 @@ from src.utilitarios.visualizadorPDF import PDFReader
 from src.utilitarios.operacoesDocumento import convertPDF
 
 class telaEdicaoContrato:
-    def __init__(self,contractControler):
+    def __init__(self,contractControler,tituloContrato,tipoContrato):
+        self.tituloContrato = tituloContrato
+        self.tipoContrato = tipoContrato
         self.contractControler = contractControler
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
@@ -349,8 +351,8 @@ class telaEdicaoContrato:
 
             if action == 'save':
                 contract_data = {
-                    "tituloContrato" : "teste",
-                    "tipoContrato" : "teste",
+                    "tituloContrato" : self.tituloContrato,
+                    "tipoContrato" : self.tipoContrato,
                     "textoContrato" : contractContent
                 }
                 self.contractControler.modeloDeContrato(contract_data).create()

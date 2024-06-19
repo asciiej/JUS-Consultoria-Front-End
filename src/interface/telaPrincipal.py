@@ -2,16 +2,16 @@ import tkinter
 from tkinter import ttk
 import customtkinter
 from PIL import Image
-from src.classes.usuario.usuarioModel import usuarioModel
+from functools import partial
+from src.interface.checagemInformacoes import checagemInformacoes
+#from src.classes.usuario.usuarioModel import usuarioModel
 
 class telaPrincipal:
-    def __init__(self):
+    def __init__(self,janela,controlers : dict):
+        self.controlers = controlers
         customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
 
-        self.janela = customtkinter.CTk()
-        largura_tela = self.janela.winfo_screenwidth()
-        altura_tela = self.janela.winfo_screenheight()
-        self.janela.geometry(f"{largura_tela}x{altura_tela}-10+0")
+        self.janela = janela
         self.janela.title('JUS Consultorias')
         self.font = customtkinter.CTkFont('Helvetica',14)
 
@@ -58,10 +58,10 @@ class telaPrincipal:
         self.botao_camara_arbitragem.pack(side=customtkinter.LEFT, padx=(25,0))
         
         # Usuario teste
-        usuario = usuarioModel(nome="João Caio", sobrenome="Pereira", email="email@exemplo.com", telefone="123456789", pais="Brasil", cargo="Desenvolvedor")
+        #usuario = usuarioModel(nome="João Caio", sobrenome="Pereira", email="email@exemplo.com", telefone="123456789", pais="Brasil", cargo="Desenvolvedor")
 
         # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{usuario.nome} {usuario.sobrenome}")
+        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{"João Caio"} {"Pereira"}")
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
@@ -107,7 +107,7 @@ class telaPrincipal:
 
         #Título
         self.H1_consultoria_empresarial = customtkinter.CTkLabel(self.body_frame, text="Consultoria Empresarial", font=("Consolas", 40))
-        self.H1_consultoria_empresarial.pack(side=customtkinter.TOP, pady=(80 ,0))
+        self.H1_consultoria_empresarial.pack(side=customtkinter.TOP, pady=(80 ,20))
         
         #Frame
         self.frame_consultoria_empresarial = customtkinter.CTkScrollableFrame(self.body_frame, height=280, width=900)
@@ -149,7 +149,7 @@ class telaPrincipal:
         self.h2_1_1 = customtkinter.CTkLabel(self.square1_1, text="CONTRATO DE PRESTAÇÃO DE\nSERVIÇOS PROFISSIONAIS", font=("Calibri", 15))
         self.h2_1_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_1 = customtkinter.CTkButton(self.square1_1, text="Contrate", command=self.consultoria_empresarial1_1, **botao)
+        self.button1_1 = customtkinter.CTkButton(self.square1_1, text="Contrate", command=partial(self.choose_contract,1,"Consultoria Empresarial"), **botao)
         self.button1_1.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square1_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -163,7 +163,7 @@ class telaPrincipal:
         self.h2_1_2 = customtkinter.CTkLabel(self.square1_2, text="CONTRATO DE PRESTAÇÃO DE\nSERVIÇOS MÉDICO-HOSPITALAR", font=("Calibri", 15))
         self.h2_1_2.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_2 = customtkinter.CTkButton(self.square1_2, text="Contrate", command=self.consultoria_empresarial1_2, **botao)
+        self.button1_2 = customtkinter.CTkButton(self.square1_2, text="Contrate", command=partial(self.choose_contract,2,"Consultoria Empresarial"), **botao)
         self.button1_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square1_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -177,7 +177,7 @@ class telaPrincipal:
         self.h2_1_3 = customtkinter.CTkLabel(self.square1_3, text="CONTRATO DE COMPRA E\nVENDA MERCANTIL", font=("Calibri", 15))
         self.h2_1_3.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Contrate", command=self.consultoria_empresarial1_3, **botao)
+        self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Contrate", command=partial(self.choose_contract,3,"Consultoria Empresarial"), **botao)
         self.button1_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
 
@@ -194,7 +194,7 @@ class telaPrincipal:
         self.h2_2_1 = customtkinter.CTkLabel(self.square2_1, text="CONTRATO DE COMPRA E\nVENDA DE IMÓVEL", font=("Calibri", 15))
         self.h2_2_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button2_1 = customtkinter.CTkButton(self.square2_1, text="Contrate", command=self.consultoria_empresarial2_1, **botao)
+        self.button2_1 = customtkinter.CTkButton(self.square2_1, text="Contrate", command=partial(self.choose_contract,4,"Consultoria Empresarial"), **botao)
         self.button2_1.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square2_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -208,7 +208,7 @@ class telaPrincipal:
         self.h2_2_2 = customtkinter.CTkLabel(self.square2_2, text="CONTRATO DE LOCAÇÃO DE\nIMÓVEL", font=("Calibri", 15))
         self.h2_2_2.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button2_2 = customtkinter.CTkButton(self.square2_2, text="Contrate", command=self.consultoria_empresarial2_2, **botao)
+        self.button2_2 = customtkinter.CTkButton(self.square2_2, text="Contrate",command=partial(self.choose_contract,5,"Consultoria Empresarial"), **botao)
         self.button2_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square2_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -222,7 +222,7 @@ class telaPrincipal:
         self.h2_2_3 = customtkinter.CTkLabel(self.square2_3, text="CONTRATO DE ARRENDAMENTO\nRURAL", font=("Calibri", 15))
         self.h2_2_3.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button2_3 = customtkinter.CTkButton(self.square2_3, text="Contrate", command=self.consultoria_empresarial2_3, **botao)
+        self.button2_3 = customtkinter.CTkButton(self.square2_3, text="Contrate",command=partial(self.choose_contract,6,"Consultoria Empresarial"), **botao)
         self.button2_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         #Terceira linha
@@ -238,7 +238,7 @@ class telaPrincipal:
         self.h2_3_1 = customtkinter.CTkLabel(self.square3_1, text="CONTRATO DE PARCERIA\nAGRÍCOLA", font=("Calibri", 15))
         self.h2_3_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button3_1 = customtkinter.CTkButton(self.square3_1, text="Contrate", command=self.consultoria_empresarial3_1, **botao)
+        self.button3_1 = customtkinter.CTkButton(self.square3_1, text="Contrate", command=partial(self.choose_contract,7,"Consultoria Empresarial"), **botao)
         self.button3_1.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square3_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -252,7 +252,7 @@ class telaPrincipal:
         self.h2_3_2 = customtkinter.CTkLabel(self.square3_2, text="CONTRATO DE LICENÇA DE USO\nDE SOFTWARE", font=("Calibri", 15))
         self.h2_3_2.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button3_2 = customtkinter.CTkButton(self.square3_2, text="Contrate", command=self.consultoria_empresarial3_2, **botao)
+        self.button3_2 = customtkinter.CTkButton(self.square3_2, text="Contrate", command=partial(self.choose_contract,8,"Consultoria Empresarial"), **botao)
         self.button3_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square3_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -266,7 +266,7 @@ class telaPrincipal:
         self.h2_3_3 = customtkinter.CTkLabel(self.square3_3, text="CONTRATO DE CESSÃO DE\nDIREITO DE USO DE SOFTWARE", font=("Calibri", 15))
         self.h2_3_3.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button3_3 = customtkinter.CTkButton(self.square3_3, text="Contrate", command=self.consultoria_empresarial3_3, **botao)
+        self.button3_3 = customtkinter.CTkButton(self.square3_3, text="Contrate", command=partial(self.choose_contract,9,"Consultoria Empresarial"), **botao)
         self.button3_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
        #Quarta linha
@@ -282,7 +282,7 @@ class telaPrincipal:
         self.h2_4_1 = customtkinter.CTkLabel(self.square4_1, text="CONTRATO DE LICENÇA E CESSÃO\nDE DIREITOS DE USO DE\nPROPRIEDADE INTELECTUAL", font=("Calibri", 15))
         self.h2_4_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button4_1 = customtkinter.CTkButton(self.square4_1, text="Contrate", command=self.consultoria_empresarial4_1, **botao)
+        self.button4_1 = customtkinter.CTkButton(self.square4_1, text="Contrate", command=partial(self.choose_contract,10,"Consultoria Empresarial"), **botao)
         self.button4_1.pack(side=customtkinter.BOTTOM, pady=(0, 36))
 
         self.square4_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -296,7 +296,7 @@ class telaPrincipal:
         self.h2_4_2 = customtkinter.CTkLabel(self.square4_2, text="CONTRATO DE FRANQUIA", font=("Calibri", 15))
         self.h2_4_2.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button4_2 = customtkinter.CTkButton(self.square4_2, text="Contrate", command=self.consultoria_empresarial4_2, **botao)
+        self.button4_2 = customtkinter.CTkButton(self.square4_2, text="Contrate", command=partial(self.choose_contract,11,"Consultoria Empresarial"), **botao)
         self.button4_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square4_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -310,7 +310,7 @@ class telaPrincipal:
         self.h2_4_3 = customtkinter.CTkLabel(self.square4_3, text="CONTRATO DE TRABALHO POR\nPRAZO INDETERMINADO", font=("Calibri", 15))
         self.h2_4_3.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button4_3 = customtkinter.CTkButton(self.square4_3, text="Contrate", command=self.consultoria_empresarial4_3, **botao)
+        self.button4_3 = customtkinter.CTkButton(self.square4_3, text="Contrate", command=partial(self.choose_contract,12,"Consultoria Empresarial"), **botao)
         self.button4_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square5_1 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -321,10 +321,10 @@ class telaPrincipal:
         self.img_label5_1 = customtkinter.CTkLabel(self.square5_1, image=self.img5_1, text="")
         self.img_label5_1.pack(side=customtkinter.TOP, pady=(20, 0))
         #Título
-        self.h2_5_1 = customtkinter.CTkLabel(self.square5_1, text="Editar Contrato", font=("Calibri", 15))
+        self.h2_5_1 = customtkinter.CTkLabel(self.square5_1, text="Contrato Editável", font=("Calibri", 15))
         self.h2_5_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button5_1 = customtkinter.CTkButton(self.square5_1, text="Editar", command=self.consultoria_empresarial5_1, **botao)
+        self.button5_1 = customtkinter.CTkButton(self.square5_1, text="Contratar", command=partial(self.choose_contract,13,"Consultoria Empresarial"), **botao)
         self.button5_1.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         #Consultoria Tributária
@@ -350,7 +350,7 @@ class telaPrincipal:
         self.h2_1_1 = customtkinter.CTkLabel(self.square1_1, text="PARECER TRIBUTÁRIO", font=("Calibri", 15))
         self.h2_1_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_1 = customtkinter.CTkButton(self.square1_1, text="Contrate", command=self.consultoria_tributaria1_1, **botao)
+        self.button1_1 = customtkinter.CTkButton(self.square1_1, text="Contrate", command=partial(self.choose_contract,14,"Consultoria Tributária"), **botao)
         self.button1_1.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square1_2 = customtkinter.CTkFrame(self.frame_consultoria_tributaria, **card)
@@ -364,7 +364,7 @@ class telaPrincipal:
         self.h2_1_2 = customtkinter.CTkLabel(self.square1_2, text="PLANEJAMENTO TRIBUTÁRIO", font=("Calibri", 15))
         self.h2_1_2.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_2 = customtkinter.CTkButton(self.square1_2, text="Contrate", command=self.consultoria_tributaria1_2, **botao)
+        self.button1_2 = customtkinter.CTkButton(self.square1_2, text="Contrate", command=partial(self.choose_contract,15,"Consultoria Tributária"), **botao)
         self.button1_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square1_3 = customtkinter.CTkFrame(self.frame_consultoria_tributaria, **card)
@@ -375,10 +375,10 @@ class telaPrincipal:
         self.img_label1_3 = customtkinter.CTkLabel(self.square1_3, image=self.img1_3, text="")
         self.img_label1_3.pack(side=customtkinter.TOP, pady=(20, 0))
         #Título
-        self.h2_1_3 = customtkinter.CTkLabel(self.square1_3, text="Editar Contrato", font=("Calibri", 15))
+        self.h2_1_3 = customtkinter.CTkLabel(self.square1_3, text="Contrato Editável", font=("Calibri", 15))
         self.h2_1_3.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Editar", command=self.consultoria_tributaria1_3, **botao)
+        self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,16,"Consultoria Tributária"), **botao)
         self.button1_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         #Câmara de Arbitragem
@@ -403,7 +403,7 @@ class telaPrincipal:
         self.h2_1_1 = customtkinter.CTkLabel(self.square1_1, text="ARBITRAGEM EMPRESARIAL", font=("Calibri", 15))
         self.h2_1_1.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_1 = customtkinter.CTkButton(self.square1_1, text="Contrate", command=self.camara_arbitragem1_1, **botao)
+        self.button1_1 = customtkinter.CTkButton(self.square1_1, text="Contrate", command=partial(self.choose_contract,17,"Câmara de Arbitragem"), **botao)
         self.button1_1.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square1_2 = customtkinter.CTkFrame(self.frame_camara_arbitragem, **card)
@@ -417,7 +417,7 @@ class telaPrincipal:
         self.h2_1_2 = customtkinter.CTkLabel(self.square1_2, text="ARBITRAGEM TRIBUTÁRIA", font=("Calibri", 15))
         self.h2_1_2.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_2 = customtkinter.CTkButton(self.square1_2, text="Contrate", command=self.camara_arbitragem1_2, **botao)
+        self.button1_2 = customtkinter.CTkButton(self.square1_2, text="Contrate", command=partial(self.choose_contract,18,"Câmara de Arbitragem"), **botao)
         self.button1_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         self.square1_3 = customtkinter.CTkFrame(self.frame_camara_arbitragem, **card)
@@ -428,10 +428,10 @@ class telaPrincipal:
         self.img_label1_3 = customtkinter.CTkLabel(self.square1_3, image=self.img1_3, text="")
         self.img_label1_3.pack(side=customtkinter.TOP, pady=(20, 0))
         #Título
-        self.h2_1_3 = customtkinter.CTkLabel(self.square1_3, text="Editar Contrato", font=("Calibri", 15))
+        self.h2_1_3 = customtkinter.CTkLabel(self.square1_3, text="Contrato Editável", font=("Calibri", 15))
         self.h2_1_3.pack(side=customtkinter.TOP, pady=(12, 0))
         #Botão 
-        self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Editar", command=self.camara_arbitragem1_3, **botao)
+        self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,19,"Câmara de Arbitragem"), **botao)
         self.button1_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         #Frame para ajustar o tamanho da tela 
@@ -472,45 +472,8 @@ class telaPrincipal:
     def on_mousewheel(self, event):
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
-    def consultoria_empresarial1_1(self):
-        print("11")
-    def consultoria_empresarial1_2(self):
-        print("12")
-    def consultoria_empresarial1_3(self):
-        print("13")
-    def consultoria_empresarial2_1(self):
-        print("21")
-    def consultoria_empresarial2_2(self):
-        print("22")
-    def consultoria_empresarial2_3(self):
-        print("23")
-    def consultoria_empresarial3_1(self):
-        print("31")
-    def consultoria_empresarial3_2(self):
-        print("32")
-    def consultoria_empresarial3_3(self):
-        print("33")
-    def consultoria_empresarial4_1(self):
-        print("41")
-    def consultoria_empresarial4_2(self):
-        print("42")
-    def consultoria_empresarial4_3(self): 
-        print("43")
-    def consultoria_empresarial5_1(self): 
-        print("Editar")
-
-
-    def consultoria_tributaria1_1(self):
-        print("11")
-    def consultoria_tributaria1_2(self):
-        print("12")
-    def consultoria_tributaria1_3(self):
-        print("Editar")
-
-
-    def camara_arbitragem1_1(self):
-        print("11")
-    def camara_arbitragem1_2(self):
-        print("12")
-    def camara_arbitragem1_3(self):
-        print("Editar")
+    def choose_contract(self,id,tipo):
+        print(id,tipo)
+        for widget in self.janela.winfo_children():
+            widget.destroy()
+        checagemInformacoes(id,tipo,None,self.controlers)
