@@ -5,6 +5,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from PyPDF2 import PdfReader, PdfWriter, PageObject
 from itertools import islice
+from functools import cmp_to_key
 
 def split_string(input_string, chunk_size=65520):
     """
@@ -70,29 +71,76 @@ class convertPDF:
     def remover_tuplas_vazias(self, lista_tuplas):
         return [tupla for tupla in lista_tuplas if tupla[0] != '']
 
+    def comparar_tuplas(self,a, b):
+        inicio_a, fim_a = a[1], a[2]
+        inicio_b, fim_b = b[1], b[2]
+        
+        # Comparar pelos inícios
+        if inicio_a < inicio_b:
+            return -1
+        elif inicio_a > inicio_b:
+            return 1
+        else:
+            # Se os inícios forem iguais, comparar pelos fins (tupla maior primeiro)
+            if fim_a > fim_b:
+                return -1
+            elif fim_a < fim_b:
+                return 1
+            else:
+                return 0
+            
     def ordenar_tuplas(self, lista_tuplas):
-        return sorted(lista_tuplas, key=lambda tupla: (tupla[1], tupla[2]))
+        return sorted(lista_tuplas, key=cmp_to_key(self.comparar_tuplas))
+
+    def lastCases(self,start,end,lastStart,lastEnd):
+        if lastStart <= start and end <= lastEnd:
+            return 0 # O atual está entre o último
+        else: 
+            return 1 # Depois do último, não estão um entre os outros
 
     def apply_styles(self, content, styled_text):
         styled_content = content
+        styled_start = 0
+        styled_end = 0
         offset = 0
+        lastStartWithoutOffset = 0
         lastStart = 0
-        lastEnd = 0
+        firstIteration = True
+        lastOffsetIncrement = 0
         for styled_item in styled_text:
             text, start, end, style = styled_item
-            if lastStart == start:
-                styled_start = start
-                styled_end = end + offset
-            else:
-                styled_start = start + offset
-                styled_end = end + offset
-            lastStart = styled_start
-            lastEnd = end
+            if firstIteration:
+                lastStart = start
+                lastEnd = end
+                lastStartWithoutOffset = start
+                lastEndWithoutOffset = end
+                firstIteration = False
+            
+            match self.lastCases(start,end,lastStartWithoutOffset,lastEndWithoutOffset):
+                case 0:
+                    #print("O atual está entre o último")
+                    styled_start = lastStart + lastOffsetIncrement
+                    styled_end =   lastEnd + lastOffsetIncrement
+                case 1:
+                    styled_start = start + offset
+                    styled_end =  end + offset
+                    #print("Depois do último, não estão um entre os outros")
+
+            #print(f"Atual: {start}-{end}, Último: {lastStartWithoutOffset}-{lastEndWithoutOffset}")
+            lastStartWithoutOffset = start
+            lastEndWithoutOffset = end
+            
+            
             style = self.custom_styles.get(style)
             styled_content = styled_content[:styled_start] + f"<{style}>" + styled_content[styled_start:]
             offset += len(f"<{style}>")
+            
             styled_content = styled_content[:styled_end + len(f"<{style}>")] + f"</{style}>" + styled_content[styled_end + len(f"<{style}>"):]
             offset += len(f"</{style}>")
+
+            lastOffsetIncrement = len(f"<{style}>")
+            lastStart = styled_start
+            lastEnd = styled_end
         return styled_content
 
     def parse_json(self):
@@ -114,29 +162,53 @@ class convertPDF:
                 wordStart = int(tagStart[tagStart.index('.')+1:])
                 lineEnd = int(float(tagEnd)) - 1
                 wordEnd = int(tagEnd[tagEnd.index('.')+1:])
-                start = self.nth_index(content, '\n', lineStart) + wordStart
+                start = self.nth_index(content, '\n', lineStart) + wordStart + 1
                 end = self.nth_index(content, '\n', lineEnd) + wordEnd
                 if content[end] != '\n':
                     end += 1
-                if content[start] == '\n':
-                    start += 1
-                formatted_text.append((content[start:end], start, end, tagName))
+                if lineStart == 0:
+                    start -= 1
+                checkLineInContent = content[start:end]
 
+                i=1
+                while '\n' in checkLineInContent:
+                    lineLocation = self.nth_index(content, '\n',lineStart + i)
+                    formatted_text.append((content[start:lineLocation], start, lineLocation, tagName))
+                    start = lineLocation + 1
+                    checkLineInContent = content[start:end]
+                    i+=1
+        
+                formatted_text.append((content[start:end], start, end, tagName))
+                
         formatted_text = self.remover_tuplas_vazias(formatted_text)
         formatted_text = self.ordenar_tuplas(formatted_text)
+        #print(formatted_text)
         content = self.apply_styles(content, formatted_text)
-
         notLineCounter = 0
         for line in content[0:].split('\n'):
             if not line and notLineCounter == 0:
                 notLineCounter += 1
                 continue
             p = Paragraph(line, styles['Normal'])
+            
             elements.append(p)
-            elements.append(Spacer(1, 12))
+            if '<font size="12">' in line:
+                print("teste")
+                elements.append(Spacer(1, 8))
+            elif '<font size="16">' in line:
+                print("teste")
+                elements.append(Spacer(1, 10))
+            elif '<font size="20">' in line:
+                print("teste")
+                elements.append(Spacer(1, 12))
+            else:
+                pass
+                elements.append(Spacer(1, 5))
             notLineCounter = 0
-
-        doc.build(elements)
+        try:
+            doc.build(elements)
+        except Exception as e:
+            raise e
 
     def mesclar_pdfs(self):
         leitor_timbrado = PdfReader(self.papel_timbrado)

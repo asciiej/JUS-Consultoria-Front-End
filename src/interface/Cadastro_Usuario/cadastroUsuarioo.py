@@ -87,7 +87,24 @@ class telaCadastro:
         self.cargo_button.place(x=860, y=295, width=200, height=30)
         
         self.cargo_menu = Menu(self.TkCadastro, tearoff=0, background="#FFFFFF", foreground="#000000")
-        cargos = ["Cargo 1 ddff", "Cargo 2", "Cargo 3"]
+        cargos = [
+    "Diretor de Conformidade e Regulação",
+    "Gerente de Contratos e Licitações",
+    "Especialista em Propriedade Intelectual e Patentes",
+    "Consultor de Fusões e Aquisições",
+    "Diretor de Relações Trabalhistas",
+    "Gestor de Compliance Financeiro",
+    "Coordenador de Projetos de Infraestrutura",
+    "Diretor de Privacidade e Proteção de Dados",
+    "Gerente de Compliance Ambiental",
+    "Consultor de Segurança e Conformidade em Tecnologia",
+    "Diretor de Governança Corporativa",
+    "Coordenador de Relações Governamentais e Assuntos Públicos",
+    "Especialista em Comércio Internacional e Regulações Aduaneiras",
+    "Gerente de Ética e Compliance",
+    "Consultor de Investimentos e Conformidade Financeira",
+    "Outro"
+]
         for cargo in cargos:
             self.cargo_menu.add_command(label=cargo, command=lambda c=cargo: self.select_cargo(c))
 
@@ -172,7 +189,10 @@ class telaCadastro:
             messagebox.showerror("Erro", "As senhas não coincidem!")
             return
 
-        #usuarioControler().cadastro(nome, sobrenome, cpf, nome_empresa, email, telefone, pais_localizacao, cargo, senha, confirme_senha)
+    
+       
+        #print(cargo.encode('utf-8'))
+        retorno = self.controlers['usuario'].register(nome = nome, sobrenome = sobrenome,cpf = cpf,nomeEmpresa=  nome_empresa,eMail= email,telefone= telefone,pais= pais_localizacao,cargo= cargo,senha= senha,confirmeSenha= confirme_senha)
 
     def validar_cpf(self, cpf):
         cpf = re.sub(r'\D', '', cpf)
