@@ -36,11 +36,13 @@ if __name__ == "__main__":
     'usuario': UsuarioControler(managers['usuario'])
   }
 
- 
+
+  # managers['usuario'].add_role('987.654.321-00', 'admin')
+  # print(managers['usuario'].remove_role('987.654.321-00', 'admin'))
+  # print(managers['usuario'].has_role('987.654.321-00', 'admin'))
+
   TelaLogin(controlers)
   
-  #telaEdicaoContrato(controlers['contract'],tituloContrato="Contrato de Prestacao de Servicos Profissionais",tipoContrato="Consultoria Empresarial")
-
   #Iniciando a interface passando o dict com as instâncias dos controlers.
   # interface(controlers)
 
