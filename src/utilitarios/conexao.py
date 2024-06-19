@@ -10,6 +10,7 @@ class PostgreSQLConnection:
         if self.cursor is None:
             self.connection = psycopg2.connect(self.db_url)
             self.cursor = self.connection.cursor()
+            self.connection.set_client_encoding('UTF8')
         return self.cursor, self.connection
 
     def close(self):
