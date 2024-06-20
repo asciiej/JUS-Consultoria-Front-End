@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
 from src.interface.telaPrincipal import telaPrincipal
+from ..utilitarios.user_session import USER_SESSION
 from PIL import Image
 
 class TelaLogin:
@@ -23,7 +24,7 @@ class TelaLogin:
         self.logo_label = ctk.CTkLabel(self.root, text="", image=self.logoJUS)
         self.logo_label.pack(pady=(30, 0))
 
-        
+
 
         # Criar o frame para a área de login
         self.login_frame = ctk.CTkFrame(self.root, width=500, height=450)
@@ -70,20 +71,25 @@ class TelaLogin:
         email = self.email_entry.get()
         password = self.senha_entry.get()
         # Adicione a lógica de login aqui
-        
+
         try:
             teste = self.controlers["usuario"].login(email, password)
+            print(USER_SESSION.get_user_data())
         except Exception as e:
             self.show_error_message(e)
             return
-        
+
 
         if not teste:
             self.show_error_message("Usuário ou senha inválidos, tente novamente.")
             return
         print(teste)
         self.clear_login_screen()
-        telaPrincipal(self.root,self.controlers)
+        if USER_SESSION.is_admin():
+            # telaAdmin(self.root,self.controlers)
+            pass
+        else:
+            telaPrincipal(self.root,self.controlers)
         print(f"Email: {email}, Password: {password}")
 
     def on_register(self):
@@ -103,7 +109,7 @@ class TelaLogin:
             self.errorMessage.destroy()
         self.errorMessage = ctk.CTkFrame(self.root, width=500, height=75, fg_color="#D27C7C", border_color="#C23E3E", border_width=2)
         self.errorText = ctk.CTkLabel(self.errorMessage, text=message, font=("Consolas", 17, 'bold'), text_color="#EFEFEF")
-        
+
         self.logo_label.pack_forget()
         self.login_frame.pack_forget()
         self.logo_label.pack(pady=(30, 0))

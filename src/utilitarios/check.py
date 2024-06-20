@@ -14,7 +14,7 @@ class Check:
         else:
             return False
 
-    def EMail(eMail:str):
+    def Email(eMail:str):
         # Expressão regular para verificar endereços de e-mail
         padraoEMail = r'^[\w\-.]+@(?:[a-zA-Z0-9]+\.)+[a-zA-Z]{2,}$'
         if re.match(padraoEMail, eMail):

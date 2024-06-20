@@ -8,7 +8,7 @@ class telaCadastro:
     def __init__(self,parent,controlers):
         self.TkCadastro = parent
         self.controlers = controlers
-        
+
         self.canvas = Canvas(
             self.TkCadastro,
             bg="#EFEFEF",
@@ -18,7 +18,7 @@ class telaCadastro:
             highlightthickness=0,
             relief="ridge"
         )
-        
+
         self.canvas.place(x=0, y=0)
         #self.retangulo_vermelho = self.canvas.create_rectangle(441, 80, 300, 200, fill="red")
         self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
@@ -33,7 +33,7 @@ class telaCadastro:
         self.canvas.create_text(730.0, 484.0, anchor="nw", text="Confirme sua Senha", fill="#000000", font=("Calibri", 18 * -1))
         self.canvas.create_text(444.0, 334.0, anchor="nw", text="E-mail", fill="#000000", font=("Calibri", 18 * -1))
         self.canvas.create_text(651.0, 263.0, anchor="nw", text="Sobrenome", fill="#000000", font=("Calibri", 18 * -1))
-        
+
         def on_focus_in(event):
             if self.entry_1.get() == "ex: nome":
                 self.entry_1.delete(0, "end")
@@ -77,7 +77,7 @@ class telaCadastro:
         self.entry_bg_paisLocalizacao = self.canvas.create_image(729.5, 449.5, image=self.entry_image_paisLocalizacao)
         self.entry_paisLocalizacao = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_paisLocalizacao.place(x=651.0, y=436.0, width=157.0, height=29.0)  # País
- 
+
         def on_focus_in(event):
             if self.entry_cpf.get() == " 000.000.000-00":
                 self.entry_cpf.delete(0, "end")
@@ -101,7 +101,7 @@ class telaCadastro:
         self.entry_bg_3 = self.canvas.create_image(562.5, 529.5, image=self.entry_image_3)
         self.entry_3 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
         self.entry_3.place(x=449.0, y=516.0, width=227.0, height=29.0)  # Senha
-      
+
 
         self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
         self.entry_bg_4 = self.canvas.create_image(844.5, 527.5, image=self.entry_image_4)
@@ -139,12 +139,12 @@ class telaCadastro:
             text="Cargos",
             fg="#000716",
             bg="#6ec1e4",
-            activebackground="#6ec1e4", 
+            activebackground="#6ec1e4",
             activeforeground="#000000",
             font=("Calibri", 11)
         )
         self.cargo_button.place(x=860, y=295, width=200, height=30)
-        
+
         self.cargo_menu = Menu(self.TkCadastro, tearoff=0, background="#FFFFFF", foreground="#000000")
         cargos = [
     "Diretor de Conformidade e Regulação",
@@ -187,12 +187,12 @@ class telaCadastro:
         self.button_1.place(x=859.0, y=195.0, width=180.0, height=51.48387145996094)
 
         self.canvas.create_text(441.0, 71.0, anchor="nw", text="Cadastro Usuário", fill="#000000", font=("Consolas Bold", 60 * -1))
-        
-        
+
+
         self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
         self.image_3 = self.canvas.create_image(126.0, 57.0, image=self.image_image_3)
 
- 
+
         self.TkCadastro.mainloop()
 
     #Exclusivamente para o cargo
@@ -204,7 +204,7 @@ class telaCadastro:
     def relative_to_assets(self, path: str) -> Path:
         ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
         return ASSETS_PATH / Path(path)
-    
+
     def buttonOnClick(self):
         nome = self.entry_1.get()
         sobrenome = self.entry_7.get()
@@ -213,7 +213,7 @@ class telaCadastro:
         email = self.entry_8.get()
         telefone = self.entry_2.get()
         pais_localizacao = self.entry_paisLocalizacao.get()
-        cargo = self.selected_cargo  
+        cargo = self.selected_cargo
         senha = self.entry_3.get()
         confirme_senha = self.entry_4.get()
 
@@ -221,7 +221,7 @@ class telaCadastro:
             error_window = Toplevel()
             error_window.title(title)
             error_window.geometry("400x200")
-            error_window.configure(bg="#FFDDDD") 
+            error_window.configure(bg="#FFDDDD")
 
             title_label = Label(error_window, text=title, bg="#FF3333", fg="#FFFFFF", font=("Calibri Bold", 16))
             title_label.pack(pady=10, padx=10)
@@ -248,10 +248,10 @@ class telaCadastro:
             messagebox.showerror("Erro", "As senhas não coincidem!")
             return
 
-    
-       
+
+
         #print(cargo.encode('utf-8'))
-        retorno = self.controlers['usuario'].register(nome = nome, sobrenome = sobrenome,cpf = cpf,nomeEmpresa=  nome_empresa,eMail= email,telefone= telefone,pais= pais_localizacao,cargo= cargo,senha= senha,confirmeSenha= confirme_senha)
+        retorno = self.controlers['usuario'].register(nome = nome, sobrenome = sobrenome,cpf = cpf,nome_empresa=  nome_empresa,email= email,telefone= telefone,pais= pais_localizacao,cargo= cargo,senha= senha,confirme_senha= confirme_senha)
 
     def validar_cpf(self, cpf):
         cpf = re.sub(r'\D', '', cpf)
