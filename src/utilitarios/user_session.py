@@ -17,7 +17,7 @@ class USER_SESSION:
     return cls.__user_info
 
   @classmethod
-  def set_user_data(cls, data) -> None:
+  def set_user_info(cls, data) -> None:
     """
     Atualiza o dicionário com os dados do usuário que estiver logado.
 
