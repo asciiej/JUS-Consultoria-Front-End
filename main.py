@@ -41,28 +41,28 @@ if __name__ == "__main__":
 
 if config.DEBUG:
     contratante_data = {
-            'nome': 'Empresa X',
+            'nome': 'Roupas Junior',
             'nacionalidade': 'brasileiro',
             'estadocivil': 'solteiro',
-            'cpf': '89363329100',
+            'cpf': '52780454008',
             'profissao': 'roupeiro',
-            'endereco': 'Rua 123'
-        }
+            'endereco': 'Rua das Amoras'
+    }
     contratado_data = {
-            'nome': 'Empresa Y',
+            'nome': 'Padaria do Joao',
             'nacionalidade': 'brasileiro',
-            'estadocivil': 'solteiro',
-            'cpf': '70670815136',
+            'estadocivil': 'casado',
+            'cpf': '93252545063',
             'profissao': 'padeiro',
-            'endereco': 'Rua 658'
-        }
+            'endereco': 'Rua dos Paes'
+    }
 
         # Criando contratante e contratado e obtendo seus IDs
-    #contratante_id = managers['contract'].create_contratante(**contratante_data)
-    #contratado_id = managers['contract'].create_contratado(**contratado_data)
+    contratante_id = managers['contract'].create_contratante(**contratante_data)
+    contratado_id = managers['contract'].create_contratado(**contratado_data)
 
-    contratante = managers['contract'].get_contratante_by_id(1)
-    contratada = managers['contract'].get_contratado_by_id(1)
+    # contratante = managers['contract'].get_contratante_by_id(1)
+    # contratada = managers['contract'].get_contratado_by_id(1)
 
         # Dados do contrato empresarial
     contract_data = {
@@ -72,11 +72,11 @@ if config.DEBUG:
             'juros_mora': 1.0,
             'correcao_monetaria': 'IPCA',
             'prazo_duracao': '12',
-            'contratante_id': contratante,
-            'contratado_id': contratada
+            'contratante_id': contratante_id,
+            'contratado_id': contratado_id
         }
 
-        # Criando contrato empresarial
+    #     # Criando contrato empresarial
     managers['contract'].create_empresarial_contract(
         contract_data['valor'],
         contract_data['forma_pagamento'],
@@ -88,9 +88,11 @@ if config.DEBUG:
         contract_data['contratado_id']
     )
 
-    # managers['contract'].create_empresarial_contract(100000,)
+
+
 
         # Obtendo e imprimindo todos os contratos empresariais
+    # controlers['contract'].contratante().delete(5)
     all_contracts = controlers['contract'].empresarial().get_all()
 
     for contract in all_contracts:

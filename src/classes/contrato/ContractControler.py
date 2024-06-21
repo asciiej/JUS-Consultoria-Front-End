@@ -14,6 +14,12 @@ class ContractControler:
 
   def empresarial(self, contract_data=None):
     return EmpresarialControler(self.contract_manager, contract_data)
+  
+  def contratante(self, contratante_data=None):
+    return ContratanteControler(self.contract_manager, contratante_data)
+  
+  def contratado(self, contratado_data=None):
+    return ContratadoControler(self.contract_manager, contratado_data)
 
   def modeloDeContrato(self, contract_data=None):
     return ModeloDeContratoControler(self.contract_manager, contract_data)
@@ -72,6 +78,40 @@ class EmpresarialControler(Controler):
 
   def delete(self, contract_id):
     return self.manager.delete_empresarial_contract(contract_id)
+  
+class ContratanteControler(Controler):
+  def create(self):
+    return self.manager.create_contratante(self.contract['nome'], self.contract['nacionalidade'], self.contract['estadocivil'], self.contract['cpf'], self.contract['profissao'], self.contract['endereco'])
+
+  def get_contratante_by_id(self, contratante_id):
+    return self.manager.get_contratante_by_id(contratante_id)
+  
+  def get_all_contratante(self):
+    return self.manager.get_all_contratante()
+  
+  def update(self, contratante_id):
+    return self.manager.update_contratante(contratante_id)
+  
+  def delete(self, contratante_id):
+    return self.manager.delete_contratante(contratante_id)
+  
+class ContratadoControler(Controler):
+  def create(self):
+    return self.manager.create_contratado(self.contract['nome'], self.contract['nacionalidade'], self.contract['estadocivil'], self.contract['cpf'], self.contract['profissao'], self.contract['endereco'])
+
+  def get_contratado_by_id(self, contratado_id):
+    return self.manager.get_contratado_by_id(contratado_id)
+  
+  def get_all_contratado(self):
+    return self.manager.get_all_contratado()
+  
+  def update(self, contratado_id):
+    return self.manager.update_contratado(contratado_id)
+  
+  def delete(self, contratado_id):
+    return self.manager.delete_contratado(contratado_id)
+
+
 
 class ModeloDeContratoControler(Controler):
   def create(self):

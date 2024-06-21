@@ -98,24 +98,6 @@ class ContractManager:
 
     # ============================ Empresarial CRUD ============================
 
-    def create_contratante(self, nome: str, nacionalidade: str, estadocivil: str, cpf: str, profissao: str, endereco: str):
-        query = """
-            INSERT INTO contracts.contratante (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
-            VALUES (%s, %s, %s, %s, %s, %s) RETURNING id
-        """
-        params = (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
-        result = self.db.query(query, params)
-        return result[0]['id']
-
-    def create_contratado(self, nome: str, nacionalidade: str, estadocivil: str, cpf: str, profissao: str, endereco: str):
-        query = """
-            INSERT INTO contracts.contratada (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
-            VALUES (%s, %s, %s, %s, %s, %s) RETURNING id
-        """
-        params = (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
-        result = self.db.query(query, params)
-        return result[0]['id']
-
     def create_empresarial_contract(self, valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao, contratante_id, contratado_id):
         query = """
                 INSERT INTO contracts.empresarial_contract (valor, forma_pagamento, multa_mora, juros_mora, correcao_monetaria, prazo_duracao, contratante_id, contratado_id)
@@ -134,8 +116,6 @@ class ContractManager:
         if result:
             return result[0]
         return None
-    
-
 
     def update_empresarial(self, contract_id:int, contratante:str, contratado:str, valor:str, forma_pagamento:str, multa_mora:str, juros_mora:str, correcao_monetaria:str, prazo_duracao:str, contract_dict):
         contrato = self.getEmpresarialContractById(contract_id)
@@ -159,7 +139,28 @@ class ContractManager:
             self.db.query(query, params)
         return self.get_empresarial_by_id(contract_id)
     
-    def get_contratante_by_id(self, id:str):
+        
+
+    def delete_empresarial_contract(self, id:int):
+        query = "DELETE FROM contracts.empresarial_contract WHERE id = %s"
+        self.db.query(query, (id,))
+        return self.getEmpresarialContract()
+
+    # ============================ Contratante CRUD ============================
+    
+    def create_contratante(self, nome: str, nacionalidade: str, estadocivil: str, cpf: str, profissao: str, endereco: str):
+        query = """
+            INSERT INTO contracts.contratante (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
+            VALUES (%s, %s, %s, %s, %s, %s) RETURNING id
+        """
+        params = (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
+        result = self.db.query(query, params)
+        if result:
+            return result[0][0]  # Acessa o primeiro elemento da tupla
+        return None
+
+    
+    def get_contratante_by_id(self, id:id):
         query = "SELECT * FROM contracts.contratante WHERE id = %s"
         result = self.db.query(query, (id,))
         if result:
@@ -169,17 +170,7 @@ class ContractManager:
     def get_all_contratante(self):
         query = "SELECT * FROM contracts.contratante"
         return self.db.query(query)
-    
-    def get_contratado_by_id(self, id:str):
-        query = "SELECT * FROM contracts.contratada WHERE id = %s"
-        result = self.db.query(query, (id,))
-        if result:
-            return result[0]
-        return None
-    
-    def get_all_contratado(self):
-        query = "SELECT * FROM contracts.contratada"
-        return self.db.query(query)
+
     
     def update_contratante(self, nome: str, nacionalidade: str, estadocivil: str, cpf: str, profissao: str, endereco: str):
         query = """
@@ -190,7 +181,34 @@ class ContractManager:
         params = (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
         result = self.db.query(query, params)
         return result[0]['id']
-
+    
+    def delete_contratante(self, id:int):
+        query = "DELETE FROM contracts.contratante WHERE id = %s"
+        self.db.query(query, (id,))
+        return self.get_all_contratante
+    
+    # ============================ Contratado CRUD ============================
+    
+    def create_contratado(self, nome: str, nacionalidade: str, estadocivil: str, cpf: str, profissao: str, endereco: str):
+        query = """
+            INSERT INTO contracts.contratada (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
+            VALUES (%s, %s, %s, %s, %s, %s) RETURNING id
+        """
+        params = (nome, nacionalidade, estadocivil, cpf, profissao, endereco)
+        result = self.db.query(query, params)
+        return result[0][0]
+    
+    def get_contratado_by_id(self, id:id):
+        query = "SELECT * FROM contracts.contratada WHERE id = %s"
+        result = self.db.query(query, (id,))
+        if result:
+            return result[0]
+        return None
+    
+    def get_all_contratado(self):
+        query = "SELECT * FROM contracts.contratada"
+        return self.db.query(query)
+    
     def update_contratado(self, nome: str, nacionalidade: str, estadocivil: str, cpf: str, profissao: str, endereco: str):
         query = """
             UPDATE contracts.contratada
@@ -204,15 +222,4 @@ class ContractManager:
     def delete_contratado(self, id:int):
         query = "DELETE FROM contracts.contratada WHERE id = %s"
         self.db.query(query, (id,))
-        return self.getContratado()
-    
-    def delete_contratante(self, id:int):
-        query = "DELETE FROM contracts.contratante WHERE id = %s"
-        self.db.query(query, (id,))
-        return self.getContratado()
-    
-
-    def delete_empresarial_contract(self, id:int):
-        query = "DELETE FROM contracts.empresarial_contract WHERE id = %s"
-        self.db.query(query, (id,))
-        return self.getEmpresarialContract()
+        return self.get_all_contratado
