@@ -79,7 +79,7 @@ class UsuarioManager:
 				UsuarioModel(
 					nome=row[1], sobrenome=row[2], cpf=row[3],
 					nomeEmpresa=row[4], cargo=row[5], email=row[6],
-					telefone=row[7], pais=row[8], senha=result[9], roles=row[10]
+					telefone=row[7], pais=row[8], senha=row[9], roles=row[10]
 				) for row in result
 			]
 
