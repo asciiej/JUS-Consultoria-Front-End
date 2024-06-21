@@ -73,7 +73,9 @@ class UsuarioControler:
 
             nova_senha_hash = self._calcular_sha256(nova_senha)
 
-            return self.usuario_manager.update(cpf, nome, sobrenome, nome_empresa, cargo, email, telefone, pais, nova_senha_hash)
+            updated = self.usuario_manager.update(cpf, nome, sobrenome, nome_empresa, cargo, email, telefone, pais, nova_senha_hash)
+            USER_SESSION.set_user_info(updated)
+            return True
 
         except (
             NomeInvalido, EmailInvalido, TelefoneInvalido,

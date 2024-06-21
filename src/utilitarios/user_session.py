@@ -17,7 +17,7 @@ class USER_SESSION:
     return cls.__user_info
 
   @classmethod
-  def set_user_info(cls, data) -> None:
+  def set_user_data(cls, data) -> None:
     """
     Atualiza o dicionário com os dados do usuário que estiver logado.
 
@@ -68,6 +68,23 @@ class USER_SESSION:
     True
     """
     return cls.__user_info["logged"]
+
+  @classmethod
+  def has_role(cls, role):
+    """
+    Retorna se o usuário tem a role informada.
+
+    @param role: role que o usuário deve ter
+
+    @return: se o usuário tem a role informada
+
+    @rtype: bool
+
+    @example:
+    >>> USER_SESSION.has_role('admin')
+    True
+    """
+    return role in cls.__user_info["data"].roles
 
   @classmethod
   def is_admin(cls):

@@ -15,10 +15,14 @@ class UsuarioModel:
 
 	def str(self) -> str:
 		return (f"Nome: {self.nome} {self.sobrenome}\n"
+				f"CPF: {self.cpf}\n"
+				f"Nome da Empresa: {self.nomeEmpresa if self.nomeEmpresa is not None else 'Não informado'}\n"
 				f"Cargo: {self.cargo if self.cargo is not None else 'Não informado'}\n"
 				f"E-mail: {self.email}\n"
 				f"Telefone: {self.telefone}\n"
+				f"Roles: {self.roles}\n"
 				f"País/Localização: {self.pais}")
+
 
 # TODO: Tratar erros em todos os metodos
 class UsuarioManager:

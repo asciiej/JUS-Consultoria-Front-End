@@ -7,7 +7,6 @@ import config
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__name__), '.')))
 
 #Importando Classes e Funçoes
-from src.interfaceTemporaria import interface
 from src.utilitarios.conexao import PostgreSQLConnection
 from src.classes.contrato.ContractModel import ContractManager
 from src.classes.contrato.ContractControler import ContractControler
@@ -16,8 +15,6 @@ from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
 from src.interface.login import TelaLogin
 from src.interface.edicaoContratos import telaEdicaoContrato
-
-
 
 # TODO: Testar todo o CRUD dos contratos novamente
 if __name__ == "__main__":
@@ -36,15 +33,41 @@ if __name__ == "__main__":
 		'usuario': UsuarioControler(managers['usuario'])
 	}
 
-	# managers['usuario'].add_role('987.654.321-00', 'admin')
-	# print(managers['usuario'].remove_role('987.654.321-00', 'admin'))
-	# print(managers['usuario'].has_role('987.654.321-00', 'admin'))
-	# controlers['usuario'].register('Joao', 'Silva', '111.111.111-11', 'JUS', 'Engenheiro de Software', 'l2ZrM@example.com', '+55 12 34567-8901', 'Brasil', '1234', '1234')
+	contratante_data = {
+		'nome': 'AMARAL PWI',
+		'nacionalidade': 'angolano',
+		'estadocivil': 'solteiro',
+		'cpf': '111',
+		'profissao': 'roupeiro',
+		'endereco': 'Rua dos Peneira'
+	}
 
-	# controlers['usuario'].login('l2ZrM@example.com', '4321')
-	# controlers['usuario'].update_user('111.111.111-11','Joao', 'Silva', 'JUS', 'Engenheiro de Software', 'l2ZrM@example.com', '+55 12 34567-8901', 'Brasil', '4321', '1111', '1111')
+	contratado_data = {
+		'nome': 'ARAUJO PWI',
+		'nacionalidade': 'brasileiro',
+		'estadocivil': 'casado',
+		'cpf': '222',
+		'profissao': 'faxineiro',
+		'endereco': 'Rua dos Paes'
+	}
 
-	#Iniciando a interface passando o dict com as instâncias dos controlers.
+	contract_data = {
+		'valor': '15.99',
+		'forma_pagamento': 'CARTAO',
+		'multa_mora': '150.00',
+		'juros_mora': '25.00',
+		'correcao_monetaria': '10.0',
+		'prazo_duracao': '10',
+		'contratante': contratante_data,
+		'contratado': contratado_data
+	}
+
+	# controlers['contract'].empresarial(contract_data=contract_data).create()
+	# controlers['contract'].empresarial(contract_data=contract_data).update(8)
+
+	# con = controlers['contract'].empresarial().get_by_id(8)
+	# print(con.str())
+
 	TelaLogin(controlers)
 
 if config.DEBUG:
