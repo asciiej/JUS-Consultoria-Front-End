@@ -1,126 +1,203 @@
-from ...utilitarios.excecoes import cargoInválido, eMailInválido, nomeInválido, paisInválido, cpfInválido, nomeEmpresaInválido, senhaInválido, telefoneInválido
+from ...utilitarios.excecoes import (
+    CargoInvalido, EmailInvalido, NomeInvalido, PaisInvalido,
+    CPFInvalido, NomeEmpresaInvalido, SenhaInvalido, TelefoneInvalido
+)
 from ...utilitarios.check import Check
-from ...utilitarios.local_user import local_user
+from ...utilitarios.user_session import USER_SESSION
 import config
 import hashlib
 
-class UsuarioControler():
+class UsuarioControler:
     def __init__(self, usuario_manager):
         self.usuario_manager = usuario_manager
 
-    def login(self,eMail:str,senha:str):
-
-        if not Check.EMail(eMail):
-            raise eMailInválido(eMail)
-
-        if ' ' in senha:
-            raise senhaInválido()
-
-        senha = self._calcularMd5(senha)
-
-        #Implementar a funcionalidade de login do crud]
+    def login(self, email: str, senha: str):
         try:
-            local_user['user'] = self.usuario_manager.login(eMail,senha)
-            local_user['logged'] = True
-        except Exception as e:
-            if config.DEBUG:
-                print(e)
-            return False
-        return True
-        #return (true or false) se o usuário for encontrado no banco ou não
+            if not Check.Email(email):
+                raise EmailInvalido(email)
 
-    def _calcularMd5(self,texto):
-        # Codifica o texto em bytes antes de calcular o hash MD5
-        texto_codificado = texto.encode('utf-8')
+            if ' ' in senha:
+                raise SenhaInvalido()
 
-        # Calcula o hash MD5
-        md5_hash = hashlib.md5(texto_codificado)
+            senha_hash = self._calcular_sha256(senha)
 
-        # Retorna o hash MD5 como uma string hexadecimal
-        return md5_hash.hexdigest()
-
-    def _validarSenhaAtual(self, senha: str, cpf: str):
-        senhaHash = self._calcularMd5(senha)
-        return self.usuario_manager.get_by_cpf(cpf)[9] == senhaHash
-
-    def register(self,nome:str,sobrenome:str,cpf:str,nomeEmpresa:str,cargo:str,eMail:str,telefone:str,pais: str,senha:str,confirmeSenha:str):
-
-        if not Check.Nome(nome,sobrenome):
-            raise nomeInválido(nome,sobrenome)
-
-        if not Check.EMail(eMail):
-           raise eMailInválido(eMail)
-
-        # Telefones precisam ter código de país, código de area e o prefixo 9, indicando um telefone celular. Exemplo de telefone válido: cc (cc) c cccc-cccc
-        if not Check.Telefone(telefone):
-            raise telefoneInválido(telefone)
-
-        if not Check.String(cargo):
-            raise cargoInválido(cargo)
-
-        if not Check.String(nomeEmpresa):
-            raise nomeEmpresaInválido(nomeEmpresa)
-
-        if not Check.String(pais):
-            raise nomeEmpresaInválido(nomeEmpresa)
-
-        if not Check.Senha(senha,confirmeSenha):
-            raise senhaInválido()
-
-        # cpf obrigatóriamente no formato 111.111.111-11
-        if not Check.CPF(cpf):
-            raise cpfInválido(cpf)
-
-        senha = self._calcularMd5(senha) #converter a senha para hash md5 que será armazenado no banco de dados
-
-        # aqui usamos as funcionalidades do model para inserir este usuário no banco de dados
-        return self.usuario_manager.create(nome, sobrenome, cpf, nomeEmpresa, cargo, eMail, telefone, pais, senha)
-
-    def update_user(self, cpf:str, nome:str, sobrenome:str, nomeEmpresa:str, cargo:str, email:str, telefone:str, pais: str, senha:str, novaSenha: str, confirmeNovaSenha: str):
-            if not Check.CPF(cpf):
-                raise cpfInválido(cpf)
-            if not Check.Nome(nome, sobrenome):
-                raise nomeInválido(nome, sobrenome)
-            if not Check.EMail(email):
-                raise eMailInválido(email)
-            if not Check.Telefone(telefone):
-                raise telefoneInválido(telefone)
-            if not Check.String(cargo):
-                raise cargoInválido(cargo)
-            if not Check.String(nomeEmpresa):
-                raise nomeEmpresaInválido(nomeEmpresa)
-            if not Check.String(pais):
-                raise paisInválido(pais)
-            if not Check.Senha(novaSenha, confirmeNovaSenha):
-                raise senhaInválido()
-            if not self._validarSenhaAtual(senha, cpf):
-                raise senhaInválido()
-
-            novaSenhaHash = self._calcularMd5(novaSenha)
-            local_user['user'] = self.usuario_manager.update(cpf,nome,sobrenome,nomeEmpresa,cargo,email,telefone,pais,novaSenhaHash)
-
-            if config.DEBUG:
-                print(local_user['user'][9])
+            # Realiza o login através do manager
+            usuario = self.usuario_manager.login(email, senha_hash)
+            USER_SESSION.set_user_info(usuario)
 
             return True
 
-    def get_all_users(self):
-        return self.usuario_manager.get_all()
+        except EmailInvalido as e:
+            if config.DEBUG:
+                print(f"Erro ao efetuar login: {str(e)}")
+            return False
 
-    def get_user_by_cpf(self, cpf: str):
-        return self.usuario_manager.get_by_cpf(cpf)
+        except SenhaInvalido as e:
+            if config.DEBUG:
+                print(f"Erro ao efetuar login: {str(e)}")
+            return False
 
-    def get_user_by_email(self, email: str):
-        return self.usuario_manager.get_by_email(email)
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao efetuar login: {str(e)}")
+            return False
 
-    def user_has_role(self, cpf: str, role: str):
-        return self.usuario_manager.has_role(cpf, role)
+    def register(self, nome: str, sobrenome: str, cpf: str, nome_empresa: str, cargo: str, email: str, telefone: str, pais: str, senha: str, confirme_senha: str):
+        try:
+            self._validate_input(nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, senha, confirme_senha)
 
-    def user_add_role(self, cpf: str, role: str):
-        return self.usuario_manager.add_role(cpf, role)
+            senha_hash = self._calcular_sha256(senha)
 
-    def user_remove_role(self, cpf: str, role: str):
-        return self.usuario_manager.remove_role(cpf, role)
+            return self.usuario_manager.create(nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, senha_hash)
+
+        except (
+            NomeInvalido, EmailInvalido, TelefoneInvalido,
+            CargoInvalido, NomeEmpresaInvalido, PaisInvalido,
+            SenhaInvalido, CPFInvalido
+        ) as e:
+            if config.DEBUG:
+                print(f"Erro ao registrar usuário: {str(e)}")
+            return None
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao registrar usuário: {str(e)}")
+            return None
+
+    def update_user(self, cpf: str, nome: str, sobrenome: str, nome_empresa: str, cargo: str, email: str, telefone: str, pais: str, senha_atual: str, nova_senha: str, confirme_nova_senha: str):
+        try:
+            self._validate_input(nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, nova_senha, confirme_nova_senha)
+
+            if not self._validar_senha_atual(senha_atual, cpf):
+                raise SenhaInvalido("Senha atual inválida")
+
+            nova_senha_hash = self._calcular_sha256(nova_senha)
+
+            updated = self.usuario_manager.update(cpf, nome, sobrenome, nome_empresa, cargo, email, telefone, pais, nova_senha_hash)
+            USER_SESSION.set_user_info(updated)
+            return True
+
+        except (
+            NomeInvalido, EmailInvalido, TelefoneInvalido,
+            CargoInvalido, NomeEmpresaInvalido, PaisInvalido,
+            SenhaInvalido, CPFInvalido
+        ) as e:
+            if config.DEBUG:
+                print(f"Erro ao atualizar usuário: {str(e)}")
+            return None
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao atualizar usuário: {str(e)}")
+            return None
 
     def delete_user(self, cpf: str):
-        return self.usuario_manager.delete(cpf)
+        try:
+            if 'admin' not in USER_SESSION.get_user_data().roles:
+                raise Exception("Necessário permissão de administrador.")
+
+            if not Check.CPF(cpf):
+                raise CPFInvalido(cpf)
+
+            return self.usuario_manager.delete(cpf)
+
+        except CPFInvalido as e:
+            if config.DEBUG:
+                print(f"Erro ao excluir usuário: {str(e)}")
+            return None
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao excluir usuário: {str(e)}")
+            return None
+
+    def get_all_users(self):
+        try:
+            if 'admin' not in USER_SESSION.get_user_data().roles:
+                raise Exception("Necessário permissão de administrador.")
+
+            return self.usuario_manager.get_all()
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao obter todos os usuários: {str(e)}")
+            return []
+
+    def get_user_by_cpf(self, cpf: str):
+        try:
+            return self.usuario_manager.get_by_cpf(cpf)
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao obter usuário por CPF {cpf}: {str(e)}")
+            return None
+
+    def get_user_by_email(self, email: str):
+        try:
+            return self.usuario_manager.get_by_email(email)
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao obter usuário por e-mail {email}: {str(e)}")
+            return None
+
+    def user_has_role(self, cpf: str, role: str):
+        try:
+            return self.usuario_manager.has_role(cpf, role)
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao verificar papel do usuário: {str(e)}")
+            return False
+
+    def user_add_role(self, cpf: str, role: str):
+        try:
+            if 'admin' not in USER_SESSION.get_user_data().roles:
+                raise Exception("Necessário permissão de administrador.")
+
+            return self.usuario_manager.add_role(cpf, role)
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao adicionar papel ao usuário: {str(e)}")
+            return None
+
+    def user_remove_role(self, cpf: str, role: str):
+        try:
+            if 'admin' not in USER_SESSION.get_user_data().roles:
+                raise Exception("Necessário permissão de administrador.")
+
+            return self.usuario_manager.remove_role(cpf, role)
+
+        except Exception as e:
+            if config.DEBUG:
+                print(f"Erro ao remover papel do usuário: {str(e)}")
+            return None
+
+    def _validate_input(self, nome: str, sobrenome: str, cpf: str, nome_empresa: str, cargo: str, email: str, telefone: str, pais: str, senha: str, confirme_senha: str):
+        if not Check.Nome(nome, sobrenome):
+            raise NomeInvalido(nome, sobrenome)
+
+        if not Check.Email(email):
+            raise EmailInvalido(email)
+
+        if not Check.Telefone(telefone):
+            raise TelefoneInvalido(telefone)
+
+        if not Check.Senha(senha, confirme_senha):
+            raise SenhaInvalido()
+
+        if not Check.CPF(cpf):
+            raise CPFInvalido(cpf)
+
+    def _validar_senha_atual(self, senha: str, cpf: str):
+        senha_hash = self._calcular_sha256(senha)
+        if USER_SESSION.get_user_data().cpf != cpf:
+            raise CPFInvalido(cpf)
+
+        return USER_SESSION.get_user_data().senha == senha_hash
+
+    def _calcular_sha256(self, texto: str):
+        texto_codificado = texto.encode('utf-8')
+        sha256_hash = hashlib.sha256(texto_codificado)
+        return sha256_hash.hexdigest()

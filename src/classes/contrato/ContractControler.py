@@ -1,18 +1,17 @@
 import config
-from .ContractModel import ContractManager
 from src.utilitarios.operacoesDocumento import split_string,recombine_string
 
 class ContractControler:
   def __init__(self, manager):
     self.contract_manager = manager
 
-  def arbitragem(self, contract_data=None):
+  def arbitragem(self, contract_data=[]):
     return ArbitragemControler(self.contract_manager, contract_data)
 
-  def tributaria(self, contract_data=None):
+  def tributaria(self, contract_data=[]):
     return TributariaControler(self.contract_manager, contract_data)
 
-  def empresarial(self, contract_data=None):
+  def empresarial(self, contract_data=[]):
     return EmpresarialControler(self.contract_manager, contract_data)
   
   def contratante(self, contratante_data=None):
@@ -49,20 +48,52 @@ class TributariaControler(Controler):
   def delete(self, contract_id):
     return self.manager.delete_tributaria(contract_id)
 
+class ContratanteControler(Controler):
+  def create(self, contratante_data):
+    return self.manager.create_contratante(contratante_data['nome'], contratante_data['nacionalidade'], contratante_data['estadocivil'], contratante_data['cpf'], contratante_data['profissao'], contratante_data['endereco'])
+
+  def get_contratante_by_id(self, contratante_id):
+    return self.manager.get_contratante_by_id(contratante_id)
+
+  def get_all_contratante(self):
+    return self.manager.get_all_contratante()
+
+  def update(self, contratante_id, contratante_data):
+    return self.manager.update_contratante(contratante_id, contratante_data['nome'], contratante_data['nacionalidade'], contratante_data['estadocivil'], contratante_data['cpf'], contratante_data['profissao'], contratante_data['endereco'])
+
+  def delete(self, contratante_id):
+    return self.manager.delete_contratante(contratante_id)
+
+class ContratadoControler(Controler):
+  def create(self, contratado_data):
+    return self.manager.create_contratado(contratado_data['nome'], contratado_data['nacionalidade'], contratado_data['estadocivil'], contratado_data['cpf'], contratado_data['profissao'], contratado_data['endereco'])
+
+  def get_contratado_by_id(self, contratado_id):
+    return self.manager.get_contratado_by_id(contratado_id)
+
+  def get_all_contratado(self):
+    return self.manager.get_all_contratado()
+
+  def update(self, contratado_id, contratado_data):
+    return self.manager.update_contratado(contratado_id, contratado_data['nome'], contratado_data['nacionalidade'], contratado_data['estadocivil'], contratado_data['cpf'], contratado_data['profissao'], contratado_data['endereco'])
+
+  def delete(self, contratado_id):
+    return self.manager.delete_contratado(contratado_id)
+
 class EmpresarialControler(Controler):
   def create(self):
-    contratante_id = self.manager.create_contratante(self.contract['contratante'])
-    contratado_id = self.manager.create_contratado(self.contract['contratado'])
+    contratante = ContratanteControler.create(self, self.contract['contratante'])
+    contratado = ContratadoControler.create(self, self.contract['contratado'])
     return self.manager.create_empresarial_contract(
-            contratante_id,
-            contratado_id,
-            self.contract['valor'],
-            self.contract['forma_pagamento'],
-            self.contract['multa_mora'],
-            self.contract['juros_mora'],
-            self.contract['correcao_monetaria'],
-            self.contract['prazo_duracao']
-        )
+      self.contract['valor'],
+      self.contract['forma_pagamento'],
+      self.contract['multa_mora'],
+      self.contract['juros_mora'],
+      self.contract['correcao_monetaria'],
+      self.contract['prazo_duracao'],
+      contratante.id,
+      contratado.id,
+    )
 
   def get_by_id(self, contract_id):
     return self.manager.get_empresarial_by_id(contract_id)
@@ -71,10 +102,22 @@ class EmpresarialControler(Controler):
     return self.manager.get_all_empresarial()
 
   def update(self, contract_id):
-        return self.manager.update_empresarial(
-            contract_id,
-            self.contract
-        )
+    contratante_id = self.manager.get_empresarial_by_id(contract_id).contratante_id
+    contratado_id = self.manager.get_empresarial_by_id(contract_id).contratado_id
+
+    contratante = ContratanteControler.update(self, contratante_id, self.contract['contratante'])
+    contratado = ContratadoControler.update(self, contratado_id, self.contract['contratado'])
+    return self.manager.update_empresarial(
+      contract_id,
+      self.contract['valor'],
+      self.contract['forma_pagamento'],
+      self.contract['multa_mora'],
+      self.contract['juros_mora'],
+      self.contract['correcao_monetaria'],
+      self.contract['prazo_duracao'],
+      contratante.id,
+      contratado.id
+    )
 
   def delete(self, contract_id):
     return self.manager.delete_empresarial_contract(contract_id)
@@ -128,11 +171,8 @@ class ModeloDeContratoControler(Controler):
 
   def recombine_contract(self,tuples_list):
     nova_lista = []
-    # Itera sobre cada tupla na lista original
     for tupla in tuples_list:
-        # Extrai o terceiro e o primeiro elementos da tupla original
-        novo_elemento = (tupla[2], tupla[0])
-        # Adiciona a nova tupla à nova lista
-        nova_lista.append(novo_elemento)
+      novo_elemento = (tupla[2], tupla[0])
+      nova_lista.append(novo_elemento)
 
     return recombine_string(nova_lista)
