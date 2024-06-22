@@ -14,7 +14,8 @@ from src.classes.contrato.ContractControler import EmpresarialControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
 from src.interface.login import TelaLogin
-from src.interface.edicaoContratos import telaEdicaoContrato
+from src.interface.alterarAcesso import alterarAcesso
+
 
 # TODO: Testar todo o CRUD dos contratos novamente
 if __name__ == "__main__":
@@ -68,7 +69,9 @@ if __name__ == "__main__":
 	# con = controlers['contract'].empresarial().get_by_id(8)
 	# print(con.str())
 
-	TelaLogin(controlers)
+	#TelaLogin(controlers)
+
+	alterarAcesso()
 
 if config.DEBUG:
 	pass
