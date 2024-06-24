@@ -5,6 +5,7 @@ from PIL import Image
 from ..utilitarios.user_session import USER_SESSION
 from functools import partial
 from src.interface.checagemInformacoes import checagemInformacoes
+from .Atualizar_dados.atualizarinform import AtualizaCad
 #from src.classes.usuario.usuarioModel import usuarioModel
 
 class telaPrincipal:
@@ -64,6 +65,9 @@ class telaPrincipal:
         # Nome do usuario no cabeçalho
         self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
+
+        self.botao_editar_dados = customtkinter.CTkButton(self.cabecalho, text="Editar", command=self.click_editar_dados, **opcao_menu)
+        self.botao_editar_dados.pack(side=customtkinter.LEFT, padx=(25,0))
 
         # Calcular a altura do "body"
         window_width = self.janela.winfo_width()
@@ -456,6 +460,11 @@ class telaPrincipal:
 
     def click_camara_arbitragem(self):
         self.canvas.yview_moveto((self.H1_camara_arbitragem.winfo_y() - 100) / self.body_frame.winfo_height())
+
+    def click_editar_dados(self):
+        AtualizaCad(self.janela, self.controlers)
+
+
 
     def on_frame_configure(self, event):
 
