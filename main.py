@@ -1,4 +1,5 @@
 from typing import Dict, Union
+import customtkinter as ctk
 import sys
 import os
 import config
@@ -14,7 +15,6 @@ from src.classes.contrato.ContractControler import EmpresarialControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
 from src.interface.login import TelaLogin
-from src.interface.edicaoContratos import telaEdicaoContrato
 
 # TODO: Testar todo o CRUD dos contratos novamente
 if __name__ == "__main__":
@@ -69,6 +69,8 @@ if __name__ == "__main__":
 	# print(con.str())
 
 	TelaLogin(controlers)
+	#telaPrincipalAdm(ctk.CTk(),controlers)
+	#telaEdicaoContrato(controlers['contract'],"Teste","Teste")
 
 if config.DEBUG:
 	pass

@@ -113,12 +113,26 @@ class ContractManager:
         if config.DEBUG:
             print(retorno)
 
+    def update_contract_model(self,tituloContrato:str,textoContrato:list):
+        id = self.get_id_contract_modelByTitle(tituloContrato)
+        query = f"DELETE FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
+        self.db.query(query)
+        for ordem,texto in textoContrato:
+            query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) values ('{texto}',{ordem},{id});"
+            retorno = self.db.query(query)
+        if config.DEBUG:
+            print(retorno)
+        
     def get_contract_model_byId(self,id: int):
         query = f"SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
         return self.db.query(query)
 
     def get_contract_model_byTitle(self,title):
-        query = f"SELECT id FROM contractcontents.contract_model WHERE titulo = '{title}';"
-        id = self.db.query(query)[0][0]
+        id = self.get_id_contract_modelByTitle(title)
         query = f"SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
         return self.db.query(query)
+    
+    def get_id_contract_modelByTitle(self,title):
+        query = f"SELECT id FROM contractcontents.contract_model WHERE titulo = '{title}';"
+        id = self.db.query(query)[0][0]
+        return id
