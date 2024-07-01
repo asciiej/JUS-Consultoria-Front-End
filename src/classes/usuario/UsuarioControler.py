@@ -69,7 +69,8 @@ class UsuarioControler:
             self._validate_input(nome, sobrenome, cpf, nome_empresa, cargo, email, telefone, pais, nova_senha, confirme_nova_senha)
 
             if not self._validar_senha_atual(senha_atual, cpf):
-                raise SenhaInvalido("Senha atual inválida")
+                print(senha_atual, cpf)
+                raise SenhaInvalido()
 
             nova_senha_hash = self._calcular_sha256(nova_senha)
 
@@ -191,10 +192,9 @@ class UsuarioControler:
             raise CPFInvalido(cpf)
 
     def _validar_senha_atual(self, senha: str, cpf: str):
-        senha_hash = self._calcular_sha256(senha)
+        senha_hash = senha
         if USER_SESSION.get_user_data().cpf != cpf:
             raise CPFInvalido(cpf)
-
         return USER_SESSION.get_user_data().senha == senha_hash
 
     def _calcular_sha256(self, texto: str):

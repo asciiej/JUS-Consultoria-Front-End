@@ -69,6 +69,7 @@ if __name__ == "__main__":
 	# print(con.str())
 
 	TelaLogin(controlers)
+	# AtualizaCad(controlers)
 
 if config.DEBUG:
 	pass
