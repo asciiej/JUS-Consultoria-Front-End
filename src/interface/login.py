@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
 from src.interface.telaPrincipal import telaPrincipal
+from src.interface.telaPrincipalAdm import telaPrincipalAdm
 from ..utilitarios.user_session import USER_SESSION
 from PIL import Image
 
@@ -8,7 +9,9 @@ class TelaLogin:
     def __init__(self, controlers: dict):
         # Configuração inicial da janela
         ctk.set_default_color_theme("lib/temaTkinterCustom.json")
-        self.root = ctk.CTk()
+        ctk.set_appearance_mode("light")
+
+        self.root = ctk.CTk()   
         largura_tela = self.root.winfo_screenwidth()
         altura_tela = self.root.winfo_screenheight()
         self.root.geometry(f"{largura_tela}x{altura_tela}-10+0")
@@ -86,7 +89,7 @@ class TelaLogin:
         print(teste)
         self.clear_login_screen()
         if USER_SESSION.is_admin():
-            # telaAdmin(self.root,self.controlers)
+            telaPrincipalAdm(self.root,self.controlers)
             pass
         else:
             telaPrincipal(self.root,self.controlers)

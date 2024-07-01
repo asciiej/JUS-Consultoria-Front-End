@@ -1,6 +1,5 @@
 from tkinter import *
 import tkinter as tk
-from tkinter.filedialog import askopenfilename, asksaveasfilename
 import ctypes
 from functools import partial
 from json import loads, dumps
@@ -8,21 +7,62 @@ from tkinter import ttk
 import customtkinter
 from src.utilitarios.visualizadorPDF import PDFReader
 from src.utilitarios.operacoesDocumento import convertPDF
+from PIL import Image
 
 class telaEdicaoContrato:
-    def __init__(self,contractControler,tituloContrato,tipoContrato):
+    def __init__(self,root,controlers,tituloContrato,tipoContrato):
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
-        self.contractControler = contractControler
+        self.controlers = controlers
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
         # Setup
-        self.root = Tk()
-        self.root.geometry('800x600')
+        self.root = root
+        self.font = customtkinter.CTkFont('Helvetica', 14)
+        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
 
-        # Used to make title of the application
-        self.applicationName = 'Edição de Contrato'
-        self.root.title(self.applicationName)
+        cabecalho_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"]
+        }
+
+        # Cabeçalho
+        self.cabecalho = customtkinter.CTkFrame(self.root, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=customtkinter.X)
+
+        # Logo
+        self.logoJUS = customtkinter.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
+        self.logo_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
+        self.logo_cabecalho.pack(side=customtkinter.LEFT, padx=(18, 0), pady=7)
+
+        # Usuario foto
+        self.userPic = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
+        self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
+        self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
+
+        # Botão menu personalizado
+        voltar_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "hover_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#6EC1E4", "#6EC1E4"],
+            "text_color": "#000000",
+            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
+        }
+
+        # Texto menu e Botão de VOLTAR
+        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text=f"Edição {self.tituloContrato}", font=self.titulo_font)
+        self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
+
+        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
+
+         # Nome do usuario no cabeçalho
+        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
+        #self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
         # Current File Path
         self.filePath = None
@@ -40,9 +80,6 @@ class telaEdicaoContrato:
         fontName = 'Consolas'
         fontSize = 12
         padding = 20
-
-        # Infos about the Document are stored here
-        document = None
 
         # Default content of the File
         self.defaultContent = {
@@ -286,12 +323,13 @@ class telaEdicaoContrato:
 
         self.textArea = Text(self.frame_texto, font=f'Consolas {fontSize}', relief=FLAT, wrap=WORD, padx=padding, pady=padding, bd=0, undo=True)  # Enable undo
         self.textArea.pack(fill=BOTH, expand=TRUE)
-
         # Bind Ctrl+Z to undo
         self.textArea.bind("<Control-z>", lambda event: self.textArea.edit_undo())
-
-
         self.resetTags()
+
+        
+        
+        self.fileManager(event=None, action='open')
 
         self.root.mainloop()
 
@@ -313,9 +351,9 @@ class telaEdicaoContrato:
         global document, filePath
         # Open
         if action == 'open':
+            retornoBD = self.controlers['contract'].modeloDeContrato().get_by_title(self.tituloContrato)
             
-            document = loads("Conteúdo do json montado aqui")
-
+            document = loads(retornoBD)
             # Delete Content
             self.textArea.delete('1.0', END)
             
@@ -355,7 +393,7 @@ class telaEdicaoContrato:
                     "tipoContrato" : self.tipoContrato,
                     "textoContrato" : contractContent
                 }
-                self.contractControler.modeloDeContrato(contract_data).create()
+                self.controlers['contract'].modeloDeContrato(contract_data).create()
             elif action == 'preview':
                 return contractContent
             
@@ -395,7 +433,8 @@ class telaEdicaoContrato:
                 self.textArea.insert("1.0",e)
                 print(e)
 
-
+    def voltar_funcao(self):
+        pass
     def create_rounded_button(self,text, command, fg_color, hover_color, width):
         return customtkinter.CTkButton(self.frame_botoes, text=text, command=command, fg_color=fg_color, hover_color=hover_color, width=width, font=('Calibri', 15, 'bold'))
     

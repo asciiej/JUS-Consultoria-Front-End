@@ -159,7 +159,10 @@ class ContratadoControler(Controler):
 class ModeloDeContratoControler(Controler):
   def create(self):
     textoContrato = split_string(self.contract["textoContrato"])
-    self.manager.create_contract_model(self.contract["tituloContrato"],self.contract["tipoContrato"],textoContrato)
+    if not self.manager.get_contract_model_byTitle(self.contract["tituloContrato"]):
+      self.manager.create_contract_model(self.contract["tituloContrato"],self.contract["tipoContrato"],textoContrato)
+    print("Contrato já está cadastrado no banco")
+    self.manager.update_contract_model(self.contract["tituloContrato"],textoContrato)
 
   def get_by_id(self,id):
     retornoBD =  self.manager.get_contract_model_byId(id)
