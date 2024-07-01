@@ -255,24 +255,11 @@ class telaPrincipal:
             self.button3_2 = customtkinter.CTkButton(self.square3_2, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Licença de Uso de Software"), **botao)
             self.button3_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
-            self.square3_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-            self.square3_3.grid(row = 2,column=2,padx = 20,pady = 20)
-            self.square3_3.pack_propagate(False)
-            #Imagem
-            self.img3_3 = customtkinter.CTkImage(Image.open('imagens/UsoSoftware.png'), size=(200, 72))
-            self.img_label3_3 = customtkinter.CTkLabel(self.square3_3, image=self.img3_3, text="")
-            self.img_label3_3.pack(side=customtkinter.TOP, pady=(20, 0))
-            #Título
-            self.h2_3_3 = customtkinter.CTkLabel(self.square3_3, text="CONTRATO DE CESSÃO DE\nDIREITO DE USO DE SOFTWARE", font=("Calibri", 15))
-            self.h2_3_3.pack(side=customtkinter.TOP, pady=(12, 0))
-            #Botão
-            self.button3_3 = customtkinter.CTkButton(self.square3_3, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Cessão de Direito de Uso de Software"), **botao)
-            self.button3_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
         #Quarta linha
 
             self.square4_1 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-            self.square4_1.grid(row = 3,column=0,padx= 20,pady = 20)
+            self.square4_1.grid(row = 2,column=2,padx= 20,pady = 20)
             self.square4_1.pack_propagate(False)
             #Imagem
             self.img4_1 = customtkinter.CTkImage(Image.open('imagens/Intelectual.png'), size=(200, 72))
@@ -286,7 +273,7 @@ class telaPrincipal:
             self.button4_1.pack(side=customtkinter.BOTTOM, pady=(0, 36))
 
             self.square4_2 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-            self.square4_2.grid(row = 3,column=1,padx = 20,pady = 20)
+            self.square4_2.grid(row = 3,column=0,padx = 20,pady = 20)
             self.square4_2.pack_propagate(False)
             #Imagem
             self.img4_2 = customtkinter.CTkImage(Image.open('imagens/Franquia.png'), size=(200, 72))
@@ -300,7 +287,7 @@ class telaPrincipal:
             self.button4_2.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
             self.square4_3 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-            self.square4_3.grid(row = 3,column=2,padx = 20,pady = 20)
+            self.square4_3.grid(row = 3,column=1,padx = 20,pady = 20)
             self.square4_3.pack_propagate(False)
             #Imagem
             self.img4_3 = customtkinter.CTkImage(Image.open('imagens/Indeterminado.png'), size=(200, 72))
@@ -314,7 +301,7 @@ class telaPrincipal:
             self.button4_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
             self.square5_1 = customtkinter.CTkFrame(self.frame_consultoria_empresarial, **card)
-            self.square5_1.grid(row = 4,column=0,padx = 20,pady = 20)
+            self.square5_1.grid(row = 3,column=2,padx = 20,pady = 20)
             self.square5_1.pack_propagate(False)
             #Imagem
             self.img5_1 = customtkinter.CTkImage(Image.open('imagens/Editar.png'), size=(200, 72))
