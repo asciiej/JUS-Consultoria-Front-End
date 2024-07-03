@@ -7,12 +7,13 @@ from ..utilitarios.user_session import USER_SESSION
 
 
 class alterarAcesso:
-    def __init__(self,janela):
+    def __init__(self,janela, controlers):
         customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
 
         self.janela = janela
         self.font = customtkinter.CTkFont('Helvetica', 14)
         self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
+        self.controlers = controlers
 
         # Cabeçalho menu personalizado
         cabecalho_menu = {
@@ -91,20 +92,13 @@ class alterarAcesso:
 
         self.frame_usuarios = []
 
-        usuarios = [
-            {"nome": "Lucas Simoni", "cpf": "123.456.789-00"},
-            {"nome": "Lucas Bertoline", "cpf": "987.654.321-00"},
-            {"nome": "Lucas Bepler", "cpf": "666.777.666-24"},
-            {"nome": "Lucas Manieri", "cpf": "111.111.111-11"},
-            {"nome": "Lucas Melo", "cpf": "222.222.222-22"},
-            {"nome": "Lucas Trevisan", "cpf": "333.333.333-33"},
-        ]
+        usuarios = controlers['usuario'].get_all_users()
 
         for usuario in usuarios:
             novo_frame = customtkinter.CTkFrame(self.frame, **user_frame)
             novo_frame.pack(pady=(10, 0))
             novo_frame.pack_propagate(False)
-            
+
 
             # Usuario foto
             self.foto = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(70, 70))
@@ -112,10 +106,10 @@ class alterarAcesso:
             self.foto_usuario.pack(side=customtkinter.LEFT, anchor=customtkinter.NW, padx=(20, 0), pady=(10, 0))
 
             # Labels para exibir nome e CPF do usuário
-            nome = customtkinter.CTkLabel(novo_frame, text=f"{usuario['nome']}", font=self.titulo_font)
+            nome = customtkinter.CTkLabel(novo_frame, text=f"{usuario.nome}", font=self.titulo_font)
             nome.pack(side=customtkinter.LEFT, anchor=customtkinter.NW, padx=(10, 0), pady=(30, 0))
 
-            cpf = customtkinter.CTkLabel(novo_frame, text=f"CPF: {usuario['cpf']}", font=self.font)
+            cpf = customtkinter.CTkLabel(novo_frame, text=f"CPF: {usuario.cpf}", font=self.font)
             cpf.pack(side=customtkinter.LEFT, anchor=customtkinter.NW, padx=(15, 0), pady=(32, 0))
 
             checkbox = {
@@ -129,7 +123,7 @@ class alterarAcesso:
                 "font": ("Helvetica", 14)
             }
 
-            
+
             self.cb_consultoria_empresarial = customtkinter.CTkCheckBox(novo_frame, text="Consultoria Empresarial", **checkbox)
 
             self.cb_consultoria_tributaria = customtkinter.CTkCheckBox(novo_frame, text="Consultoria Tributária", **checkbox)
@@ -188,7 +182,7 @@ class alterarAcesso:
 
             self.frame_usuarios.append(novo_frame)
 
-            
+
 
         # Pesquisar usuarios
         self.caixa_busca.bind("<KeyRelease>", self.pesquisar_usuarios)
@@ -196,7 +190,9 @@ class alterarAcesso:
         self.janela.mainloop()
 
     def toggle_frame_expansion(self, frame, initial_height, usuario, botao_alterar, botao_cancelar, botao_submeter,cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
-        if frame.winfo_height() == 106:
+        current_height = frame.winfo_height()
+        print(f"Current frame height: {current_height}")
+        if frame.winfo_height() == current_height:
             #print(f"Expandindo ! {usuario['cpf']}")
             frame.configure(height=285)
             botao_alterar.pack_forget()
@@ -209,7 +205,7 @@ class alterarAcesso:
             botao_cancelar.pack(side=customtkinter.RIGHT, anchor=customtkinter.SE, padx=(0, 20), pady=(0, 20))
         else:
            #print(f"Fechando !{usuario['nome']}")
-            frame.configure(height=85)
+            frame.configure(height=current_height-80)
             botao_cancelar.pack_forget()
             botao_submeter.pack_forget()
 

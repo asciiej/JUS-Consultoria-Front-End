@@ -11,7 +11,7 @@ class TelaLogin:
         ctk.set_default_color_theme("lib/temaTkinterCustom.json")
         ctk.set_appearance_mode("light")
 
-        self.root = ctk.CTk()   
+        self.root = ctk.CTk()
         largura_tela = self.root.winfo_screenwidth()
         altura_tela = self.root.winfo_screenheight()
         self.root.geometry(f"{largura_tela}x{altura_tela}-10+0")
@@ -89,8 +89,8 @@ class TelaLogin:
         print(teste)
         self.clear_login_screen()
         if USER_SESSION.is_admin():
+            print("admin")
             telaPrincipalAdm(self.root,self.controlers)
-            pass
         else:
             telaPrincipal(self.root,self.controlers)
         print(f"Email: {email}, Password: {password}")

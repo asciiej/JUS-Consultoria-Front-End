@@ -67,6 +67,9 @@ if __name__ == "__main__":
 
 	# con = controlers['contract'].empresarial().get_by_id(8)
 	# print(con.str())
+	# controlers['usuario'].login('araujomat@pwi.com', '111')
+	# print(controlers['usuario'].get_all_users())
+
 
 	TelaLogin(controlers)
 	# AtualizaCad(controlers)
