@@ -79,7 +79,7 @@ class redirecionaGOV:
         self.frame.pack_propagate(False)
 
         # Texto
-        self.h2 = customtkinter.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
+        self.h2 = customtkinter.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias e arbitragens, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
         self.h2.pack(side=customtkinter.TOP, padx=(0, 0), pady=(100, 50))
         #self.h2.place(x=120, y=120)
 
@@ -114,7 +114,7 @@ class redirecionaGOV:
         botao_baixar.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 30))
 
         # Redireciona GOV
-        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br",command=self.func_gov, **GOV)
+        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br para a assinatura digital",command=self.func_gov, **GOV)
         botao_gov.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 0))
 
         self.janela.mainloop()

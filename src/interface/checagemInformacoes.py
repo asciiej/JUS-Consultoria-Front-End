@@ -1,17 +1,22 @@
 from src.interface.assinaturaDocumento import telaAssinaturaDocumento
-import tkinter
-from tkinter import ttk
 import customtkinter
 from PIL import Image
 from ..utilitarios.user_session import USER_SESSION
-from functools import partial
+from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
+
 
 
 class checagemInformacoes:
     def __init__(self,janela,id:int,tipo:str,título:str,controlers:dict):
-        print(título)
         self.tipo = tipo
         self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(título)
+
+        if tipo == "Consultoria Tributária":
+            self.contract = controlers['contract'].tributaria()
+        elif tipo == "Câmara de Arbitragem":
+            self.contract = controlers['contract'].arbitragem()
+        elif tipo == "Consultoria Empresarial":
+            self.contract = controlers['contract'].empresarial()
             
         customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
 
@@ -39,17 +44,6 @@ class checagemInformacoes:
         self.userPic = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
         self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
         self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
-
-        # Botão menu personalizado
-        voltar_menu = {
-            "corner_radius": 0,
-            "border_width": 0,
-            "fg_color": ["#6EC1E4", "#6EC1E4"],
-            "hover_color": ["#6EC1E4", "#6EC1E4"],
-            "border_color": ["#6EC1E4", "#6EC1E4"],
-            "text_color": "#000000",
-            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
-        }
 
         # Texto menu e Botão de VOLTAR
         self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
@@ -92,7 +86,7 @@ class checagemInformacoes:
                 case 2:
                     retorno = self.get_informacoesNegocio()
 
-        self.finalDict = self.combine_dicts(self.finalDict,retorno)
+        self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
 
@@ -104,11 +98,25 @@ class checagemInformacoes:
                     self.informacoesNegocio()
                 case 2:
                     self.clear_check_screen()
-                    telaAssinaturaDocumento(self.janela,self.retornoBD,self.finalDict)
+                    self.contract.setContractData(self.finalDict)
+                    self.formPdf()
+                    telaAssinaturaDocumento(self.janela)
             self.pagina +=1
         else:
             self.clear_check_screen()
-            telaAssinaturaDocumento(self.janela,self.retornoBD,self.finalDict)
+            self.contract.setContractData(self.finalDict)
+            self.formPdf()
+            telaAssinaturaDocumento(self.janela)
+
+    def formPdf(self):
+        pdf_saida = './pdfs/pdf_final.pdf'
+        papel_timbrado = './pdfs/papelTimbrado.pdf'
+        pdf_com_texto = './pdfs/output.pdf'
+        try:
+            translateDict = self.contract.getTranslateDict()
+            convertPDF(self.retornoBD, papel_timbrado, pdf_com_texto, pdf_saida,translateDict).run()
+        except Exception as e:
+            print("Excessão na abertura do arquivo: ",e)
     
     def clear_check_screen(self):
         """Função para limpar a tela de login."""
@@ -296,86 +304,52 @@ class checagemInformacoes:
 
 
     def get_informacoesNegocio(self):
-        dictInformacoesDoNegocio = {
-            "$$valor$$": self.ValorEntry.get(),
-            "$$formadepagamento$$": self.FormaPagamentoEntry.get(),
-            "$$multademora$$": self.MultaDeMoraEntry.get(),
-            "$$jurosdemora$$": self.JurosDeMoraEntry.get(),
-            "$$correçãomonetária$$": self.CorrecaoMonetariaEntry.get(),
-            "$$prazodeduração$$": self.PrazoDuracaoEntry.get(),
-        }
-        return dictInformacoesDoNegocio
+        contract_data = {
+		'valor': self.ValorEntry.get(),
+		'forma_pagamento': self.FormaPagamentoEntry.get(),
+		'multa_mora': self.MultaDeMoraEntry.get(),
+		'juros_mora': self.JurosDeMoraEntry.get(),
+		'correcao_monetaria': self.CorrecaoMonetariaEntry.get(),
+		'prazo_duracao': self.PrazoDuracaoEntry.get(),
+		'contratante': self.contratante_data,
+		'contratado': self.contratado_data
+	    }
+        return contract_data
     
     def get_informacoesEmpresariais(self):
         dictInformacoesEmpresariais = {
-            "$$nomedaempresa$$": self.NomeEntry.get(),
-            "$$cnpj$$": self.CnpjEntry.get(),
-            "$$cnaeprincipal$$": self.Cnae1Entry.get(),
-            "$$cnaesecundário$$": self.Cnae2Entry.get(),
-            "$$cfopprincipaisprodutos$$": self.CfopEntry.get(),
-            "$$indústria/setor$$": self.IndustriaSetorEntry.get(),
-            "$$receitaanual$$": self.ReceitaAnualEntry.get(),
+            'nome_empresa': self.NomeEntry.get(),
+            'cnpj': self.CnpjEntry.get(),
+            'cnae_principal': self.Cnae1Entry.get(), 
+            'cnae_secundaria': self.Cnae2Entry.get(), 
+            'cfop_principais': self.CfopEntry.get(), 
+            'industria_setor': self.IndustriaSetorEntry.get(),
+            'receita_anual': self.ReceitaAnualEntry.get()
         }
         return dictInformacoesEmpresariais
+
     
     def get_informacoesContratado(self,contratante):
         if contratante == "Contratante":
-            dictContratante = {            
-            "$$nomecompletocontratante$$": self.NomeContractEntry.get(),
-            "$$nacionalidadecontratante$$": self.NacionalidadeEntry.get(),
-            "$$estadocivilcontratante$$": self.EstadoCivilEntry.get(),
-            "$$profissãocontratante$$": self.ProfissaoEntry.get(),
-            "$$cpfoucnpjcontratante$$": self.CpfOuCnpjEntry.get(),
-            "$$endereçoresidêncial/comercialcontratante$$":self.EnderecoEntry.get(),
-        }
-            return dictContratante
+            self.contratante_data = {
+                'nome': self.NomeContractEntry.get(),
+                'nacionalidade': self.NacionalidadeEntry.get(),
+                'estadocivil': self.EstadoCivilEntry.get(),
+                'cpf': self.CpfOuCnpjEntry.get(),
+                'profissao': self.ProfissaoEntry.get(),
+                'endereco': self.EnderecoEntry.get()
+            }
+            return None
         elif contratante == "Contratada":
-            dictContratado = {
-            "$$nomecompletocontratado$$": self.NomeContractEntry.get(),
-            "$$nacionalidadecontratado$$": self.NacionalidadeEntry.get(),
-            "$$estadocivilcontratado$$": self.EstadoCivilEntry.get(),
-            "$$profissãocontratado$$": self.ProfissaoEntry.get(),
-            "$$cpfoucnpjcontratado$$": self.CpfOuCnpjEntry.get(),
-            "$$endereçoresidêncial/comercialcontratado$$": self.EnderecoEntry.get(),
-        }
-            return dictContratado
-    
-    def combine_dicts(self,dict1, dict2):
-        # Verifica se o primeiro dicionário é nulo
-        if dict1 is None:
-            # Retorna uma cópia do segundo dicionário se o primeiro for nulo
-            return dict(dict2) if dict2 else {}
-
-        # Verifica se o segundo dicionário é nulo
-        if dict2 is None:
-            # Retorna uma cópia do primeiro dicionário se o segundo for nulo
-            return dict(dict1)
-
-        # Cria um terceiro dicionário combinando os dois
-        combined_dict = dict(dict1)  # Cria uma cópia do primeiro dicionário
-        combined_dict.update(dict2)  # Atualiza com os valores do segundo dicionário
-
-        return combined_dict
+            self.contratado_data = {
+                'nome': self.NomeContractEntry.get(),
+                'nacionalidade': self.NacionalidadeEntry.get(),
+                'estadocivil': self.EstadoCivilEntry.get(),
+                'cpf': self.CpfOuCnpjEntry.get(),
+                'profissao': self.ProfissaoEntry.get(),
+                'endereco': self.EnderecoEntry.get()
+            }
+            return None
 
     def voltar_funcao(self):
         pass
-
-
-if __name__ == "__main__":
-    app = checagemInformacoes("Consultoria Empresarial")
-
-
-
-
-
-
-# dictUser = {
-#             "$$nome$$": ,
-#             "$$sobrenome$$": ,
-#             "$$cpf$$": ,
-#             "$$empresa$$": ,
-#             "$$cargo$$": ,
-#             "$$email$$": ,
-#             "$$telefone$$": ,
-#             "$$país/localização$$": ,
-#         }    

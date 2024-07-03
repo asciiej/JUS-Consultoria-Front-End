@@ -66,7 +66,7 @@ class telaPrincipal:
         self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
-        self.botao_editar_dados = customtkinter.CTkButton(self.cabecalho, text="Editar", command=self.click_editar_dados, **opcao_menu)
+        self.botao_editar_dados = customtkinter.CTkButton(self.cabecalho, text="Editar dados pessoais", command=self.click_editar_dados, **opcao_menu)
         self.botao_editar_dados.pack(side=customtkinter.LEFT, padx=(25,0))
 
         # Calcular a altura do "body"

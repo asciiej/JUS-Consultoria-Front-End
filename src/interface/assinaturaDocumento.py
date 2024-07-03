@@ -1,25 +1,14 @@
 from tkinter import *
-import tkinter as tk
-from tkinter.filedialog import askopenfilename, asksaveasfilename
 import ctypes
-from functools import partial
-from json import loads, dumps
 from tkinter import ttk
 import customtkinter
 from src.utilitarios.visualizadorPDF import PDFReader
-from src.utilitarios.operacoesDocumento import convertPDF
 
 class telaAssinaturaDocumento:
-    def __init__(self,root,json_input,substitutions : dict):
+    def __init__(self,root):
         #self.contractControler = contractControler
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
-        pdf_saida = './pdfs/pdf_final.pdf'
-        papel_timbrado = './pdfs/papelTimbrado.pdf'
-        pdf_com_texto = './pdfs/output.pdf'
-        try:
-            convertPDF(json_input, papel_timbrado, pdf_com_texto, pdf_saida,substitutions).run()
-        except Exception as e:
-            print("Excessão na abertura do arquivo: ",e)
+        
 
         fontName = 'Consolas'
         fontSize = 12

@@ -14,6 +14,7 @@ class telaEdicaoContrato:
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
         self.controlers = controlers
+        self.custom_info = []
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
         # Setup
@@ -391,7 +392,8 @@ class telaEdicaoContrato:
                 contract_data = {
                     "tituloContrato" : self.tituloContrato,
                     "tipoContrato" : self.tipoContrato,
-                    "textoContrato" : contractContent
+                    "textoContrato" : contractContent,
+                    "campos_personalizados" : self.custom_info
                 }
                 self.controlers['contract'].modeloDeContrato(contract_data).create()
             elif action == 'preview':
@@ -412,6 +414,7 @@ class telaEdicaoContrato:
     def add_custom_info(self,info):
         if info == "customItem":
             info = f"$${self.entryInfoPersonalizada.get()}$$"
+            self.custom_info.append(self.entryInfoPersonalizada.get())
         self.textArea.insert(tk.INSERT, info)
 
 

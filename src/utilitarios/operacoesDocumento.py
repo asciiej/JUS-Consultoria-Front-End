@@ -7,6 +7,17 @@ from PyPDF2 import PdfReader, PdfWriter, PageObject
 from itertools import islice
 from functools import cmp_to_key
 
+
+def combine_dicts(dict1, dict2):
+    if dict1 is None:
+        return dict(dict2) if dict2 else {}
+    if dict2 is None:
+        return dict(dict1)
+    combined_dict = dict(dict1)  
+    combined_dict.update(dict2)  
+
+    return combined_dict
+
 def split_string(input_string, chunk_size=65520):
     """
     Divide a string em tuplas de tamanho especificado.

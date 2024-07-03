@@ -1,5 +1,6 @@
 import config
-from src.utilitarios.operacoesDocumento import split_string,recombine_string
+from src.utilitarios.operacoesDocumento import split_string,recombine_string,combine_dicts  
+from src.utilitarios.user_session import USER_SESSION
 
 class ContractControler:
   def __init__(self, manager):
@@ -28,9 +29,30 @@ class Controler():
     self.manager = manager
     self.contract = contract_data
 
+  def setContractData(self,contract_data : dict):
+    print(contract_data)
+    self.contract = contract_data
+
+  def getTranslateDict(self):
+    return USER_SESSION.get_user_data().getTranslateDict()
+
 class ArbitragemControler(Controler):
   def create(self):
     return self.manager.create_arbitragem(self.contract['nome_empresa'], self.contract['cnpj'], self.contract['cnae_principal'], self.contract['cnae_secundaria'], self.contract['cfop_principais'], self.contract['industria_setor'], self.contract['receita_anual'])
+  
+  def getTranslateDict(self):
+    userDict = super().getTranslateDict()
+    dictInformacoesEmpresariais = {
+      "$$nomedaempresa$$": self.contract['nome_empresa'],
+      "$$cnpj$$": self.contract['cnpj'],
+      "$$cnaeprincipal$$": self.contract['cnae_principal'],
+      "$$cnaesecundário$$":  self.contract['cnae_secundaria'],
+      "$$cfopprincipaisprodutos$$": self.contract['cfop_principais'],
+      "$$indústria/setor$$":self.contract['industria_setor'],
+      "$$receitaanual$$":  self.contract['receita_anual'],
+      }
+    return combine_dicts(userDict,dictInformacoesEmpresariais)
+        
 
 class TributariaControler(Controler):
   def create(self):
@@ -47,6 +69,19 @@ class TributariaControler(Controler):
 
   def delete(self, contract_id):
     return self.manager.delete_tributaria(contract_id)
+  
+  def getTranslateDict(self):
+    userDict = super().getTranslateDict()
+    dictInformacoesEmpresariais = {
+      "$$nomedaempresa$$": self.contract['nome_empresa'],
+      "$$cnpj$$": self.contract['cnpj'],
+      "$$cnaeprincipal$$": self.contract['cnae_principal'],
+      "$$cnaesecundário$$":  self.contract['cnae_secundaria'],
+      "$$cfopprincipaisprodutos$$": self.contract['cfop_principais'],
+      "$$indústria/setor$$":self.contract['industria_setor'],
+      "$$receitaanual$$":  self.contract['receita_anual'],
+      }
+    return combine_dicts(userDict,dictInformacoesEmpresariais)
 
 class ContratanteControler(Controler):
   def create(self, contratante_data):
@@ -63,6 +98,17 @@ class ContratanteControler(Controler):
 
   def delete(self, contratante_id):
     return self.manager.delete_contratante(contratante_id)
+  
+  def getTranslateDict(self,contratante_data):
+    dictContratante = {            
+      "$$nomecompletocontratante$$": contratante_data['nome'],
+      "$$nacionalidadecontratante$$":  contratante_data['nacionalidade'],
+      "$$estadocivilcontratante$$": contratante_data['estadocivil'],
+      "$$profissãocontratante$$": contratante_data['profissao'],
+      "$$cpfoucnpjcontratante$$": contratante_data['cpf'],
+      "$$endereçoresidêncial/comercialcontratante$$": contratante_data['endereco'],
+      }
+    return dictContratante
 
 class ContratadoControler(Controler):
   def create(self, contratado_data):
@@ -79,6 +125,17 @@ class ContratadoControler(Controler):
 
   def delete(self, contratado_id):
     return self.manager.delete_contratado(contratado_id)
+  
+  def getTranslateDict(self,contratante_data):
+    contratadoDict = {
+      "$$nomecompletocontratado$$": contratante_data['nome'],
+      "$$nacionalidadecontratado$$": contratante_data['nacionalidade'],
+      "$$estadocivilcontratado$$": contratante_data['estadocivil'],
+      "$$profissãocontratado$$": contratante_data['profissao'],
+      "$$cpfoucnpjcontratado$$": contratante_data['cpf'],
+      "$$endereçoresidêncial/comercialcontratado$$":  contratante_data['endereco'],
+    }
+    return contratadoDict
 
 class EmpresarialControler(Controler):
   def create(self):
@@ -122,37 +179,21 @@ class EmpresarialControler(Controler):
   def delete(self, contract_id):
     return self.manager.delete_empresarial_contract(contract_id)
   
-class ContratanteControler(Controler):
-  def create(self):
-    return self.manager.create_contratante(self.contract['nome'], self.contract['nacionalidade'], self.contract['estadocivil'], self.contract['cpf'], self.contract['profissao'], self.contract['endereco'])
-
-  def get_contratante_by_id(self, contratante_id):
-    return self.manager.get_contratante_by_id(contratante_id)
-  
-  def get_all_contratante(self):
-    return self.manager.get_all_contratante()
-  
-  def update(self, contratante_id):
-    return self.manager.update_contratante(contratante_id)
-  
-  def delete(self, contratante_id):
-    return self.manager.delete_contratante(contratante_id)
-  
-class ContratadoControler(Controler):
-  def create(self):
-    return self.manager.create_contratado(self.contract['nome'], self.contract['nacionalidade'], self.contract['estadocivil'], self.contract['cpf'], self.contract['profissao'], self.contract['endereco'])
-
-  def get_contratado_by_id(self, contratado_id):
-    return self.manager.get_contratado_by_id(contratado_id)
-  
-  def get_all_contratado(self):
-    return self.manager.get_all_contratado()
-  
-  def update(self, contratado_id):
-    return self.manager.update_contratado(contratado_id)
-  
-  def delete(self, contratado_id):
-    return self.manager.delete_contratado(contratado_id)
+  def getTranslateDict(self):
+    userDict = super().getTranslateDict()
+    dictInformacoesDoNegocio = {
+      "$$valor$$": self.contract['valor'],
+      "$$formadepagamento$$": self.contract['forma_pagamento'],
+      "$$multademora$$": self.contract['multa_mora'],
+      "$$jurosdemora$$": self.contract['juros_mora'],
+      "$$correçãomonetária$$": self.contract['correcao_monetaria'],
+      "$$prazodeduração$$": self.contract['prazo_duracao'],
+    }
+    dictContratante = ContratanteControler.getTranslateDict(self,self.contract['contratante'])
+    dictContratado = ContratadoControler.getTranslateDict(self, self.contract['contratado'])
+    finalDict = combine_dicts(dictInformacoesDoNegocio,userDict)
+    finalDict = combine_dicts(finalDict,dictContratado)
+    return combine_dicts(finalDict,dictContratante)
 
 
 
@@ -160,9 +201,9 @@ class ModeloDeContratoControler(Controler):
   def create(self):
     textoContrato = split_string(self.contract["textoContrato"])
     if not self.manager.get_contract_model_byTitle(self.contract["tituloContrato"]):
-      self.manager.create_contract_model(self.contract["tituloContrato"],self.contract["tipoContrato"],textoContrato)
+      self.manager.create_contract_model(self.contract["tituloContrato"],self.contract["tipoContrato"],textoContrato,self.contract['campos_personalizados'])
     print("Contrato já está cadastrado no banco")
-    self.manager.update_contract_model(self.contract["tituloContrato"],textoContrato)
+    self.manager.update_contract_model(self.contract["tituloContrato"],textoContrato,self.contract['campos_personalizados'])
 
   def get_by_id(self,id):
     retornoBD =  self.manager.get_contract_model_byId(id)
