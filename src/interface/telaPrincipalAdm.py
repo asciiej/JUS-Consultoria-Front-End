@@ -368,7 +368,7 @@ class telaPrincipalAdm:
         self.button1_3 = customtkinter.CTkButton(self.square1_3, text="Edite", command=partial(self.choose_contract,"Consultoria Tributária","Contrato Editável Tributária"), **botao)
         self.button1_3.pack(side=customtkinter.BOTTOM, pady=(0, 45))
 
-    
+
 
         #Câmara de Arbitragem
 
@@ -465,9 +465,9 @@ class telaPrincipalAdm:
         for widget in self.janela.winfo_children():
             widget.destroy()
         telaEdicaoContrato(self.janela,self.controlers,titulo,tipo)
-    
+
     def alterarNivelAcesso(self):
         self.janela.unbind("<Configure>")
         for widget in self.janela.winfo_children():
             widget.destroy()
-        alterarAcesso(self.janela)
+        alterarAcesso(self.janela, self.controlers)

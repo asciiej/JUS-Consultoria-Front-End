@@ -1,5 +1,6 @@
 import os
 import re
+import customtkinter
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
 from PIL import Image, ImageTk
@@ -8,6 +9,7 @@ class telaCadastro:
     def __init__(self,parent,controlers):
         self.TkCadastro = parent
         self.controlers = controlers
+        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
 
         self.canvas = Canvas(
             self.TkCadastro,
@@ -18,6 +20,26 @@ class telaCadastro:
             highlightthickness=0,
             relief="ridge"
         )
+
+        self.canvas.pack_propagate(False)
+
+         # Botão menu personalizado
+        voltar_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "hover_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#6EC1E4", "#6EC1E4"],
+            "text_color": "#000000",
+            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
+        }
+
+         # Texto menu e Botão de VOLTAR
+        self.h1_titulo = customtkinter.CTkLabel(self.canvas, text="Mudar nível de acesso de usuário", font=self.titulo_font)
+        self.h1_titulo.pack(side=customtkinter.TOP, padx=(25, 0))
+
+        self.voltar = customtkinter.CTkButton(self.canvas, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar.pack(side=customtkinter.TOP, padx=(700, 0))
 
         self.canvas.place(x=0, y=0)
         #self.retangulo_vermelho = self.canvas.create_rectangle(441, 80, 300, 200, fill="red")
@@ -269,3 +291,17 @@ class telaCadastro:
     def select_cargo(self, cargo):
         self.selected_cargo = cargo
         self.cargo_button.config(text=cargo)
+
+    def voltar_funcao(self):
+      self.clear_fields()
+
+    def clear_fields(self):
+        self.entry_1.delete(0, 'end')
+        self.entry_2.delete(0, 'end')
+        self.entry_paisLocalizacao.delete(0, 'end')
+        self.entry_cpf.delete(0, 'end')
+        self.entry_3.delete(0, 'end')
+        self.entry_4.delete(0, 'end')
+        self.entry_5.delete(0, 'end')
+        self.entry_7.delete(0, 'end')
+        self.entry_8.delete(0, 'end')

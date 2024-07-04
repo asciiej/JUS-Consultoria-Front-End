@@ -1,18 +1,17 @@
 import tkinter as tk
-import customtkinter
+import customtkinter as ctk
 from PIL import Image
 from functools import partial
 from ..utilitarios.user_session import USER_SESSION
-#from ..utilitarios.user_session import USER_SESSION
-
 
 class alterarAcesso:
-    def __init__(self,janela):
-        customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
+    def __init__(self, janela, controlers):
+        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
 
         self.janela = janela
-        self.font = customtkinter.CTkFont('Helvetica', 14)
-        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
+        self.font = ctk.CTkFont('Helvetica', 14)
+        self.titulo_font = ctk.CTkFont('Helvetica', 20)
+        self.controlers = controlers
 
         # Cabeçalho menu personalizado
         cabecalho_menu = {
@@ -22,18 +21,18 @@ class alterarAcesso:
         }
 
         # Cabeçalho
-        self.cabecalho = customtkinter.CTkFrame(self.janela, height=104, **cabecalho_menu)
-        self.cabecalho.pack(fill=customtkinter.X)
+        self.cabecalho = ctk.CTkFrame(self.janela, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=ctk.X)
 
         # Logo
-        self.logoJUS = customtkinter.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
-        self.logo_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
-        self.logo_cabecalho.pack(side=customtkinter.LEFT, padx=(18, 0), pady=7)
+        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
+        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
+        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
 
         # Usuario foto
-        self.userPic = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
-        self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
-        self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
+        self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
+        self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
+        self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
 
         # Botão menu personalizado
         voltar_menu = {
@@ -47,15 +46,15 @@ class alterarAcesso:
         }
 
         # Texto menu e Botão de VOLTAR
-        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text="Mudar nível de acesso de usuário", font=self.titulo_font)
-        self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
+        self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Mudar nível de acesso de usuário", font=self.titulo_font)
+        self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
-        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
-         # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
-        self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
+        # Nome do usuario no cabeçalho
+        self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
         self.janela.update_idletasks()
@@ -68,7 +67,7 @@ class alterarAcesso:
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         # Frame
-        self.frame = customtkinter.CTkScrollableFrame(self.canvas, height=480, width=900)
+        self.frame = ctk.CTkScrollableFrame(self.canvas, height=480, width=900)
         self.frame.pack(pady=(100, 0))
 
         caixa_busca = {
@@ -79,7 +78,7 @@ class alterarAcesso:
         }
 
         # Caixa de busca
-        self.caixa_busca = customtkinter.CTkEntry(self.frame, **caixa_busca, placeholder_text="Pesquise o nome de um usuário")
+        self.caixa_busca = ctk.CTkEntry(self.frame, **caixa_busca, placeholder_text="Pesquise o nome de um usuário")
         self.caixa_busca.pack(padx=20, pady=20, side=tk.TOP)
 
         user_frame = {
@@ -91,32 +90,24 @@ class alterarAcesso:
 
         self.frame_usuarios = []
 
-        usuarios = [
-            {"nome": "Lucas Simoni", "cpf": "123.456.789-00"},
-            {"nome": "Lucas Bertoline", "cpf": "987.654.321-00"},
-            {"nome": "Lucas Bepler", "cpf": "666.777.666-24"},
-            {"nome": "Lucas Manieri", "cpf": "111.111.111-11"},
-            {"nome": "Lucas Melo", "cpf": "222.222.222-22"},
-            {"nome": "Lucas Trevisan", "cpf": "333.333.333-33"},
-        ]
+        usuarios = controlers['usuario'].get_all_users()
 
         for usuario in usuarios:
-            novo_frame = customtkinter.CTkFrame(self.frame, **user_frame)
+            novo_frame = ctk.CTkFrame(self.frame, **user_frame)
             novo_frame.pack(pady=(10, 0))
             novo_frame.pack_propagate(False)
-            
 
             # Usuario foto
-            self.foto = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(70, 70))
-            self.foto_usuario = customtkinter.CTkLabel(novo_frame, image=self.foto, text="")
-            self.foto_usuario.pack(side=customtkinter.LEFT, anchor=customtkinter.NW, padx=(20, 0), pady=(10, 0))
+            self.foto = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(70, 70))
+            self.foto_usuario = ctk.CTkLabel(novo_frame, image=self.foto, text="")
+            self.foto_usuario.pack(side=ctk.LEFT, anchor=ctk.NW, padx=(20, 0), pady=(10, 0))
 
             # Labels para exibir nome e CPF do usuário
-            nome = customtkinter.CTkLabel(novo_frame, text=f"{usuario['nome']}", font=self.titulo_font)
-            nome.pack(side=customtkinter.LEFT, anchor=customtkinter.NW, padx=(10, 0), pady=(30, 0))
+            nome = ctk.CTkLabel(novo_frame, text=f"{usuario.nome}", font=self.titulo_font)
+            nome.pack(side=ctk.LEFT, anchor=ctk.NW, padx=(10, 0), pady=(30, 0))
 
-            cpf = customtkinter.CTkLabel(novo_frame, text=f"CPF: {usuario['cpf']}", font=self.font)
-            cpf.pack(side=customtkinter.LEFT, anchor=customtkinter.NW, padx=(15, 0), pady=(32, 0))
+            cpf = ctk.CTkLabel(novo_frame, text=f"CPF: {usuario.cpf}", font=self.font)
+            cpf.pack(side=ctk.LEFT, anchor=ctk.NW, padx=(15, 0), pady=(32, 0))
 
             checkbox = {
                 "corner_radius": 5,
@@ -129,12 +120,9 @@ class alterarAcesso:
                 "font": ("Helvetica", 14)
             }
 
-            
-            self.cb_consultoria_empresarial = customtkinter.CTkCheckBox(novo_frame, text="Consultoria Empresarial", **checkbox)
-
-            self.cb_consultoria_tributaria = customtkinter.CTkCheckBox(novo_frame, text="Consultoria Tributária", **checkbox)
-
-            self.cb_camara_arbitragem = customtkinter.CTkCheckBox(novo_frame, text="Câmara de Arbitragem", **checkbox)
+            self.cb_consultoria_empresarial = ctk.CTkCheckBox(novo_frame, text="Consultoria Empresarial", **checkbox)
+            self.cb_consultoria_tributaria = ctk.CTkCheckBox(novo_frame, text="Consultoria Tributária", **checkbox)
+            self.cb_camara_arbitragem = ctk.CTkCheckBox(novo_frame, text="Câmara de Arbitragem", **checkbox)
 
             alterar = {
                 "corner_radius": 20,
@@ -172,59 +160,54 @@ class alterarAcesso:
                 "text_color_disabled": ["#EFEFEF", "#EFEFEF"]
             }
 
-            botao_alterar_acesso = customtkinter.CTkButton(novo_frame, text="Alterar Acesso", **alterar)
-            botao_alterar_acesso.pack(side=customtkinter.RIGHT, anchor=customtkinter.NE, padx=(0, 20), pady=(30, 0))
+            botao_alterar_acesso = ctk.CTkButton(novo_frame, text="Alterar Acesso", **alterar)
+            botao_alterar_acesso.pack(side=ctk.RIGHT, anchor=ctk.NE, padx=(0, 20), pady=(30, 0))
 
-            botao_submeter = customtkinter.CTkButton(novo_frame, text="Submeter Alterações", **submeter)
-            # botao_cancelar.pack(side=customtkinter.RIGHT, anchor=customtkinter.SE,padx=(0, 20), pady = (0,20))
-
-            botao_cancelar = customtkinter.CTkButton(novo_frame, text="Cancelar", **cancelarr)
-            # botao_cancelar.pack(side=customtkinter.RIGHT, anchor=customtkinter.SE,padx=(0, 20), pady = (0,20))
+            botao_submeter = ctk.CTkButton(novo_frame, text="Submeter Alterações", **submeter)
+            botao_cancelar = ctk.CTkButton(novo_frame, text="Cancelar", **cancelarr)
 
             # Função dos botões
-            botao_alterar_acesso.configure(command=partial(self.toggle_frame_expansion, novo_frame, novo_frame.winfo_height(), usuario, botao_alterar_acesso, botao_cancelar, botao_submeter,self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem))
-
-            botao_cancelar.configure(command=partial(self.toggle_frame_expansion, novo_frame, novo_frame.winfo_height(), usuario, botao_alterar_acesso, botao_cancelar, botao_submeter,self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem))
+            botao_alterar_acesso.configure(command=partial(self.toggle_frame_expansion, novo_frame, botao_alterar_acesso, botao_cancelar, botao_submeter, self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem))
+            botao_cancelar.configure(command=partial(self.toggle_frame_colapse, novo_frame, botao_alterar_acesso, botao_cancelar, botao_submeter, self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem))
 
             self.frame_usuarios.append(novo_frame)
-
-            
 
         # Pesquisar usuarios
         self.caixa_busca.bind("<KeyRelease>", self.pesquisar_usuarios)
 
         self.janela.mainloop()
 
-    def toggle_frame_expansion(self, frame, initial_height, usuario, botao_alterar, botao_cancelar, botao_submeter,cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
-        if frame.winfo_height() == 106:
-            #print(f"Expandindo ! {usuario['cpf']}")
-            frame.configure(height=285)
-            botao_alterar.pack_forget()
+    def toggle_frame_expansion(self, frame, botao_alterar, botao_cancelar, botao_submeter, cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
 
-            cb_consultoria_empresarial.place(x=42, y=100)
-            cb_consultoria_tributaria.place(x=42, y=150)
-            cb_camara_arbitragem.place(x=42, y=200)
+        altura_frame = frame.winfo_height()
 
-            botao_submeter.pack(side=customtkinter.RIGHT, anchor=customtkinter.SE,padx=(0, 20), pady = (0,20))
-            botao_cancelar.pack(side=customtkinter.RIGHT, anchor=customtkinter.SE, padx=(0, 20), pady=(0, 20))
-        else:
-           #print(f"Fechando !{usuario['nome']}")
-            frame.configure(height=85)
-            botao_cancelar.pack_forget()
-            botao_submeter.pack_forget()
+        #print(f"Expande!")
+        #print(f"Frame Expande: {altura_frame}")
+        frame.configure(height= altura_frame + 200)
+        botao_alterar.pack_forget()
+        cb_consultoria_empresarial.place(x=42, y=100)
+        cb_consultoria_tributaria.place(x=42, y=150)
+        cb_camara_arbitragem.place(x=42, y=200)
 
-            self.cb_consultoria_empresarial.pack_forget()
-            self.cb_consultoria_tributaria.pack_forget()
-            self.cb_camara_arbitragem.pack_forget()
+        botao_submeter.pack(side=ctk.RIGHT, anchor=ctk.SE, padx=(0, 20), pady=(0, 20))
+        botao_cancelar.pack(side=ctk.RIGHT, anchor=ctk.SE, padx=(0, 20), pady=(0, 20))
 
-            botao_alterar.pack(side=customtkinter.RIGHT, anchor=customtkinter.NE, padx=(0, 20), pady=(30, 0))
+    def toggle_frame_colapse(self, frame, botao_alterar, botao_cancelar, botao_submeter, cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
+            
+        altura_frame = frame.winfo_height()
+        #print(f"Contrai!")
+        frame.configure(height= 100)
+        botao_cancelar.pack_forget()
+        botao_submeter.pack_forget()
+        cb_consultoria_empresarial.place_forget()
+        cb_consultoria_tributaria.place_forget()
+        cb_camara_arbitragem.place_forget()
+
+        botao_alterar.pack(side=ctk.RIGHT, anchor=ctk.NE, padx=(0, 20), pady=(30, 0))
 
     def pesquisar_usuarios(self, event):
-
         termo_busca = self.caixa_busca.get().lower()
-
         for frame in self.frame_usuarios:
-
             nome_usuario = frame.winfo_children()[1].cget("text").lower()  # recebe o nome dos usuarios
             if termo_busca in nome_usuario:
                 frame.pack(pady=(10, 0))
@@ -237,6 +220,3 @@ class alterarAcesso:
 
     def voltar_funcao(self):
         pass
-
-if __name__ == "__main__":
-    app = alterarAcesso()
