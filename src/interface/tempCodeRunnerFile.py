@@ -1,0 +1,1 @@
+novo_frame.pack_propagate(False)
