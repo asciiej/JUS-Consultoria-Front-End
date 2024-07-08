@@ -1,21 +1,24 @@
 import os
 import re
-import customtkinter
+import customtkinter as ctk
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
 from PIL import Image, ImageTk
 
-class telaCadastro:
-    def __init__(self,parent,controlers):
-        self.TkCadastro = parent
+class telaCadastro(ctk.CTkFrame):
+    def __init__(self, parent, controlers):
+        super().__init__(parent)
+        self.parent = parent
         self.controlers = controlers
-        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
+        self.titulo_font = ctk.CTkFont('Helvetica', 20)
+
+        largura_tela = self.winfo_screenwidth()
+        altura_tela = self.winfo_screenheight()
 
         self.canvas = Canvas(
-            self.TkCadastro,
-            bg="#EFEFEF",
-            height=720,
-            width=1440,
+            self,
+            height=altura_tela,
+            width=largura_tela,
             bd=0,
             highlightthickness=0,
             relief="ridge"
@@ -35,11 +38,9 @@ class telaCadastro:
         }
 
          # Texto menu e Botão de VOLTAR
-        self.h1_titulo = customtkinter.CTkLabel(self.canvas, text="Mudar nível de acesso de usuário", font=self.titulo_font)
-        self.h1_titulo.pack(side=customtkinter.TOP, padx=(25, 0))
 
-        self.voltar = customtkinter.CTkButton(self.canvas, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
-        self.voltar.pack(side=customtkinter.TOP, padx=(700, 0))
+        self.voltar = ctk.CTkButton(self.canvas, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar.pack(side=ctk.TOP, padx=(700, 0))
 
         self.canvas.place(x=0, y=0)
         #self.retangulo_vermelho = self.canvas.create_rectangle(441, 80, 300, 200, fill="red")
@@ -68,7 +69,7 @@ class telaCadastro:
 
         self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
         self.entry_bg_1 = self.canvas.create_image(533.0, 310.5, image=self.entry_image_1)
-        self.entry_1 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_1 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_1.place(x=446.0, y=297.0, width=174.0, height=29.0)  # Nome
         self.entry_1.insert(0,"ex: nome")
         self.entry_1.config(fg="gray")
@@ -87,7 +88,7 @@ class telaCadastro:
 
         self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
         self.entry_bg_2 = self.canvas.create_image(527.5, 449.5, image=self.entry_image_2)
-        self.entry_2 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_2 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_2.place(x=449.0, y=436.0, width=157.0, height=29.0)  # Telefone
         self.entry_2.insert(0,"+55 DD 9....-....")
         self.entry_2.config(fg="gray")
@@ -97,7 +98,7 @@ class telaCadastro:
 
         self.entry_image_paisLocalizacao = PhotoImage(file=self.relative_to_assets("entry_paisLocalizacao.png"))
         self.entry_bg_paisLocalizacao = self.canvas.create_image(729.5, 449.5, image=self.entry_image_paisLocalizacao)
-        self.entry_paisLocalizacao = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_paisLocalizacao = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_paisLocalizacao.place(x=651.0, y=436.0, width=157.0, height=29.0)  # País
 
         def on_focus_in(event):
@@ -112,7 +113,7 @@ class telaCadastro:
 
         self.entry_image_cpf = PhotoImage(file=self.relative_to_assets("entry_cpf.png"))
         self.entry_bg_cpf = self.canvas.create_image(949.0, 449.5, image=self.entry_image_cpf)
-        self.entry_cpf = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_cpf = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_cpf.place(x=864.0, y=436.0, width=170.0, height=29.0)  # CPF
         self.entry_cpf.insert(0," 000.000.000-00")
         self.entry_cpf.config(fg="gray")
@@ -121,13 +122,13 @@ class telaCadastro:
 
         self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
         self.entry_bg_3 = self.canvas.create_image(562.5, 529.5, image=self.entry_image_3)
-        self.entry_3 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
+        self.entry_3 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
         self.entry_3.place(x=449.0, y=516.0, width=227.0, height=29.0)  # Senha
 
 
         self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
         self.entry_bg_4 = self.canvas.create_image(844.5, 527.5, image=self.entry_image_4)
-        self.entry_4 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
+        self.entry_4 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
         self.entry_4.place(x=731.0, y=514.0, width=227.0, height=29.0)  # Confirmar Senha
 
 
@@ -143,7 +144,7 @@ class telaCadastro:
 
         self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
         self.entry_bg_5 = self.canvas.create_image(948.5, 378.5, image=self.entry_image_5)
-        self.entry_5 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_5 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_5.place(x=863.0, y=365.0, width=171.0, height=29.0)  # Nome da Empresa
         self.entry_5.insert(0,"ex: nome empresa")
         self.entry_5.config(fg="gray")
@@ -153,7 +154,7 @@ class telaCadastro:
         # Cargo
         self.image_image_2 = self.load_and_resize_image("image_2.png", (200, 30))
         self.cargo_button = Button(
-            self.TkCadastro,
+            self,
             image=self.image_image_2,
             borderwidth=0,
             command=self.show_cargo_menu,
@@ -167,7 +168,7 @@ class telaCadastro:
         )
         self.cargo_button.place(x=860, y=295, width=200, height=30)
 
-        self.cargo_menu = Menu(self.TkCadastro, tearoff=0, background="#FFFFFF", foreground="#000000")
+        self.cargo_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
         cargos = [
     "Diretor de Conformidade e Regulação",
     "Gerente de Contratos e Licitações",
@@ -193,19 +194,19 @@ class telaCadastro:
 
         self.entry_image_7 = PhotoImage(file=self.relative_to_assets("entry_7.png"))
         self.entry_bg_7 = self.canvas.create_image(741.0, 309.5, image=self.entry_image_7)
-        self.entry_7 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_7 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_7.place(x=651.0, y=296.0, width=180.0, height=29.0)  # Sobrenome
 
         self.entry_image_8 = PhotoImage(file=self.relative_to_assets("entry_8.png"))
         self.entry_bg_8 = self.canvas.create_image(638.5, 378.5, image=self.entry_image_8)
-        self.entry_8 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_8 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_8.place(x=446.0, y=365.0, width=385.0, height=29.0)  # E-mail
 
         self.canvas.create_text(444.0, 263.0, anchor="nw", text="Nome", fill="#000000", font=("Calibri", 18 * -1))
         self.canvas.create_text(390.0, 203.0, anchor="nw", text=" Informações Profissionais:", fill="#000000", font=("Consolas Bold", 28 * -1))
 
         self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
-        self.button_1 = Button(image=self.button_image_1, borderwidth=0, highlightthickness=0, command=self.buttonOnClick, bg="#6ec1e4", activebackground="#6ec1e4")
+        self.button_1 = Button(self, image=self.button_image_1, borderwidth=0, highlightthickness=0, command=self.buttonOnClick, bg="#6ec1e4", activebackground="#6ec1e4")
         self.button_1.place(x=859.0, y=195.0, width=180.0, height=51.48387145996094)
 
         self.canvas.create_text(441.0, 71.0, anchor="nw", text="Cadastro Usuário", fill="#000000", font=("Consolas Bold", 60 * -1))
@@ -215,7 +216,7 @@ class telaCadastro:
         self.image_3 = self.canvas.create_image(126.0, 57.0, image=self.image_image_3)
 
 
-        self.TkCadastro.mainloop()
+        #self.TkCadastro.mainloop()
 
     #Exclusivamente para o cargo
     def load_and_resize_image(self, image_path, size):
@@ -293,15 +294,6 @@ class telaCadastro:
         self.cargo_button.config(text=cargo)
 
     def voltar_funcao(self):
-      self.clear_fields()
-
-    def clear_fields(self):
-        self.entry_1.delete(0, 'end')
-        self.entry_2.delete(0, 'end')
-        self.entry_paisLocalizacao.delete(0, 'end')
-        self.entry_cpf.delete(0, 'end')
-        self.entry_3.delete(0, 'end')
-        self.entry_4.delete(0, 'end')
-        self.entry_5.delete(0, 'end')
-        self.entry_7.delete(0, 'end')
-        self.entry_8.delete(0, 'end')
+      #self.clear_fields()
+        self.parent.show_frame("TelaLogin")
+      

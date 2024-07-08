@@ -14,7 +14,12 @@ from src.classes.contrato.ContractControler import ContractControler
 from src.classes.contrato.ContractControler import EmpresarialControler
 from src.classes.usuario.UsuarioModel import UsuarioManager
 from src.classes.usuario.UsuarioControler import UsuarioControler
-from src.interface.login import TelaLogin
+
+from mainApp import MainApp
+
+
+
+
 
 # TODO: Testar todo o CRUD dos contratos novamente
 if __name__ == "__main__":
@@ -71,7 +76,9 @@ if __name__ == "__main__":
 	# print(controlers['usuario'].get_all_users())
 
 
-	TelaLogin(controlers)
+	#MainApp(controlers)
+	app = MainApp(controlers)
+	app.mainloop()
 	# AtualizaCad(controlers)
 
 if config.DEBUG:

@@ -5,17 +5,19 @@ from src.interface.telaPrincipalAdm import telaPrincipalAdm
 from ..utilitarios.user_session import USER_SESSION
 from PIL import Image
 
-class TelaLogin:
-    def __init__(self, controlers: dict):
+class TelaLogin(ctk.CTkFrame):
+    def __init__(self, parent, controlers: dict):
+        super().__init__(parent)
+        self.parent = parent
         # Configuração inicial da janela
         ctk.set_default_color_theme("lib/temaTkinterCustom.json")
         ctk.set_appearance_mode("light")
 
-        self.root = ctk.CTk()
-        largura_tela = self.root.winfo_screenwidth()
-        altura_tela = self.root.winfo_screenheight()
-        self.root.geometry(f"{largura_tela}x{altura_tela}-10+0")
-        self.root.title("Login - Consultorias Arbitragem")
+        #self.root = ctk.CTk()
+        #largura_tela = self.root.winfo_screenwidth()
+        #altura_tela = self.root.winfo_screenheight()
+        #self.root.geometry(f"{largura_tela}x{altura_tela}-10+0")
+        #self.root.title("Login - Consultorias Arbitragem")
         self.controlers = controlers
         self.added = 0
 
@@ -24,13 +26,13 @@ class TelaLogin:
 
         # Carregar e redimensionar o logotipo
         self.logoJUS = ctk.CTkImage(Image.open('imagens/JUS_Consultoria_Arbitragem.png'), size=(400, 161))
-        self.logo_label = ctk.CTkLabel(self.root, text="", image=self.logoJUS)
+        self.logo_label = ctk.CTkLabel(self, text="", image=self.logoJUS)
         self.logo_label.pack(pady=(30, 0))
 
 
 
         # Criar o frame para a área de login
-        self.login_frame = ctk.CTkFrame(self.root, width=500, height=450)
+        self.login_frame = ctk.CTkFrame(self, width=500, height=450)
         self.login_frame.pack(pady=(30, 0))
 
         # Campo de entrada para e-mail
@@ -59,15 +61,15 @@ class TelaLogin:
         #self.errorText = None
 
         # Iniciar a aplicação
-        self.root.mainloop()
+        #self.root.mainloop()
 
     def center_window(self, width, height):
         """Centralizar a janela no meio da tela."""
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
+        screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
         position_top = int(screen_height / 2 - height / 2)
         position_right = int(screen_width / 2 - width / 2)
-        self.root.geometry(f'{width}x{height}+{position_right}+{position_top}')
+        self.geometry(f'{width}x{height}+{position_right}+{position_top}')
 
     def on_login(self):
         """Função para o botão de login."""
@@ -90,27 +92,29 @@ class TelaLogin:
         self.clear_login_screen()
         if USER_SESSION.is_admin():
             print("admin")
-            telaPrincipalAdm(self.root,self.controlers)
+            telaPrincipalAdm(self,self.controlers)
         else:
-            telaPrincipal(self.root,self.controlers)
+            self.parent.show_frame("telaPrincipal")
+            #self.parent.tela_principal.show_content()
         print(f"Email: {email}, Password: {password}")
 
     def on_register(self):
         """Função para o link de cadastro."""
-        self.clear_login_screen()
-        telaCadastro(self.root,self.controlers)
+        #self.clear_login_screen()
+        self.parent.show_frame("telaCadastro")
+        #telaCadastro(self,self.controlers)
 
     def clear_login_screen(self):
         """Função para limpar a tela de login."""
         # Remove todos os widgets do root
-        for widget in self.root.winfo_children():
+        for widget in self.winfo_children():
             widget.destroy()
 
     def show_error_message(self, message):
         """Função para mostrar uma mensagem de erro."""
         if self.added == 1:
             self.errorMessage.destroy()
-        self.errorMessage = ctk.CTkFrame(self.root, width=500, height=75, fg_color="#D27C7C", border_color="#C23E3E", border_width=2)
+        self.errorMessage = ctk.CTkFrame(self, width=500, height=75, fg_color="#D27C7C", border_color="#C23E3E", border_width=2)
         self.errorText = ctk.CTkLabel(self.errorMessage, text=message, font=("Consolas", 17, 'bold'), text_color="#EFEFEF")
 
         self.logo_label.pack_forget()
