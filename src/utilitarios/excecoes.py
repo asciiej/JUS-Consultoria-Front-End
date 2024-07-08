@@ -43,3 +43,8 @@ class UsuarioOuSenhaInvalido(Exception):
     def __init__(self):
         self.mensagem = 'Usuário ou Senha Inválidos'
         super().__init__(self.mensagem)
+
+class ContratoNaoEncontrado(Exception):
+    def __init__(self):
+        self.mensagem = 'Contrato não encontrado no bd'
+        super().__init__(self.mensagem)

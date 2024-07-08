@@ -3,7 +3,6 @@ import customtkinter
 from PIL import Image
 from functools import partial
 from ..utilitarios.user_session import USER_SESSION
-#from ..utilitarios.user_session import USER_SESSION
 
 
 class alterarAcesso:

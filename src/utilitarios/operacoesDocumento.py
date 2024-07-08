@@ -18,6 +18,13 @@ def combine_dicts(dict1, dict2):
 
     return combined_dict
 
+def modificar_chaves(dicionario):
+    novo_dicionario = {}
+    for chave, valor in dicionario.items():
+        nova_chave = f"$${chave}$$"
+        novo_dicionario[nova_chave] = valor
+    return novo_dicionario
+
 def split_string(input_string, chunk_size=65520):
     """
     Divide a string em tuplas de tamanho especificado.

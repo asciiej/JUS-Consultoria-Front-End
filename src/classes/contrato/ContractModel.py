@@ -107,15 +107,15 @@ class ContractManager:
     def create_contract_model(self,tituloContrato : str,tipoContrato : str,textoContrato : list,campos_personalizados:list):
         campos_personalizados_pg_array = "{" + ",".join([f'"{campo}"' for campo in campos_personalizados]) + "}"
 
-        query = f"INSERT INTO contractcontents.contract_model (tipo,titulo) 
+        query = f'''INSERT INTO contractcontents.contract_model (tipo,titulo,campos_personalizados) 
                 values ('{tipoContrato}','{tituloContrato}','{campos_personalizados_pg_array}') 
-                RETURNING id;"
+                RETURNING id;'''    
         
         id = self.db.query(query)[0][0]
 
         for ordem,texto in textoContrato:
-            query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) 
-                values ('{texto}',{ordem},{id},{campos_personalizados});"
+            query = f'''INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) 
+                values ('{texto}',{ordem},{id});'''
             retorno = self.db.query(query)
         if config.DEBUG:
             print(retorno)
@@ -123,38 +123,43 @@ class ContractManager:
     def update_contract_model(self,tituloContrato:str,textoContrato:list,campos_personalizados:list):
         campos_personalizados_pg_array = "{" + ",".join([f'"{campo}"' for campo in campos_personalizados]) + "}"
 
-        query = f"UPDATE contractcontents.contract_model 
-                SET contrato_referenciado = '{campos_personalizados_pg_array}'
-                WHERE titulo = '{tituloContrato}"
+        query = f'''UPDATE contractcontents.contract_model 
+                SET campos_personalizados = '{campos_personalizados_pg_array}'
+                WHERE titulo = '{tituloContrato}';'''
         self.db.query(query)
         id = self.get_id_contract_modelByTitle(tituloContrato)
 
-        query = f"DELETE 
+        query = f'''DELETE 
             FROM contractcontents.contract_text 
-            WHERE contrato_referenciado = {id};"
+            WHERE contrato_referenciado = {id};'''
         self.db.query(query)
         for ordem,texto in textoContrato:
-            query = f"INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) 
-                    values ('{texto}',{ordem},{id});"
-            retorno = self.db.query(query)
-        if config.DEBUG:
-            print(retorno)
+            query = f'''INSERT INTO contractcontents.contract_text (text,ordem,contrato_referenciado) 
+                    values ('{texto}',{ordem},{id});'''
+            self.db.query(query)
         
     def get_contract_model_byId(self,id: int):
-        query = f"SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
+        query = f'''SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};'''
         return self.db.query(query)
 
     def get_contract_model_byTitle(self,title):
         id = self.get_id_contract_modelByTitle(title)
+        if not id: return None
         query = f"SELECT * FROM contractcontents.contract_text WHERE contrato_referenciado = {id};"
         return self.db.query(query)
     
     def get_id_contract_modelByTitle(self,title):
-        query = f"SELECT id FROM contractcontents.contract_model WHERE titulo = '{title}';"
-        id = self.db.query(query)[0][0]
+        try:
+            query = f"SELECT id FROM contractcontents.contract_model WHERE titulo = '{title}';"
+            id = self.db.query(query)[0][0]
+        except:
+            return None
         return id
     
     def get_campos_personalizadosByTitle(self,title):
-        query = f"SELECT campos_personalizados FROM contractcontents.contract_model WHERE titulo = '{title}';"
-        campos_personalizados = self.db.query(query)[0][0]
-        print(campos_personalizados)
+        try:
+            query = f"SELECT campos_personalizados FROM contractcontents.contract_model WHERE titulo = '{title}';"
+            campos_personalizados = self.db.query(query)[0][0]
+        except:
+            return None
+        return campos_personalizados

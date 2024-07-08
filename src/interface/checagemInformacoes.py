@@ -10,6 +10,7 @@ class checagemInformacoes:
     def __init__(self,janela,id:int,tipo:str,título:str,controlers:dict):
         self.tipo = tipo
         self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(título)
+        self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(título)
 
         if tipo == "Consultoria Tributária":
             self.contract = controlers['contract'].tributaria()
@@ -75,6 +76,56 @@ class checagemInformacoes:
         self.janela.mainloop()
 
     def prosseguir_funcao(self):
+        if self.informacoesPersonalizadas is None:
+            self.prosseguirSemInformacoesPersonalizadas()
+            return
+        if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
+            match self.pagina:
+                case 0:
+                    retorno = self.get_informacoesEmpresariais()
+                case 1:
+                    retorno = self.get_informacoesPersonalizadas()
+        elif self.tipo == "Consultoria Empresarial":
+            match self.pagina:
+                case 0:
+                    retorno = self.get_informacoesContratado("Contratante")
+                case 1:
+                    retorno = self.get_informacoesContratado("Contratada")
+                case 2:
+                    retorno = self.get_informacoesNegocio()
+                case 3:
+                    retorno = self.get_informacoesPersonalizadas()
+
+        self.finalDict = combine_dicts(self.finalDict,retorno)
+        for widget in self.frame.winfo_children():
+            widget.destroy()
+
+        if self.tipo == "Consultoria Empresarial":
+            match self.pagina:
+                case 0:
+                    self.informacoesContratante("Contratada")
+                case 1:
+                    self.informacoesNegocio()
+                case 2:
+                    self.informacoesPersonalizadas()
+                case 3:
+                    self.clear_check_screen()
+                    self.contract.setContractData(self.finalDict)
+                    self.formPdf()
+                    telaAssinaturaDocumento(self.janela)
+        else:
+            match self.pagina:
+                case 0:
+                    self.informacoesPersonalizadas()
+                case 1:
+                    self.clear_check_screen()
+                    self.contract.setContractData(self.finalDict)
+                    self.formPdf()
+                    telaAssinaturaDocumento(self.janela)
+        
+        self.pagina +=1
+
+    def prosseguirSemInformacoesPersonalizadas(self):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
             retorno = self.get_informacoesEmpresariais()
         elif self.tipo == "Consultoria Empresarial":
@@ -101,12 +152,13 @@ class checagemInformacoes:
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
                     telaAssinaturaDocumento(self.janela)
-            self.pagina +=1
+            self.pagina +=1   
         else:
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
             self.formPdf()
             telaAssinaturaDocumento(self.janela)
+         
 
     def formPdf(self):
         pdf_saida = './pdfs/pdf_final.pdf'
@@ -302,6 +354,23 @@ class checagemInformacoes:
         self.PrazoDuracaoEntry = customtkinter.CTkEntry(self.frame,height=30)
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
+    def informacoesPersonalizadas(self):
+        self.frame.destroy()
+        self.buttonContinue.destroy()
+        self.frame = customtkinter.CTkScrollableFrame(self.janela,height=400,width=900)
+        self.frame.pack(pady=(80, 0))
+
+        self.buttonContinue = customtkinter.CTkButton(self.janela, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue.pack(side=customtkinter.TOP, pady=(30, 0),padx=(500,0))
+
+        self.camposPersonalizadosEntry = []
+        for i,campo in enumerate(self.camposPersonalizados):
+            print(i)
+            self.camposPersonalizadosLable = customtkinter.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
+            self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
+
+            self.camposPersonalizadosEntry.append(customtkinter.CTkEntry(self.frame,height=30,width=400))
+            self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
 
     def get_informacoesNegocio(self):
         contract_data = {
@@ -327,7 +396,6 @@ class checagemInformacoes:
             'receita_anual': self.ReceitaAnualEntry.get()
         }
         return dictInformacoesEmpresariais
-
     
     def get_informacoesContratado(self,contratante):
         if contratante == "Contratante":
@@ -351,5 +419,13 @@ class checagemInformacoes:
             }
             return None
 
+    def get_informacoesPersonalizadas(self):
+        for i,entrada in enumerate(self.camposPersonalizadosEntry):
+            self.camposPersonalizadosEntry[i] = entrada.get()
+
+        dictInformacoes = {chave : valor for chave,valor in zip(self.camposPersonalizados,self.camposPersonalizadosEntry)}
+        print(dictInformacoes)
+        return {"informacoes_personalizadas" : dictInformacoes}
+    
     def voltar_funcao(self):
         pass

@@ -21,7 +21,10 @@ class TelaLogin:
 
         # Centralizar a janela
         #self.center_window(800, 600)
-
+        # bg = ctk.CTkImage(Image.open('imagens/Capa Website Jus.jpg'),size=(largura_tela, altura_tela))
+        # label1 = ctk.CTkLabel(self.root, image = bg, text="") 
+        # label1.place(x = 0, y = 0) 
+        
         # Carregar e redimensionar o logotipo
         self.logoJUS = ctk.CTkImage(Image.open('imagens/JUS_Consultoria_Arbitragem.png'), size=(400, 161))
         self.logo_label = ctk.CTkLabel(self.root, text="", image=self.logoJUS)

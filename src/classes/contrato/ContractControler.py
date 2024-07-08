@@ -1,6 +1,7 @@
 import config
-from src.utilitarios.operacoesDocumento import split_string,recombine_string,combine_dicts  
+from src.utilitarios.operacoesDocumento import split_string,recombine_string,combine_dicts,modificar_chaves
 from src.utilitarios.user_session import USER_SESSION
+from src.utilitarios.excecoes import ContratoNaoEncontrado
 
 class ContractControler:
   def __init__(self, manager):
@@ -34,7 +35,9 @@ class Controler():
     self.contract = contract_data
 
   def getTranslateDict(self):
-    return USER_SESSION.get_user_data().getTranslateDict()
+    userTranslation = USER_SESSION.get_user_data().getTranslateDict()
+    customInformation = modificar_chaves(self.contract['informacoes_personalizadas'])
+    return combine_dicts(userTranslation,customInformation)
 
 class ArbitragemControler(Controler):
   def create(self):
@@ -207,10 +210,12 @@ class ModeloDeContratoControler(Controler):
 
   def get_by_id(self,id):
     retornoBD =  self.manager.get_contract_model_byId(id)
+    if not retornoBD: return ContratoNaoEncontrado()
     return self.recombine_contract(retornoBD)
 
   def get_by_title(self,title):
     retornoBD = self.manager.get_contract_model_byTitle(title)
+    if not retornoBD: raise ContratoNaoEncontrado()
     return self.recombine_contract(retornoBD)
 
   def recombine_contract(self,tuples_list):
@@ -220,3 +225,6 @@ class ModeloDeContratoControler(Controler):
       nova_lista.append(novo_elemento)
 
     return recombine_string(nova_lista)
+  
+  def get_campos_personalizados(self,title):
+    return self.manager.get_campos_personalizadosByTitle(title)

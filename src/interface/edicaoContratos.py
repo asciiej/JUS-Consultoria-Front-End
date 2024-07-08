@@ -42,23 +42,12 @@ class telaEdicaoContrato:
         self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
         self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
 
-        # Botão menu personalizado
-        voltar_menu = {
-            "corner_radius": 0,
-            "border_width": 0,
-            "fg_color": ["#6EC1E4", "#6EC1E4"],
-            "hover_color": ["#6EC1E4", "#6EC1E4"],
-            "border_color": ["#6EC1E4", "#6EC1E4"],
-            "text_color": "#000000",
-            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
-        }
-
         # Texto menu e Botão de VOLTAR
         self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text=f"Edição {self.tituloContrato}", font=self.titulo_font)
         self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
 
-        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
-        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
+        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,width=200)
+        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 40))
 
          # Nome do usuario no cabeçalho
         self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
@@ -352,7 +341,11 @@ class telaEdicaoContrato:
         global document, filePath
         # Open
         if action == 'open':
-            retornoBD = self.controlers['contract'].modeloDeContrato().get_by_title(self.tituloContrato)
+            try:
+                retornoBD = self.controlers['contract'].modeloDeContrato().get_by_title(self.tituloContrato)
+            except Exception as e:
+                print(e)
+                return
             
             document = loads(retornoBD)
             # Delete Content
@@ -360,7 +353,6 @@ class telaEdicaoContrato:
             
             # Set Content
             self.textArea.insert('1.0', document['content'])
-
 
             # Reset all tags
             self.resetTags()
