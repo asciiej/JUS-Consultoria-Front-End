@@ -13,42 +13,7 @@ class telaPrincipal(ctk.CTkFrame):
         super().__init__(parent)
         self.parent = parent
         self.controlers = controlers
-        
         ctk.set_default_color_theme("lib/temaTkinterCustom.json")
-
-        #self.janela = janela
-        #self.font = ctk.CTkFont('Helvetica',14)
-
-        # Cabeçalho menu personalizado
-        cabecalho_menu = {
-            "corner_radius": 0,
-            "border_width": 0,
-            "fg_color": ["#6EC1E4", "#6EC1E4"]
-        }
-
-        # Cabeçalho
-        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
-        self.cabecalho.pack(fill=ctk.X)
-
-        # Logo
-        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'),size = (80,72.54))
-        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text = "")
-        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
-
-        # Usuario foto
-        self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size = (90,90))
-        self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text = "")
-        self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
-
-        
-
-
-        
-
-
-        # Adiciona evento de redimensionamento da janela
-        self.bind("<Configure>", self.on_window_resize)
-        self.mainloop()
 
     def click_consultoria_empresarial(self):
         self.canvas.yview_moveto((self.H1_consultoria_empresarial.winfo_y() - 150  ) / self.body_frame.winfo_height())
@@ -60,7 +25,11 @@ class telaPrincipal(ctk.CTkFrame):
         self.canvas.yview_moveto((self.H1_camara_arbitragem.winfo_y() - 100) / self.body_frame.winfo_height())
 
     def click_editar_dados(self):
-        AtualizaCad(self, self.controlers)
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("AtualizaCad")
+        self.parent.frames["AtualizaCad"].show_contentATUALIZAR()
 
 
 
@@ -90,6 +59,32 @@ class telaPrincipal(ctk.CTkFrame):
         checagemInformacoes(self,id,tipo,titulo,self.controlers)
 
     def show_content(self):
+
+        
+        #self.janela = janela
+        self.font = ctk.CTkFont('Helvetica',14)
+
+        # Cabeçalho menu personalizado
+        cabecalho_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"]
+        }
+
+        # Cabeçalho
+        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=ctk.X)
+
+        # Logo
+        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'),size = (80,72.54))
+        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text = "")
+        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
+
+        # Usuario foto
+        self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size = (90,90))
+        self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text = "")
+        self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
+
 
         # Botão menu personalizado
         opcao_menu = {
@@ -486,3 +481,6 @@ class telaPrincipal(ctk.CTkFrame):
             #Frame para ajustar o tamanho da tela
             self.frame_auxiliar = ctk.CTkFrame(self.body_frame, height=0, width=2100)
             self.frame_auxiliar.pack(pady=(50, 50), padx=(0,0))
+
+            # Adiciona evento de redimensionamento da janela
+            self.bind("<Configure>", self.on_window_resize)

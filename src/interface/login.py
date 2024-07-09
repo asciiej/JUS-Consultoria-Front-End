@@ -92,10 +92,11 @@ class TelaLogin(ctk.CTkFrame):
         self.clear_login_screen()
         if USER_SESSION.is_admin():
             print("admin")
-            telaPrincipalAdm(self,self.controlers)
+            self.parent.show_frame("telaPrincipalAdm")
+            self.parent.frames["telaPrincipalAdm"].show_contentADM()
         else:
             self.parent.show_frame("telaPrincipal")
-            #self.parent.tela_principal.show_content()
+            self.parent.frames["telaPrincipal"].show_content()
         print(f"Email: {email}, Password: {password}")
 
     def on_register(self):
