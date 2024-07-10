@@ -36,7 +36,7 @@ class AtualizaCad:
         self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
 
         # Texto menu e Botão de VOLTAR
-        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text=f"Assinatura do documento", font=self.titulo_font)
+        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text=f"Editar Informações Pessoais", font=self.titulo_font)
         self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
 
         self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,width=200)
