@@ -11,25 +11,43 @@ class checagemInformacoes(ctk.CTkFrame):
        
         super().__init__(parent)
         self.parent = parent
-        
-        self.retornoBD = controlers['contract']
-        
-            
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
-
         #self = janela
         self.font = ctk.CTkFont('Helvetica', 14)
         self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
+        self.framePrincipal = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
+
         # Cabeçalho menu personalizado
-        cabecalho_menu = {
+        self.cabecalho_menu = {
             "corner_radius": 0,
             "border_width": 0,
             "fg_color": ["#6EC1E4", "#6EC1E4"]
         }
 
+
+    def show_contentCHECA(self, id ,titulo, tipo, controlers):
+        print(f" '{titulo}' ")
+        print(f" '{tipo}' ")
+        # Realiza a consulta ao banco de dados
+        self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
+        self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
+        self.tipo = tipo
+        self.titulo = titulo
+        
+        if tipo == "Consultoria Tributária":
+            self.contract = controlers['contract'].tributaria()
+        elif tipo == "Câmara de Arbitragem":
+            self.contract = controlers['contract'].arbitragem()
+        elif tipo == "Consultoria Empresarial":
+            self.contract = controlers['contract'].empresarial()   
+
         # Cabeçalho
-        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho = ctk.CTkFrame(self, height=104, **self.cabecalho_menu)
         self.cabecalho.pack(fill=ctk.X)
 
         # Logo
@@ -60,36 +78,24 @@ class checagemInformacoes(ctk.CTkFrame):
         self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,height=30, **voltar_menu)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
-        
+        self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
+
+        # Frame
+        self.frame = ctk.CTkFrame(self,height=480,width=900,**self.framePrincipal)
+        self.frame.pack(pady=(80, 0))
+
         self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
-    def show_contentCHECA(self, id, tipo, titulo, controlers):
-            print(f" '{titulo}' ")
-            print(f" '{tipo}' ")
-            # Realiza a consulta ao banco de dados
-            self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(tipo)
-            self.tipo = tipo
-            self.titulo = titulo
-            
+        self.pagina = 0
+        self.finalDict = None
 
-            # Nome do usuario no cabeçalho
-            #       self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
-            self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
-            self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
-
-            # Frame
-            self.frame = ctk.CTkFrame(self,height=480,width=900)
-            self.frame.pack(pady=(80, 0))
-
-            self.pagina = 0
-            self.finalDict = None
-
-            if titulo == "Consultoria Empresarial":
-                self.informacoesContratante("Contratante")
-            elif titulo == "Consultoria Tributária" or titulo == "Câmara de Arbitragem":
-                #apenas informações empresariais
-                self.informacoesEmpresariais()
+        if tipo == "Consultoria Empresarial":
+            self.informacoesContratante("Contratante")
+        elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
+            #apenas informações empresariais
+            self.informacoesEmpresariais()
         
         
 
@@ -130,7 +136,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    telaAssinaturaDocumento(self.janela)
+                    telaAssinaturaDocumento(self)
         else:
             match self.pagina:
                 case 0:
@@ -139,7 +145,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    telaAssinaturaDocumento(self.janela)
+                    telaAssinaturaDocumento(self)
         
         self.pagina +=1
 
@@ -169,13 +175,13 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    telaAssinaturaDocumento(self.janela)
+                    telaAssinaturaDocumento(self)
             self.pagina +=1   
         else:
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
             self.formPdf()
-            telaAssinaturaDocumento(self.janela)
+            telaAssinaturaDocumento(self)
          
 
     def formPdf(self):
@@ -375,10 +381,10 @@ class checagemInformacoes(ctk.CTkFrame):
     def informacoesPersonalizadas(self):
         self.frame.destroy()
         self.buttonContinue.destroy()
-        self.frame = ctk.CTkScrollableFrame(self.janela,height=400,width=900)
+        self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
-        self.buttonContinue = ctk.CTkButton(self.janela, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
         self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
@@ -449,6 +455,9 @@ class checagemInformacoes(ctk.CTkFrame):
         return {"informacoes_personalizadas" : dictInformacoes}
     
     def voltar_funcao(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
 

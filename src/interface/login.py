@@ -9,33 +9,24 @@ class TelaLogin(ctk.CTkFrame):
     def __init__(self, parent, controlers: dict):
         super().__init__(parent)
         self.parent = parent
-        # Configuração inicial da janela
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
-        ctk.set_appearance_mode("light")
 
-        #self.root = ctk.CTk()
-        #largura_tela = self.root.winfo_screenwidth()
-        #altura_tela = self.root.winfo_screenheight()
-        #self.root.geometry(f"{largura_tela}x{altura_tela}-10+0")
-        #self.root.title("Login - Consultorias Arbitragem")
         self.controlers = controlers
         self.added = 0
-
-        # Centralizar a janela
-        #self.center_window(800, 600)
-        # bg = ctk.CTkImage(Image.open('imagens/Capa Website Jus.jpg'),size=(largura_tela, altura_tela))
-        # label1 = ctk.CTkLabel(self.root, image = bg, text="") 
-        # label1.place(x = 0, y = 0) 
         
         # Carregar e redimensionar o logotipo
         self.logoJUS = ctk.CTkImage(Image.open('imagens/JUS_Consultoria_Arbitragem.png'), size=(400, 161))
         self.logo_label = ctk.CTkLabel(self, text="", image=self.logoJUS)
         self.logo_label.pack(pady=(30, 0))
 
-
+        frameLogin = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
 
         # Criar o frame para a área de login
-        self.login_frame = ctk.CTkFrame(self, width=500, height=450)
+        self.login_frame = ctk.CTkFrame(self, width=500, height=450,**frameLogin)
         self.login_frame.pack(pady=(30, 0))
 
         # Campo de entrada para e-mail

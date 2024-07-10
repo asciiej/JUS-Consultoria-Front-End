@@ -67,9 +67,15 @@ class redirecionaGOV:
         # Body
         self.canvas = tk.Canvas(self.janela, height=body_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
+        
+        self.framePrincipal = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
         # Frame
-        self.frame = customtkinter.CTkFrame(self.canvas, height=460, width=750)
+        self.frame = customtkinter.CTkFrame(self.canvas, height=460, width=750,**self.framePrincipal)
         self.frame.pack(pady=(100, 0))
         self.frame.pack_propagate(False)
 
