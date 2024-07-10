@@ -448,9 +448,9 @@ class telaPrincipal:
         self.canvas.yview_moveto((self.H1_camara_arbitragem.winfo_y() - 100) / self.body_frame.winfo_height())
 
     def click_editar_dados(self):
+        for widget in self.janela.winfo_children():
+            widget.destroy()
         AtualizaCad(self.janela, self.controlers)
-
-
 
     def on_frame_configure(self, event):
 

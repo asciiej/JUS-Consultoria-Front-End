@@ -273,26 +273,3 @@ class convertPDF:
             i += 1
         return line
     
-
-
-def replaceInformations(self, line):
-    startTag = None
-    i = 0
-    while i < len(line) - 1:
-        if line[i] == '$' and line[i+1] == '$':
-            if startTag is None:
-                startTag = i
-            else:
-                finalTag = i + 2
-                key = line[startTag:finalTag]
-                if key in self.substitution:
-                    line = line[:startTag] + self.substitution[key] + line[finalTag:]
-                    i = startTag + len(self.substitution[key]) - 1
-                startTag = None
-        i += 1
-    return line
-
-if __name__ == "__main__":
-    line = "<b>CONTRATANTE</b>: , $$nacionalidadecontratante$$, $$estadocivilcontratante$$, $$profissãocontratante$$, portador(a) da cédula de identidade R.G. nº $$RG contratante$$, inscrito(a) no CPF/MF sob o nº $$cpfoucnpjcontratante$$, residente e domiciliado(a) à $$endereçoresidêncial/comercialcontratante$$, doravante denominado simplesmente CONTRATANTE."
-    subs = {'$$nomecompletocontratante$$': '', '$$nacionalidadecontratante$$': '', '$$estadocivilcontratante$$': '', '$$profissãocontratante$$': '', '$$cpfoucnpjcontratante$$': '', '$$endereçoresidêncial/comercialcontratante$$': '', '$$nomecompletocontratado$$': '', '$$nacionalidadecontratado$$': '', '$$estadocivilcontratado$$': '', '$$profissãocontratado$$': '', '$$cpfoucnpjcontratado$$': '', '$$endereçoresidêncial/comercialcontratado$$': '', '$$valor$$': '', '$$formadepagamento$$': '', '$$multademora$$': '', '$$jurosdemora$$': '', '$$correçãomonetária$$': '', '$$prazodeduração$$': ''}
-    print(replaceInformations(line,subs))

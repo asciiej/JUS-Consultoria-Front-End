@@ -76,7 +76,7 @@ class checagemInformacoes:
         self.janela.mainloop()
 
     def prosseguir_funcao(self):
-        if self.informacoesPersonalizadas is None:
+        if not self.camposPersonalizados:
             self.prosseguirSemInformacoesPersonalizadas()
             return
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
@@ -294,7 +294,7 @@ class checagemInformacoes:
         self.EnderecoEntry = customtkinter.CTkEntry(self.frame,height=30)
         self.EnderecoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.Qualificacao = customtkinter.CTkLabel(self.frame, text="Qualificação das Partes",fg_color="#6EC1E4")
+        self.Qualificacao = customtkinter.CTkLabel(self.frame, text="Qualificação da Parte",fg_color="#6EC1E4")
         self.Qualificacao.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
@@ -362,6 +362,9 @@ class checagemInformacoes:
 
         self.buttonContinue = customtkinter.CTkButton(self.janela, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=customtkinter.TOP, pady=(30, 0),padx=(500,0))
+
+        self.tituloInformacoesPersonalizadas = customtkinter.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
+        self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
 
         self.camposPersonalizadosEntry = []
         for i,campo in enumerate(self.camposPersonalizados):

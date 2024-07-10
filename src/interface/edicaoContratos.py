@@ -8,13 +8,13 @@ import customtkinter
 from src.utilitarios.visualizadorPDF import PDFReader
 from src.utilitarios.operacoesDocumento import convertPDF
 from PIL import Image
+from src.utilitarios.user_session import USER_SESSION
 
 class telaEdicaoContrato:
     def __init__(self,root,controlers,tituloContrato,tipoContrato):
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
         self.controlers = controlers
-        self.custom_info = []
         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
         # Setup
@@ -50,8 +50,7 @@ class telaEdicaoContrato:
         self.voltar.pack(side=customtkinter.LEFT, padx=(700, 40))
 
          # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
-        #self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
         # Current File Path
@@ -385,7 +384,7 @@ class telaEdicaoContrato:
                     "tituloContrato" : self.tituloContrato,
                     "tipoContrato" : self.tipoContrato,
                     "textoContrato" : contractContent,
-                    "campos_personalizados" : self.custom_info
+                    "campos_personalizados" : self.custom_info()
                 }
                 self.controlers['contract'].modeloDeContrato(contract_data).create()
             elif action == 'preview':
@@ -406,9 +405,27 @@ class telaEdicaoContrato:
     def add_custom_info(self,info):
         if info == "customItem":
             info = f"$${self.entryInfoPersonalizada.get()}$$"
-            self.custom_info.append(self.entryInfoPersonalizada.get())
         self.textArea.insert(tk.INSERT, info)
 
+    def custom_info(self):
+        line = self.textArea.get('1.0', 'end-1c')
+        values = []
+        startTag = None
+        i = 0
+        while i < len(line):
+            if line[i] == '$' and i+1 < len(line) and line[i+1] == '$':
+                if startTag is None:
+                    startTag = i
+                else:
+                    finalTag = i + 2
+                    key = line[startTag:finalTag]
+                    if key not in self.translateInsertInformation.values() and '$$$$'!=key:
+                        values.append(line[startTag+2:finalTag-2])
+                    startTag = None
+                i += 1
+
+            i += 1
+        return values
 
     def preview(self):
         if self.textArea.winfo_ismapped():

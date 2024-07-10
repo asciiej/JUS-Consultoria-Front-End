@@ -4,18 +4,14 @@ from PIL import Image
 import webbrowser
 from tkinter import filedialog
 import shutil
-#from ..utilitarios.user_session import USER_SESSION
+from ..utilitarios.user_session import USER_SESSION
 
 
 class redirecionaGOV:
-    def __init__(self):
+    def __init__(self,janela):
         customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
 
-        self.janela = customtkinter.CTk()
-        largura_tela = self.janela.winfo_screenwidth()
-        altura_tela = self.janela.winfo_screenheight()
-        self.janela.geometry(f"{largura_tela}x{altura_tela}-10+0")
-        self.janela.title('JUS Consultorias')
+        self.janela = janela
         self.font = customtkinter.CTkFont('Helvetica', 14)
         self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
 
@@ -59,8 +55,7 @@ class redirecionaGOV:
         self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
 
          # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
-        #self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
@@ -114,7 +109,7 @@ class redirecionaGOV:
         botao_baixar.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 30))
 
         # Redireciona GOV
-        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br para a assinatura digital",command=self.func_gov, **GOV)
+        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br para a assinatura eletrônica",command=self.func_gov, **GOV)
         botao_gov.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 0))
 
         self.janela.mainloop()
@@ -136,6 +131,3 @@ class redirecionaGOV:
 
         webbrowser.open("http://assinador.iti.br/")
         
-
-if __name__ == "__main__":
-    app = redirecionaGOV()

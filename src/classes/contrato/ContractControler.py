@@ -36,7 +36,10 @@ class Controler():
 
   def getTranslateDict(self):
     userTranslation = USER_SESSION.get_user_data().getTranslateDict()
-    customInformation = modificar_chaves(self.contract['informacoes_personalizadas'])
+    if 'informacoes_personalizadas' in self.contract.keys():
+      customInformation = modificar_chaves(self.contract['informacoes_personalizadas'])
+    else:
+      customInformation = None
     return combine_dicts(userTranslation,customInformation)
 
 class ArbitragemControler(Controler):
@@ -197,7 +200,6 @@ class EmpresarialControler(Controler):
     finalDict = combine_dicts(dictInformacoesDoNegocio,userDict)
     finalDict = combine_dicts(finalDict,dictContratado)
     return combine_dicts(finalDict,dictContratante)
-
 
 
 class ModeloDeContratoControler(Controler):
