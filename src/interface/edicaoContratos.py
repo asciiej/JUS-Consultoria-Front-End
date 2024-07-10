@@ -1,26 +1,39 @@
 from tkinter import *
 import tkinter as tk
 import ctypes
+
+ctypes.windll.shcore.SetProcessDpiAwareness(1)
+
 from functools import partial
 from json import loads, dumps
 from tkinter import ttk
-import customtkinter
+import customtkinter as ctk
 from src.utilitarios.visualizadorPDF import PDFReader
 from src.utilitarios.operacoesDocumento import convertPDF
 from PIL import Image
 from src.utilitarios.user_session import USER_SESSION
 
-class telaEdicaoContrato:
-    def __init__(self,root,controlers,tituloContrato,tipoContrato):
+class telaEdicaoContrato(ctk.CTkFrame):
+    def __init__(self,parent,controlers : dict):
+        super().__init__(parent)
+        self.parent = parent
+        self.controlers = controlers
+        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
+
+
+    def show_contentEDICAO(self,tituloContrato,tipoContrato):
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
-        self.controlers = controlers
-        ctypes.windll.shcore.SetProcessDpiAwareness(True)
+
+        print(f" '{tituloContrato}' ")
+        print(f" '{tipoContrato}' ")
+    
+        
 
         # Setup
-        self.root = root
-        self.font = customtkinter.CTkFont('Helvetica', 14)
-        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
+        #self.root = root
+        self.font = ctk.CTkFont('Helvetica', 14)
+        self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
         cabecalho_menu = {
             "corner_radius": 0,
@@ -29,29 +42,30 @@ class telaEdicaoContrato:
         }
 
         # Cabeçalho
-        self.cabecalho = customtkinter.CTkFrame(self.root, height=104, **cabecalho_menu)
-        self.cabecalho.pack(fill=customtkinter.X)
+        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=ctk.X)
 
         # Logo
-        self.logoJUS = customtkinter.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
-        self.logo_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
-        self.logo_cabecalho.pack(side=customtkinter.LEFT, padx=(18, 0), pady=7)
+        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
+        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
+        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
 
         # Usuario foto
-        self.userPic = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
-        self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
-        self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
+        self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
+        self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
+        self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
 
         # Texto menu e Botão de VOLTAR
-        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text=f"Edição {self.tituloContrato}", font=self.titulo_font)
-        self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
+        self.h1_titulo = ctk.CTkLabel(self.cabecalho, text=f"Edição {self.tituloContrato}", font=self.titulo_font)
+        self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,width=200)
-        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 40))
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao)
+        self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
          # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
-        self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
+        
+        self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
         # Current File Path
         self.filePath = None
@@ -108,9 +122,9 @@ class telaEdicaoContrato:
         # Frame para os botões à direita com scrollbar
         widithBotoes = 600
 
-        self.frame_botoes_canvas = Canvas(self.root, bg="#6EC1E4", width=widithBotoes)
+        self.frame_botoes_canvas = Canvas(self, bg="#6EC1E4", width=widithBotoes)
 
-        self.scrollbar = Scrollbar(self.root, orient=VERTICAL, command=self.frame_botoes_canvas.yview)
+        self.scrollbar = Scrollbar(self, orient=VERTICAL, command=self.frame_botoes_canvas.yview)
         self.scrollbar.pack(side=RIGHT, fill=Y)
 
         self.frame_botoes_canvas.pack(side=RIGHT, fill=Y , padx=(10,0))
@@ -285,7 +299,7 @@ class telaEdicaoContrato:
         self.label_format.grid(row = nrow, column=0, columnspan=2, padx=5, pady=(25,10))
         nrow += 1
 
-        self.entryInfoPersonalizada = customtkinter.CTkEntry(self.frame_botoes,placeholder_text="Digite a informação que deseja adicionar...",width=400,height=35,font=('Calibri',15,'normal'),fg_color="white",text_color="black",placeholder_text_color="black",border_color="#00343D")
+        self.entryInfoPersonalizada = ctk.CTkEntry(self.frame_botoes,placeholder_text="Digite a informação que deseja adicionar...",width=400,height=35,font=('Calibri',15,'normal'),fg_color="white",text_color="black",placeholder_text_color="black",border_color="#00343D")
         self.entryInfoPersonalizada.grid(row = nrow, column = 0, columnspan = 2,padx = 5,pady = 10)
         nrow +=1
 
@@ -294,11 +308,11 @@ class telaEdicaoContrato:
         nrow += 1
 
 
-        self.btn_save = customtkinter.CTkButton(self.frame_botoes, text="Salvar", command=partial(self.fileManager,None,'save'), fg_color="#58ABB3", hover_color="#367076", width=400,height=50, font=('Calibri', 25, 'bold'))
+        self.btn_save = ctk.CTkButton(self.frame_botoes, text="Salvar", command=partial(self.fileManager,None,'save'), fg_color="#58ABB3", hover_color="#367076", width=400,height=50, font=('Calibri', 25, 'bold'))
         self.btn_save.grid(row = nrow,column = 0,columnspan = 2,pady=10, padx=5)
         nrow += 1
 
-        self.btn_preview =  customtkinter.CTkButton(self.frame_botoes, text="Pré-Visualizar", command=self.preview, fg_color="#58ABB3", hover_color="#367076", width=400,height=50, font=('Calibri', 25, 'bold'))
+        self.btn_preview =  ctk.CTkButton(self.frame_botoes, text="Pré-Visualizar", command=self.preview, fg_color="#58ABB3", hover_color="#367076", width=400,height=50, font=('Calibri', 25, 'bold'))
         self.btn_preview.grid(row = nrow,column = 0,columnspan = 2,pady=10, padx=5)
         nrow += 1
 
@@ -307,7 +321,7 @@ class telaEdicaoContrato:
         nrow += 1
 
         # Frame para o editor de texto à esquerda
-        self.frame_texto = Frame(self.root, width=600)
+        self.frame_texto = Frame(self, width=600)
         self.frame_texto.pack(side=LEFT, fill=BOTH, expand=True)
 
         self.textArea = Text(self.frame_texto, font=f'Consolas {fontSize}', relief=FLAT, wrap=WORD, padx=padding, pady=padding, bd=0, undo=True)  # Enable undo
@@ -320,7 +334,7 @@ class telaEdicaoContrato:
         
         self.fileManager(event=None, action='open')
 
-        self.root.mainloop()
+        #self.mainloop()
 
 
     def resetTags(self):
@@ -446,9 +460,14 @@ class telaEdicaoContrato:
                 print(e)
 
     def voltar_funcao(self):
-        pass
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("telaPrincipalAdm")
+        self.parent.frames["telaPrincipalAdm"].show_contentADM()
+        
     def create_rounded_button(self,text, command, fg_color, hover_color, width):
-        return customtkinter.CTkButton(self.frame_botoes, text=text, command=command, fg_color=fg_color, hover_color=hover_color, width=width, font=('Calibri', 15, 'bold'))
+        return ctk.CTkButton(self.frame_botoes, text=text, command=command, fg_color=fg_color, hover_color=hover_color, width=width, font=('Calibri', 15, 'bold'))
     
 
 

@@ -1,29 +1,25 @@
 from src.interface.assinaturaDocumento import telaAssinaturaDocumento
-import customtkinter
+import customtkinter as ctk
 from PIL import Image
 from ..utilitarios.user_session import USER_SESSION
 from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
 
 
 
-class checagemInformacoes:
-    def __init__(self,janela,id:int,tipo:str,título:str,controlers:dict):
-        self.tipo = tipo
-        self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(título)
-        self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(título)
-
-        if tipo == "Consultoria Tributária":
-            self.contract = controlers['contract'].tributaria()
-        elif tipo == "Câmara de Arbitragem":
-            self.contract = controlers['contract'].arbitragem()
-        elif tipo == "Consultoria Empresarial":
-            self.contract = controlers['contract'].empresarial()
+class checagemInformacoes(ctk.CTkFrame):
+    def __init__(self,parent,controlers:dict):
+       
+        super().__init__(parent)
+        self.parent = parent
+        
+        self.retornoBD = controlers['contract']
+        
             
-        customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
+        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
 
-        self.janela = janela
-        self.font = customtkinter.CTkFont('Helvetica', 14)
-        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
+        #self = janela
+        self.font = ctk.CTkFont('Helvetica', 14)
+        self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
         # Cabeçalho menu personalizado
         cabecalho_menu = {
@@ -33,47 +29,69 @@ class checagemInformacoes:
         }
 
         # Cabeçalho
-        self.cabecalho = customtkinter.CTkFrame(self.janela, height=104, **cabecalho_menu)
-        self.cabecalho.pack(fill=customtkinter.X)
+        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=ctk.X)
 
         # Logo
-        self.logoJUS = customtkinter.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
-        self.logo_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
-        self.logo_cabecalho.pack(side=customtkinter.LEFT, padx=(18, 0), pady=7)
+        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
+        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
+        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
 
         # Usuario foto
-        self.userPic = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
-        self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
-        self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
+        self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
+        self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
+        self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
+
+        # Botão menu personalizado
+        voltar_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "hover_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#6EC1E4", "#6EC1E4"],
+            "text_color": "#000000",
+            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
+        }
 
         # Texto menu e Botão de VOLTAR
-        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
-        self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
+        self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
+        self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,height=30)
-        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,height=30, **voltar_menu)
+        self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
-         # Nome do usuario no cabeçalho
-        #       self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
-        self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
+        
+        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
-        # Frame
-        self.frame = customtkinter.CTkFrame(self.janela,height=480,width=900)
-        self.frame.pack(pady=(80, 0))
+    def show_contentCHECA(self, id, tipo, titulo, controlers):
+            print(f" '{titulo}' ")
+            print(f" '{tipo}' ")
+            # Realiza a consulta ao banco de dados
+            self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(tipo)
+            self.tipo = tipo
+            self.titulo = titulo
+            
 
-        self.pagina = 0
-        self.finalDict = None
-        if tipo == "Consultoria Empresarial":
-            self.informacoesContratante("Contratante")
-        elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
-            #apenas informações empresariais
-            self.informacoesEmpresariais()
+            # Nome do usuario no cabeçalho
+            #       self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
+            self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+            self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
-        self.buttonContinue = customtkinter.CTkButton(self.janela, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
-        self.buttonContinue.pack(side=customtkinter.TOP, pady=(30, 0),padx=(500,0))
+            # Frame
+            self.frame = ctk.CTkFrame(self,height=480,width=900)
+            self.frame.pack(pady=(80, 0))
 
-        self.janela.mainloop()
+            self.pagina = 0
+            self.finalDict = None
+
+            if titulo == "Consultoria Empresarial":
+                self.informacoesContratante("Contratante")
+            elif titulo == "Consultoria Tributária" or titulo == "Câmara de Arbitragem":
+                #apenas informações empresariais
+                self.informacoesEmpresariais()
+        
+        
 
     def prosseguir_funcao(self):
         if not self.camposPersonalizados:
@@ -128,7 +146,7 @@ class checagemInformacoes:
     def prosseguirSemInformacoesPersonalizadas(self):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
             retorno = self.get_informacoesEmpresariais()
-        elif self.tipo == "Consultoria Empresarial":
+        elif self.titulo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
                     retorno = self.get_informacoesContratado("Contratante")
@@ -141,7 +159,7 @@ class checagemInformacoes:
         for widget in self.frame.winfo_children():
             widget.destroy()
 
-        if self.tipo == "Consultoria Empresarial":
+        if self.titulo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
                     self.informacoesContratante("Contratada")
@@ -173,12 +191,12 @@ class checagemInformacoes:
     def clear_check_screen(self):
         """Função para limpar a tela de login."""
         # Remove todos os widgets do root
-        for widget in self.janela.winfo_children():
+        for widget in self.winfo_children():
             widget.destroy()
 
     def informacoesEmpresariais(self):
         # Label dentro do frame filho
-        TitleLable = customtkinter.CTkLabel(self.frame,text="Informações Empresariais",fg_color="#6EC1E4",font =('Helvetica', 24))
+        TitleLable = ctk.CTkLabel(self.frame,text="Informações Empresariais",fg_color="#6EC1E4",font =('Helvetica', 24))
         TitleLable.grid(row = 0,column = 0,padx=30, pady=40)
 
         self.frame.grid_columnconfigure(1, minsize=100)
@@ -186,53 +204,53 @@ class checagemInformacoes:
         self.frame.grid_columnconfigure(3, minsize=100)
         self.frame.grid_columnconfigure(4, minsize=300)
 
-        self.Nome = customtkinter.CTkLabel(self.frame, text="Nome da Empresa",fg_color="#6EC1E4")
+        self.Nome = ctk.CTkLabel(self.frame, text="Nome da Empresa",fg_color="#6EC1E4")
         self.Nome.grid(row=1, column=0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.NomeEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.NomeEntry = ctk.CTkEntry(self.frame,height=30)
         self.NomeEntry.grid(row=2, column=0, columnspan=4, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.Cnpj = customtkinter.CTkLabel(self.frame, text="CNPJ",fg_color="#6EC1E4")
+        self.Cnpj = ctk.CTkLabel(self.frame, text="CNPJ",fg_color="#6EC1E4")
         self.Cnpj.grid(row=1, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.CnpjEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.CnpjEntry = ctk.CTkEntry(self.frame,height=30)
         self.CnpjEntry.grid(row=2, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
-        self.Cnae1 = customtkinter.CTkLabel(self.frame, text="CNAE Principal",fg_color="#6EC1E4")
+        self.Cnae1 = ctk.CTkLabel(self.frame, text="CNAE Principal",fg_color="#6EC1E4")
         self.Cnae1.grid(row=3, column=0,padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.Cnae1Entry = customtkinter.CTkEntry(self.frame,height=30)
+        self.Cnae1Entry = ctk.CTkEntry(self.frame,height=30)
         self.Cnae1Entry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew") 
 
-        self.Cnae2 = customtkinter.CTkLabel(self.frame, text="CNAE Secundário",fg_color="#6EC1E4")
+        self.Cnae2 = ctk.CTkLabel(self.frame, text="CNAE Secundário",fg_color="#6EC1E4")
         self.Cnae2.grid(row=3, column=2, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.Cnae2Entry = customtkinter.CTkEntry(self.frame,height=30)
+        self.Cnae2Entry = ctk.CTkEntry(self.frame,height=30)
         self.Cnae2Entry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew") 
 
-        self.Cfop = customtkinter.CTkLabel(self.frame, text="CFOP Principais Produtos",fg_color="#6EC1E4")
+        self.Cfop = ctk.CTkLabel(self.frame, text="CFOP Principais Produtos",fg_color="#6EC1E4")
         self.Cfop.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.CfopEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.CfopEntry = ctk.CTkEntry(self.frame,height=30)
         self.CfopEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew") 
 
-        self.IndustriaSetor = customtkinter.CTkLabel(self.frame, text="Indústria/Setor",fg_color="#6EC1E4")
+        self.IndustriaSetor = ctk.CTkLabel(self.frame, text="Indústria/Setor",fg_color="#6EC1E4")
         self.IndustriaSetor.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.IndustriaSetorEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.IndustriaSetorEntry = ctk.CTkEntry(self.frame,height=30)
         self.IndustriaSetorEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.ReceitaAnual = customtkinter.CTkLabel(self.frame, text="Receita Anual",fg_color="#6EC1E4")
+        self.ReceitaAnual = ctk.CTkLabel(self.frame, text="Receita Anual",fg_color="#6EC1E4")
         self.ReceitaAnual.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.ReceitaAnualEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.ReceitaAnualEntry = ctk.CTkEntry(self.frame,height=30)
         self.ReceitaAnualEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
 
@@ -244,7 +262,7 @@ class checagemInformacoes:
         elif parte == "Contratada":
             text = "Informações da Contratada"
 
-        TitleLable = customtkinter.CTkLabel(self.frame,text=text,fg_color="#6EC1E4",font =('Helvetica', 24))
+        TitleLable = ctk.CTkLabel(self.frame,text=text,fg_color="#6EC1E4",font =('Helvetica', 24))
         TitleLable.grid(row = 0,column = 0,padx=30, pady=40)
 
         self.frame.grid_columnconfigure(1, minsize=100)
@@ -252,59 +270,59 @@ class checagemInformacoes:
         self.frame.grid_columnconfigure(3, minsize=100)
         self.frame.grid_columnconfigure(4, minsize=300)
 
-        self.Nome = customtkinter.CTkLabel(self.frame, text="Nome Completo",fg_color="#6EC1E4")
+        self.Nome = ctk.CTkLabel(self.frame, text="Nome Completo",fg_color="#6EC1E4")
         self.Nome.grid(row=1, column=0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.NomeContractEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.NomeContractEntry = ctk.CTkEntry(self.frame,height=30)
         self.NomeContractEntry.grid(row=2, column=0, columnspan=4, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.Nacionalidade = customtkinter.CTkLabel(self.frame, text="Nacionalidade",fg_color="#6EC1E4")
+        self.Nacionalidade = ctk.CTkLabel(self.frame, text="Nacionalidade",fg_color="#6EC1E4")
         self.Nacionalidade.grid(row=1, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.NacionalidadeEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.NacionalidadeEntry = ctk.CTkEntry(self.frame,height=30)
         self.NacionalidadeEntry.grid(row=2, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
-        self.EstadoCivil = customtkinter.CTkLabel(self.frame, text="Estado Civil",fg_color="#6EC1E4")
+        self.EstadoCivil = ctk.CTkLabel(self.frame, text="Estado Civil",fg_color="#6EC1E4")
         self.EstadoCivil.grid(row=3, column=0,padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.EstadoCivilEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.EstadoCivilEntry = ctk.CTkEntry(self.frame,height=30)
         self.EstadoCivilEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew") 
 
-        self.Profissao = customtkinter.CTkLabel(self.frame, text="Profissão",fg_color="#6EC1E4")
+        self.Profissao = ctk.CTkLabel(self.frame, text="Profissão",fg_color="#6EC1E4")
         self.Profissao.grid(row=3, column=2, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.ProfissaoEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.ProfissaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.ProfissaoEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew") 
 
-        self.CpfOuCnpj = customtkinter.CTkLabel(self.frame, text="CPF ou CNPJ",fg_color="#6EC1E4")
+        self.CpfOuCnpj = ctk.CTkLabel(self.frame, text="CPF ou CNPJ",fg_color="#6EC1E4")
         self.CpfOuCnpj.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.CpfOuCnpjEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.CpfOuCnpjEntry = ctk.CTkEntry(self.frame,height=30)
         self.CpfOuCnpjEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew") 
 
-        self.Endereco = customtkinter.CTkLabel(self.frame, text="Endereço de Residência ou Comercial",fg_color="#6EC1E4")
+        self.Endereco = ctk.CTkLabel(self.frame, text="Endereço de Residência ou Comercial",fg_color="#6EC1E4")
         self.Endereco.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.EnderecoEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.EnderecoEntry = ctk.CTkEntry(self.frame,height=30)
         self.EnderecoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.Qualificacao = customtkinter.CTkLabel(self.frame, text="Qualificação da Parte",fg_color="#6EC1E4")
+        self.Qualificacao = ctk.CTkLabel(self.frame, text="Qualificação da Parte",fg_color="#6EC1E4")
         self.Qualificacao.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.QualificacaoEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
     
     def informacoesNegocio(self):
         # Label dentro do frame filho
-        TitleLable = customtkinter.CTkLabel(self.frame,text="Informações do Negócio",fg_color="#6EC1E4",font =('Helvetica', 24))
+        TitleLable = ctk.CTkLabel(self.frame,text="Informações do Negócio",fg_color="#6EC1E4",font =('Helvetica', 24))
         TitleLable.grid(row = 0,column = 0,padx=30, pady=40)
 
         self.frame.grid_columnconfigure(1, minsize=100)
@@ -312,67 +330,67 @@ class checagemInformacoes:
         self.frame.grid_columnconfigure(3, minsize=100)
         self.frame.grid_columnconfigure(4, minsize=300)
 
-        self.Valor = customtkinter.CTkLabel(self.frame, text="Valor",fg_color="#6EC1E4")
+        self.Valor = ctk.CTkLabel(self.frame, text="Valor",fg_color="#6EC1E4")
         self.Valor.grid(row=1, column=0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.ValorEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.ValorEntry = ctk.CTkEntry(self.frame,height=30)
         self.ValorEntry.grid(row=2, column=0, columnspan=4, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.FormaPagamento = customtkinter.CTkLabel(self.frame, text="Forma de Pagamento",fg_color="#6EC1E4")
+        self.FormaPagamento = ctk.CTkLabel(self.frame, text="Forma de Pagamento",fg_color="#6EC1E4")
         self.FormaPagamento.grid(row=1, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.FormaPagamentoEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.FormaPagamentoEntry = ctk.CTkEntry(self.frame,height=30)
         self.FormaPagamentoEntry.grid(row=2, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
-        self.MultaDeMora = customtkinter.CTkLabel(self.frame, text="Multa de Mora",fg_color="#6EC1E4")
+        self.MultaDeMora = ctk.CTkLabel(self.frame, text="Multa de Mora",fg_color="#6EC1E4")
         self.MultaDeMora.grid(row=3, column=0,padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.MultaDeMoraEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.MultaDeMoraEntry = ctk.CTkEntry(self.frame,height=30)
         self.MultaDeMoraEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew") 
 
-        self.JurosDeMora = customtkinter.CTkLabel(self.frame, text="Juros de Mora",fg_color="#6EC1E4")
+        self.JurosDeMora = ctk.CTkLabel(self.frame, text="Juros de Mora",fg_color="#6EC1E4")
         self.JurosDeMora.grid(row=3, column=2, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.JurosDeMoraEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.JurosDeMoraEntry = ctk.CTkEntry(self.frame,height=30)
         self.JurosDeMoraEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew") 
 
-        self.CorrecaoMonetaria = customtkinter.CTkLabel(self.frame, text="Correção Monetária",fg_color="#6EC1E4")
+        self.CorrecaoMonetaria = ctk.CTkLabel(self.frame, text="Correção Monetária",fg_color="#6EC1E4")
         self.CorrecaoMonetaria.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.CorrecaoMonetariaEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
         self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew") 
 
-        self.PrazoDuracao = customtkinter.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
+        self.PrazoDuracao = ctk.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
         self.PrazoDuracao.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.PrazoDuracaoEntry = customtkinter.CTkEntry(self.frame,height=30)
+        self.PrazoDuracaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
     def informacoesPersonalizadas(self):
         self.frame.destroy()
         self.buttonContinue.destroy()
-        self.frame = customtkinter.CTkScrollableFrame(self.janela,height=400,width=900)
+        self.frame = ctk.CTkScrollableFrame(self.janela,height=400,width=900)
         self.frame.pack(pady=(80, 0))
 
-        self.buttonContinue = customtkinter.CTkButton(self.janela, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
-        self.buttonContinue.pack(side=customtkinter.TOP, pady=(30, 0),padx=(500,0))
+        self.buttonContinue = ctk.CTkButton(self.janela, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
-        self.tituloInformacoesPersonalizadas = customtkinter.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
+        self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
         self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
 
         self.camposPersonalizadosEntry = []
         for i,campo in enumerate(self.camposPersonalizados):
             print(i)
-            self.camposPersonalizadosLable = customtkinter.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
+            self.camposPersonalizadosLable = ctk.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
             self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
 
-            self.camposPersonalizadosEntry.append(customtkinter.CTkEntry(self.frame,height=30,width=400))
+            self.camposPersonalizadosEntry.append(ctk.CTkEntry(self.frame,height=30,width=400))
             self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
 
     def get_informacoesNegocio(self):
@@ -431,4 +449,22 @@ class checagemInformacoes:
         return {"informacoes_personalizadas" : dictInformacoes}
     
     def voltar_funcao(self):
-        pass
+        self.parent.show_frame("telaPrincipal")
+        self.parent.frames["telaPrincipal"].show_content()
+
+
+
+
+
+
+
+# dictUser = {
+#             "$$nome$$": ,
+#             "$$sobrenome$$": ,
+#             "$$cpf$$": ,
+#             "$$empresa$$": ,
+#             "$$cargo$$": ,
+#             "$$email$$": ,
+#             "$$telefone$$": ,
+#             "$$país/localização$$": ,
+#         }    
