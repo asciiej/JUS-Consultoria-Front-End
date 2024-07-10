@@ -24,6 +24,9 @@ class telaEdicaoContrato(ctk.CTkFrame):
     def show_contentEDICAO(self,tituloContrato,tipoContrato):
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
+
+        print(f" '{tituloContrato}' ")
+        print(f" '{tipoContrato}' ")
     
         
 

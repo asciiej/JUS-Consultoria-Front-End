@@ -8,6 +8,7 @@ from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
 from src.interface.alterarAcesso import alterarAcesso
 from src.interface.edicaoContratos import telaEdicaoContrato
 from src.interface.Atualizar_dados.atualizarinform import AtualizaCad
+from src.interface.checagemInformacoes import checagemInformacoes
 
 class MainApp(tk.Tk):
     def __init__(self, controlers):
@@ -27,29 +28,27 @@ class MainApp(tk.Tk):
         self.frames["TelaLogin"] = self.tela_login
         self.tela_login.pack(fill="both", expand=True)
 
-        # Instanciando telaRegistro (inicialmente escondida)
+        # Instanciando outras telas (inicialmente escondida)
         self.tela_cadastro = telaCadastro(self, controlers)
         self.frames["telaCadastro"] = self.tela_cadastro
 
-        # Instanciando telaPrincipal (inicialmente escondida)
         self.tela_principal = telaPrincipal(self, controlers)
         self.frames["telaPrincipal"] = self.tela_principal
 
-        # Instanciando telaPrincipal (inicialmente escondida)
         self.tela_principalADM = telaPrincipalAdm(self, controlers)
         self.frames["telaPrincipalAdm"] = self.tela_principalADM
 
-        # Instanciando alterarAcesso (inicialmente escondida)
         self.tela_alterarAcesso = alterarAcesso(self, controlers)
         self.frames["alterarAcesso"] = self.tela_alterarAcesso
         
-        # Instanciando edicaoContratos (inicialmente escondida)
         self.tela_edicaoContratos = telaEdicaoContrato(self, controlers)
         self.frames["telaEdicaoContrato"] = self.tela_edicaoContratos
-
-        # Instanciando AtualizaCad (inicialmente escondida)
+        
         self.tela_atualizaInform = AtualizaCad(self, controlers)
         self.frames["AtualizaCad"] = self.tela_atualizaInform
+
+        self.tela_checaInfo = checagemInformacoes(self, controlers)
+        self.frames["checagemInformacoes"] = self.tela_checaInfo
         
 
         # Mostrando a tela inicial
@@ -83,6 +82,7 @@ class MainApp(tk.Tk):
     def show_principal(self):
         """Exibe a tela princpal e esconde a tela de login"""
         self.tela_login.pack_forget()
+        self.tela_checaInfo.pack_forget()
 
         self.tela_principal.pack(fill="both", expand=True)
 
@@ -110,6 +110,12 @@ class MainApp(tk.Tk):
         self.tela_principal.pack_forget()
 
         self.tela_atualizaInform.pack(fill="both", expand=True)
+
+    def show_checaInfo(self):
+        """Exibe a tela atualizar dados e esconde a tela principal"""
+        self.tela_principal.pack_forget()
+
+        self.tela_checaInfo.pack(fill="both", expand=True)
 
         
 

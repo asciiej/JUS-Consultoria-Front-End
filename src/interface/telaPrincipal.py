@@ -52,11 +52,12 @@ class telaPrincipal(ctk.CTkFrame):
     def on_mousewheel(self, event):
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
-    def choose_contract(self,tipo,titulo):
+    def choose_contract(self, titulo, tipo):
         self.unbind("<Configure>")
         for widget in self.winfo_children():
             widget.destroy()
-        checagemInformacoes(self,id,tipo,titulo,self.controlers)
+        self.parent.show_frame("checagemInformacoes")
+        self.parent.frames["checagemInformacoes"].show_contentCHECA(id, tipo, titulo, self.controlers)
 
     def show_content(self):
 
