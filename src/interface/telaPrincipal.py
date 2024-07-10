@@ -433,9 +433,6 @@ class telaPrincipal:
         self.frame_auxiliar = customtkinter.CTkFrame(self.body_frame, height=0, width=2100)
         self.frame_auxiliar.pack(pady=(50, 50), padx=(0,0))
 
-
-        # Adiciona evento de redimensionamento da janela
-        self.janela.bind("<Configure>", self.on_window_resize)
         self.janela.mainloop()
 
     def click_consultoria_empresarial(self):
@@ -458,10 +455,6 @@ class telaPrincipal:
 
         self.canvas.xview_moveto(0.179)
 
-    def on_window_resize(self, event):
-
-        self.canvas.xview_moveto(0.179)
-
     def activate_scroll(self, event):
         self.body_frame.bind("<MouseWheel>", self.on_mousewheel)
 
@@ -472,7 +465,6 @@ class telaPrincipal:
         self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
     def choose_contract(self,tipo,titulo):
-        self.janela.unbind("<Configure>")
         for widget in self.janela.winfo_children():
             widget.destroy()
         checagemInformacoes(self.janela,id,tipo,titulo,self.controlers)
