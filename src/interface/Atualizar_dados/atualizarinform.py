@@ -1,142 +1,17 @@
 
 import os
 from pathlib import Path
+import customtkinter as ctk
 from PIL import Image, ImageTk
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage,Menu
 from ...utilitarios.user_session import USER_SESSION
 
-class AtualizaCad:
-    def __init__(self, janela, controlers):
-        self.atualizarcad = janela
-        self.atualizarcad.geometry("1400x700")
-        self.atualizarcad.configure(bg="#EFEFEF")
+class AtualizaCad(ctk.CTkFrame):
+    def __init__(self, parent, controlers):
+        super().__init__(parent)
+        self.parent = parent
         self.controlers = controlers
-        #self.atualizarcad.attributes('-fullscreen', True)
-        #self.atualizarcad.bind("<Escape>", self.exit_fullscreen)
-
-        #criação do canvas
-        self.canvas = Canvas(
-            self.atualizarcad,
-            bg="#EFEFEF",
-            height=700,
-            width=1440,
-            bd=0,
-            highlightthickness=0,
-            relief="ridge"
-        )
-        self.canvas.place(x=0, y=0)
-
-        #place holder testee
-
-
-
-        # Imagens
-        self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
-        self.image_image_2 = PhotoImage(file=self.relative_to_assets("image_2.png"))
-        self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
-        self.image_image_4 = PhotoImage(file=self.relative_to_assets("image_4.png"))
-
-        # Criação das imagens no canvas
-        self.canvas.create_image(690.0, 35.0, image=self.image_image_1)
-        self.canvas.create_image(578.0, 127.0, image=self.image_image_2)
-        self.canvas.create_image(738.0, 401.0, image=self.image_image_3)
-
-        # Textos no canvas
-
-
-        self.name_text_id = self.canvas.create_text(629.0, 119.0, anchor="nw", text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", fill="#000000", font=("Consolas", 22 * -1))
-        self.update_name_text("Gustavo Sabbatini Janot")
-        self.canvas.create_text(880.0, 357.0, anchor="nw", text="Nome da Empresa", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(462.0, 427.0, anchor="nw", text="Telefone", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(667.0, 427.0, anchor="nw", text="País / Localização", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(880.0, 428.0, anchor="nw", text="CPF", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(463.0, 506.0, anchor="nw", text="Nova Senha", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(748.0, 507.0, anchor="nw", text="Confirme sua Nova Senha", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(462.0, 357.0, anchor="nw", text="E-mail", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(669.0, 286.0, anchor="nw", text="Sobrenome", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(462.0, 286.0, anchor="nw", text="Nome", fill="#000000", font=("Calibri", 18 * -1))
-        self.canvas.create_text(516.0, 220.0, anchor="nw", text=" Informações Profissionais:", fill="#000000", font=("Consolas Bold", 28 * -1))
-
-        # nome
-        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
-        self.entry_bg_1 = self.canvas.create_image(551.0, 333.5, image=self.entry_image_1)
-        self.entry_1 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_1.place(x=464.0, y=320.0, width=174.0, height=29.0)
-        self.entry_1.insert(0,USER_SESSION.get_user_data().nome)
-
-        #telefone
-        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
-        self.entry_bg_2 = self.canvas.create_image(545.5, 472.5, image=self.entry_image_2)
-        self.entry_2 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_2.place(x=467.0, y=459.0, width=157.0, height=29.0)
-        self.entry_2.insert(0,USER_SESSION.get_user_data().telefone)
-
-        #País
-        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
-        self.entry_bg_3 = self.canvas.create_image(747.5, 472.5, image=self.entry_image_3)
-        self.entry_3 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_3.place(x=669.0, y=459.0, width=157.0, height=29.0)
-        self.entry_3.insert(0,USER_SESSION.get_user_data().pais)
-
-        #cpf
-        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
-        self.entry_bg_4 = self.canvas.create_image(967.0, 472.5, image=self.entry_image_4)
-        self.entry_4 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_4.place(x=882.0, y=459.0, width=170.0, height=29.0)
-        self.entry_4.insert(0,USER_SESSION.get_user_data().cpf)
-
-
-        #senha
-        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
-        self.entry_bg_5 = self.canvas.create_image(580.5, 552.5, image=self.entry_image_5)
-        self.entry_5 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
-        self.entry_5.place(x=467.0, y=539.0, width=227.0, height=29.0)
-
-
-        #Confirmar senha
-        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
-        self.entry_bg_6 = self.canvas.create_image(862.5, 550.5, image=self.entry_image_6)
-        self.entry_6 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
-        self.entry_6.place(x=749.0, y=537.0, width=227.0, height=29.0)
-
-
-        #Nome Empresa
-        self.entry_image_7 = PhotoImage(file=self.relative_to_assets("entry_7.png"))
-        self.entry_bg_7 = self.canvas.create_image(966.5, 401.5, image=self.entry_image_7)
-        self.entry_7 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_7.place(x=881.0, y=388.0, width=171.0, height=29.0)
-        self.entry_7.insert(0,USER_SESSION.get_user_data().nomeEmpresa)
-
-        #Sobrenome
-        self.entry_image_8 = PhotoImage(file=self.relative_to_assets("entry_8.png"))
-        self.entry_bg_8 = self.canvas.create_image(759.0, 332.5, image=self.entry_image_8)
-        self.entry_8 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_8.place(x=669.0, y=319.0, width=180.0, height=29.0)
-        self.entry_8.insert(0,USER_SESSION.get_user_data().sobrenome)
-
-
-        #E-mail
-        self.entry_image_9 = PhotoImage(file=self.relative_to_assets("entry_9.png"))
-        self.entry_bg_9 = self.canvas.create_image(656.5, 401.5, image=self.entry_image_9)
-        self.entry_9 = Entry(bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
-        self.entry_9.place(x=464.0, y=388.0, width=385.0, height=29.0)
-        self.entry_9.insert(0,USER_SESSION.get_user_data().email)
-
-        # Botão
-        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
-        button_1 = Button(
-            image=self.button_image_1,
-            borderwidth=0,
-            highlightthickness=0,
-            command= self.update_user,
-            relief="flat"
-        )
-        button_1.place(x=915.0, y=635.0, width=180.0, height=51.48387145996094)
-
-        # Configuração final da janela
-        self.atualizarcad.resizable(True, False)
-        self.atualizarcad.mainloop()
-
+        self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
     #funções
     def get_all_entry_values(self):
@@ -184,3 +59,187 @@ class AtualizaCad:
     def select_cargo(self, cargo):
         self.selected_cargo = cargo
         self.cargo_button.config(text=cargo)
+    
+    def voltar_funcao(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("telaPrincipal")
+        self.parent.frames["telaPrincipal"].show_content()
+
+
+    def show_contentATUALIZAR(self):
+
+        
+        
+        largura_tela = self.winfo_screenwidth()
+        altura_tela = self.winfo_screenheight()
+
+        centro_x = largura_tela / 2
+        centro_y = altura_tela / 2
+
+
+        #criação do canvas
+        self.canvas = Canvas(
+            self,
+            height=altura_tela,
+            width=largura_tela,
+            bd=0,
+            highlightthickness=0,
+            relief="ridge"
+        )
+
+        self.canvas.place(x=0, y=0)
+
+        self.font = ctk.CTkFont('Helvetica',14)
+
+        # Cabeçalho menu personalizado
+        cabecalho_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"]
+        }
+
+        # Cabeçalho
+        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=ctk.X, pady=(0, 40))
+
+        # Logo
+        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'),size = (80,72.54))
+        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text = "")
+        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
+
+
+        self.canvas.create_text(centro_x, 210.0, text="Editar Cadastro Usuário", fill="#000000", font=("Consolas Bold", 60 * -1))
+
+
+
+         
+
+        #place holder testee
+         # Botão menu personalizado
+        voltar_menu = {
+            "corner_radius": 0,
+            "border_width": 0,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "hover_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#6EC1E4", "#6EC1E4"],
+            "text_color": "#000000",
+            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
+        }
+
+         # Texto menu e Botão de VOLTAR
+
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar.pack(side=ctk.RIGHT, padx=(80, 0), pady = 50)
+
+
+        # Imagens
+        #self.image_image_1 = PhotoImage(file=self.relative_to_assets("image_1.png"))
+        self.image_image_2 = PhotoImage(file=self.relative_to_assets("image_2.png"))
+        self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
+        self.image_image_4 = PhotoImage(file=self.relative_to_assets("image_4.png"))
+
+        
+        # Criação das imagens no canvas
+        #self.canvas.create_image(centro_x, 35.0, image=self.image_image_1)
+        self.canvas.create_image(centro_x, 127.0, image=self.image_image_2)
+        self.canvas.create_image(centro_x, centro_y, image=self.image_image_3)
+
+
+        # Botão
+        self.button_image_1 = PhotoImage(file=self.relative_to_assets("button_1.png"))
+        button_1 = Button(self,
+            image=self.button_image_1,
+            borderwidth=0,
+            highlightthickness=0,
+            command= self.update_user,
+            relief="flat"
+        )
+        button_1.place(x=915.0, y=635.0, width=180.0, height=51.48387145996094)
+
+        # Configuração final da janela
+        #self.atualizarcad.resizable(True, False)
+        #self.atualizarcad.mainloop()
+
+
+        # Textos no canvas
+
+
+        self.name_text_id = self.canvas.create_text(centro_x, 305.0, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", fill="#000000", font=("Consolas", 22 * -1))
+        self.canvas.create_text(880.0, 357.0, anchor="nw", text="Nome da Empresa", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(462.0, 427.0, anchor="nw", text="Telefone", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(667.0, 427.0, anchor="nw", text="País / Localização", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(880.0, 428.0, anchor="nw", text="CPF", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(463.0, 506.0, anchor="nw", text="Nova Senha", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(748.0, 507.0, anchor="nw", text="Confirme sua Nova Senha", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(462.0, 357.0, anchor="nw", text="E-mail", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(669.0, 286.0, anchor="nw", text="Sobrenome", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(462.0, 286.0, anchor="nw", text="Nome", fill="#000000", font=("Calibri", 18 * -1))
+        self.canvas.create_text(centro_x, 270.0, text=" Informações Profissionais:", fill="#000000", font=("Consolas Bold", 28 * -1))
+
+        # nome
+        self.entry_image_1 = PhotoImage(file=self.relative_to_assets("entry_1.png"))
+        self.entry_bg_1 = self.canvas.create_image(551.0, 333.5, image=self.entry_image_1)
+        self.entry_1 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_1.place(x=464.0, y=320.0, width=174.0, height=29.0)
+        self.entry_1.insert(0,USER_SESSION.get_user_data().nome)
+
+        #telefone
+        self.entry_image_2 = PhotoImage(file=self.relative_to_assets("entry_2.png"))
+        self.entry_bg_2 = self.canvas.create_image(545.5, 472.5, image=self.entry_image_2)
+        self.entry_2 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_2.place(x=467.0, y=459.0, width=157.0, height=29.0)
+        self.entry_2.insert(0,USER_SESSION.get_user_data().telefone)
+
+        #País
+        self.entry_image_3 = PhotoImage(file=self.relative_to_assets("entry_3.png"))
+        self.entry_bg_3 = self.canvas.create_image(747.5, 472.5, image=self.entry_image_3)
+        self.entry_3 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_3.place(x=669.0, y=459.0, width=157.0, height=29.0)
+        self.entry_3.insert(0,USER_SESSION.get_user_data().pais)
+
+        #cpf
+        self.entry_image_4 = PhotoImage(file=self.relative_to_assets("entry_4.png"))
+        self.entry_bg_4 = self.canvas.create_image(967.0, 472.5, image=self.entry_image_4)
+        self.entry_4 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_4.place(x=882.0, y=459.0, width=170.0, height=29.0)
+        self.entry_4.insert(0,USER_SESSION.get_user_data().cpf)
+
+
+        #senha
+        self.entry_image_5 = PhotoImage(file=self.relative_to_assets("entry_5.png"))
+        self.entry_bg_5 = self.canvas.create_image(580.5, 552.5, image=self.entry_image_5)
+        self.entry_5 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
+        self.entry_5.place(x=467.0, y=539.0, width=227.0, height=29.0)
+
+
+        #Confirmar senha
+        self.entry_image_6 = PhotoImage(file=self.relative_to_assets("entry_6.png"))
+        self.entry_bg_6 = self.canvas.create_image(862.5, 550.5, image=self.entry_image_6)
+        self.entry_6 = Entry(self, bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0, show='*')
+        self.entry_6.place(x=749.0, y=537.0, width=227.0, height=29.0)
+
+
+        #Nome Empresa
+        self.entry_image_7 = PhotoImage(file=self.relative_to_assets("entry_7.png"))
+        self.entry_bg_7 = self.canvas.create_image(966.5, 401.5, image=self.entry_image_7)
+        self.entry_7 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_7.place(x=881.0, y=388.0, width=171.0, height=29.0)
+        self.entry_7.insert(0,USER_SESSION.get_user_data().nomeEmpresa)
+
+        #Sobrenome
+        self.entry_image_8 = PhotoImage(file=self.relative_to_assets("entry_8.png"))
+        self.entry_bg_8 = self.canvas.create_image(759.0, 332.5, image=self.entry_image_8)
+        self.entry_8 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_8.place(x=669.0, y=319.0, width=180.0, height=29.0)
+        self.entry_8.insert(0,USER_SESSION.get_user_data().sobrenome)
+
+
+        #E-mail
+        self.entry_image_9 = PhotoImage(file=self.relative_to_assets("entry_9.png"))
+        self.entry_bg_9 = self.canvas.create_image(656.5, 401.5, image=self.entry_image_9)
+        self.entry_9 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
+        self.entry_9.place(x=464.0, y=388.0, width=385.0, height=29.0)
+        self.entry_9.insert(0,USER_SESSION.get_user_data().email)
+       

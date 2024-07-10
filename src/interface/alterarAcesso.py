@@ -4,14 +4,18 @@ from PIL import Image
 from functools import partial
 from ..utilitarios.user_session import USER_SESSION
 
-class alterarAcesso:
-    def __init__(self, janela, controlers):
+class alterarAcesso(ctk.CTkFrame):
+    def __init__(self,parent,controlers : dict):
+        super().__init__(parent)
+        self.parent = parent
+        self.controlers = controlers
         ctk.set_default_color_theme("lib/temaTkinterCustom.json")
 
-        self.janela = janela
+    def show_contentALTERAR(self):
+        #self.janela = janela
         self.font = ctk.CTkFont('Helvetica', 14)
         self.titulo_font = ctk.CTkFont('Helvetica', 20)
-        self.controlers = controlers
+        
 
         # Cabeçalho menu personalizado
         cabecalho_menu = {
@@ -21,7 +25,7 @@ class alterarAcesso:
         }
 
         # Cabeçalho
-        self.cabecalho = ctk.CTkFrame(self.janela, height=104, **cabecalho_menu)
+        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
         self.cabecalho.pack(fill=ctk.X)
 
         # Logo
@@ -33,7 +37,7 @@ class alterarAcesso:
         self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
         self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
         self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
-
+        
         # Botão menu personalizado
         voltar_menu = {
             "corner_radius": 0,
@@ -57,13 +61,13 @@ class alterarAcesso:
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
-        self.janela.update_idletasks()
-        window_height = self.janela.winfo_height()
+        self.update_idletasks()
+        window_height = self.winfo_height()
         header_height = self.cabecalho.winfo_height()
         body_height = window_height - header_height
 
         # Body
-        self.canvas = tk.Canvas(self.janela, height=body_height)
+        self.canvas = tk.Canvas(self, height=body_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         # Frame
@@ -90,7 +94,7 @@ class alterarAcesso:
 
         self.frame_usuarios = []
 
-        usuarios = controlers['usuario'].get_all_users()
+        usuarios = self.controlers['usuario'].get_all_users()
 
         for usuario in usuarios:
             novo_frame = ctk.CTkFrame(self.frame, **user_frame)
@@ -175,8 +179,6 @@ class alterarAcesso:
         # Pesquisar usuarios
         self.caixa_busca.bind("<KeyRelease>", self.pesquisar_usuarios)
 
-        self.janela.mainloop()
-
     def toggle_frame_expansion(self, frame, botao_alterar, botao_cancelar, botao_submeter, cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
 
         altura_frame = frame.winfo_height()
@@ -219,4 +221,8 @@ class alterarAcesso:
                 frame.pack(pady=(10, 0))
 
     def voltar_funcao(self):
-        pass
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("telaPrincipalAdm")
+        self.parent.frames["telaPrincipalAdm"].show_contentADM()
