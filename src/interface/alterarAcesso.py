@@ -15,7 +15,7 @@ class alterarAcesso(ctk.CTkFrame):
         #self.janela = janela
         self.font = ctk.CTkFont('Helvetica', 14)
         self.titulo_font = ctk.CTkFont('Helvetica', 20)
-        
+
 
         # Cabeçalho menu personalizado
         cabecalho_menu = {
@@ -37,7 +37,7 @@ class alterarAcesso(ctk.CTkFrame):
         self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
         self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
         self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
-        
+
         # Botão menu personalizado
         voltar_menu = {
             "corner_radius": 0,
@@ -70,7 +70,7 @@ class alterarAcesso(ctk.CTkFrame):
         self.canvas = tk.Canvas(self, height=body_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         frameCustom = {
-           
+
             "fg_color": "#6EC1E4",  # Cor de fundo do quadrado
             "border_width": 2,
             "border_color": "#00343D",  # Cor da borda
@@ -83,7 +83,7 @@ class alterarAcesso(ctk.CTkFrame):
             "corner_radius": 40,  # Raio dos cantos
             "font": ("Helvetica", 17),
             "width": 800,
-            "height": 45 
+            "height": 45
         }
 
         # Caixa de busca
@@ -129,9 +129,13 @@ class alterarAcesso(ctk.CTkFrame):
                 "font": ("Helvetica", 14)
             }
 
-            self.cb_consultoria_empresarial = ctk.CTkCheckBox(novo_frame, text="Consultoria Empresarial", **checkbox)
-            self.cb_consultoria_tributaria = ctk.CTkCheckBox(novo_frame, text="Consultoria Tributária", **checkbox)
-            self.cb_camara_arbitragem = ctk.CTkCheckBox(novo_frame, text="Câmara de Arbitragem", **checkbox)
+            empresarial_is_checked = ctk.BooleanVar(value="empresarial" in usuario.roles)
+            tributaria_is_checked = ctk.BooleanVar(value="tributaria" in usuario.roles)
+            arbitragem_is_checked = ctk.BooleanVar(value="arbitragem" in usuario.roles)
+
+            self.cb_consultoria_empresarial = ctk.CTkCheckBox(novo_frame, text="Consultoria Empresarial", variable=empresarial_is_checked, **checkbox)
+            self.cb_consultoria_tributaria = ctk.CTkCheckBox(novo_frame, text="Consultoria Tributária", variable=tributaria_is_checked, **checkbox)
+            self.cb_camara_arbitragem = ctk.CTkCheckBox(novo_frame, text="Câmara de Arbitragem", variable=arbitragem_is_checked, **checkbox)
 
             alterar = {
                 "corner_radius": 20,
@@ -175,14 +179,35 @@ class alterarAcesso(ctk.CTkFrame):
             botao_submeter = ctk.CTkButton(novo_frame, text="Submeter Alterações", **submeter)
             botao_cancelar = ctk.CTkButton(novo_frame, text="Cancelar", **cancelarr)
 
+            self.toggle_frame_params = (novo_frame, botao_alterar_acesso, botao_cancelar, botao_submeter, self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem)
             # Função dos botões
+            botao_submeter.configure(command=partial(self.submeter, usuario, [empresarial_is_checked, tributaria_is_checked, arbitragem_is_checked], self.toggle_frame_params))
+            botao_cancelar.configure(command=partial(self.cancelar, self.toggle_frame_params))
             botao_alterar_acesso.configure(command=partial(self.toggle_frame_expansion, novo_frame, botao_alterar_acesso, botao_cancelar, botao_submeter, self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem))
-            botao_cancelar.configure(command=partial(self.toggle_frame_colapse, novo_frame, botao_alterar_acesso, botao_cancelar, botao_submeter, self.cb_consultoria_empresarial, self.cb_consultoria_tributaria, self.cb_camara_arbitragem))
 
             self.frame_usuarios.append(novo_frame)
 
         # Pesquisar usuarios
         self.caixa_busca.bind("<KeyRelease>", self.pesquisar_usuarios)
+
+    def submeter(self, usuario, checked_roles, toggle_frame_params):
+        roles = {
+            'empresarial': checked_roles[0].get(),
+            'tributaria': checked_roles[1].get(),
+            'arbitragem': checked_roles[2].get()
+        }
+
+        for role, is_checked in roles.items():
+            if is_checked and not self.controlers['usuario'].user_has_role(usuario.cpf, role):
+                self.controlers['usuario'].user_add_role(usuario.cpf, role)
+            elif not is_checked and self.controlers['usuario'].user_has_role(usuario.cpf, role):
+                self.controlers['usuario'].user_remove_role(usuario.cpf, role)
+        self.toggle_frame_colapse(*toggle_frame_params)
+        self.reload_alterar_acesso()
+
+    def cancelar(self, toggle_frame_params):
+        self.toggle_frame_colapse(*toggle_frame_params)
+        self.reload_alterar_acesso()
 
     def toggle_frame_expansion(self, frame, botao_alterar, botao_cancelar, botao_submeter, cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
 
@@ -200,7 +225,7 @@ class alterarAcesso(ctk.CTkFrame):
         botao_cancelar.pack(side=ctk.RIGHT, anchor=ctk.SE, padx=(0, 20), pady=(0, 20))
 
     def toggle_frame_colapse(self, frame, botao_alterar, botao_cancelar, botao_submeter, cb_consultoria_empresarial, cb_consultoria_tributaria, cb_camara_arbitragem):
-            
+
         altura_frame = frame.winfo_height()
         #print(f"Contrai!")
         frame.configure(height= 100)
@@ -224,6 +249,13 @@ class alterarAcesso(ctk.CTkFrame):
         if not termo_busca:
             for i, frame in enumerate(self.frame_usuarios):
                 frame.pack(pady=(10, 0))
+
+    def reload_alterar_acesso(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("alterarAcesso")
+        self.parent.frames["alterarAcesso"].show_contentALTERAR()
 
     def voltar_funcao(self):
         self.unbind("<Configure>")

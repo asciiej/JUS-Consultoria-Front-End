@@ -63,9 +63,10 @@ class AtualizaCad(ctk.CTkFrame):
         if not nome or not sobrenome or not cpf or not nome_empresa or not email or not telefone or not pais_localizacao or not senha or not confirme_senha:
             show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
             return
-        
+
         values = self.get_all_entry_values()
         self.controlers['usuario'].update_user(**values)
+        self.voltar_funcao()
 
     def update_name_text(self, name):
         self.canvas.itemconfig(self.name_text_id, text=name)
@@ -91,7 +92,7 @@ class AtualizaCad(ctk.CTkFrame):
     def select_cargo(self, cargo):
         self.selected_cargo = cargo
         self.cargo_button.config(text=cargo)
-    
+
     def voltar_funcao(self):
         self.unbind("<Configure>")
         for widget in self.winfo_children():
@@ -102,8 +103,8 @@ class AtualizaCad(ctk.CTkFrame):
 
     def show_contentATUALIZAR(self):
 
-        
-        
+
+
         largura_tela = self.winfo_screenwidth()
         altura_tela = self.winfo_screenheight()
 
@@ -146,7 +147,7 @@ class AtualizaCad(ctk.CTkFrame):
 
 
 
-         
+
 
         #place holder testee
          # Botão menu personalizado
@@ -172,7 +173,7 @@ class AtualizaCad(ctk.CTkFrame):
         self.image_image_3 = PhotoImage(file=self.relative_to_assets("image_3.png"))
         self.image_image_4 = PhotoImage(file=self.relative_to_assets("image_4.png"))
 
-        
+
         # Criação das imagens no canvas
         #self.canvas.create_image(centro_x, 35.0, image=self.image_image_1)
         self.canvas.create_image(centro_x, 127.0, image=self.image_image_2)
@@ -274,4 +275,3 @@ class AtualizaCad(ctk.CTkFrame):
         self.entry_9 = Entry(self,bd=0, bg="#FFFFFF", fg="#000716", highlightthickness=0)
         self.entry_9.place(x=464.0, y=388.0, width=385.0, height=29.0)
         self.entry_9.insert(0,USER_SESSION.get_user_data().email)
-       
