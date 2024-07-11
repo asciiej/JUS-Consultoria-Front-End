@@ -83,6 +83,7 @@ class AtualizaCad(ctk.CTkFrame):
     def relative_to_assets(self, path: str) -> Path:
         ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
         return ASSETS_PATH / Path(path)
+        
 
     def show_cargo_menu(self):
         self.cargo_menu.post(self.cargo_button.winfo_rootx(), self.cargo_button.winfo_rooty() + self.cargo_button.winfo_height())

@@ -33,6 +33,7 @@ class checagemInformacoes(ctk.CTkFrame):
     def show_contentCHECA(self, id ,titulo, tipo, controlers):
         print(f" '{titulo}' ")
         print(f" '{tipo}' ")
+        print(f" '{id}' ")
         # Realiza a consulta ao banco de dados
         self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
         self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
@@ -137,11 +138,11 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
                     
-                    #self.unbind("<Configure>")
+                   # self.unbind("<Configure>")
                     #for widget in self.winfo_children():
-                    #    widget.destroy()
+                     #   widget.destroy()
                     self.parent.show_frame("telaAssinaturaDocumento")
-                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
+                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
         else:
             match self.pagina:
@@ -151,11 +152,11 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    self.unbind("<Configure>")
+                   # self.unbind("<Configure>")
                    # for widget in self.winfo_children():
-                    #    widget.destroy()
+                      #  widget.destroy()
                     self.parent.show_frame("telaAssinaturaDocumento")
-                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
+                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
         
         self.pagina +=1
 
@@ -186,20 +187,20 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
                    # self.unbind("<Configure>")
-                    #for widget in self.winfo_children():
-                    #    widget.destroy()
+                   # for widget in self.winfo_children():
+                      #  widget.destroy()
                     self.parent.show_frame("telaAssinaturaDocumento")
-                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
+                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
             self.pagina +=1   
         else:
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
             self.formPdf()
-           # self.unbind("<Configure>")
+            #self.unbind("<Configure>")
             #for widget in self.winfo_children():
              #    widget.destroy()   
             self.parent.show_frame("telaAssinaturaDocumento")
-            self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
+            self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
     def formPdf(self):
         pdf_saida = './pdfs/pdf_final.pdf'

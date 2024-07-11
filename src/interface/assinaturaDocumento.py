@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image
 import ctypes
+
 from tkinter import ttk
 import customtkinter as ctk
 from src.utilitarios.visualizadorPDF import PDFReader
@@ -13,9 +14,13 @@ class telaAssinaturaDocumento(ctk.CTkFrame):
         self.parent = parent
         self.controlers = controlers
         #self.contractControler = contractControler
-        ctypes.windll.shcore.SetProcessDpiAwareness(True)
+        #ctypes.windll.shcore.SetProcessDpiAwareness(True)
         #self = root
 
+
+
+    def show_contentASSINA(self, id ,titulo, tipo):
+       
         cabecalho_menu = {
             "corner_radius": 0,
             "border_width": 0,
@@ -45,7 +50,14 @@ class telaAssinaturaDocumento(ctk.CTkFrame):
         self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,width=200)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 40))
 
-    def show_contentASSINA(self):
+        
+        
+
+        self.titulo = titulo
+        self.tipo = tipo
+    
+        print(f"Título: {self.titulo}, Tipo: {self.tipo}")
+        print(f"{id}")
 
          # Nome do usuario no cabeçalho
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
@@ -80,15 +92,12 @@ class telaAssinaturaDocumento(ctk.CTkFrame):
         PDFReader(self.frame_texto,None,pdf_saida)
 
 
-
-        #self.mainloop()
-
-    def voltar_funcao(self,tipo, titulo,):
+    def voltar_funcao(self):
         self.unbind("<Configure>")
         for widget in self.winfo_children():
             widget.destroy()
         self.parent.show_frame("checagemInformacoes")
-        self.parent.frames["checagemInformacoes"].show_contentCHECA(id, tipo, titulo, self.controlers)
+        self.parent.frames["checagemInformacoes"].show_contentCHECA(id, self.titulo, self.tipo, self.controlers)
 
 
     def assinar(self):
