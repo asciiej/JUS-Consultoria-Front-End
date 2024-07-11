@@ -69,16 +69,21 @@ class alterarAcesso(ctk.CTkFrame):
         # Body
         self.canvas = tk.Canvas(self, height=body_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
+        frameCustom = {
+           
+            "fg_color": "#6EC1E4",  # Cor de fundo do quadrado
+            "border_width": 2,
+            "border_color": "#00343D",  # Cor da borda
+        }
         # Frame
-        self.frame = ctk.CTkScrollableFrame(self.canvas, height=480, width=900)
+        self.frame = ctk.CTkScrollableFrame(self.canvas, height=480, width=900, **frameCustom)
         self.frame.pack(pady=(100, 0))
 
         caixa_busca = {
             "corner_radius": 40,  # Raio dos cantos
             "font": ("Helvetica", 17),
             "width": 800,
-            "height": 45
+            "height": 45 
         }
 
         # Caixa de busca

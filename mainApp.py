@@ -9,6 +9,8 @@ from src.interface.alterarAcesso import alterarAcesso
 from src.interface.edicaoContratos import telaEdicaoContrato
 from src.interface.Atualizar_dados.atualizarinform import AtualizaCad
 from src.interface.checagemInformacoes import checagemInformacoes
+from src.interface.assinaturaDocumento import telaAssinaturaDocumento
+from src.interface.redirecionaGOV import redirecionaGOV
 
 class MainApp(tk.Tk):
     def __init__(self, controlers):
@@ -50,7 +52,12 @@ class MainApp(tk.Tk):
 
         self.tela_checaInfo = checagemInformacoes(self, controlers)
         self.frames["checagemInformacoes"] = self.tela_checaInfo
-        
+
+        self.tela_assinaDoc = telaAssinaturaDocumento(self, controlers)
+        self.frames["telaAssinaturaDocumento"] = self.tela_assinaDoc
+
+        self.tela_GOV = redirecionaGOV(self, controlers)
+        self.frames["redirecionaGOV"] = self.tela_GOV
 
         # Mostrando a tela inicial
         self.show_frame("TelaLogin")
@@ -84,6 +91,7 @@ class MainApp(tk.Tk):
         """Exibe a tela princpal e esconde a tela de login"""
         self.tela_login.pack_forget()
         self.tela_checaInfo.pack_forget()
+        
 
         self.tela_principal.pack(fill="both", expand=True)
 
@@ -113,10 +121,24 @@ class MainApp(tk.Tk):
         self.tela_atualizaInform.pack(fill="both", expand=True)
 
     def show_checaInfo(self):
-        """Exibe a tela atualizar dados e esconde a tela principal"""
+        """Exibe a tela checagem infos e esconde a tela principal"""
         self.tela_principal.pack_forget()
+        self.tela_assinaDoc.pack_forget()
 
         self.tela_checaInfo.pack(fill="both", expand=True)
+
+    def show_assinaDoc(self):
+        """Exibe a tela atualizar dados e esconde a tela principal"""
+        self.tela_checaInfo.pack_forget()
+        self.tela_GOV.pack_forget()
+
+        self.tela_assinaDoc.pack(fill="both", expand=True)
+
+    def show_GOV(self):
+        """Exibe a tela atualizar dados e esconde a tela principal"""
+        self.tela_assinaDoc.pack_forget()
+
+        self.tela_GOV.pack(fill="both", expand=True)
 
         
 

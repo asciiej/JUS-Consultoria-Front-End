@@ -136,7 +136,13 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    telaAssinaturaDocumento(self)
+                    
+                    #self.unbind("<Configure>")
+                    #for widget in self.winfo_children():
+                    #    widget.destroy()
+                    self.parent.show_frame("telaAssinaturaDocumento")
+                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
+
         else:
             match self.pagina:
                 case 0:
@@ -145,7 +151,11 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    telaAssinaturaDocumento(self)
+                    self.unbind("<Configure>")
+                   # for widget in self.winfo_children():
+                    #    widget.destroy()
+                    self.parent.show_frame("telaAssinaturaDocumento")
+                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
         
         self.pagina +=1
 
@@ -175,14 +185,21 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    telaAssinaturaDocumento(self)
+                   # self.unbind("<Configure>")
+                    #for widget in self.winfo_children():
+                    #    widget.destroy()
+                    self.parent.show_frame("telaAssinaturaDocumento")
+                    self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
             self.pagina +=1   
         else:
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
             self.formPdf()
-            telaAssinaturaDocumento(self)
-         
+           # self.unbind("<Configure>")
+            #for widget in self.winfo_children():
+             #    widget.destroy()   
+            self.parent.show_frame("telaAssinaturaDocumento")
+            self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
 
     def formPdf(self):
         pdf_saida = './pdfs/pdf_final.pdf'
