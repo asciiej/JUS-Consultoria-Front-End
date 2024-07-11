@@ -5,7 +5,7 @@ organizações **armazenar**, **acessar**, **modificar** e **excluir** contratos
 para garantir a autenticação dos usuários e o controle de acesso às
 informações.
 
-- Cadastro de novos usuários no sistema, bem como se comunicar com os dados preenchidos no formulário presente no site que será elaborado pela FEELT.
+- Cadastro de novos usuários no sistema, bem como se comunicar com os dados preenchidos no formulário presente no site que será elaborado pela CONSELT.
 - Possibilidade de alterar dados do usuário.
 - **Diferença de níveis de acesso às informações do site**. Haverá um usuário administrador, capaz de cadastrar novos contratos e pareceres jurídicos.
 - Cadastro/modificação e exclusão de novos contratos e pareceres jurídicos no sistema.
@@ -18,7 +18,7 @@ sequenceDiagram
 Software->> Banco De Dados: Requisições
 Banco De Dados-->>Software: Informações Necessárias
 
-Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como faremos a integração<br/> com as informações do site da FEELT.
+Note right of Banco De Dados: Posteriormente<br/>teremos que estudar<br/>como faremos a integração<br/> com as informações do site da CONSELT.
 
 ```
 
