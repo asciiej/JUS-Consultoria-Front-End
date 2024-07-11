@@ -80,7 +80,6 @@ class convertPDF:
             "text green": 'font color="green"',
             "text red": 'font color="red"'
         }
-        print(substitution)
         self.substitution = substitution
 
     def nth_index(self, iterable, value, n):
@@ -139,13 +138,11 @@ class convertPDF:
             
             match self.lastCases(start,end,lastStartWithoutOffset,lastEndWithoutOffset):
                 case 0:
-                    #print("O atual está entre o último")
                     styled_start = lastStart + lastOffsetIncrement
                     styled_end =   lastEnd + lastOffsetIncrement
                 case 1:
                     styled_start = start + offset
                     styled_end =  end + offset
-                    #print("Depois do último, não estão um entre os outros")
 
             lastStartWithoutOffset = start
             lastEndWithoutOffset = end
@@ -202,7 +199,6 @@ class convertPDF:
                 
         formatted_text = self.remover_tuplas_vazias(formatted_text)
         formatted_text = self.ordenar_tuplas(formatted_text)
-        #print(formatted_text)
         content = self.apply_styles(content, formatted_text)
         notLineCounter = 0
 
@@ -216,13 +212,10 @@ class convertPDF:
             
             elements.append(p)
             if '<font size="12">' in line:
-                print("teste")
                 elements.append(Spacer(1, 8))
             elif '<font size="16">' in line:
-                print("teste")
                 elements.append(Spacer(1, 10))
             elif '<font size="20">' in line:
-                print("teste")
                 elements.append(Spacer(1, 12))
             else:
                 pass
