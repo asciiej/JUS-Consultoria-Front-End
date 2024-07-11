@@ -31,9 +31,6 @@ class checagemInformacoes(ctk.CTkFrame):
 
 
     def show_contentCHECA(self, id ,titulo, tipo, controlers):
-        print(f" '{titulo}' ")
-        print(f" '{tipo}' ")
-        print(f" '{id}' ")
         # Realiza a consulta ao banco de dados
         self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
         self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
@@ -410,7 +407,6 @@ class checagemInformacoes(ctk.CTkFrame):
 
         self.camposPersonalizadosEntry = []
         for i,campo in enumerate(self.camposPersonalizados):
-            print(i)
             self.camposPersonalizadosLable = ctk.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
             self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
 
@@ -469,7 +465,6 @@ class checagemInformacoes(ctk.CTkFrame):
             self.camposPersonalizadosEntry[i] = entrada.get()
 
         dictInformacoes = {chave : valor for chave,valor in zip(self.camposPersonalizados,self.camposPersonalizadosEntry)}
-        print(dictInformacoes)
         return {"informacoes_personalizadas" : dictInformacoes}
     
     def voltar_funcao(self):

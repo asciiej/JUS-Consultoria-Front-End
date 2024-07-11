@@ -76,7 +76,7 @@ class telaAssinaturaDocumento(ctk.CTkFrame):
         self.style.map("TButton", background=[('active', '#002831')])
 
 
-        self.btn_save = ctk.CTkButton(self.frame_botoes, text="Alterar seus dados", command=None, fg_color="#58ABB3", hover_color="#367076", width=400,height=50, font=('Calibri', 25, 'bold'))
+        self.btn_save = ctk.CTkButton(self.frame_botoes, text="Alterar seus dados", command=self.voltar_funcao, fg_color="#58ABB3", hover_color="#367076", width=400,height=50, font=('Calibri', 25, 'bold'))
         self.btn_save.pack(padx = 40,pady = 40,side = 'bottom') 
 
 
