@@ -18,20 +18,12 @@ class telaEdicaoContrato(ctk.CTkFrame):
         super().__init__(parent)
         self.parent = parent
         self.controlers = controlers
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
 
 
-    def show_contentEDICAO(self,tituloContrato,tipoContrato):
+    def show_contentEDICAO(self,tipoContrato,tituloContrato):
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
 
-        print(f" '{tituloContrato}' ")
-        print(f" '{tipoContrato}' ")
-    
-        
-
-        # Setup
-        #self.root = root
         self.font = ctk.CTkFont('Helvetica', 14)
         self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
@@ -414,12 +406,6 @@ class telaEdicaoContrato(ctk.CTkFrame):
             self.textArea.tag_remove(tagName, start, end)
         else:
             self.textArea.tag_add(tagName, start, end)
-
-
-    def add_custom_info(self,info):
-        if info == "customItem":
-            info = f"$${self.entryInfoPersonalizada.get()}$$"
-        self.textArea.insert(tk.INSERT, info)
 
     def custom_info(self):
         line = self.textArea.get('1.0', 'end-1c')

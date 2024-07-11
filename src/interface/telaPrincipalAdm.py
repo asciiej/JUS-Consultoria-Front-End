@@ -58,10 +58,12 @@ class telaPrincipalAdm(ctk.CTkFrame):
 
 
     def show_contentADM(self):
-
-        
-        #self.janela = janela
-        
+        self.framePrincipal = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
         self.font = ctk.CTkFont('Helvetica',14)
 
         # Cabeçalho menu personalizado
