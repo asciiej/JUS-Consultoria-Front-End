@@ -1,3 +1,4 @@
+
 {
   "CTk": {
     "fg_color": ["#EFEFEF", "#EFEFEF"]
@@ -8,9 +9,9 @@
   "CTkFrame": {
     "corner_radius": 30,
     "border_width": 2,
-    "fg_color": ["#6EC1E4", "#6EC1E4"],
-    "top_fg_color": ["gray81", "gray20"],
-    "border_color": ["#00343D", "#00343D"]
+    "fg_color": ["#EFEFEF", "#EFEFEF"],
+    "top_fg_color": ["#EFEFEF", "#EFEFEF"],
+    "border_color": ["#EFEFEF", "#EFEFEF"]
   },
   "CTkButton": {
     "corner_radius": 6,

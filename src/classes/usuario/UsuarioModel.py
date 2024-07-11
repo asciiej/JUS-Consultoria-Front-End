@@ -22,6 +22,19 @@ class UsuarioModel:
 				f"Telefone: {self.telefone}\n"
 				f"Roles: {self.roles}\n"
 				f"País/Localização: {self.pais}")
+	
+	def getTranslateDict(self):
+		dictUser = {
+            "$$nome$$": self.nome,
+            "$$sobrenome$$": self.sobrenome,
+            "$$cpf$$": self.cpf,
+            "$$empresa$$": self.nomeEmpresa,
+            "$$cargo$$": self.cargo,
+            "$$email$$": self.email,
+            "$$telefone$$": self.telefone,
+            "$$país/localização$$": self.pais,
+        }
+		return dictUser
 
 
 # TODO: Tratar erros em todos os metodos

@@ -11,27 +11,19 @@ import customtkinter as ctk
 from src.utilitarios.visualizadorPDF import PDFReader
 from src.utilitarios.operacoesDocumento import convertPDF
 from PIL import Image
-from ..utilitarios.user_session import USER_SESSION
+from src.utilitarios.user_session import USER_SESSION
 
 class telaEdicaoContrato(ctk.CTkFrame):
     def __init__(self,parent,controlers : dict):
         super().__init__(parent)
         self.parent = parent
         self.controlers = controlers
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
 
 
-    def show_contentEDICAO(self,tituloContrato,tipoContrato):
+    def show_contentEDICAO(self,tipoContrato,tituloContrato):
         self.tituloContrato = tituloContrato
         self.tipoContrato = tipoContrato
 
-        print(f" '{tituloContrato}' ")
-        print(f" '{tipoContrato}' ")
-    
-        
-
-        # Setup
-        #self.root = root
         self.font = ctk.CTkFont('Helvetica', 14)
         self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
@@ -55,22 +47,11 @@ class telaEdicaoContrato(ctk.CTkFrame):
         self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
         self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
 
-        # Botão menu personalizado
-        voltar_menu = {
-            "corner_radius": 0,
-            "border_width": 0,
-            "fg_color": ["#6EC1E4", "#6EC1E4"],
-            "hover_color": ["#6EC1E4", "#6EC1E4"],
-            "border_color": ["#6EC1E4", "#6EC1E4"],
-            "text_color": "#000000",
-            "text_color_disabled": ["#6EC1E4", "#6EC1E4"]
-        }
-
         # Texto menu e Botão de VOLTAR
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text=f"Edição {self.tituloContrato}", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
          # Nome do usuario no cabeçalho
@@ -365,7 +346,11 @@ class telaEdicaoContrato(ctk.CTkFrame):
         global document, filePath
         # Open
         if action == 'open':
-            retornoBD = self.controlers['contract'].modeloDeContrato().get_by_title(self.tituloContrato)
+            try:
+                retornoBD = self.controlers['contract'].modeloDeContrato().get_by_title(self.tituloContrato)
+            except Exception as e:
+                print(e)
+                return
             
             document = loads(retornoBD)
             # Delete Content
@@ -373,7 +358,6 @@ class telaEdicaoContrato(ctk.CTkFrame):
             
             # Set Content
             self.textArea.insert('1.0', document['content'])
-
 
             # Reset all tags
             self.resetTags()
@@ -405,7 +389,8 @@ class telaEdicaoContrato(ctk.CTkFrame):
                 contract_data = {
                     "tituloContrato" : self.tituloContrato,
                     "tipoContrato" : self.tipoContrato,
-                    "textoContrato" : contractContent
+                    "textoContrato" : contractContent,
+                    "campos_personalizados" : self.custom_info()
                 }
                 self.controlers['contract'].modeloDeContrato(contract_data).create()
             elif action == 'preview':
@@ -422,12 +407,25 @@ class telaEdicaoContrato(ctk.CTkFrame):
         else:
             self.textArea.tag_add(tagName, start, end)
 
+    def custom_info(self):
+        line = self.textArea.get('1.0', 'end-1c')
+        values = []
+        startTag = None
+        i = 0
+        while i < len(line):
+            if line[i] == '$' and i+1 < len(line) and line[i+1] == '$':
+                if startTag is None:
+                    startTag = i
+                else:
+                    finalTag = i + 2
+                    key = line[startTag:finalTag]
+                    if key not in self.translateInsertInformation.values() and '$$$$'!=key:
+                        values.append(line[startTag+2:finalTag-2])
+                    startTag = None
+                i += 1
 
-    def add_custom_info(self,info):
-        if info == "customItem":
-            info = f"$${self.entryInfoPersonalizada.get()}$$"
-        self.textArea.insert(tk.INSERT, info)
-
+            i += 1
+        return values
 
     def preview(self):
         if self.textArea.winfo_ismapped():

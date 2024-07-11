@@ -3,8 +3,10 @@ import os
 from pathlib import Path
 import customtkinter as ctk
 from PIL import Image, ImageTk
-from tkinter import Tk, Canvas, Entry, Button, PhotoImage,Menu
+from tkinter import Canvas, Entry, Button, PhotoImage, Toplevel, Label
+import tkinter as tk
 from ...utilitarios.user_session import USER_SESSION
+import customtkinter
 
 class AtualizaCad(ctk.CTkFrame):
     def __init__(self, parent, controlers):
@@ -33,6 +35,35 @@ class AtualizaCad(ctk.CTkFrame):
         return entry_values
 
     def update_user(self):
+        nome = self.entry_1.get()
+        sobrenome = self.entry_8.get()
+        cpf = self.entry_4.get()
+        nome_empresa = self.entry_7.get()
+        email = self.entry_9.get()
+        telefone = self.entry_2.get()
+        pais_localizacao = self.entry_3.get()
+        senha = self.entry_5.get()
+        confirme_senha = self.entry_6.get()
+
+        def show_custom_error(title, message):
+            error_window = Toplevel()
+            error_window.title(title)
+            error_window.geometry("400x200")
+            error_window.configure(bg="#FFDDDD")
+
+            title_label = Label(error_window, text=title, bg="#FF3333", fg="#FFFFFF", font=("Calibri Bold", 16))
+            title_label.pack(pady=10, padx=10)
+
+            message_label = Label(error_window, text=message, bg="#FFDDDD", fg="#FF0000", font=("Calibri", 14))
+            message_label.pack(pady=20, padx=10)
+
+            ok_button = Button(error_window, text="OK", command=error_window.destroy, bg="#FF6666", fg="#FFFFFF", font=("Calibri", 12), relief="flat")
+            ok_button.pack(pady=10)
+
+        if not nome or not sobrenome or not cpf or not nome_empresa or not email or not telefone or not pais_localizacao or not senha or not confirme_senha:
+            show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
+            return
+        
         values = self.get_all_entry_values()
         self.controlers['usuario'].update_user(**values)
 

@@ -58,10 +58,12 @@ class telaPrincipalAdm(ctk.CTkFrame):
 
 
     def show_contentADM(self):
-
-        
-        #self.janela = janela
-        
+        self.framePrincipal = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
         self.font = ctk.CTkFont('Helvetica',14)
 
         # Cabeçalho menu personalizado
@@ -181,7 +183,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.H1_consultoria_empresarial.pack(side=ctk.TOP, pady=(80 ,20))
 
         #Frame
-        self.frame_consultoria_empresarial = ctk.CTkScrollableFrame(self.body_frame, height=280, width=900)
+        self.frame_consultoria_empresarial = ctk.CTkScrollableFrame(self.body_frame, height=280, width=900,**self.framePrincipal)
         self.frame_consultoria_empresarial.pack()
 
     #Primeira linha
@@ -196,7 +198,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_1_1 = ctk.CTkLabel(self.square1_1, text="CONTRATO DE PRESTAÇÃO DE\nSERVIÇOS PROFISSIONAIS", font=("Calibri", 15))
         self.h2_1_1.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button1_1 = ctk.CTkButton(self.square1_1, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Prestação de Serviços Profissionais"), **botao)
+        self.button1_1 = ctk.CTkButton(self.square1_1, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Prestação de Serviços Profissionais"), **botao)
         self.button1_1.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square1_2 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -210,7 +212,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_1_2 = ctk.CTkLabel(self.square1_2, text="CONTRATO DE PRESTAÇÃO DE\nSERVIÇOS MÉDICO-HOSPITALAR", font=("Calibri", 15))
         self.h2_1_2.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button1_2 = ctk.CTkButton(self.square1_2, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Prestação de Serviços Médico-Hospitalar"), **botao)
+        self.button1_2 = ctk.CTkButton(self.square1_2, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Prestação de Serviços Médico-Hospitalar"), **botao)
         self.button1_2.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square1_3 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -224,7 +226,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="CONTRATO DE COMPRA E\nVENDA MERCANTIL", font=("Calibri", 15))
         self.h2_1_3.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button1_3 = ctk.CTkButton(self.square1_3, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Compra e Venda Mercantil"), **botao)
+        self.button1_3 = ctk.CTkButton(self.square1_3, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Compra e Venda Mercantil"), **botao)
         self.button1_3.pack(side=ctk.BOTTOM, pady=(0, 45))
 
 
@@ -241,7 +243,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_2_1 = ctk.CTkLabel(self.square2_1, text="CONTRATO DE COMPRA E\nVENDA DE IMÓVEL", font=("Calibri", 15))
         self.h2_2_1.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button2_1 = ctk.CTkButton(self.square2_1, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Compra e Venda de Imóvel"), **botao)
+        self.button2_1 = ctk.CTkButton(self.square2_1, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Compra e Venda de Imóvel"), **botao)
         self.button2_1.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square2_2 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -255,7 +257,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_2_2 = ctk.CTkLabel(self.square2_2, text="CONTRATO DE LOCAÇÃO DE\nIMÓVEL", font=("Calibri", 15))
         self.h2_2_2.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button2_2 = ctk.CTkButton(self.square2_2, text="Contrate",command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Locação de Imóvel"), **botao)
+        self.button2_2 = ctk.CTkButton(self.square2_2, text="Edite",command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Locação de Imóvel"), **botao)
         self.button2_2.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square2_3 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -269,7 +271,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_2_3 = ctk.CTkLabel(self.square2_3, text="CONTRATO DE ARRENDAMENTO\nRURAL", font=("Calibri", 15))
         self.h2_2_3.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button2_3 = ctk.CTkButton(self.square2_3, text="Contrate",command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Arrendamento Rural"), **botao)
+        self.button2_3 = ctk.CTkButton(self.square2_3, text="Edite",command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Arrendamento Rural"), **botao)
         self.button2_3.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         #Terceira linha
@@ -285,7 +287,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_3_1 = ctk.CTkLabel(self.square3_1, text="CONTRATO DE PARCERIA\nAGRÍCOLA", font=("Calibri", 15))
         self.h2_3_1.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button3_1 = ctk.CTkButton(self.square3_1, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Parceria Agrícola"), **botao)
+        self.button3_1 = ctk.CTkButton(self.square3_1, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Parceria Agrícola"), **botao)
         self.button3_1.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square3_2 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -299,7 +301,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_3_2 = ctk.CTkLabel(self.square3_2, text="CONTRATO DE LICENÇA DE USO\nDE SOFTWARE", font=("Calibri", 15))
         self.h2_3_2.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button3_2 = ctk.CTkButton(self.square3_2, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Licença de Uso de Software"), **botao)
+        self.button3_2 = ctk.CTkButton(self.square3_2, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Licença de Uso de Software"), **botao)
         self.button3_2.pack(side=ctk.BOTTOM, pady=(0, 45))
 
 
@@ -316,7 +318,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_4_1 = ctk.CTkLabel(self.square4_1, text="CONTRATO DE LICENÇA E CESSÃO\nDE DIREITOS DE USO DE\nPROPRIEDADE INTELECTUAL", font=("Calibri", 15))
         self.h2_4_1.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button4_1 = ctk.CTkButton(self.square4_1, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Licença de Cessão de Direitos de Uso de Propriedade Intelectual"), **botao)
+        self.button4_1 = ctk.CTkButton(self.square4_1, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Licença de Cessão de Direitos de Uso de Propriedade Intelectual"), **botao)
         self.button4_1.pack(side=ctk.BOTTOM, pady=(0, 36))
 
         self.square4_2 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -330,7 +332,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_4_2 = ctk.CTkLabel(self.square4_2, text="CONTRATO DE FRANQUIA", font=("Calibri", 15))
         self.h2_4_2.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button4_2 = ctk.CTkButton(self.square4_2, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Franquia"), **botao)
+        self.button4_2 = ctk.CTkButton(self.square4_2, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Franquia"), **botao)
         self.button4_2.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square4_3 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -344,7 +346,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.h2_4_3 = ctk.CTkLabel(self.square4_3, text="CONTRATO DE TRABALHO POR\nPRAZO INDETERMINADO", font=("Calibri", 15))
         self.h2_4_3.pack(side=ctk.TOP, pady=(12, 0))
         #Botão
-        self.button4_3 = ctk.CTkButton(self.square4_3, text="Contrate", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Trabalho por Prazo Indeterminado"), **botao)
+        self.button4_3 = ctk.CTkButton(self.square4_3, text="Edite", command=partial(self.choose_contract,"Consultoria Empresarial","Contrato de Trabalho por Prazo Indeterminado"), **botao)
         self.button4_3.pack(side=ctk.BOTTOM, pady=(0, 45))
 
         self.square5_1 = ctk.CTkFrame(self.frame_consultoria_empresarial, **card)
@@ -368,7 +370,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.H1_consultoria_tributaria = ctk.CTkLabel(self.body_frame, text="Consultoria Tributária", font=("Consolas", 40))
         self.H1_consultoria_tributaria.pack(side=ctk.TOP, pady=(90 ,0))
         #Frame
-        self.frame_consultoria_tributaria = ctk.CTkFrame(self.body_frame, height=280, width=950)
+        self.frame_consultoria_tributaria = ctk.CTkFrame(self.body_frame, height=280, width=950,**self.framePrincipal)
         self.frame_consultoria_tributaria.pack(pady=(40, 0))
 
 
@@ -424,7 +426,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.H1_camara_arbitragem = ctk.CTkLabel(self.body_frame, text="Câmara de Arbitragem", font=("Consolas", 40))
         self.H1_camara_arbitragem.pack(side=ctk.TOP, pady=(90 ,0))
         #Frame
-        self.frame_camara_arbitragem = ctk.CTkFrame(self.body_frame, height=280, width=950)
+        self.frame_camara_arbitragem = ctk.CTkFrame(self.body_frame, height=280, width=950,**self.framePrincipal)
         self.frame_camara_arbitragem.pack(pady=(40, 0))
 
         #Primeira linha

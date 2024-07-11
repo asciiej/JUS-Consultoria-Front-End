@@ -7,6 +7,24 @@ from PyPDF2 import PdfReader, PdfWriter, PageObject
 from itertools import islice
 from functools import cmp_to_key
 
+
+def combine_dicts(dict1, dict2):
+    if dict1 is None:
+        return dict(dict2) if dict2 else {}
+    if dict2 is None:
+        return dict(dict1)
+    combined_dict = dict(dict1)  
+    combined_dict.update(dict2)  
+
+    return combined_dict
+
+def modificar_chaves(dicionario):
+    novo_dicionario = {}
+    for chave, valor in dicionario.items():
+        nova_chave = f"$${chave}$$"
+        novo_dicionario[nova_chave] = valor
+    return novo_dicionario
+
 def split_string(input_string, chunk_size=65520):
     """
     Divide a string em tuplas de tamanho especificado.
@@ -255,26 +273,3 @@ class convertPDF:
             i += 1
         return line
     
-
-
-def replaceInformations(self, line):
-    startTag = None
-    i = 0
-    while i < len(line) - 1:
-        if line[i] == '$' and line[i+1] == '$':
-            if startTag is None:
-                startTag = i
-            else:
-                finalTag = i + 2
-                key = line[startTag:finalTag]
-                if key in self.substitution:
-                    line = line[:startTag] + self.substitution[key] + line[finalTag:]
-                    i = startTag + len(self.substitution[key]) - 1
-                startTag = None
-        i += 1
-    return line
-
-if __name__ == "__main__":
-    line = "<b>CONTRATANTE</b>: , $$nacionalidadecontratante$$, $$estadocivilcontratante$$, $$profissãocontratante$$, portador(a) da cédula de identidade R.G. nº $$RG contratante$$, inscrito(a) no CPF/MF sob o nº $$cpfoucnpjcontratante$$, residente e domiciliado(a) à $$endereçoresidêncial/comercialcontratante$$, doravante denominado simplesmente CONTRATANTE."
-    subs = {'$$nomecompletocontratante$$': '', '$$nacionalidadecontratante$$': '', '$$estadocivilcontratante$$': '', '$$profissãocontratante$$': '', '$$cpfoucnpjcontratante$$': '', '$$endereçoresidêncial/comercialcontratante$$': '', '$$nomecompletocontratado$$': '', '$$nacionalidadecontratado$$': '', '$$estadocivilcontratado$$': '', '$$profissãocontratado$$': '', '$$cpfoucnpjcontratado$$': '', '$$endereçoresidêncial/comercialcontratado$$': '', '$$valor$$': '', '$$formadepagamento$$': '', '$$multademora$$': '', '$$jurosdemora$$': '', '$$correçãomonetária$$': '', '$$prazodeduração$$': ''}
-    print(replaceInformations(line,subs))

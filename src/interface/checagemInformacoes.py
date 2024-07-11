@@ -1,10 +1,9 @@
 from src.interface.assinaturaDocumento import telaAssinaturaDocumento
-import tkinter
-from tkinter import ttk
 import customtkinter as ctk
 from PIL import Image
 from ..utilitarios.user_session import USER_SESSION
-from functools import partial
+from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
+
 
 
 class checagemInformacoes(ctk.CTkFrame):
@@ -12,25 +11,43 @@ class checagemInformacoes(ctk.CTkFrame):
        
         super().__init__(parent)
         self.parent = parent
-        
-        self.retornoBD = controlers['contract']
-        
-            
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
-
         #self = janela
         self.font = ctk.CTkFont('Helvetica', 14)
         self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
+        self.framePrincipal = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
+
         # Cabeçalho menu personalizado
-        cabecalho_menu = {
+        self.cabecalho_menu = {
             "corner_radius": 0,
             "border_width": 0,
             "fg_color": ["#6EC1E4", "#6EC1E4"]
         }
 
+
+    def show_contentCHECA(self, id ,titulo, tipo, controlers):
+        print(f" '{titulo}' ")
+        print(f" '{tipo}' ")
+        # Realiza a consulta ao banco de dados
+        self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
+        self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
+        self.tipo = tipo
+        self.titulo = titulo
+        
+        if tipo == "Consultoria Tributária":
+            self.contract = controlers['contract'].tributaria()
+        elif tipo == "Câmara de Arbitragem":
+            self.contract = controlers['contract'].arbitragem()
+        elif tipo == "Consultoria Empresarial":
+            self.contract = controlers['contract'].empresarial()   
+
         # Cabeçalho
-        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho = ctk.CTkFrame(self, height=104, **self.cabecalho_menu)
         self.cabecalho.pack(fill=ctk.X)
 
         # Logo
@@ -61,41 +78,79 @@ class checagemInformacoes(ctk.CTkFrame):
         self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,height=30, **voltar_menu)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
-        
+        self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
+
+        # Frame
+        self.frame = ctk.CTkFrame(self,height=480,width=900,**self.framePrincipal)
+        self.frame.pack(pady=(80, 0))
+
         self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
-    def show_contentCHECA(self, id, tipo, titulo, controlers):
-            print(f" '{titulo}' ")
-            print(f" '{tipo}' ")
-            # Realiza a consulta ao banco de dados
-            self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(tipo)
-            self.tipo = tipo
-            self.titulo = titulo
-            
+        self.pagina = 0
+        self.finalDict = None
 
-            # Nome do usuario no cabeçalho
-            #       self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
-            self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
-            self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
-
-            # Frame
-            self.frame = ctk.CTkFrame(self,height=480,width=900)
-            self.frame.pack(pady=(80, 0))
-
-            self.pagina = 0
-            self.finalDict = None
-
-            if titulo == "Consultoria Empresarial":
-                self.informacoesContratante("Contratante")
-            elif titulo == "Consultoria Tributária" or titulo == "Câmara de Arbitragem":
-                #apenas informações empresariais
-                self.informacoesEmpresariais()
+        if tipo == "Consultoria Empresarial":
+            self.informacoesContratante("Contratante")
+        elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
+            #apenas informações empresariais
+            self.informacoesEmpresariais()
         
         
 
     def prosseguir_funcao(self):
-        if self.titulo == "Consultoria Tributária" or self.titulo == "Câmara de Arbitragem":
+        if not self.camposPersonalizados:
+            self.prosseguirSemInformacoesPersonalizadas()
+            return
+        if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
+            match self.pagina:
+                case 0:
+                    retorno = self.get_informacoesEmpresariais()
+                case 1:
+                    retorno = self.get_informacoesPersonalizadas()
+        elif self.tipo == "Consultoria Empresarial":
+            match self.pagina:
+                case 0:
+                    retorno = self.get_informacoesContratado("Contratante")
+                case 1:
+                    retorno = self.get_informacoesContratado("Contratada")
+                case 2:
+                    retorno = self.get_informacoesNegocio()
+                case 3:
+                    retorno = self.get_informacoesPersonalizadas()
+
+        self.finalDict = combine_dicts(self.finalDict,retorno)
+        for widget in self.frame.winfo_children():
+            widget.destroy()
+
+        if self.tipo == "Consultoria Empresarial":
+            match self.pagina:
+                case 0:
+                    self.informacoesContratante("Contratada")
+                case 1:
+                    self.informacoesNegocio()
+                case 2:
+                    self.informacoesPersonalizadas()
+                case 3:
+                    self.clear_check_screen()
+                    self.contract.setContractData(self.finalDict)
+                    self.formPdf()
+                    telaAssinaturaDocumento(self)
+        else:
+            match self.pagina:
+                case 0:
+                    self.informacoesPersonalizadas()
+                case 1:
+                    self.clear_check_screen()
+                    self.contract.setContractData(self.finalDict)
+                    self.formPdf()
+                    telaAssinaturaDocumento(self)
+        
+        self.pagina +=1
+
+    def prosseguirSemInformacoesPersonalizadas(self):
+        if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
             retorno = self.get_informacoesEmpresariais()
         elif self.titulo == "Consultoria Empresarial":
             match self.pagina:
@@ -106,7 +161,7 @@ class checagemInformacoes(ctk.CTkFrame):
                 case 2:
                     retorno = self.get_informacoesNegocio()
 
-        self.finalDict = self.combine_dicts(self.finalDict,retorno)
+        self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
 
@@ -118,11 +173,26 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.informacoesNegocio()
                 case 2:
                     self.clear_check_screen()
-                    telaAssinaturaDocumento(self,self.controlers,self.finalDict)
-            self.pagina +=1
+                    self.contract.setContractData(self.finalDict)
+                    self.formPdf()
+                    telaAssinaturaDocumento(self)
+            self.pagina +=1   
         else:
             self.clear_check_screen()
-            telaAssinaturaDocumento(self,self.controlers,self.finalDict)
+            self.contract.setContractData(self.finalDict)
+            self.formPdf()
+            telaAssinaturaDocumento(self)
+         
+
+    def formPdf(self):
+        pdf_saida = './pdfs/pdf_final.pdf'
+        papel_timbrado = './pdfs/papelTimbrado.pdf'
+        pdf_com_texto = './pdfs/output.pdf'
+        try:
+            translateDict = self.contract.getTranslateDict()
+            convertPDF(self.retornoBD, papel_timbrado, pdf_com_texto, pdf_saida,translateDict).run()
+        except Exception as e:
+            print("Excessão na abertura do arquivo: ",e)
     
     def clear_check_screen(self):
         """Função para limpar a tela de login."""
@@ -248,7 +318,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.EnderecoEntry = ctk.CTkEntry(self.frame,height=30)
         self.EnderecoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
-        self.Qualificacao = ctk.CTkLabel(self.frame, text="Qualificação das Partes",fg_color="#6EC1E4")
+        self.Qualificacao = ctk.CTkLabel(self.frame, text="Qualificação da Parte",fg_color="#6EC1E4")
         self.Qualificacao.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
@@ -308,70 +378,86 @@ class checagemInformacoes(ctk.CTkFrame):
         self.PrazoDuracaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
+    def informacoesPersonalizadas(self):
+        self.frame.destroy()
+        self.buttonContinue.destroy()
+        self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
+        self.frame.pack(pady=(80, 0))
+
+        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
+
+        self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
+        self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
+
+        self.camposPersonalizadosEntry = []
+        for i,campo in enumerate(self.camposPersonalizados):
+            print(i)
+            self.camposPersonalizadosLable = ctk.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
+            self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
+
+            self.camposPersonalizadosEntry.append(ctk.CTkEntry(self.frame,height=30,width=400))
+            self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
 
     def get_informacoesNegocio(self):
-        dictInformacoesDoNegocio = {
-            "$$valor$$": self.ValorEntry.get(),
-            "$$formadepagamento$$": self.FormaPagamentoEntry.get(),
-            "$$multademora$$": self.MultaDeMoraEntry.get(),
-            "$$jurosdemora$$": self.JurosDeMoraEntry.get(),
-            "$$correçãomonetária$$": self.CorrecaoMonetariaEntry.get(),
-            "$$prazodeduração$$": self.PrazoDuracaoEntry.get(),
-        }
-        return dictInformacoesDoNegocio
+        contract_data = {
+		'valor': self.ValorEntry.get(),
+		'forma_pagamento': self.FormaPagamentoEntry.get(),
+		'multa_mora': self.MultaDeMoraEntry.get(),
+		'juros_mora': self.JurosDeMoraEntry.get(),
+		'correcao_monetaria': self.CorrecaoMonetariaEntry.get(),
+		'prazo_duracao': self.PrazoDuracaoEntry.get(),
+		'contratante': self.contratante_data,
+		'contratado': self.contratado_data
+	    }
+        return contract_data
     
     def get_informacoesEmpresariais(self):
         dictInformacoesEmpresariais = {
-            "$$nomedaempresa$$": self.NomeEntry.get(),
-            "$$cnpj$$": self.CnpjEntry.get(),
-            "$$cnaeprincipal$$": self.Cnae1Entry.get(),
-            "$$cnaesecundário$$": self.Cnae2Entry.get(),
-            "$$cfopprincipaisprodutos$$": self.CfopEntry.get(),
-            "$$indústria/setor$$": self.IndustriaSetorEntry.get(),
-            "$$receitaanual$$": self.ReceitaAnualEntry.get(),
+            'nome_empresa': self.NomeEntry.get(),
+            'cnpj': self.CnpjEntry.get(),
+            'cnae_principal': self.Cnae1Entry.get(), 
+            'cnae_secundaria': self.Cnae2Entry.get(), 
+            'cfop_principais': self.CfopEntry.get(), 
+            'industria_setor': self.IndustriaSetorEntry.get(),
+            'receita_anual': self.ReceitaAnualEntry.get()
         }
         return dictInformacoesEmpresariais
     
     def get_informacoesContratado(self,contratante):
         if contratante == "Contratante":
-            dictContratante = {            
-            "$$nomecompletocontratante$$": self.NomeContractEntry.get(),
-            "$$nacionalidadecontratante$$": self.NacionalidadeEntry.get(),
-            "$$estadocivilcontratante$$": self.EstadoCivilEntry.get(),
-            "$$profissãocontratante$$": self.ProfissaoEntry.get(),
-            "$$cpfoucnpjcontratante$$": self.CpfOuCnpjEntry.get(),
-            "$$endereçoresidêncial/comercialcontratante$$":self.EnderecoEntry.get(),
-        }
-            return dictContratante
+            self.contratante_data = {
+                'nome': self.NomeContractEntry.get(),
+                'nacionalidade': self.NacionalidadeEntry.get(),
+                'estadocivil': self.EstadoCivilEntry.get(),
+                'cpf': self.CpfOuCnpjEntry.get(),
+                'profissao': self.ProfissaoEntry.get(),
+                'endereco': self.EnderecoEntry.get()
+            }
+            return None
         elif contratante == "Contratada":
-            dictContratado = {
-            "$$nomecompletocontratado$$": self.NomeContractEntry.get(),
-            "$$nacionalidadecontratado$$": self.NacionalidadeEntry.get(),
-            "$$estadocivilcontratado$$": self.EstadoCivilEntry.get(),
-            "$$profissãocontratado$$": self.ProfissaoEntry.get(),
-            "$$cpfoucnpjcontratado$$": self.CpfOuCnpjEntry.get(),
-            "$$endereçoresidêncial/comercialcontratado$$": self.EnderecoEntry.get(),
-        }
-            return dictContratado
+            self.contratado_data = {
+                'nome': self.NomeContractEntry.get(),
+                'nacionalidade': self.NacionalidadeEntry.get(),
+                'estadocivil': self.EstadoCivilEntry.get(),
+                'cpf': self.CpfOuCnpjEntry.get(),
+                'profissao': self.ProfissaoEntry.get(),
+                'endereco': self.EnderecoEntry.get()
+            }
+            return None
+
+    def get_informacoesPersonalizadas(self):
+        for i,entrada in enumerate(self.camposPersonalizadosEntry):
+            self.camposPersonalizadosEntry[i] = entrada.get()
+
+        dictInformacoes = {chave : valor for chave,valor in zip(self.camposPersonalizados,self.camposPersonalizadosEntry)}
+        print(dictInformacoes)
+        return {"informacoes_personalizadas" : dictInformacoes}
     
-    def combine_dicts(self,dict1, dict2):
-        # Verifica se o primeiro dicionário é nulo
-        if dict1 is None:
-            # Retorna uma cópia do segundo dicionário se o primeiro for nulo
-            return dict(dict2) if dict2 else {}
-
-        # Verifica se o segundo dicionário é nulo
-        if dict2 is None:
-            # Retorna uma cópia do primeiro dicionário se o segundo for nulo
-            return dict(dict1)
-
-        # Cria um terceiro dicionário combinando os dois
-        combined_dict = dict(dict1)  # Cria uma cópia do primeiro dicionário
-        combined_dict.update(dict2)  # Atualiza com os valores do segundo dicionário
-
-        return combined_dict
-
     def voltar_funcao(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
 

@@ -4,6 +4,7 @@ import customtkinter as ctk
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
 from PIL import Image, ImageTk
+import customtkinter as ctk
 
 class telaCadastro(ctk.CTkFrame):
     def __init__(self, parent, controlers):

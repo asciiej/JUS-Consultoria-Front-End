@@ -4,18 +4,14 @@ from PIL import Image
 import webbrowser
 from tkinter import filedialog
 import shutil
-#from ..utilitarios.user_session import USER_SESSION
+from ..utilitarios.user_session import USER_SESSION
 
 
 class redirecionaGOV:
-    def __init__(self):
+    def __init__(self,janela):
         customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
 
-        self.janela = customtkinter.CTk()
-        largura_tela = self.janela.winfo_screenwidth()
-        altura_tela = self.janela.winfo_screenheight()
-        self.janela.geometry(f"{largura_tela}x{altura_tela}-10+0")
-        self.janela.title('JUS Consultorias')
+        self.janela = janela
         self.font = customtkinter.CTkFont('Helvetica', 14)
         self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
 
@@ -59,8 +55,7 @@ class redirecionaGOV:
         self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
 
          # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text="Lucas Simoni", font=self.font)
-        #self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
@@ -72,14 +67,20 @@ class redirecionaGOV:
         # Body
         self.canvas = tk.Canvas(self.janela, height=body_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-
+        
+        self.framePrincipal = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#6EC1E4", "#6EC1E4"],
+            "border_color": ["#00343D", "#00343D"]
+        }
         # Frame
-        self.frame = customtkinter.CTkFrame(self.canvas, height=460, width=750)
+        self.frame = customtkinter.CTkFrame(self.canvas, height=460, width=750,**self.framePrincipal)
         self.frame.pack(pady=(100, 0))
         self.frame.pack_propagate(False)
 
         # Texto
-        self.h2 = customtkinter.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
+        self.h2 = customtkinter.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias e arbitragens, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
         self.h2.pack(side=customtkinter.TOP, padx=(0, 0), pady=(100, 50))
         #self.h2.place(x=120, y=120)
 
@@ -114,7 +115,7 @@ class redirecionaGOV:
         botao_baixar.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 30))
 
         # Redireciona GOV
-        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br",command=self.func_gov, **GOV)
+        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br para a assinatura eletrônica",command=self.func_gov, **GOV)
         botao_gov.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 0))
 
         self.janela.mainloop()
@@ -136,6 +137,3 @@ class redirecionaGOV:
 
         webbrowser.open("http://assinador.iti.br/")
         
-
-if __name__ == "__main__":
-    app = redirecionaGOV()

@@ -17,7 +17,8 @@ class MainApp(tk.Tk):
         largura_tela = self.winfo_screenwidth()
         altura_tela = self.winfo_screenheight()
         self.geometry(f"{largura_tela}x{altura_tela}")
-        #self.geometry("800x600")
+        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
+        ctk.set_appearance_mode("light")
         
 
         # Instanciando os frames
