@@ -161,6 +161,13 @@ class telaPrincipalAdm(ctk.CTkFrame):
             "border_color": "#00343D",  # Cor da borda
         }
 
+        frameCustom = {
+           
+            "fg_color": "#6EC1E4",  # Cor de fundo do quadrado
+            "border_width": 2,
+            "border_color": "#00343D",  # Cor da borda
+        }
+
         botao = {
             "corner_radius": 20,
             "border_width": 0,
@@ -181,7 +188,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.H1_consultoria_empresarial.pack(side=ctk.TOP, pady=(80 ,20))
 
         #Frame
-        self.frame_consultoria_empresarial = ctk.CTkScrollableFrame(self.body_frame, height=280, width=900)
+        self.frame_consultoria_empresarial = ctk.CTkScrollableFrame(self.body_frame, height=280, width=900, **frameCustom)
         self.frame_consultoria_empresarial.pack()
 
     #Primeira linha
@@ -368,7 +375,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.H1_consultoria_tributaria = ctk.CTkLabel(self.body_frame, text="Consultoria Tributária", font=("Consolas", 40))
         self.H1_consultoria_tributaria.pack(side=ctk.TOP, pady=(90 ,0))
         #Frame
-        self.frame_consultoria_tributaria = ctk.CTkFrame(self.body_frame, height=280, width=950)
+        self.frame_consultoria_tributaria = ctk.CTkFrame(self.body_frame, height=280, width=950, **frameCustom)
         self.frame_consultoria_tributaria.pack(pady=(40, 0))
 
 
@@ -424,7 +431,7 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.H1_camara_arbitragem = ctk.CTkLabel(self.body_frame, text="Câmara de Arbitragem", font=("Consolas", 40))
         self.H1_camara_arbitragem.pack(side=ctk.TOP, pady=(90 ,0))
         #Frame
-        self.frame_camara_arbitragem = ctk.CTkFrame(self.body_frame, height=280, width=950)
+        self.frame_camara_arbitragem = ctk.CTkFrame(self.body_frame, height=280, width=950, **frameCustom)
         self.frame_camara_arbitragem.pack(pady=(40, 0))
 
         #Primeira linha

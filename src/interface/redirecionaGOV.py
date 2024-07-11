@@ -1,5 +1,5 @@
 import tkinter as tk
-import customtkinter
+import customtkinter as ctk
 from PIL import Image
 import webbrowser
 from tkinter import filedialog
@@ -7,13 +7,16 @@ import shutil
 from ..utilitarios.user_session import USER_SESSION
 
 
-class redirecionaGOV:
-    def __init__(self,janela):
-        customtkinter.set_default_color_theme("lib/temaTkinterCustom.json")
+class redirecionaGOV(ctk.CTkFrame):
+    def __init__(self, parent, controlers):
+        super().__init__(parent)
+        self.parent = parent
+        self.controlers = controlers
+        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
 
-        self.janela = janela
-        self.font = customtkinter.CTkFont('Helvetica', 14)
-        self.titulo_font = customtkinter.CTkFont('Helvetica', 20)
+        #self = janela
+        self.font = ctk.CTkFont('Helvetica', 14)
+        self.titulo_font = ctk.CTkFont('Helvetica', 20)
 
         # Cabeçalho menu personalizado
         cabecalho_menu = {
@@ -23,18 +26,18 @@ class redirecionaGOV:
         }
 
         # Cabeçalho
-        self.cabecalho = customtkinter.CTkFrame(self.janela, height=104, **cabecalho_menu)
-        self.cabecalho.pack(fill=customtkinter.X)
+        self.cabecalho = ctk.CTkFrame(self, height=104, **cabecalho_menu)
+        self.cabecalho.pack(fill=ctk.X)
 
         # Logo
-        self.logoJUS = customtkinter.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
-        self.logo_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
-        self.logo_cabecalho.pack(side=customtkinter.LEFT, padx=(18, 0), pady=7)
+        self.logoJUS = ctk.CTkImage(Image.open('imagens/Logomarca JUS.png'), size=(80, 72.54))
+        self.logo_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.logoJUS, text="")
+        self.logo_cabecalho.pack(side=ctk.LEFT, padx=(18, 0), pady=7)
 
         # Usuario foto
-        self.userPic = customtkinter.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
-        self.userPic_cabecalho = customtkinter.CTkLabel(self.cabecalho, image=self.userPic, text="")
-        self.userPic_cabecalho.pack(side=customtkinter.RIGHT, padx=(0, 18), pady=7)
+        self.userPic = ctk.CTkImage(Image.open('imagens/User Male Black.png'), size=(90, 90))
+        self.userPic_cabecalho = ctk.CTkLabel(self.cabecalho, image=self.userPic, text="")
+        self.userPic_cabecalho.pack(side=ctk.RIGHT, padx=(0, 18), pady=7)
 
         # Botão menu personalizado
         voltar_menu = {
@@ -48,24 +51,25 @@ class redirecionaGOV:
         }
 
         # Texto menu e Botão de VOLTAR
-        self.h1_titulo = customtkinter.CTkLabel(self.cabecalho, text="Assinatura de um Documento", font=self.titulo_font)
-        self.h1_titulo.pack(side=customtkinter.LEFT, padx=(25, 0))
+        self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Assinatura de um Documento", font=self.titulo_font)
+        self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = customtkinter.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
-        self.voltar.pack(side=customtkinter.LEFT, padx=(700, 0))
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
+    def show_contentGOV(self):
          # Nome do usuario no cabeçalho
-        self.nome_usuario_label = customtkinter.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
-        self.nome_usuario_label.pack(side=customtkinter.RIGHT, padx=(0, 25))
+        self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
+        self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
         # Calcular a altura do "body"
-        self.janela.update_idletasks()
-        window_height = self.janela.winfo_height()
+        self.update_idletasks()
+        window_height = self.winfo_height()
         header_height = self.cabecalho.winfo_height()
         body_height = window_height - header_height
 
         # Body
-        self.canvas = tk.Canvas(self.janela, height=body_height)
+        self.canvas = tk.Canvas(self, height=body_height)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         
         self.framePrincipal = {
@@ -75,13 +79,13 @@ class redirecionaGOV:
             "border_color": ["#00343D", "#00343D"]
         }
         # Frame
-        self.frame = customtkinter.CTkFrame(self.canvas, height=460, width=750,**self.framePrincipal)
+        self.frame = ctk.CTkFrame(self.canvas, height=460, width=750,**self.framePrincipal)
         self.frame.pack(pady=(100, 0))
         self.frame.pack_propagate(False)
 
         # Texto
-        self.h2 = customtkinter.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias e arbitragens, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
-        self.h2.pack(side=customtkinter.TOP, padx=(0, 0), pady=(100, 50))
+        self.h2 = ctk.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias e arbitragens, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
+        self.h2.pack(side=ctk.TOP, padx=(0, 0), pady=(100, 50))
         #self.h2.place(x=120, y=120)
 
         baixar = {
@@ -111,16 +115,21 @@ class redirecionaGOV:
             }
 
         # Baixar PDF
-        botao_baixar = customtkinter.CTkButton(self.frame, text="Baixar a minuta em formato PDF",command=self.func_baixar, **baixar)
-        botao_baixar.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 30))
+        botao_baixar = ctk.CTkButton(self.frame, text="Baixar a minuta em formato PDF",command=self.func_baixar, **baixar)
+        botao_baixar.pack(side=ctk.TOP, padx=(0, 0), pady=(0, 30))
 
         # Redireciona GOV
-        botao_gov = customtkinter.CTkButton(self.frame, text="Acesse o GOV.br para a assinatura eletrônica",command=self.func_gov, **GOV)
-        botao_gov.pack(side=customtkinter.TOP, padx=(0, 0), pady=(0, 0))
+        botao_gov = ctk.CTkButton(self.frame, text="Acesse o GOV.br para a assinatura eletrônica",command=self.func_gov, **GOV)
+        botao_gov.pack(side=ctk.TOP, padx=(0, 0), pady=(0, 0))
 
-        self.janela.mainloop()
+        #self.mainloop()
 
     def voltar_funcao(self):
+        #self.unbind("<Configure>")
+        #for widget in self.winfo_children():
+        #   widget.destroy()
+        self.parent.show_frame("telaAssinaturaDocumento")
+        #self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA()
 
         pass
     def func_baixar(self):
