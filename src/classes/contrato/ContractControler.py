@@ -31,7 +31,6 @@ class Controler():
     self.contract = contract_data
 
   def setContractData(self,contract_data : dict):
-    print(contract_data)
     self.contract = contract_data
 
   def getTranslateDict(self):
