@@ -12,6 +12,8 @@ from src.interface.checagemInformacoes import checagemInformacoes
 from src.interface.assinaturaDocumento import telaAssinaturaDocumento
 from src.interface.redirecionaGOV import redirecionaGOV
 
+from src.classes.contrato.ContractControler import Controler
+
 class MainApp(tk.Tk):
     def __init__(self, controlers):
         super().__init__()
@@ -140,5 +142,8 @@ class MainApp(tk.Tk):
 
         self.tela_GOV.pack(fill="both", expand=True)
 
-        
-
+    def setContrato(self,contract : Controler):
+        self.contract = contract
+    
+    def getContrato(self) -> Controler:
+        return self.contract 

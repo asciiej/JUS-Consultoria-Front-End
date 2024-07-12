@@ -44,6 +44,7 @@ class checagemInformacoes(ctk.CTkFrame):
         elif tipo == "Consultoria Empresarial":
             self.contract = controlers['contract'].empresarial()   
 
+        self.parent.setContrato(self.contract)
         # Cabeçalho
         self.cabecalho = ctk.CTkFrame(self, height=104, **self.cabecalho_menu)
         self.cabecalho.pack(fill=ctk.X)
