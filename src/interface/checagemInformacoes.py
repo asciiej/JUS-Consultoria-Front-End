@@ -1,4 +1,4 @@
-from src.interface.assinaturaDocumento import telaAssinaturaDocumento
+from src.utilitarios.excecoes import ContratoNaoEncontrado
 import customtkinter as ctk
 from PIL import Image
 from ..utilitarios.user_session import USER_SESSION
@@ -32,8 +32,11 @@ class checagemInformacoes(ctk.CTkFrame):
 
     def show_contentCHECA(self, id ,titulo, tipo, controlers):
         # Realiza a consulta ao banco de dados
-        self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
-        self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
+        try:
+            self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
+            self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
+        except ContratoNaoEncontrado:
+            contratoNaoEncontrado = True
         self.tipo = tipo
         self.titulo = titulo
         
@@ -89,8 +92,9 @@ class checagemInformacoes(ctk.CTkFrame):
 
         self.pagina = 0
         self.finalDict = None
-
-        if tipo == "Consultoria Empresarial":
+        if contratoNaoEncontrado:
+            self.contratoNaoEncontrado()
+        elif tipo == "Consultoria Empresarial":
             self.informacoesContratante("Contratante")
         elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
             #apenas informações empresariais
@@ -135,10 +139,6 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                    
-                   # self.unbind("<Configure>")
-                    #for widget in self.winfo_children():
-                     #   widget.destroy()
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
@@ -150,9 +150,6 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                   # self.unbind("<Configure>")
-                   # for widget in self.winfo_children():
-                      #  widget.destroy()
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
         
@@ -184,19 +181,13 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
-                   # self.unbind("<Configure>")
-                   # for widget in self.winfo_children():
-                      #  widget.destroy()
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
             self.pagina +=1   
         else:
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
-            self.formPdf()
-            #self.unbind("<Configure>")
-            #for widget in self.winfo_children():
-             #    widget.destroy()   
+            self.formPdf()   
             self.parent.show_frame("telaAssinaturaDocumento")
             self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
@@ -413,6 +404,19 @@ class checagemInformacoes(ctk.CTkFrame):
 
             self.camposPersonalizadosEntry.append(ctk.CTkEntry(self.frame,height=30,width=400))
             self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
+
+    def contratoNaoEncontrado(self):
+        frameErro = {
+            "corner_radius": 30,
+            "border_width": 2,
+            "fg_color": ["#D27C7C", "#D27C7C"],
+            "border_color": ["#C23E3E", "#C23E3E"]
+        }
+        self.frame.configure(**frameErro)
+        self.errorText = ctk.CTkLabel(self.frame, text="Contrato Não Encontrado no Banco de Dados, a equipe JUS está trabalhando nisso", font=("Consolas", 17, 'bold'), text_color="#EFEFEF")
+        self.frame.pack_propagate(False)
+        self.errorText.pack(expand = True, fill= ctk.BOTH,padx = 20,pady = 20)
+        self.buttonContinue.pack_forget()
 
     def get_informacoesNegocio(self):
         contract_data = {
