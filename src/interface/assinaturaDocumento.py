@@ -55,9 +55,6 @@ class telaAssinaturaDocumento(ctk.CTkFrame):
 
         self.titulo = titulo
         self.tipo = tipo
-    
-        print(f"Título: {self.titulo}, Tipo: {self.tipo}")
-        print(f"{id}")
 
          # Nome do usuario no cabeçalho
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
