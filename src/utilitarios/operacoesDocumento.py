@@ -1,6 +1,7 @@
 import json
 import re
 from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import inch
 from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from PyPDF2 import PdfReader, PdfWriter, PageObject
@@ -165,7 +166,20 @@ class convertPDF:
         return data
 
     def create_pdf(self, data):
-        doc = SimpleDocTemplate(self.pdf_com_texto, pagesize=A4)
+        left_margin = 1 * inch
+        right_margin = 1 * inch
+        top_margin = 1.5 * inch
+        bottom_margin = 1.5 * inch
+
+        # Criando o objeto SimpleDocTemplate com margens personalizadas
+        doc = SimpleDocTemplate(
+            self.pdf_com_texto,
+            pagesize=A4,
+            leftMargin=left_margin,
+            rightMargin=right_margin,
+            topMargin=top_margin,
+            bottomMargin=bottom_margin
+        )
         styles = getSampleStyleSheet()
 
         custom_style = ParagraphStyle(
