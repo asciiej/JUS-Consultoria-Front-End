@@ -8,7 +8,7 @@ from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
 
 class checagemInformacoes(ctk.CTkFrame):
     def __init__(self,parent,controlers:dict):
-       
+
         super().__init__(parent)
         self.parent = parent
         #self = janela
@@ -32,6 +32,7 @@ class checagemInformacoes(ctk.CTkFrame):
 
     def show_contentCHECA(self, id ,titulo, tipo, controlers):
         # Realiza a consulta ao banco de dados
+        contratoNaoEncontrado = False
         try:
             self.retornoBD = controlers['contract'].modeloDeContrato().get_by_title(titulo)
             self.camposPersonalizados = controlers['contract'].modeloDeContrato().get_campos_personalizados(titulo)
@@ -39,13 +40,13 @@ class checagemInformacoes(ctk.CTkFrame):
             contratoNaoEncontrado = True
         self.tipo = tipo
         self.titulo = titulo
-        
+
         if tipo == "Consultoria Tributária":
             self.contract = controlers['contract'].tributaria()
         elif tipo == "Câmara de Arbitragem":
             self.contract = controlers['contract'].arbitragem()
         elif tipo == "Consultoria Empresarial":
-            self.contract = controlers['contract'].empresarial()   
+            self.contract = controlers['contract'].empresarial()
 
         self.parent.setContrato(self.contract)
         # Cabeçalho
@@ -99,8 +100,8 @@ class checagemInformacoes(ctk.CTkFrame):
         elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
             #apenas informações empresariais
             self.informacoesEmpresariais()
-        
-        
+
+
 
     def prosseguir_funcao(self):
         if not self.camposPersonalizados:
@@ -152,7 +153,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.formPdf()
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
-        
+
         self.pagina +=1
 
     def prosseguirSemInformacoesPersonalizadas(self):
@@ -183,11 +184,11 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.formPdf()
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
-            self.pagina +=1   
+            self.pagina +=1
         else:
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
-            self.formPdf()   
+            self.formPdf()
             self.parent.show_frame("telaAssinaturaDocumento")
             self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
@@ -200,7 +201,7 @@ class checagemInformacoes(ctk.CTkFrame):
             convertPDF(self.retornoBD, papel_timbrado, pdf_com_texto, pdf_saida,translateDict).run()
         except Exception as e:
             print("Excessão na abertura do arquivo: ",e)
-    
+
     def clear_check_screen(self):
         """Função para limpar a tela de login."""
         # Remove todos os widgets do root
@@ -236,21 +237,21 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.Cnae1Entry = ctk.CTkEntry(self.frame,height=30)
-        self.Cnae1Entry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew") 
+        self.Cnae1Entry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
         self.Cnae2 = ctk.CTkLabel(self.frame, text="CNAE Secundário",fg_color="#6EC1E4")
         self.Cnae2.grid(row=3, column=2, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.Cnae2Entry = ctk.CTkEntry(self.frame,height=30)
-        self.Cnae2Entry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew") 
+        self.Cnae2Entry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
         self.Cfop = ctk.CTkLabel(self.frame, text="CFOP Principais Produtos",fg_color="#6EC1E4")
         self.Cfop.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.CfopEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CfopEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew") 
+        self.CfopEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.IndustriaSetor = ctk.CTkLabel(self.frame, text="Indústria/Setor",fg_color="#6EC1E4")
         self.IndustriaSetor.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
@@ -302,21 +303,21 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.EstadoCivilEntry = ctk.CTkEntry(self.frame,height=30)
-        self.EstadoCivilEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew") 
+        self.EstadoCivilEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
         self.Profissao = ctk.CTkLabel(self.frame, text="Profissão",fg_color="#6EC1E4")
         self.Profissao.grid(row=3, column=2, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.ProfissaoEntry = ctk.CTkEntry(self.frame,height=30)
-        self.ProfissaoEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew") 
+        self.ProfissaoEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
         self.CpfOuCnpj = ctk.CTkLabel(self.frame, text="CPF ou CNPJ",fg_color="#6EC1E4")
         self.CpfOuCnpj.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.CpfOuCnpjEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CpfOuCnpjEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew") 
+        self.CpfOuCnpjEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.Endereco = ctk.CTkLabel(self.frame, text="Endereço de Residência ou Comercial",fg_color="#6EC1E4")
         self.Endereco.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
@@ -332,7 +333,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-    
+
     def informacoesNegocio(self):
         # Label dentro do frame filho
         TitleLable = ctk.CTkLabel(self.frame,text="Informações do Negócio",fg_color="#6EC1E4",font =('Helvetica', 24))
@@ -362,21 +363,21 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.MultaDeMoraEntry = ctk.CTkEntry(self.frame,height=30)
-        self.MultaDeMoraEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew") 
+        self.MultaDeMoraEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
         self.JurosDeMora = ctk.CTkLabel(self.frame, text="Juros de Mora",fg_color="#6EC1E4")
         self.JurosDeMora.grid(row=3, column=2, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.JurosDeMoraEntry = ctk.CTkEntry(self.frame,height=30)
-        self.JurosDeMoraEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew") 
+        self.JurosDeMoraEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
         self.CorrecaoMonetaria = ctk.CTkLabel(self.frame, text="Correção Monetária",fg_color="#6EC1E4")
         self.CorrecaoMonetaria.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew") 
+        self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.PrazoDuracao = ctk.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
         self.PrazoDuracao.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
@@ -430,19 +431,19 @@ class checagemInformacoes(ctk.CTkFrame):
 		'contratado': self.contratado_data
 	    }
         return contract_data
-    
+
     def get_informacoesEmpresariais(self):
         dictInformacoesEmpresariais = {
             'nome_empresa': self.NomeEntry.get(),
             'cnpj': self.CnpjEntry.get(),
-            'cnae_principal': self.Cnae1Entry.get(), 
-            'cnae_secundaria': self.Cnae2Entry.get(), 
-            'cfop_principais': self.CfopEntry.get(), 
+            'cnae_principal': self.Cnae1Entry.get(),
+            'cnae_secundaria': self.Cnae2Entry.get(),
+            'cfop_principais': self.CfopEntry.get(),
             'industria_setor': self.IndustriaSetorEntry.get(),
             'receita_anual': self.ReceitaAnualEntry.get()
         }
         return dictInformacoesEmpresariais
-    
+
     def get_informacoesContratado(self,contratante):
         if contratante == "Contratante":
             self.contratante_data = {
@@ -471,27 +472,10 @@ class checagemInformacoes(ctk.CTkFrame):
 
         dictInformacoes = {chave : valor for chave,valor in zip(self.camposPersonalizados,self.camposPersonalizadosEntry)}
         return {"informacoes_personalizadas" : dictInformacoes}
-    
+
     def voltar_funcao(self):
         self.unbind("<Configure>")
         for widget in self.winfo_children():
             widget.destroy()
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
-
-
-
-
-
-
-
-# dictUser = {
-#             "$$nome$$": ,
-#             "$$sobrenome$$": ,
-#             "$$cpf$$": ,
-#             "$$empresa$$": ,
-#             "$$cargo$$": ,
-#             "$$email$$": ,
-#             "$$telefone$$": ,
-#             "$$país/localização$$": ,
-#         }    
