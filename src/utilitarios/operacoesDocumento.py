@@ -1,11 +1,13 @@
 import json
 import re
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import inch
+from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from PyPDF2 import PdfReader, PdfWriter, PageObject
 from itertools import islice
 from functools import cmp_to_key
+import re
 
 
 def combine_dicts(dict1, dict2):
@@ -59,7 +61,6 @@ def recombine_string(tuples_list):
 class convertPDF:
     def __init__(self, json_input, papel_timbrado, pdf_com_texto, pdf_saida,substitution:dict = None):
         self.json_input = re.sub(r'[\x00-\x1f\x7f-\x9f]', r"\\n", json_input)
-        print(self.json_input)
         self.papel_timbrado = papel_timbrado
         self.pdf_com_texto = pdf_com_texto
         self.pdf_saida = pdf_saida
@@ -165,8 +166,28 @@ class convertPDF:
         return data
 
     def create_pdf(self, data):
-        doc = SimpleDocTemplate(self.pdf_com_texto, pagesize=A4)
+        left_margin = 1 * inch
+        right_margin = 1 * inch
+        top_margin = 1.5 * inch
+        bottom_margin = 1.5 * inch
+
+        # Criando o objeto SimpleDocTemplate com margens personalizadas
+        doc = SimpleDocTemplate(
+            self.pdf_com_texto,
+            pagesize=A4,
+            leftMargin=left_margin,
+            rightMargin=right_margin,
+            topMargin=top_margin,
+            bottomMargin=bottom_margin
+        )
         styles = getSampleStyleSheet()
+
+        custom_style = ParagraphStyle(
+            'Custom',
+            parent=styles['Normal'],
+            leading=16
+            )
+        
         content = data['content']
         tags = data['tags']
         elements = []
@@ -206,25 +227,37 @@ class convertPDF:
             if not line and notLineCounter == 0:
                 notLineCounter += 1
                 continue
+            elif line:
+                line = self.processLine(line)
             if self.substitution:
                 line = self.replaceInformations(line)
-            p = Paragraph(line, styles['Normal'])
+            p = Paragraph(line, custom_style)
+            print(line)
             
             elements.append(p)
             if '<font size="12">' in line:
-                elements.append(Spacer(1, 8))
+                elements.append(Spacer(1, 11))
             elif '<font size="16">' in line:
-                elements.append(Spacer(1, 10))
+                elements.append(Spacer(1, 13))
             elif '<font size="20">' in line:
-                elements.append(Spacer(1, 12))
+                elements.append(Spacer(1, 15))
+            elif not line:
+                elements.append(Spacer(1,5))
             else:
-                pass
-                elements.append(Spacer(1, 5))
+                elements.append(Spacer(1, 11))
             notLineCounter = 0
         try:
             doc.build(elements)
         except Exception as e:
             raise e
+
+    def processLine(self,line):
+        # Expressão regular para verificar tags de tamanho de fonte
+        font_tag_pattern = re.compile(r'<font[^>]*size="[^"]*"[^>]*>')
+        if not font_tag_pattern.search(line):
+            # Adiciona um tab no início do parágrafo
+            line = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ' + line
+        return line
 
     def mesclar_pdfs(self):
         leitor_timbrado = PdfReader(self.papel_timbrado)

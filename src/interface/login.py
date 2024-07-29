@@ -120,5 +120,3 @@ class TelaLogin(ctk.CTkFrame):
         self.errorMessage.pack(pady=(30, 0))
         self.login_frame.pack(pady=(30, 0))
         self.added = 1
-
-

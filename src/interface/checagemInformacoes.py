@@ -479,20 +479,3 @@ class checagemInformacoes(ctk.CTkFrame):
             widget.destroy()
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
-
-
-
-
-
-
-
-# dictUser = {
-#             "$$nome$$": ,
-#             "$$sobrenome$$": ,
-#             "$$cpf$$": ,
-#             "$$empresa$$": ,
-#             "$$cargo$$": ,
-#             "$$email$$": ,
-#             "$$telefone$$": ,
-#             "$$país/localização$$": ,
-#         }
