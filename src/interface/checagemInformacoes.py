@@ -337,8 +337,8 @@ class checagemInformacoes(ctk.CTkFrame):
         # self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
         # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-        # Cargo
-        self.image_image_2 = self.load_and_resize_image("image_2.png", (200, 30))
+        # Qualificação
+        self.image_image_2 = self.load_and_resize_imageQuali("image_2.png", (200, 30))
         self.qualificacaoContratante_button = Button(
             self,
             image=self.image_image_2,
@@ -417,8 +417,8 @@ class checagemInformacoes(ctk.CTkFrame):
         self.CorrecaoMonetaria.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
+        # self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
+        # self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.PrazoDuracao = ctk.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
         self.PrazoDuracao.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
@@ -426,6 +426,39 @@ class checagemInformacoes(ctk.CTkFrame):
         # Entry dentro do frame filho
         self.PrazoDuracaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
+
+        # Correção Monetária
+        self.image_image_2 = self.load_and_resize_imageCM("image_2.png", (200, 30))
+        self.correcao_button = Button(
+            self,
+            image=self.image_image_2,
+            borderwidth=0,
+            command=self.show_correcao_menu,
+            compound="center",
+            text="Correção Monetária",
+            fg="#000716",
+            bg="#6ec1e4",
+            activebackground="#6ec1e4",
+            activeforeground="#000000",
+            font=("Calibri", 11)
+        )
+        self.correcao_button.place(x=1250, y=540, width=200, height=30)
+
+        self.correcao_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
+        correcaoMonetaria = [
+    "IGP-M",
+    "INPC",
+    "IPCA",
+    "POUPANÇA",
+    "SELIC",
+    "CDI"
+]
+        for correcaoM in correcaoMonetaria:
+            self.correcao_menu.add_command(label=correcaoM, command=lambda c=correcaoM: self.select_correcao(c))
+
+        self.selected_correcao = "Correção Monetária"
+
+
 
     def informacoesPersonalizadas(self):
         self.frame.destroy()
@@ -466,7 +499,7 @@ class checagemInformacoes(ctk.CTkFrame):
 		'forma_pagamento': self.FormaPagamentoEntry.get(),
 		'multa_mora': self.MultaDeMoraEntry.get(),
 		'juros_mora': self.JurosDeMoraEntry.get(),
-		'correcao_monetaria': self.CorrecaoMonetariaEntry.get(),
+		'correcao_monetaria': self.selected_correcao,
 		'prazo_duracao': self.PrazoDuracaoEntry.get(),
 		'contratante': self.contratante_data,
 		'contratado': self.contratado_data
@@ -521,12 +554,12 @@ class checagemInformacoes(ctk.CTkFrame):
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
 
-    def load_and_resize_image(self, image_path, size):
-        image = Image.open(self.relative_to_assets(image_path))
+    def load_and_resize_imageQuali(self, image_path, size):
+        image = Image.open(self.relative_to_assetsQuali(image_path))
         resized_image = image.resize(size, Image.LANCZOS)
         return ImageTk.PhotoImage(resized_image)
     
-    def relative_to_assets(self, path: str) -> Path:
+    def relative_to_assetsQuali(self, path: str) -> Path:
         ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
         return ASSETS_PATH / Path(path)
     
@@ -536,3 +569,19 @@ class checagemInformacoes(ctk.CTkFrame):
     def select_qualificacaoContratante(self, quali):
         self.selected_quali = quali
         self.qualificacaoContratante_button.config(text=quali)
+
+    def load_and_resize_imageCM(self, image_path, size):
+        image = Image.open(self.relative_to_assetsCM(image_path))
+        resized_image = image.resize(size, Image.LANCZOS)
+        return ImageTk.PhotoImage(resized_image)
+    
+    def relative_to_assetsCM(self, path: str) -> Path:
+        ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
+        return ASSETS_PATH / Path(path)
+    
+    def show_correcao_menu(self):
+        self.correcao_menu.post(self.correcao_button.winfo_rootx(), self.correcao_button.winfo_rooty() + self.correcao_button.winfo_height())
+
+    def select_correcao(self, correcao):
+        self.selected_correcao = correcao
+        self.correcao_button.config(text=correcao)
