@@ -1,8 +1,12 @@
 from src.utilitarios.excecoes import ContratoNaoEncontrado
 import customtkinter as ctk
-from PIL import Image
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
+from PIL import Image, ImageTk
 from ..utilitarios.user_session import USER_SESSION
 from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
+from pathlib import Path
+import os
+import re
 
 
 
@@ -330,8 +334,45 @@ class checagemInformacoes(ctk.CTkFrame):
         self.Qualificacao.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
-        self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        # self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
+        # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+
+        # Cargo
+        self.image_image_2 = self.load_and_resize_image("image_2.png", (200, 30))
+        self.qualificacaoContratante_button = Button(
+            self,
+            image=self.image_image_2,
+            borderwidth=0,
+            command=self.show_qualificacaoContratante_menu,
+            compound="center",
+            text="Qualificação",
+            fg="#000716",
+            bg="#6ec1e4",
+            activebackground="#6ec1e4",
+            activeforeground="#000000",
+            font=("Calibri", 11)
+        )
+        self.qualificacaoContratante_button.place(x=950, y=660, width=200, height=30)
+
+        self.qualificacaoContratante_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
+        qualifcacaoContratante = [
+    "Contratante dos Serviços",
+    "Prestador de Serviços",
+    "Arrendador",
+    "Arrendatário",
+    "Outorgante",
+    "Outorgado",
+    "Cedente",
+    "Vendedor",
+    "Locador",
+    "Franqueador",
+    "Empregador"
+]
+        for quali in qualifcacaoContratante:
+            self.qualificacaoContratante_menu.add_command(label=quali, command=lambda q=quali: self.select_qualificacaoContratante(q))
+
+        self.selected_quali = "Qualificação"
+
 
 
     def informacoesNegocio(self):
@@ -479,3 +520,19 @@ class checagemInformacoes(ctk.CTkFrame):
             widget.destroy()
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
+
+    def load_and_resize_image(self, image_path, size):
+        image = Image.open(self.relative_to_assets(image_path))
+        resized_image = image.resize(size, Image.LANCZOS)
+        return ImageTk.PhotoImage(resized_image)
+    
+    def relative_to_assets(self, path: str) -> Path:
+        ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
+        return ASSETS_PATH / Path(path)
+    
+    def show_qualificacaoContratante_menu(self):
+        self.qualificacaoContratante_menu.post(self.qualificacaoContratante_button.winfo_rootx(), self.qualificacaoContratante_button.winfo_rooty() + self.qualificacaoContratante_button.winfo_height())
+
+    def select_qualificacaoContratante(self, quali):
+        self.selected_quali = quali
+        self.qualificacaoContratante_button.config(text=quali)
