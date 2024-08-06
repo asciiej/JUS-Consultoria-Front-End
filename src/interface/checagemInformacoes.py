@@ -1,6 +1,6 @@
 from src.utilitarios.excecoes import ContratoNaoEncontrado
 import customtkinter as ctk
-from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu, ttk
 from PIL import Image, ImageTk
 from ..utilitarios.user_session import USER_SESSION
 from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
@@ -364,44 +364,15 @@ class checagemInformacoes(ctk.CTkFrame):
         self.Qualificacao.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        # self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
+        self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
         # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-        # Qualificação
-        self.image_image_2 = self.load_and_resize_imageQuali("image_2.png", (200, 30))
-        self.qualificacaoContratante_button = Button(
-            self,
-            image=self.image_image_2,
-            borderwidth=0,
-            command=self.show_qualificacaoContratante_menu,
-            compound="center",
-            text="Qualificação",
-            fg="#000716",
-            bg="#6ec1e4",
-            activebackground="#6ec1e4",
-            activeforeground="#000000",
-            font=("Calibri", 11)
-        )
-        self.qualificacaoContratante_button.place(x=950, y=660, width=200, height=30)
-
-        self.qualificacaoContratante_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
-        qualifcacaoContratante = [
-    "Contratante dos Serviços",
-    "Prestador de Serviços",
-    "Arrendador",
-    "Arrendatário",
-    "Outorgante",
-    "Outorgado",
-    "Cedente",
-    "Vendedor",
-    "Locador",
-    "Franqueador",
-    "Empregador"
-]
-        for quali in qualifcacaoContratante:
-            self.qualificacaoContratante_menu.add_command(label=quali, command=lambda q=quali: self.select_qualificacaoContratante(q))
-
-        self.selected_quali = "Qualificação"
+        opcoesQuali = ["Contratante dos Serviços","Prestador de Serviços","Arrendador","Arrendatário","Outorgante","Outorgado",
+    "Cedente", "Vendedor", "Locador", "Franqueador","Empregador"]
+        
+        self.selectbox = ttk.Combobox(self.frame, values=opcoesQuali)
+        self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        self.selectbox.set("Qualificação")
 
 
 
@@ -447,7 +418,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.CorrecaoMonetaria.grid(row=3, column=4, padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        # self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
+        self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
         # self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.PrazoDuracao = ctk.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
@@ -458,37 +429,12 @@ class checagemInformacoes(ctk.CTkFrame):
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
         # Correção Monetária
-        self.image_image_2 = self.load_and_resize_imageCM("image_2.png", (200, 30))
-        self.correcao_button = Button(
-            self,
-            image=self.image_image_2,
-            borderwidth=0,
-            command=self.show_correcao_menu,
-            compound="center",
-            text="Correção Monetária",
-            fg="#000716",
-            bg="#6ec1e4",
-            activebackground="#6ec1e4",
-            activeforeground="#000000",
-            font=("Calibri", 11)
-        )
-        self.correcao_button.place(x=1250, y=540, width=200, height=30)
 
-        self.correcao_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
-        correcaoMonetaria = [
-    "IGP-M",
-    "INPC",
-    "IPCA",
-    "POUPANÇA",
-    "SELIC",
-    "CDI"
-]
-        for correcaoM in correcaoMonetaria:
-            self.correcao_menu.add_command(label=correcaoM, command=lambda c=correcaoM: self.select_correcao(c))
-
-        self.selected_correcao = "Correção Monetária"
-
-
+        opcoesCM = ["IGP-M", "INPC", "IPCA", "POUPANÇA", "SELIC", "CDI"]
+        self.selectboxCM = ttk.Combobox(self.frame, values=opcoesCM)
+        self.selectboxCM.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
+        self.selectboxCM.set("Correção Monetária")
+        
 
     def informacoesPersonalizadas(self):
         self.frame.destroy()
@@ -529,7 +475,7 @@ class checagemInformacoes(ctk.CTkFrame):
 		'forma_pagamento': self.FormaPagamentoEntry.get(),
 		'multa_mora': self.MultaDeMoraEntry.get(),
 		'juros_mora': self.JurosDeMoraEntry.get(),
-		'correcao_monetaria': self.selected_correcao,
+		'correcao_monetaria': self.selectboxCM.get(),
 		'prazo_duracao': self.PrazoDuracaoEntry.get(),
 		'contratante': self.contratante_data,
 		'contratado': self.contratado_data
@@ -593,8 +539,8 @@ class checagemInformacoes(ctk.CTkFrame):
         ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
         return ASSETS_PATH / Path(path)
     
-    def show_qualificacaoContratante_menu(self):
-        self.qualificacaoContratante_menu.post(self.qualificacaoContratante_button.winfo_rootx(), self.qualificacaoContratante_button.winfo_rooty() + self.qualificacaoContratante_button.winfo_height())
+    # def show_qualificacaoContratante_menu(self):
+    #     self.qualificacaoContratante_menu.post(self.qualificacaoContratante_button.winfo_rootx(), self.qualificacaoContratante_button.winfo_rooty() + self.qualificacaoContratante_button.winfo_height())
 
     def select_qualificacaoContratante(self, quali):
         self.selected_quali = quali
