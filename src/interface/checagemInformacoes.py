@@ -268,40 +268,15 @@ class checagemInformacoes(ctk.CTkFrame):
         self.ReceitaAnual.grid(row=5,column=2,padx=30, pady=5,sticky="w")
 
         # Entry dentro do frame filho
-        # self.ReceitaAnualEntry = ctk.CTkEntry(self.frame,height=30)
+        self.ReceitaAnualEntry = ctk.CTkEntry(self.frame,height=30)
         # self.ReceitaAnualEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-        self.image_image_2 = self.load_and_resize_imageCM("image_2.png", (200, 30))
-        self.receita_button = Button(
-            self,
-            image=self.image_image_2,
-            borderwidth=0,
-            command=self.show_receita_menu,
-            compound="center",
-            text="Receita Anual",
-            fg="#000716",
-            bg="#6ec1e4",
-            activebackground="#6ec1e4",
-            activeforeground="#000000",
-            font=("Calibri", 11)
-        )
-        self.receita_button.place(x=910, y=663, width=200, height=30)
+        opcoesR = ["Até R$81 mil", "R$81 mil a R$360 mil", "R$360 mil a R$4,8 milhões", "R$4,8 milhões a R$78 milhões", "Superior a R$78 milhões"]
+        self.selectboxR = ttk.Combobox(self.frame, values=opcoesR)
+        self.selectboxR.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        self.selectboxR.set("Receita Anual")
 
-        self.receita_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
-        receitaAnual = [
-    "Até R$81 mil",
-    "R$81 mil a R$360 mil",
-    "R$360 mil a R$4,8 milhões",
-    "R$4,8 milhões a R$78 milhões",
-    "Superior a R$78 milhões"
-]
-        for receitaA in receitaAnual:
-            self.receita_menu.add_command(label=receitaA, command=lambda r=receitaA: self.select_receita(r))
-
-        self.selected_receita = "Receita Anual"
-
-
-
+        
 
     def informacoesContratante(self,parte:str):
         # Label dentro do frame filho
@@ -490,7 +465,7 @@ class checagemInformacoes(ctk.CTkFrame):
             'cnae_secundaria': self.Cnae2Entry.get(),
             'cfop_principais': self.CfopEntry.get(),
             'industria_setor': self.IndustriaSetorEntry.get(),
-            'receita_anual': self.selected_receita
+            'receita_anual': self.selectboxR.get()
         }
         return dictInformacoesEmpresariais
 
