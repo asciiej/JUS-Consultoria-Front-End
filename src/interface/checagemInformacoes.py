@@ -92,7 +92,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.frame = ctk.CTkFrame(self,height=480,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
-        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
         self.pagina = 0
@@ -417,7 +417,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
-        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
         self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
@@ -543,3 +543,25 @@ class checagemInformacoes(ctk.CTkFrame):
     def select_receita(self, receita):
         self.selected_receita = receita
         self.receita_button.config(text=receita)
+
+    def validarPessoal(self):
+        dados_pessoais = {
+                'nome': self.NomeContractEntry.get(),
+                'nacionalidade': self.NacionalidadeEntry.get(),
+                'estadocivil': self.EstadoCivilEntry.get(),
+                'cpf': self.CpfOuCnpjEntry.get(),
+                'profissao': self.ProfissaoEntry.get(),
+                'endereco': self.EnderecoEntry.get()
+        }
+    
+        inputs_pessoal = [field_name for field_name,
+                          value in dados_pessoais.items() if not value]
+
+        if inputs_pessoal:
+            messagebox.showerror(
+                "Erro", "Todos os campos devem ser preenchidos!")
+            return
+        self.prosseguir_funcao()
+
+    def prosseguir(self):
+        self.validarPessoal()
