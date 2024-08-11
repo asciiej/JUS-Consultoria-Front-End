@@ -12,7 +12,7 @@ class TelaLogin(ctk.CTkFrame):
 
         self.controlers = controlers
         self.added = 0
-        
+
         # Carregar e redimensionar o logotipo
         self.logoJUS = ctk.CTkImage(Image.open('imagens/JUS_Consultoria_Arbitragem.png'), size=(400, 161))
         self.logo_label = ctk.CTkLabel(self, text="", image=self.logoJUS)
@@ -72,17 +72,18 @@ class TelaLogin(ctk.CTkFrame):
         # Adicione a lógica de login aqui
 
         try:
-            teste = self.controlers["usuario"].login(email, password)
-            print(USER_SESSION.get_user_data())
+            login = self.controlers["usuario"].login(email, password)
+            if login:
+                if len(USER_SESSION.get_user_data().roles) <= 1:
+                    raise Exception("Voce não possui nenhum cargo, entre em contato com o Admin.")
         except Exception as e:
             self.show_error_message(e)
             return
 
-
-        if not teste:
+        if not login:
             self.show_error_message("Usuário ou senha inválidos, tente novamente.")
             return
-        print(teste)
+        print(login)
         self.clear_login_screen()
         if USER_SESSION.is_admin():
             print("admin")
