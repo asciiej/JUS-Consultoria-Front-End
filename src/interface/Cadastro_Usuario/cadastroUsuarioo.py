@@ -230,16 +230,18 @@ class telaCadastro(ctk.CTkFrame):
         return ASSETS_PATH / Path(path)
 
     def buttonOnClick(self):
-        nome = self.entry_1.get()
-        sobrenome = self.entry_7.get()
-        cpf = self.entry_cpf.get()
-        nome_empresa = self.entry_5.get()
-        email = self.entry_8.get()
-        telefone = self.entry_2.get()
-        pais_localizacao = self.entry_paisLocalizacao.get()
-        cargo = self.selected_cargo
-        senha = self.entry_3.get()
-        confirme_senha = self.entry_4.get()
+        fields = {
+            'nome' : self.entry_1.get(),
+            'sobrenome' : self.entry_7.get(),
+            'cpf' : self.entry_cpf.get(),
+            'nome_empresa' : self.entry_5.get(),
+            'email' : self.entry_8.get(),
+            'telefone' : self.entry_2.get(),
+            'pais_localizacao' : self.entry_paisLocalizacao.get(),
+            'cargo' : self.selected_cargo,
+            'senha' : self.entry_3.get(),
+            'confirme_senha' : self.entry_4.get()
+        }
 
         def show_custom_error(title, message):
             error_window = Toplevel()
@@ -255,27 +257,33 @@ class telaCadastro(ctk.CTkFrame):
 
             ok_button = Button(error_window, text="OK", command=error_window.destroy, bg="#FF6666", fg="#FFFFFF", font=("Calibri", 12), relief="flat")
             ok_button.pack(pady=10)
+        
+        missing_fields = [field_name for field_name, value in fields.items() if not value]
 
-        if not nome or not sobrenome or not cpf or not nome_empresa or not email or not telefone or not pais_localizacao or not cargo or not senha or not confirme_senha:
+        # if not nome or not sobrenome or not cpf or not nome_empresa or not email or not telefone or not pais_localizacao or not cargo or not senha or not confirme_senha:
+        #     show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
+        #     return
+
+        if missing_fields:
             show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
             return
 
-        if not self.validar_cpf(cpf):
+        if not self.validar_cpf(fields['cpf']):
             messagebox.showerror("Erro", "CPF inválido!")
             return
 
-        if not self.validar_email(email):
+        if not self.validar_email(fields['email']):
             messagebox.showerror("Erro", "E-mail inválido!")
             return
 
-        if senha != confirme_senha:
+        if fields['senha'] != fields['confirme_senha']:
             messagebox.showerror("Erro", "As senhas não coincidem!")
             return
 
 
 
         #print(cargo.encode('utf-8'))
-        retorno = self.controlers['usuario'].register(nome = nome, sobrenome = sobrenome,cpf = cpf,nome_empresa=  nome_empresa,email= email,telefone= telefone,pais= pais_localizacao,cargo= cargo,senha= senha,confirme_senha= confirme_senha)
+        retorno = self.controlers['usuario'].register(nome = fields['nome'], sobrenome = fields['sobrenome'],cpf = fields['cpf'],nome_empresa=  fields['nome_empresa'],email= fields['email'],telefone= fields['telefone'],pais= fields['pais_localizacao'],cargo= fields['cargo'],senha= fields['senha'],confirme_senha= fields['confirme_senha'])
 
     def validar_cpf(self, cpf):
         cpf = re.sub(r'\D', '', cpf)

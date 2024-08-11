@@ -1,8 +1,12 @@
 from src.utilitarios.excecoes import ContratoNaoEncontrado
 import customtkinter as ctk
-from PIL import Image
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu, ttk
+from PIL import Image, ImageTk
 from ..utilitarios.user_session import USER_SESSION
 from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
+from pathlib import Path
+import os
+import re
 
 
 
@@ -110,18 +114,24 @@ class checagemInformacoes(ctk.CTkFrame):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
             match self.pagina:
                 case 0:
+                    if not self.erroTodosOsCampos(self.get_informacoesEmpresariais()): return
                     retorno = self.get_informacoesEmpresariais()
                 case 1:
+                    if not self.erroTodosOsCampos(self.get_informacoesPersonalizadas()): return
                     retorno = self.get_informacoesPersonalizadas()
         elif self.tipo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
-                    retorno = self.get_informacoesContratado("Contratante")
+                    if not self.erroTodosOsCampos(self.get_informacoesContratado("Contratante")): return
+                    retorno = None
                 case 1:
-                    retorno = self.get_informacoesContratado("Contratada")
+                    if not self.erroTodosOsCampos(self.get_informacoesContratado("Contratada")): return
+                    retorno = None
                 case 2:
+                    if not self.erroTodosOsCampos(self.get_informacoesNegocio()): return
                     retorno = self.get_informacoesNegocio()
                 case 3:
+                    if not self.erroTodosOsCampos(self.get_informacoesPersonalizadas()): return
                     retorno = self.get_informacoesPersonalizadas()
 
         self.finalDict = combine_dicts(self.finalDict,retorno)
@@ -158,14 +168,18 @@ class checagemInformacoes(ctk.CTkFrame):
 
     def prosseguirSemInformacoesPersonalizadas(self):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
+            not self.erroTodosOsCampos(self.get_informacoesEmpresariais())
             retorno = self.get_informacoesEmpresariais()
         elif self.titulo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
-                    retorno = self.get_informacoesContratado("Contratante")
+                    not self.erroTodosOsCampos(self.get_informacoesContratado("Contratante"))
+                    retorno = None
                 case 1:
-                    retorno = self.get_informacoesContratado("Contratada")
+                    not self.erroTodosOsCampos(self.get_informacoesContratado("Contratada"))
+                    retorno = None
                 case 2:
+                    not self.erroTodosOsCampos(self.get_informacoesNegocio())
                     retorno = self.get_informacoesNegocio()
 
         self.finalDict = combine_dicts(self.finalDict,retorno)
@@ -265,9 +279,14 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.ReceitaAnualEntry = ctk.CTkEntry(self.frame,height=30)
-        self.ReceitaAnualEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        # self.ReceitaAnualEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
+        opcoesR = ["Até R$81 mil", "R$81 mil a R$360 mil", "R$360 mil a R$4,8 milhões", "R$4,8 milhões a R$78 milhões", "Superior a R$78 milhões"]
+        self.selectboxR = ttk.Combobox(self.frame, values=opcoesR)
+        self.selectboxR.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        self.selectboxR.set("Receita Anual")
 
+        
 
     def informacoesContratante(self,parte:str):
         # Label dentro do frame filho
@@ -331,7 +350,15 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
-        self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+
+        opcoesQuali = ["Contratante dos Serviços","Prestador de Serviços","Arrendador","Arrendatário","Outorgante","Outorgado",
+    "Cedente", "Vendedor", "Locador", "Franqueador","Empregador"]
+        
+        self.selectbox = ttk.Combobox(self.frame, values=opcoesQuali)
+        self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        self.selectbox.set("Qualificação")
+
 
 
     def informacoesNegocio(self):
@@ -377,7 +404,7 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
+        # self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.PrazoDuracao = ctk.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
         self.PrazoDuracao.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
@@ -385,6 +412,14 @@ class checagemInformacoes(ctk.CTkFrame):
         # Entry dentro do frame filho
         self.PrazoDuracaoEntry = ctk.CTkEntry(self.frame,height=30)
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
+
+        # Correção Monetária
+
+        opcoesCM = ["IGP-M", "INPC", "IPCA", "POUPANÇA", "SELIC", "CDI"]
+        self.selectboxCM = ttk.Combobox(self.frame, values=opcoesCM)
+        self.selectboxCM.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
+        self.selectboxCM.set("Correção Monetária")
+        
 
     def informacoesPersonalizadas(self):
         self.frame.destroy()
@@ -425,7 +460,7 @@ class checagemInformacoes(ctk.CTkFrame):
 		'forma_pagamento': self.FormaPagamentoEntry.get(),
 		'multa_mora': self.MultaDeMoraEntry.get(),
 		'juros_mora': self.JurosDeMoraEntry.get(),
-		'correcao_monetaria': self.CorrecaoMonetariaEntry.get(),
+		'correcao_monetaria': self.selectboxCM.get(),
 		'prazo_duracao': self.PrazoDuracaoEntry.get(),
 		'contratante': self.contratante_data,
 		'contratado': self.contratado_data
@@ -440,7 +475,7 @@ class checagemInformacoes(ctk.CTkFrame):
             'cnae_secundaria': self.Cnae2Entry.get(),
             'cfop_principais': self.CfopEntry.get(),
             'industria_setor': self.IndustriaSetorEntry.get(),
-            'receita_anual': self.ReceitaAnualEntry.get()
+            'receita_anual': self.selectboxR.get()
         }
         return dictInformacoesEmpresariais
 
@@ -454,7 +489,7 @@ class checagemInformacoes(ctk.CTkFrame):
                 'profissao': self.ProfissaoEntry.get(),
                 'endereco': self.EnderecoEntry.get()
             }
-            return None
+            return self.contratante_data
         elif contratante == "Contratada":
             self.contratado_data = {
                 'nome': self.NomeContractEntry.get(),
@@ -464,14 +499,19 @@ class checagemInformacoes(ctk.CTkFrame):
                 'profissao': self.ProfissaoEntry.get(),
                 'endereco': self.EnderecoEntry.get()
             }
-            return None
+            return self.contratado_data
 
     def get_informacoesPersonalizadas(self):
-        for i,entrada in enumerate(self.camposPersonalizadosEntry):
-            self.camposPersonalizadosEntry[i] = entrada.get()
+        # Cria um dicionário para armazenar as informações personalizadas
+        dictInformacoes = {}
+        
+        # Percorre a lista de entradas e coleta os valores
+        for i, entrada in enumerate(self.camposPersonalizadosEntry):
+            dictInformacoes[self.camposPersonalizados[i]] = entrada.get()
 
-        dictInformacoes = {chave : valor for chave,valor in zip(self.camposPersonalizados,self.camposPersonalizadosEntry)}
-        return {"informacoes_personalizadas" : dictInformacoes}
+        # Retorna o dicionário dentro de outro dicionário
+        return dictInformacoes
+
 
     def voltar_funcao(self):
         self.unbind("<Configure>")
@@ -479,3 +519,51 @@ class checagemInformacoes(ctk.CTkFrame):
             widget.destroy()
         self.parent.show_frame("telaPrincipal")
         self.parent.frames["telaPrincipal"].show_content()
+
+    def load_and_resize_imageQuali(self, image_path, size):
+        image = Image.open(self.relative_to_assetsQuali(image_path))
+        resized_image = image.resize(size, Image.LANCZOS)
+        return ImageTk.PhotoImage(resized_image)
+    
+    def relative_to_assetsQuali(self, path: str) -> Path:
+        ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
+        return ASSETS_PATH / Path(path)
+    
+    # def show_qualificacaoContratante_menu(self):
+    #     self.qualificacaoContratante_menu.post(self.qualificacaoContratante_button.winfo_rootx(), self.qualificacaoContratante_button.winfo_rooty() + self.qualificacaoContratante_button.winfo_height())
+
+    def select_qualificacaoContratante(self, quali):
+        self.selected_quali = quali
+        self.qualificacaoContratante_button.config(text=quali)
+
+    def load_and_resize_imageCM(self, image_path, size):
+        image = Image.open(self.relative_to_assetsCM(image_path))
+        resized_image = image.resize(size, Image.LANCZOS)
+        return ImageTk.PhotoImage(resized_image)
+    
+    def relative_to_assetsCM(self, path: str) -> Path:
+        ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
+        return ASSETS_PATH / Path(path)
+    
+    def show_correcao_menu(self):
+        self.correcao_menu.post(self.correcao_button.winfo_rootx(), self.correcao_button.winfo_rooty() + self.correcao_button.winfo_height())
+
+    def select_correcao(self, correcao):
+        self.selected_correcao = correcao
+        self.correcao_button.config(text=correcao)
+
+    def show_receita_menu(self):
+        self.receita_menu.post(self.receita_button.winfo_rootx(), self.receita_button.winfo_rooty() + self.receita_button.winfo_height())
+
+    def select_receita(self, receita):
+        self.selected_receita = receita
+        self.receita_button.config(text=receita)
+
+
+    def erroTodosOsCampos(self,dicionario):
+        for chave, valor in dicionario.items():
+            if valor is None or valor == "":
+                messagebox.showerror(
+            "Erro", "Todos os campos devem ser preenchidos!")
+                return False
+        return True
