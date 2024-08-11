@@ -131,7 +131,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     if not self.erroTodosOsCampos(self.get_informacoesNegocio()): return
                     retorno = self.get_informacoesNegocio()
                 case 3:
-                    ##if not self.erroTodosOsCampos(self.get_informacoesPersonalizadas()): return
+                    if not self.erroTodosOsCampos(self.get_informacoesPersonalizadas()): return
                     retorno = self.get_informacoesPersonalizadas()
 
         self.finalDict = combine_dicts(self.finalDict,retorno)
@@ -168,16 +168,18 @@ class checagemInformacoes(ctk.CTkFrame):
 
     def prosseguirSemInformacoesPersonalizadas(self):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
+            not self.erroTodosOsCampos(self.get_informacoesEmpresariais())
             retorno = self.get_informacoesEmpresariais()
         elif self.titulo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
-                    retorno = self.get_informacoesContratado("Contratante")
+                    not self.erroTodosOsCampos(self.get_informacoesContratado("Contratante"))
                     retorno = None
                 case 1:
-                    retorno = self.get_informacoesContratado("Contratada")
+                    not self.erroTodosOsCampos(self.get_informacoesContratado("Contratada"))
                     retorno = None
                 case 2:
+                    not self.erroTodosOsCampos(self.get_informacoesNegocio())
                     retorno = self.get_informacoesNegocio()
 
         self.finalDict = combine_dicts(self.finalDict,retorno)
@@ -500,11 +502,16 @@ class checagemInformacoes(ctk.CTkFrame):
             return self.contratado_data
 
     def get_informacoesPersonalizadas(self):
-        for i,entrada in enumerate(self.camposPersonalizadosEntry):
-            self.camposPersonalizadosEntry[i] = entrada.get()
+        # Cria um dicionário para armazenar as informações personalizadas
+        dictInformacoes = {}
+        
+        # Percorre a lista de entradas e coleta os valores
+        for i, entrada in enumerate(self.camposPersonalizadosEntry):
+            dictInformacoes[self.camposPersonalizados[i]] = entrada.get()
 
-        dictInformacoes = {chave : valor for chave,valor in zip(self.camposPersonalizados,self.camposPersonalizadosEntry)}
-        return {"informacoes_personalizadas" : dictInformacoes}
+        # Retorna o dicionário dentro de outro dicionário
+        return dictInformacoes
+
 
     def voltar_funcao(self):
         self.unbind("<Configure>")
