@@ -75,7 +75,7 @@ class TelaLogin(ctk.CTkFrame):
             login = self.controlers["usuario"].login(email, password)
             if login:
                 if len(USER_SESSION.get_user_data().roles) <= 1:
-                    raise Exception("Voce não possui nenhum cargo, entre em contato com o Admin.")
+                    raise Exception("Acesso inválido, contate o Admin.")
         except Exception as e:
             self.show_error_message(e)
             return

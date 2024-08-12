@@ -185,7 +185,8 @@ class convertPDF:
         custom_style = ParagraphStyle(
             'Custom',
             parent=styles['Normal'],
-            leading=16
+            leading=16,
+            alignment=4
             )
         
         content = data['content']
