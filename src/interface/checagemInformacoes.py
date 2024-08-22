@@ -352,12 +352,18 @@ class checagemInformacoes(ctk.CTkFrame):
         self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
         # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-        opcoesQuali = ["Contratante dos Serviços","Prestador de Serviços","Arrendador","Arrendatário","Outorgante","Outorgado",
-    "Cedente", "Vendedor", "Locador", "Franqueador","Empregador"]
-        
-        self.selectbox = ttk.Combobox(self.frame, values=opcoesQuali)
-        self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
-        self.selectbox.set("Qualificação")
+        qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador", "Locador", 
+                            "Franqueado", "Empregador"]
+        qualiContratado = ["Prestador de Serviços", "Arrendatário", "Outorgado", "Cessionário", "Comprador", "Locatário"
+                           "Franqueado", "Empregado"]
+        if parte == "Contratante":
+            self.selectbox = ttk.Combobox(self.frame , values=qualiContratante)
+            self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+            self.selectbox.set("Qualificação")
+        elif parte == "Contratada":
+            self.selectbox = ttk.Combobox(self.frame, values=qualiContratado)
+            self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+            self.selectbox.set("Qualificação")
 
 
 
