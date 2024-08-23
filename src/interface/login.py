@@ -81,7 +81,7 @@ class TelaLogin(ctk.CTkFrame):
             return
 
         if not login:
-            self.show_error_message("Usuário ou senha inválidos, tente novamente.")
+            self.show_error_message("Acesso inválido, contate o Admin.")
             return
         print(login)
         self.clear_login_screen()

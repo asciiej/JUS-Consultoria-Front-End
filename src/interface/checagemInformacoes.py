@@ -4,11 +4,12 @@ from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel,
 from PIL import Image, ImageTk
 from ..utilitarios.user_session import USER_SESSION
 from src.utilitarios.operacoesDocumento import convertPDF,combine_dicts
+from src.classes.contrato.ContratoPesudoPreenchido import ContratoPseudoPreenchido
 from pathlib import Path
 import os
 import re
 
-
+# TODO placeholder_text="Digite seu nome aqui..." vai ser papum
 
 class checagemInformacoes(ctk.CTkFrame):
     def __init__(self,parent,controlers:dict):
@@ -105,6 +106,11 @@ class checagemInformacoes(ctk.CTkFrame):
             #apenas informações empresariais
             self.informacoesEmpresariais()
 
+        self.contratoPseudoPreenchido = self.parent.getContratoPseudoPreenchido(titulo)
+        if  not self.contratoPseudoPreenchido:
+            self.contratoPseudoPreenchido = ContratoPseudoPreenchido(titulo)
+        self.contratoPseudoPreenchido.printInformacaoPseudo()
+
 
 
     def prosseguir_funcao(self):
@@ -123,9 +129,11 @@ class checagemInformacoes(ctk.CTkFrame):
             match self.pagina:
                 case 0:
                     if not self.erroTodosOsCampos(self.get_informacoesContratado("Contratante")): return
+                    self.contratoPseudoPreenchido.addInformacaoPseudo(self.get_informacoesContratado("Contratante"),"Contratante")
                     retorno = None
                 case 1:
                     if not self.erroTodosOsCampos(self.get_informacoesContratado("Contratada")): return
+                    self.contratoPseudoPreenchido.addInformacaoPseudo(self.get_informacoesContratado("Contratada"),"Contratada")
                     retorno = None
                 case 2:
                     if not self.erroTodosOsCampos(self.get_informacoesNegocio()): return
@@ -134,6 +142,8 @@ class checagemInformacoes(ctk.CTkFrame):
                     if not self.erroTodosOsCampos(self.get_informacoesPersonalizadas()): return
                     retorno = self.get_informacoesPersonalizadas()
 
+        self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
+        self.contratoPseudoPreenchido.printInformacaoPseudo()        
         self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
@@ -150,6 +160,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
+                    self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
@@ -161,6 +172,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
+                    self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
@@ -182,6 +194,8 @@ class checagemInformacoes(ctk.CTkFrame):
                     not self.erroTodosOsCampos(self.get_informacoesNegocio())
                     retorno = self.get_informacoesNegocio()
 
+        self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
+        self.contratoPseudoPreenchido.printInformacaoPseudo()
         self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
@@ -196,6 +210,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.clear_check_screen()
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
+                    self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
                     self.parent.show_frame("telaAssinaturaDocumento")
                     self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
             self.pagina +=1
@@ -203,6 +218,7 @@ class checagemInformacoes(ctk.CTkFrame):
             self.clear_check_screen()
             self.contract.setContractData(self.finalDict)
             self.formPdf()
+            self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
             self.parent.show_frame("telaAssinaturaDocumento")
             self.parent.frames["telaAssinaturaDocumento"].show_contentASSINA(id, self.titulo, self.tipo)
 
@@ -520,6 +536,7 @@ class checagemInformacoes(ctk.CTkFrame):
 
 
     def voltar_funcao(self):
+        self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
         self.unbind("<Configure>")
         for widget in self.winfo_children():
             widget.destroy()

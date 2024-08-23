@@ -11,10 +11,11 @@ from src.interface.Atualizar_dados.atualizarinform import AtualizaCad
 from src.interface.checagemInformacoes import checagemInformacoes
 from src.interface.assinaturaDocumento import telaAssinaturaDocumento
 from src.interface.redirecionaGOV import redirecionaGOV
-
+from src.classes.contrato.ContratoPesudoPreenchido import ContratoPseudoPreenchido
 from src.classes.contrato.ContractControler import Controler
 
 class MainApp(tk.Tk):
+    ContratosPseudoPreenchidos = []
     def __init__(self, controlers):
         super().__init__()
         self.title("Navegação entre Telas")
@@ -147,3 +148,14 @@ class MainApp(tk.Tk):
     
     def getContrato(self) -> Controler:
         return self.contract 
+    
+    def addContratoPseudoPreenchido(self,contratoPseudo: ContratoPseudoPreenchido):
+        if contratoPseudo not in self.ContratosPseudoPreenchidos: 
+            self.ContratosPseudoPreenchidos.append(contratoPseudo)
+
+    def getContratoPseudoPreenchido(self,titulo:str) -> ContratoPseudoPreenchido:
+        for contrato in self.ContratosPseudoPreenchidos:
+            if contrato.titulo == titulo:
+                return contrato
+        return None 
+
