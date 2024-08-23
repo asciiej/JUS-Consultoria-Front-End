@@ -10,6 +10,7 @@ import os
 import re
 
 # TODO placeholder_text="Digite seu nome aqui..." vai ser papum
+#placeholder_text=self.contratoPseudoPreenchido.getInformacaoPseudo("")
 
 class checagemInformacoes(ctk.CTkFrame):
     def __init__(self,parent,controlers:dict):
@@ -98,18 +99,22 @@ class checagemInformacoes(ctk.CTkFrame):
 
         self.pagina = 0
         self.finalDict = None
+
         if contratoNaoEncontrado:
             self.contratoNaoEncontrado()
-        elif tipo == "Consultoria Empresarial":
-            self.informacoesContratante("Contratante")
-        elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
-            #apenas informações empresariais
-            self.informacoesEmpresariais()
 
         self.contratoPseudoPreenchido = self.parent.getContratoPseudoPreenchido(titulo)
         if  not self.contratoPseudoPreenchido:
             self.contratoPseudoPreenchido = ContratoPseudoPreenchido(titulo)
         self.contratoPseudoPreenchido.printInformacaoPseudo()
+
+        if tipo == "Consultoria Empresarial":
+            self.informacoesContratante("Contratante")
+        elif tipo == "Consultoria Tributária" or tipo == "Câmara de Arbitragem":
+            #apenas informações empresariais
+            self.informacoesEmpresariais()
+
+       
 
 
 
@@ -240,145 +245,156 @@ class checagemInformacoes(ctk.CTkFrame):
 
     def informacoesEmpresariais(self):
         # Label dentro do frame filho
-        TitleLable = ctk.CTkLabel(self.frame,text="Informações Empresariais",fg_color="#6EC1E4",font =('Helvetica', 24))
-        TitleLable.grid(row = 0,column = 0,padx=30, pady=40)
+        TitleLable = ctk.CTkLabel(self.frame, text="Informações Empresariais", fg_color="#6EC1E4", font=('Helvetica', 24))
+        TitleLable.grid(row=0, column=0, padx=30, pady=40)
 
         self.frame.grid_columnconfigure(1, minsize=100)
         self.frame.grid_columnconfigure(2, minsize=100)
         self.frame.grid_columnconfigure(3, minsize=100)
         self.frame.grid_columnconfigure(4, minsize=300)
 
-        self.Nome = ctk.CTkLabel(self.frame, text="Nome da Empresa",fg_color="#6EC1E4")
-        self.Nome.grid(row=1, column=0, padx=50, pady=5,sticky="w")
+        self.Nome = ctk.CTkLabel(self.frame, text="Nome da Empresa", fg_color="#6EC1E4")
+        self.Nome.grid(row=1, column=0, padx=50, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.NomeEntry = ctk.CTkEntry(self.frame,height=30)
-        self.NomeEntry.grid(row=2, column=0, columnspan=4, padx=(40,20), pady=(0,30),sticky="ew")
+        self.NomeEntry = ctk.CTkEntry(self.frame, height=30)
+        self.NomeEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo("nome_empresa"))  # Define o texto inicial
+        self.NomeEntry.grid(row=2, column=0, columnspan=4, padx=(40, 20), pady=(0, 30), sticky="ew")
 
-        self.Cnpj = ctk.CTkLabel(self.frame, text="CNPJ",fg_color="#6EC1E4")
-        self.Cnpj.grid(row=1, column=4, padx=30, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.CnpjEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CnpjEntry.grid(row=2, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
-
-        self.Cnae1 = ctk.CTkLabel(self.frame, text="CNAE Principal",fg_color="#6EC1E4")
-        self.Cnae1.grid(row=3, column=0,padx=50, pady=5,sticky="w")
+        self.Cnpj = ctk.CTkLabel(self.frame, text="CNPJ", fg_color="#6EC1E4")
+        self.Cnpj.grid(row=1, column=4, padx=30, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.Cnae1Entry = ctk.CTkEntry(self.frame,height=30)
-        self.Cnae1Entry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
+        self.CnpjEntry = ctk.CTkEntry(self.frame, height=30)
+        self.CnpjEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo("cnpj"))  # Define o texto inicial
+        self.CnpjEntry.grid(row=2, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
 
-        self.Cnae2 = ctk.CTkLabel(self.frame, text="CNAE Secundário",fg_color="#6EC1E4")
-        self.Cnae2.grid(row=3, column=2, padx=30, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.Cnae2Entry = ctk.CTkEntry(self.frame,height=30)
-        self.Cnae2Entry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
-
-        self.Cfop = ctk.CTkLabel(self.frame, text="CFOP Principais Produtos",fg_color="#6EC1E4")
-        self.Cfop.grid(row=3, column=4, padx=30, pady=5,sticky="w")
+        self.Cnae1 = ctk.CTkLabel(self.frame, text="CNAE Principal", fg_color="#6EC1E4")
+        self.Cnae1.grid(row=3, column=0, padx=50, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.CfopEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CfopEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
+        self.Cnae1Entry = ctk.CTkEntry(self.frame, height=30)
+        self.Cnae1Entry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo("cnae_principal"))  # Define o texto inicial
+        self.Cnae1Entry.grid(row=4, column=0, columnspan=2, padx=(40, 20), pady=(0, 30), sticky="ew")
 
-        self.IndustriaSetor = ctk.CTkLabel(self.frame, text="Indústria/Setor",fg_color="#6EC1E4")
-        self.IndustriaSetor.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.IndustriaSetorEntry = ctk.CTkEntry(self.frame,height=30)
-        self.IndustriaSetorEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
-
-        self.ReceitaAnual = ctk.CTkLabel(self.frame, text="Receita Anual",fg_color="#6EC1E4")
-        self.ReceitaAnual.grid(row=5,column=2,padx=30, pady=5,sticky="w")
+        self.Cnae2 = ctk.CTkLabel(self.frame, text="CNAE Secundário", fg_color="#6EC1E4")
+        self.Cnae2.grid(row=3, column=2, padx=30, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.ReceitaAnualEntry = ctk.CTkEntry(self.frame,height=30)
-        # self.ReceitaAnualEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+        self.Cnae2Entry = ctk.CTkEntry(self.frame, height=30)
+        self.Cnae2Entry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo("cnae_secundaria"))  # Define o texto inicial
+        self.Cnae2Entry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
 
+        self.Cfop = ctk.CTkLabel(self.frame, text="CFOP Principais Produtos", fg_color="#6EC1E4")
+        self.Cfop.grid(row=3, column=4, padx=30, pady=5, sticky="w")
+
+        # Entry dentro do frame filho
+        self.CfopEntry = ctk.CTkEntry(self.frame, height=30)
+        self.CfopEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo("cfop_principais"))  # Define o texto inicial
+        self.CfopEntry.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
+
+        self.IndustriaSetor = ctk.CTkLabel(self.frame, text="Indústria/Setor", fg_color="#6EC1E4")
+        self.IndustriaSetor.grid(row=5, column=0, padx=50, pady=5, sticky="w")
+
+        # Entry dentro do frame filho
+        self.IndustriaSetorEntry = ctk.CTkEntry(self.frame, height=30)
+        self.IndustriaSetorEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo("industria_setor"))  # Define o texto inicial
+        self.IndustriaSetorEntry.grid(row=6, column=0, columnspan=2, padx=(40, 20), pady=(0, 30), sticky="ew")
+
+        self.ReceitaAnual = ctk.CTkLabel(self.frame, text="Receita Anual", fg_color="#6EC1E4")
+        self.ReceitaAnual.grid(row=5, column=2, padx=30, pady=5, sticky="w")
+
+        # Combobox para Receita Anual
         opcoesR = ["Até R$81 mil", "R$81 mil a R$360 mil", "R$360 mil a R$4,8 milhões", "R$4,8 milhões a R$78 milhões", "Superior a R$78 milhões"]
         self.selectboxR = ttk.Combobox(self.frame, values=opcoesR)
-        self.selectboxR.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
-        self.selectboxR.set("Receita Anual")
+        self.selectboxR.grid(row=6, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
+        self.selectboxR.set("Selecione a Receita Anual")
+
 
         
 
-    def informacoesContratante(self,parte:str):
+    def informacoesContratante(self, parte: str):
         # Label dentro do frame filho
         if parte == "Contratante":
             text = "Informações do Contratante"
         elif parte == "Contratada":
             text = "Informações da Contratada"
 
-        TitleLable = ctk.CTkLabel(self.frame,text=text,fg_color="#6EC1E4",font =('Helvetica', 24))
-        TitleLable.grid(row = 0,column = 0,padx=30, pady=40)
+        TitleLable = ctk.CTkLabel(self.frame, text=text, fg_color="#6EC1E4", font=('Helvetica', 24))
+        TitleLable.grid(row=0, column=0, padx=30, pady=40)
 
         self.frame.grid_columnconfigure(1, minsize=100)
         self.frame.grid_columnconfigure(2, minsize=100)
         self.frame.grid_columnconfigure(3, minsize=100)
         self.frame.grid_columnconfigure(4, minsize=300)
 
-        self.Nome = ctk.CTkLabel(self.frame, text="Nome Completo",fg_color="#6EC1E4")
-        self.Nome.grid(row=1, column=0, padx=50, pady=5,sticky="w")
+        self.Nome = ctk.CTkLabel(self.frame, text="Nome Completo", fg_color="#6EC1E4")
+        self.Nome.grid(row=1, column=0, padx=50, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.NomeContractEntry = ctk.CTkEntry(self.frame,height=30)
-        self.NomeContractEntry.grid(row=2, column=0, columnspan=4, padx=(40,20), pady=(0,30),sticky="ew")
+        self.NomeContractEntry = ctk.CTkEntry(self.frame, height=30)
+        self.NomeContractEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo(parte + "nome"))  # Define o texto inicial
+        self.NomeContractEntry.grid(row=2, column=0, columnspan=4, padx=(40, 20), pady=(0, 30), sticky="ew")
 
-        self.Nacionalidade = ctk.CTkLabel(self.frame, text="Nacionalidade",fg_color="#6EC1E4")
-        self.Nacionalidade.grid(row=1, column=4, padx=30, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.NacionalidadeEntry = ctk.CTkEntry(self.frame,height=30)
-        self.NacionalidadeEntry.grid(row=2, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
-
-        self.EstadoCivil = ctk.CTkLabel(self.frame, text="Estado Civil",fg_color="#6EC1E4")
-        self.EstadoCivil.grid(row=3, column=0,padx=50, pady=5,sticky="w")
+        self.Nacionalidade = ctk.CTkLabel(self.frame, text="Nacionalidade", fg_color="#6EC1E4")
+        self.Nacionalidade.grid(row=1, column=4, padx=30, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.EstadoCivilEntry = ctk.CTkEntry(self.frame,height=30)
-        self.EstadoCivilEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
+        self.NacionalidadeEntry = ctk.CTkEntry(self.frame, height=30)
+        self.NacionalidadeEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo(parte + "nacionalidade"))  # Define o texto inicial
+        self.NacionalidadeEntry.grid(row=2, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
 
-        self.Profissao = ctk.CTkLabel(self.frame, text="Profissão",fg_color="#6EC1E4")
-        self.Profissao.grid(row=3, column=2, padx=30, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.ProfissaoEntry = ctk.CTkEntry(self.frame,height=30)
-        self.ProfissaoEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
-
-        self.CpfOuCnpj = ctk.CTkLabel(self.frame, text="CPF ou CNPJ",fg_color="#6EC1E4")
-        self.CpfOuCnpj.grid(row=3, column=4, padx=30, pady=5,sticky="w")
+        self.EstadoCivil = ctk.CTkLabel(self.frame, text="Estado Civil", fg_color="#6EC1E4")
+        self.EstadoCivil.grid(row=3, column=0, padx=50, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.CpfOuCnpjEntry = ctk.CTkEntry(self.frame,height=30)
-        self.CpfOuCnpjEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
+        self.EstadoCivilEntry = ctk.CTkEntry(self.frame, height=30)
+        self.EstadoCivilEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo(parte + "estadocivil"))  # Define o texto inicial
+        self.EstadoCivilEntry.grid(row=4, column=0, columnspan=2, padx=(40, 20), pady=(0, 30), sticky="ew")
 
-        self.Endereco = ctk.CTkLabel(self.frame, text="Endereço de Residência ou Comercial",fg_color="#6EC1E4")
-        self.Endereco.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.EnderecoEntry = ctk.CTkEntry(self.frame,height=30)
-        self.EnderecoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
-
-        self.Qualificacao = ctk.CTkLabel(self.frame, text="Qualificação da Parte",fg_color="#6EC1E4")
-        self.Qualificacao.grid(row=5,column=2,padx=30, pady=5,sticky="w")
+        self.Profissao = ctk.CTkLabel(self.frame, text="Profissão", fg_color="#6EC1E4")
+        self.Profissao.grid(row=3, column=2, padx=30, pady=5, sticky="w")
 
         # Entry dentro do frame filho
-        self.QualificacaoEntry = ctk.CTkEntry(self.frame,height=30)
+        self.ProfissaoEntry = ctk.CTkEntry(self.frame, height=30)
+        self.ProfissaoEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo(parte + "profissao"))  # Define o texto inicial
+        self.ProfissaoEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
+
+        self.CpfOuCnpj = ctk.CTkLabel(self.frame, text="CPF ou CNPJ", fg_color="#6EC1E4")
+        self.CpfOuCnpj.grid(row=3, column=4, padx=30, pady=5, sticky="w")
+
+        # Entry dentro do frame filho
+        self.CpfOuCnpjEntry = ctk.CTkEntry(self.frame, height=30)
+        self.CpfOuCnpjEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo(parte + "cpf"))  # Define o texto inicial
+        self.CpfOuCnpjEntry.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
+
+        self.Endereco = ctk.CTkLabel(self.frame, text="Endereço de Residência ou Comercial", fg_color="#6EC1E4")
+        self.Endereco.grid(row=5, column=0, padx=50, pady=5, sticky="w")
+
+        # Entry dentro do frame filho
+        self.EnderecoEntry = ctk.CTkEntry(self.frame, height=30)
+        self.EnderecoEntry.insert(0, self.contratoPseudoPreenchido.getInformacaoPseudo(parte + "endereco"))  # Define o texto inicial
+        self.EnderecoEntry.grid(row=6, column=0, columnspan=2, padx=(40, 20), pady=(0, 30), sticky="ew")
+
+        self.Qualificacao = ctk.CTkLabel(self.frame, text="Qualificação da Parte", fg_color="#6EC1E4")
+        self.Qualificacao.grid(row=5, column=2, padx=30, pady=5, sticky="w")
+
+        # Entry dentro do frame filho
+        self.QualificacaoEntry = ctk.CTkEntry(self.frame, height=30)
         # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
         qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador", "Locador", 
                             "Franqueado", "Empregador"]
-        qualiContratado = ["Prestador de Serviços", "Arrendatário", "Outorgado", "Cessionário", "Comprador", "Locatário"
-                           "Franqueado", "Empregado"]
+        qualiContratado = ["Prestador de Serviços", "Arrendatário", "Outorgado", "Cessionário", "Comprador", "Locatário",
+                        "Franqueado", "Empregado"]
+        
         if parte == "Contratante":
-            self.selectbox = ttk.Combobox(self.frame , values=qualiContratante)
-            self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+            self.selectbox = ttk.Combobox(self.frame, values=qualiContratante)
+            self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
             self.selectbox.set("Qualificação")
         elif parte == "Contratada":
             self.selectbox = ttk.Combobox(self.frame, values=qualiContratado)
-            self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
+            self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
             self.selectbox.set("Qualificação")
 
 
@@ -398,6 +414,7 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.ValorEntry = ctk.CTkEntry(self.frame,height=30)
+        self.ValorEntry.insert(0,self.contratoPseudoPreenchido.getInformacaoPseudo("valor"))
         self.ValorEntry.grid(row=2, column=0, columnspan=4, padx=(40,20), pady=(0,30),sticky="ew")
 
         self.FormaPagamento = ctk.CTkLabel(self.frame, text="Forma de Pagamento",fg_color="#6EC1E4")
@@ -405,6 +422,7 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.FormaPagamentoEntry = ctk.CTkEntry(self.frame,height=30)
+        self.FormaPagamentoEntry.insert(0,self.contratoPseudoPreenchido.getInformacaoPseudo("forma_pagamento"))
         self.FormaPagamentoEntry.grid(row=2, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.MultaDeMora = ctk.CTkLabel(self.frame, text="Multa de Mora",fg_color="#6EC1E4")
@@ -412,6 +430,7 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.MultaDeMoraEntry = ctk.CTkEntry(self.frame,height=30)
+        self.MultaDeMoraEntry.insert(0,self.contratoPseudoPreenchido.getInformacaoPseudo("multa_mora"))
         self.MultaDeMoraEntry.grid(row=4, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
         self.JurosDeMora = ctk.CTkLabel(self.frame, text="Juros de Mora",fg_color="#6EC1E4")
@@ -419,20 +438,18 @@ class checagemInformacoes(ctk.CTkFrame):
 
         # Entry dentro do frame filho
         self.JurosDeMoraEntry = ctk.CTkEntry(self.frame,height=30)
+        self.JurosDeMoraEntry.insert(0,self.contratoPseudoPreenchido.getInformacaoPseudo("juros_mora"))
         self.JurosDeMoraEntry.grid(row=4, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
         self.CorrecaoMonetaria = ctk.CTkLabel(self.frame, text="Correção Monetária",fg_color="#6EC1E4")
         self.CorrecaoMonetaria.grid(row=3, column=4, padx=30, pady=5,sticky="w")
-
-        # Entry dentro do frame filho
-        self.CorrecaoMonetariaEntry = ctk.CTkEntry(self.frame,height=30)
-        # self.CorrecaoMonetariaEntry.grid(row=4, column=4, columnspan=3, padx=(20,40), pady=(0,30),sticky="ew")
 
         self.PrazoDuracao = ctk.CTkLabel(self.frame, text="Prazo de Duração",fg_color="#6EC1E4")
         self.PrazoDuracao.grid(row=5,column = 0, padx=50, pady=5,sticky="w")
 
         # Entry dentro do frame filho
         self.PrazoDuracaoEntry = ctk.CTkEntry(self.frame,height=30)
+        self.PrazoDuracaoEntry.insert(0,self.contratoPseudoPreenchido.getInformacaoPseudo("prazo_duracao"))
         self.PrazoDuracaoEntry.grid(row=6, column=0, columnspan=2, padx=(40,20), pady=(0,30),sticky="ew")
 
         # Correção Monetária
@@ -440,6 +457,7 @@ class checagemInformacoes(ctk.CTkFrame):
         opcoesCM = ["IGP-M", "INPC", "IPCA", "POUPANÇA", "SELIC", "CDI"]
         self.selectboxCM = ttk.Combobox(self.frame, values=opcoesCM)
         self.selectboxCM.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
+        #self.contratoPseudoPreenchido.getInformacaoPseudo("correcao_monetaria")
         self.selectboxCM.set("Correção Monetária")
         
 
@@ -461,6 +479,29 @@ class checagemInformacoes(ctk.CTkFrame):
             self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
 
             self.camposPersonalizadosEntry.append(ctk.CTkEntry(self.frame,height=30,width=400))
+            self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
+
+        
+
+    def informacoesPersonalizadas(self):
+        self.frame.destroy()
+        self.buttonContinue.destroy()
+        self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
+        self.frame.pack(pady=(80, 0))
+
+        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
+        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
+
+        self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
+        self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
+
+        self.camposPersonalizadosEntry = []
+        for i,campo in enumerate(self.camposPersonalizados):
+            self.camposPersonalizadosLable = ctk.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
+            self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
+
+            self.camposPersonalizadosEntry.append(ctk.CTkEntry(self.frame,height=30,width=400))
+            self.camposPersonalizadosEntry[i].insert(0,self.contratoPseudoPreenchido.getInformacaoPseudo(campo))
             self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
 
     def contratoNaoEncontrado(self):

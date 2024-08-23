@@ -16,6 +16,8 @@ class ContratoPseudoPreenchido:
             print(f'"{chave}":"{valor}"')
 
     def getInformacaoPseudo(self,chave) -> str:
+        if not self.informacoes:
+            return ""
         if chave not in self.informacoes:
-            return None
+            return ""
         return self.informacoes[chave]
