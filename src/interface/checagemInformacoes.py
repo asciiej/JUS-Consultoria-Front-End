@@ -9,8 +9,6 @@ from pathlib import Path
 import os
 import re
 
-# TODO placeholder_text="Digite seu nome aqui..." vai ser papum
-#placeholder_text=self.contratoPseudoPreenchido.getInformacaoPseudo("")
 
 class checagemInformacoes(ctk.CTkFrame):
     def __init__(self,parent,controlers:dict):
