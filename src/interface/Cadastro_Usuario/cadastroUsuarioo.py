@@ -5,6 +5,9 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
 from PIL import Image, ImageTk
 import customtkinter as ctk
+from ...utilitarios.excecoes import (
+    CPFInvalido, TelefoneInvalido
+)
 
 class telaCadastro(ctk.CTkFrame):
     def __init__(self, parent, controlers):
@@ -279,7 +282,14 @@ class telaCadastro(ctk.CTkFrame):
         if fields['senha'] != fields['confirme_senha']:
             messagebox.showerror("Erro", "As senhas não coincidem!")
             return
+        
+        if TelefoneInvalido:
+            messagebox.showerror("Erro", "Telefone Inválido!")
+            return
 
+        if CPFInvalido:
+            messagebox.showerror("Erro", "CPF inválido!")
+            return
 
 
         #print(cargo.encode('utf-8'))
