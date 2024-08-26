@@ -252,14 +252,12 @@ class telaCadastro(ctk.CTkFrame):
         #     show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
         #     return
 
+        # if missing_fields:
+        #     messagebox.showerror("Erro", "Todos os campos devem ser preenchidos!")
+        #     return
+
         if missing_fields:
             messagebox.showerror("Erro", "Todos os campos devem ser preenchidos!")
-            return
-        else:
-            messagebox.showinfo("Parabéns", "Usuário registrado com sucesso!")
-            
-            
-
 
         if not self.validar_cpf(fields['cpf']):
             messagebox.showerror("Erro", "CPF inválido!")
@@ -281,9 +279,12 @@ class telaCadastro(ctk.CTkFrame):
             messagebox.showerror("Erro", "CPF inválido!")
             return
 
-
+        try:
         #print(cargo.encode('utf-8'))
-        retorno = self.controlers['usuario'].register(nome = fields['nome'], sobrenome = fields['sobrenome'],cpf = fields['cpf'],nome_empresa=  fields['nome_empresa'],email= fields['email'],telefone= fields['telefone'],pais= fields['pais_localizacao'],cargo= fields['cargo'],senha= fields['senha'],confirme_senha= fields['confirme_senha'])
+            retorno = self.controlers['usuario'].register(nome = fields['nome'], sobrenome = fields['sobrenome'],cpf = fields['cpf'],nome_empresa=  fields['nome_empresa'],email= fields['email'],telefone= fields['telefone'],pais= fields['pais_localizacao'],cargo= fields['cargo'],senha= fields['senha'],confirme_senha= fields['confirme_senha'])
+            messagebox.showinfo("Parabéns", "Usuário cadastrado com sucesso!")
+        except Exception as e:
+            messagebox.showerror("Erro", "Ocorreu um erro ao cadastrar")
 
     def validar_cpf(self, cpf):
         cpf = re.sub(r'\D', '', cpf)
