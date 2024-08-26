@@ -112,7 +112,7 @@ class checagemInformacoes(ctk.CTkFrame):
             #apenas informações empresariais
             self.informacoesEmpresariais()
 
-       
+
 
 
 
@@ -146,7 +146,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     retorno = self.get_informacoesPersonalizadas()
 
         self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
-        self.contratoPseudoPreenchido.printInformacaoPseudo()        
+        self.contratoPseudoPreenchido.printInformacaoPseudo()
         self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
@@ -227,7 +227,10 @@ class checagemInformacoes(ctk.CTkFrame):
 
     def formPdf(self):
         pdf_saida = './pdfs/pdf_final.pdf'
-        papel_timbrado = './pdfs/papelTimbrado.pdf'
+        if self._checkboxPDF_var.get():
+            papel_timbrado = './pdfs/PapelTimbrado_em_Branco_Jus.pdf'
+        else:
+            papel_timbrado = './pdfs/papelTimbrado.pdf'
         pdf_com_texto = './pdfs/output.pdf'
         try:
             translateDict = self.contract.getTranslateDict()
@@ -309,7 +312,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.selectboxR.set("Selecione a Receita Anual")
 
 
-        
+
 
     def informacoesContratante(self, parte: str):
         # Label dentro do frame filho
@@ -381,11 +384,11 @@ class checagemInformacoes(ctk.CTkFrame):
         self.QualificacaoEntry = ctk.CTkEntry(self.frame, height=30)
         # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-        qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador", "Locador", 
+        qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador", "Locador",
                             "Franqueado", "Empregador"]
         qualiContratado = ["Prestador de Serviços", "Arrendatário", "Outorgado", "Cessionário", "Comprador", "Locatário",
                         "Franqueado", "Empregado"]
-        
+
         if parte == "Contratante":
             self.selectbox = ttk.Combobox(self.frame, values=qualiContratante)
             self.selectbox.grid(row=6, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
@@ -457,7 +460,6 @@ class checagemInformacoes(ctk.CTkFrame):
         self.selectboxCM.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
         #self.contratoPseudoPreenchido.getInformacaoPseudo("correcao_monetaria")
         self.selectboxCM.set("Correção Monetária")
-        
 
     def informacoesPersonalizadas(self):
         self.frame.destroy()
@@ -465,27 +467,9 @@ class checagemInformacoes(ctk.CTkFrame):
         self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
-        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
-        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
-
-        self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
-        self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
-
-        self.camposPersonalizadosEntry = []
-        for i,campo in enumerate(self.camposPersonalizados):
-            self.camposPersonalizadosLable = ctk.CTkLabel(self.frame, text=campo,fg_color="#6EC1E4")
-            self.camposPersonalizadosLable.pack(padx=(280,0),pady=5,anchor="w")
-
-            self.camposPersonalizadosEntry.append(ctk.CTkEntry(self.frame,height=30,width=400))
-            self.camposPersonalizadosEntry[i].pack(padx=(40,20), pady=(0,30))
-
-        
-
-    def informacoesPersonalizadas(self):
-        self.frame.destroy()
-        self.buttonContinue.destroy()
-        self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
-        self.frame.pack(pady=(80, 0))
+        self._checkboxPDF_var = ctk.BooleanVar()
+        self._checkboxPDF = ctk.CTkCheckBox(self, text="Template Branco", variable=self._checkboxPDF_var)
+        self._checkboxPDF.pack(side=ctk.TOP, pady=(30, 0), padx=(500, 0), anchor="w")
 
         self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
@@ -565,7 +549,7 @@ class checagemInformacoes(ctk.CTkFrame):
     def get_informacoesPersonalizadas(self):
         # Cria um dicionário para armazenar as informações personalizadas
         dictInformacoes = {}
-        
+
         # Percorre a lista de entradas e coleta os valores
         for i, entrada in enumerate(self.camposPersonalizadosEntry):
             dictInformacoes[self.camposPersonalizados[i]] = entrada.get()
@@ -586,11 +570,11 @@ class checagemInformacoes(ctk.CTkFrame):
         image = Image.open(self.relative_to_assetsQuali(image_path))
         resized_image = image.resize(size, Image.LANCZOS)
         return ImageTk.PhotoImage(resized_image)
-    
+
     def relative_to_assetsQuali(self, path: str) -> Path:
         ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
         return ASSETS_PATH / Path(path)
-    
+
     # def show_qualificacaoContratante_menu(self):
     #     self.qualificacaoContratante_menu.post(self.qualificacaoContratante_button.winfo_rootx(), self.qualificacaoContratante_button.winfo_rooty() + self.qualificacaoContratante_button.winfo_height())
 
@@ -602,11 +586,11 @@ class checagemInformacoes(ctk.CTkFrame):
         image = Image.open(self.relative_to_assetsCM(image_path))
         resized_image = image.resize(size, Image.LANCZOS)
         return ImageTk.PhotoImage(resized_image)
-    
+
     def relative_to_assetsCM(self, path: str) -> Path:
         ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'Cadastro_Usuario' / 'assets'/ 'frame0'
         return ASSETS_PATH / Path(path)
-    
+
     def show_correcao_menu(self):
         self.correcao_menu.post(self.correcao_button.winfo_rootx(), self.correcao_button.winfo_rooty() + self.correcao_button.winfo_height())
 

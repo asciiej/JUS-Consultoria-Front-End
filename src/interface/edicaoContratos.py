@@ -1,8 +1,10 @@
 from tkinter import *
 import tkinter as tk
 import ctypes
+import platform
 
-ctypes.windll.shcore.SetProcessDpiAwareness(1)
+if platform.system() == "Windows":
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 from functools import partial
 from json import loads, dumps
@@ -58,7 +60,7 @@ class telaEdicaoContrato(ctk.CTkFrame):
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
          # Nome do usuario no cabeçalho
-        
+
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
@@ -325,8 +327,8 @@ class telaEdicaoContrato(ctk.CTkFrame):
         self.textArea.bind("<Control-z>", lambda event: self.textArea.edit_undo())
         self.resetTags()
 
-        
-        
+
+
         self.fileManager(event=None, action='open')
 
         #self.mainloop()
@@ -343,7 +345,7 @@ class telaEdicaoContrato(ctk.CTkFrame):
         self.frame_botoes_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
     def rgbToHex(self,rgb):
-        return "#%02x%02x%02x" % rgb  
+        return "#%02x%02x%02x" % rgb
 
     def fileManager(self,event=None, action=None):
         global document, filePath
@@ -354,11 +356,11 @@ class telaEdicaoContrato(ctk.CTkFrame):
             except Exception as e:
                 print(e)
                 return
-            
+
             document = loads(retornoBD)
             # Delete Content
             self.textArea.delete('1.0', END)
-            
+
             # Set Content
             self.textArea.insert('1.0', document['content'])
 
@@ -398,8 +400,8 @@ class telaEdicaoContrato(ctk.CTkFrame):
                 self.controlers['contract'].modeloDeContrato(contract_data).create()
             elif action == 'preview':
                 return contractContent
-            
-        
+
+
 
 
     def tagToggle(self,tagName):
@@ -460,10 +462,10 @@ class telaEdicaoContrato(ctk.CTkFrame):
             widget.destroy()
         self.parent.show_frame("telaPrincipalAdm")
         self.parent.frames["telaPrincipalAdm"].show_contentADM()
-        
+
     def create_rounded_button(self,text, command, fg_color, hover_color, width):
         return ctk.CTkButton(self.frame_botoes, text=text, command=command, fg_color=fg_color, hover_color=hover_color, width=width, font=('Calibri', 15, 'bold'))
-    
+
 
 
 
