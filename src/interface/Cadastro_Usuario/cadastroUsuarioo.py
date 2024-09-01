@@ -5,6 +5,7 @@ from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
 from PIL import Image, ImageTk
 import customtkinter as ctk
+from ...utilitarios.check import Check
 
 class telaCadastro(ctk.CTkFrame):
     def __init__(self, parent, controlers):
@@ -243,20 +244,7 @@ class telaCadastro(ctk.CTkFrame):
             'confirme_senha' : self.entry_4.get()
         }
 
-        def show_custom_error(title, message):
-            error_window = Toplevel()
-            error_window.title(title)
-            error_window.geometry("400x200")
-            error_window.configure(bg="#FFDDDD")
 
-            title_label = Label(error_window, text=title, bg="#FF3333", fg="#FFFFFF", font=("Calibri Bold", 16))
-            title_label.pack(pady=10, padx=10)
-
-            message_label = Label(error_window, text=message, bg="#FFDDDD", fg="#FF0000", font=("Calibri", 14))
-            message_label.pack(pady=20, padx=10)
-
-            ok_button = Button(error_window, text="OK", command=error_window.destroy, bg="#FF6666", fg="#FFFFFF", font=("Calibri", 12), relief="flat")
-            ok_button.pack(pady=10)
         
         missing_fields = [field_name for field_name, value in fields.items() if not value]
 
@@ -264,9 +252,12 @@ class telaCadastro(ctk.CTkFrame):
         #     show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
         #     return
 
+        # if missing_fields:
+        #     messagebox.showerror("Erro", "Todos os campos devem ser preenchidos!")
+        #     return
+
         if missing_fields:
-            show_custom_error("Erro", "Todos os campos devem ser preenchidos!")
-            return
+            messagebox.showerror("Erro", "Todos os campos devem ser preenchidos!")
 
         if not self.validar_cpf(fields['cpf']):
             messagebox.showerror("Erro", "CPF inválido!")
@@ -279,11 +270,21 @@ class telaCadastro(ctk.CTkFrame):
         if fields['senha'] != fields['confirme_senha']:
             messagebox.showerror("Erro", "As senhas não coincidem!")
             return
+        
+        if not Check.Telefone(fields['telefone']):
+            messagebox.showerror("Erro", "Telefone Inválido!")
+            return
 
+        if not Check.CPF(fields["cpf"]):
+            messagebox.showerror("Erro", "CPF inválido!")
+            return
 
-
+        try:
         #print(cargo.encode('utf-8'))
-        retorno = self.controlers['usuario'].register(nome = fields['nome'], sobrenome = fields['sobrenome'],cpf = fields['cpf'],nome_empresa=  fields['nome_empresa'],email= fields['email'],telefone= fields['telefone'],pais= fields['pais_localizacao'],cargo= fields['cargo'],senha= fields['senha'],confirme_senha= fields['confirme_senha'])
+            retorno = self.controlers['usuario'].register(nome = fields['nome'], sobrenome = fields['sobrenome'],cpf = fields['cpf'],nome_empresa=  fields['nome_empresa'],email= fields['email'],telefone= fields['telefone'],pais= fields['pais_localizacao'],cargo= fields['cargo'],senha= fields['senha'],confirme_senha= fields['confirme_senha'])
+            messagebox.showinfo("Parabéns", "Usuário cadastrado com sucesso!")
+        except Exception as e:
+            messagebox.showerror("Erro", "Ocorreu um erro ao cadastrar")
 
     def validar_cpf(self, cpf):
         cpf = re.sub(r'\D', '', cpf)
