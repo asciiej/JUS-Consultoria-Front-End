@@ -82,7 +82,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,height=30, **voltar_menu)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="\u2192 Voltar", command=self.voltar_funcao,height=30, **voltar_menu)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
@@ -104,7 +104,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.contratoPseudoPreenchido = self.parent.getContratoPseudoPreenchido(titulo)
         if  not self.contratoPseudoPreenchido:
             self.contratoPseudoPreenchido = ContratoPseudoPreenchido(titulo)
-        self.contratoPseudoPreenchido.printInformacaoPseudo()
+        #self.contratoPseudoPreenchido.printInformacaoPseudo()
 
         if tipo == "Consultoria Empresarial":
             self.informacoesContratante("Contratante")
@@ -144,10 +144,14 @@ class checagemInformacoes(ctk.CTkFrame):
                 case 3:
                     if not self.erroTodosOsCampos(self.get_informacoesPersonalizadas()): return
                     retorno = self.get_informacoesPersonalizadas()
-
-        self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
-        self.contratoPseudoPreenchido.printInformacaoPseudo()
+        
+        retornoContratoPseudoPreenchido = retorno            
+        if retorno and 'informacoes_personalizadas' in retorno.keys():
+            retornoContratoPseudoPreenchido = retorno['informacoes_personalizadas']
+        self.contratoPseudoPreenchido.addInformacaoPseudo(retornoContratoPseudoPreenchido)
+        #print(retorno)
         self.finalDict = combine_dicts(self.finalDict,retorno)
+
         for widget in self.frame.winfo_children():
             widget.destroy()
 
@@ -173,6 +177,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.informacoesPersonalizadas()
                 case 1:
                     self.clear_check_screen()
+                    print(self.finalDict)
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
                     self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
@@ -198,7 +203,6 @@ class checagemInformacoes(ctk.CTkFrame):
                     retorno = self.get_informacoesNegocio()
 
         self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
-        self.contratoPseudoPreenchido.printInformacaoPseudo()
         self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
@@ -384,8 +388,8 @@ class checagemInformacoes(ctk.CTkFrame):
         self.QualificacaoEntry = ctk.CTkEntry(self.frame, height=30)
         # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
-        qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador", "Locador",
-                            "Franqueado", "Empregador"]
+        qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador",
+                            "Franqueador", "Empregador"]
         qualiContratado = ["Prestador de Serviços", "Arrendatário", "Outorgado", "Cessionário", "Comprador", "Locatário",
                         "Franqueado", "Empregado"]
 
@@ -555,7 +559,7 @@ class checagemInformacoes(ctk.CTkFrame):
             dictInformacoes[self.camposPersonalizados[i]] = entrada.get()
 
         # Retorna o dicionário dentro de outro dicionário
-        return dictInformacoes
+        return {'informacoes_personalizadas':dictInformacoes}
 
 
     def voltar_funcao(self):

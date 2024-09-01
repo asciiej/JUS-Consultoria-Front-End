@@ -233,7 +233,6 @@ class convertPDF:
             if self.substitution:
                 line = self.replaceInformations(line)
             p = Paragraph(line, custom_style)
-            print(line)
             
             elements.append(p)
             if '<font size="12">' in line:

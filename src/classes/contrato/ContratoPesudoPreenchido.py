@@ -12,8 +12,8 @@ class ContratoPseudoPreenchido:
     def printInformacaoPseudo(self):
         print("Nome do Contrato: ",self.titulo)
         if not self.informacoes: return
-        for chave, valor in self.informacoes.items():
-            print(f'"{chave}":"{valor}"')
+        # for chave, valor in self.informacoes.items():
+        #     print(f'"{chave}":"{valor}"')
 
     def getInformacaoPseudo(self,chave) -> str:
         if not self.informacoes:
