@@ -430,7 +430,8 @@ class telaEdicaoContrato(ctk.CTkFrame):
                 else:
                     finalTag = i + 2
                     key = line[startTag:finalTag]
-                    if key not in self.translateInsertInformation.values() and '$$$$'!=key:
+                    if key not in self.translateInsertInformation.values() and '$$$$'!=key and not any(line[startTag+2:finalTag-2] in s for s in values):
+                        print(line[startTag+2:finalTag-2],values,)
                         values.append(line[startTag+2:finalTag-2])
                     startTag = None
                 i += 1
