@@ -83,8 +83,8 @@ class checagemInformacoes(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30, **voltar_menu)
-        self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
+        # self.voltar = ctk.CTkButton(self.cabecalho, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30, **voltar_menu)
+        # self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
@@ -93,11 +93,17 @@ class checagemInformacoes(ctk.CTkFrame):
         self.frame = ctk.CTkFrame(self,height=480,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
-        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
-        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
+        # Frame para agrupar os botões
+        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
-        self.voltar = ctk.CTkButton(self, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30)
-        self.voltar.pack(side=ctk.TOP, pady=(30, 0), padx=(690, 0))
+        # Botão Voltar
+        self.voltar = ctk.CTkButton(self.button_frame, text="\u2190 Voltar", command=partial(self.voltar_funcao, contratoNaoEncontrado), height=30)
+        self.voltar.pack(padx=10,side=ctk.LEFT)
+
+        # Botão Prosseguir
+        self.buttonContinue = ctk.CTkButton(self.button_frame, text="Prosseguir", command=self.prosseguir_funcao, height=30, width=300)
+        self.buttonContinue.pack(side=ctk.LEFT, padx=(0, 10))
 
         self.pagina = 0
         self.finalDict = None
@@ -470,6 +476,8 @@ class checagemInformacoes(ctk.CTkFrame):
     def informacoesPersonalizadas(self):
         self.frame.destroy()
         self.buttonContinue.destroy()
+        self.voltar.destroy()
+        self.button_frame.destroy()
         self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
@@ -477,11 +485,17 @@ class checagemInformacoes(ctk.CTkFrame):
         self._checkboxPDF = ctk.CTkCheckBox(self, text="Template Branco", variable=self._checkboxPDF_var)
         self._checkboxPDF.pack(side=ctk.TOP, pady=(30, 0), padx=(500, 0), anchor="w")
 
-        self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
-        self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
+        # Frame para agrupar os botões
+        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
-        # self.voltar = ctk.CTkButton(self.cabecalho, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30, **voltar_menu)
-        # self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
+        # Botão Voltar
+        self.voltar = ctk.CTkButton(self.button_frame, text="\u2190 Voltar", command=partial(self.voltar_funcao, False), height=30)
+        self.voltar.pack(padx=10,side=ctk.LEFT)
+
+        # Botão Prosseguir
+        self.buttonContinue = ctk.CTkButton(self.button_frame, text="Prosseguir", command=self.prosseguir_funcao, height=30, width=300)
+        self.buttonContinue.pack(side=ctk.LEFT, padx=(0, 10))
 
         self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
         self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
