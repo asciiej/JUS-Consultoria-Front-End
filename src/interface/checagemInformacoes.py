@@ -83,9 +83,6 @@ class checagemInformacoes(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        # self.voltar = ctk.CTkButton(self.cabecalho, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30, **voltar_menu)
-        # self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
-
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
