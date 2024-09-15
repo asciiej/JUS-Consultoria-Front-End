@@ -96,6 +96,9 @@ class checagemInformacoes(ctk.CTkFrame):
         self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
 
+        self.voltar = ctk.CTkButton(self, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30)
+        self.voltar.pack(side=ctk.TOP, pady=(30, 0), padx=(690, 0))
+
         self.pagina = 0
         self.finalDict = None
 
@@ -476,6 +479,9 @@ class checagemInformacoes(ctk.CTkFrame):
 
         self.buttonContinue = ctk.CTkButton(self, text="Prosseguir", command=self.prosseguir_funcao,height=30,width=300)
         self.buttonContinue.pack(side=ctk.TOP, pady=(30, 0),padx=(500,0))
+
+        # self.voltar = ctk.CTkButton(self.cabecalho, text="\u2192 Voltar", command=partial(self.voltar_funcao,contratoNaoEncontrado),height=30, **voltar_menu)
+        # self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
         self.tituloInformacoesPersonalizadas = ctk.CTkLabel(self.frame, text="Informações Adicionais",fg_color="#6EC1E4",font =('Helvetica', 24))
         self.tituloInformacoesPersonalizadas.pack(padx=30, pady=(20,40),anchor="w")
