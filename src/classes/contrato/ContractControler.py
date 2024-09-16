@@ -139,6 +139,7 @@ class ContratadoControler(Controler):
       "$$profissãocontratado$$": contratante_data['profissao'],
       "$$cpfoucnpjcontratado$$": contratante_data['cpf'],
       "$$endereçoresidêncial/comercialcontratado$$":  contratante_data['endereco'],
+      "": contratante_data['qualificaco_da_parte']
     }
     return contratadoDict
 

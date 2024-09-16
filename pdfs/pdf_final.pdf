@@ -29,7 +29,7 @@ endobj
 /F1 6 0 R
 /F2 7 0 R
 >>
-/ProcSet [ /Text /ImageB /ImageC /ImageI /PDF ]
+/ProcSet [ /Text /ImageI /PDF /ImageC /ImageB ]
 >>
 /MediaBox [ 0 0 595.5 841.92 ]
 /Contents 8 0 R
@@ -63,7 +63,7 @@ endobj
 endobj
 8 0 obj
 <<
-/Length 6028
+/Length 6342
 >>
 stream
 q
@@ -112,7 +112,7 @@ BT
 1 0 0 1 0 4 Tm
 /F2 12 Tf
 16 TL
-(RELATÓRIO\040DE\040PLANEJAMENTO\040TRIBUTÁRIO) Tj
+(CONTRATO\040DE\040PRESTAÇÃO\040DE\040SERVIÇOS\040PROFISSIONAIS) Tj
 T*
 ET
 Q
@@ -127,10 +127,11 @@ q
 1 0 0 1 78 690.8898 cm
 Q
 q
-1 0 0 1 78 674.8898 cm
+1 0 0 1 78 642.8898 cm
 q
 BT
-1 0 0 1 0 6 Tm
+1 0 0 1 0 38 Tm
+1.157072 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -142,20 +143,29 @@ BT
 (\040) Tj
 (\040\040) Tj
 /F2 10 Tf
-(1\056\040Introdução) Tj
+(CONTRATANTE) Tj
+/F1 10 Tf
+(\072\040a\054\040a\054\040a\054\040a\054\040portador\050a\051\040da\040cédula\040de\040identidade\040R\056G\056\040nº\040a\054\040inscrito\050a\051\040no) Tj
+T*
+0 Tw
+3.325466 Tw
+(CPF\057MF\040sob\040o\040nº\040aa\054\040residente\040e\040domiciliado\050a\051\040à\040a\054\040doravante\040denominado\040simplesmente) Tj
+T*
+0 Tw
+(CONTRATANTE\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 663.8898 cm
+1 0 0 1 78 631.8898 cm
 Q
 q
-1 0 0 1 78 599.8898 cm
+1 0 0 1 78 583.8898 cm
 q
 BT
-1 0 0 1 0 54 Tm
-0.92678 Tw
+1 0 0 1 0 38 Tm
+1.4098 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -165,30 +175,31 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Este\040relatório\040tem\040como\040objetivo\040apresentar\040um\040planejamento\040tributário\040para\040a\040empresa\040a\054) Tj
+(\040\040) Tj
+/F2 10 Tf
+(CONTRATADA) Tj
+/F1 10 Tf
+(\072\040a\054\040a\054\040a\054\040a\054\040portador\050a\051\040da\040cédula\040de\040identidade\040R\056G\056\040nº\040a\054\040inscrito\050a\051\040no) Tj
 T*
 0 Tw
-1.451299 Tw
-(considerando\040o\040CNAE\040da\040atividade\040realizada\056\040Serão\040analisados\040os\040regimes\040de\040tributação\040Lucro) Tj
+3.788799 Tw
+(CPF\057MF\040sob\040o\040nº\040a\054\040residente\040e\040domiciliado\050a\051\040à\040a\054\040doravante\040denominado\040simplesmente) Tj
 T*
 0 Tw
-0.755706 Tw
-(Real\054\040Lucro\040Presumido\040e\040Simples\040Nacional\054\040com\040o\040intuito\040de\040identificar\040a\040carga\040tributária\040total\040em) Tj
-T*
-0 Tw
-(cada\040regime\040e\040recomendar\040a\040melhor\040opção\040para\040a\040empresa\056) Tj
+(CONTRATADA\056) Tj
 T*
 ET
 Q
-Q
-q
-1 0 0 1 78 588.8898 cm
 Q
 q
 1 0 0 1 78 572.8898 cm
+Q
+q
+1 0 0 1 78 540.8898 cm
 q
 BT
-1 0 0 1 0 6 Tm
+1 0 0 1 0 22 Tm
+-0.092928 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -200,20 +211,25 @@ BT
 (\040) Tj
 (\040\040) Tj
 /F2 10 Tf
-(2\056\040Atividade\040da\040Empresa\040e\040CNAE) Tj
+(OBJETO) Tj
+/F1 10 Tf
+(\072\040O\040presente\040contrato\040tem\040por\040objeto\040a\040prestação\040de\040serviços\040profissionais\040na\040área\040de) Tj
+T*
+0 Tw
+(a\054\040que\040serão\040prestados\040pela\040CONTRATADA\040em\040favor\040do\040CONTRATANTE\056) Tj
 T*
 ET
 Q
-Q
-q
-1 0 0 1 78 561.8898 cm
 Q
 q
 1 0 0 1 78 529.8898 cm
+Q
+q
+1 0 0 1 78 497.8898 cm
 q
 BT
 1 0 0 1 0 22 Tm
-0.211163 Tw
+0.369808 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -223,22 +239,23 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040A\040empresa\040a\040atua\040no\040seguinte\040ramo\040de\040atividade\072\040\133INSERIR\040RAMO\040DE\040ATIVIDADE\135\040e\040possui) Tj
+(\040\040BASE\040LEGAL\072\040Este\040contrato\040é\040regido\040pelos\040artigos\040593\040a\040609\040do\040Código\040Civil\040Brasileiro\054\040que) Tj
 T*
 0 Tw
-(o\040seguinte\040CNAE\072\040a\054\040CNAE\040Secundário\072\040a\056) Tj
+(tratam\040do\040contrato\040de\040prestação\040de\040serviços\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 518.8898 cm
+1 0 0 1 78 486.8898 cm
 Q
 q
-1 0 0 1 78 502.8898 cm
+1 0 0 1 78 406.8898 cm
 q
 BT
-1 0 0 1 0 6 Tm
+1 0 0 1 0 70 Tm
+0.169199 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -250,20 +267,101 @@ BT
 (\040) Tj
 (\040\040) Tj
 /F2 10 Tf
-(3\056\040Regimes\040de\040Tributação) Tj
+(REMUNERAÇÃO) Tj
+/F1 10 Tf
+(\072\040Pela\040prestação\040dos\040serviços\040descritos\040acima\054\040o\040CONTRATANTE\040pagará\040à) Tj
+T*
+0 Tw
+-0.085553 Tw
+(CONTRATADA\040a\040quantia\040total\040de\040R\044\040\050valor\040por\040extenso\051\054\040a\040ser\040paga\040\050à\040vista\040ou\040parcelas\040mensais\040e) Tj
+T*
+0 Tw
+-0.062961 Tw
+(sucessivas\051\040de\040R\044\040a\040cada\056\040O\040pagamento\040será\040efetuado\040mediante\040a\040emissão\040de\040boletos\040bancários\040e) Tj
+T*
+0 Tw
+1.403256 Tw
+(ou\040depósito\040em\040conta\040bancária\040da\040CONTRATADA\054\040a\040serem\040enviados\040e\040informado\040os\040dados\040ao) Tj
+T*
+0 Tw
+(CONTRATANTE\040até\040o\040dia\040a\040de\040cada\040mês\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 491.8898 cm
+1 0 0 1 78 395.8898 cm
 Q
 q
-1 0 0 1 78 459.8898 cm
+1 0 0 1 78 347.8898 cm
+q
+BT
+1 0 0 1 0 38 Tm
+0.590742 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040) Tj
+/F2 10 Tf
+(REAJUSTE) Tj
+/F1 10 Tf
+(\072\040O\040preço\040estipulado\040na\040cláusula\040anterior\040será\040reajustado\040a\040cada\040período\040de\040um) Tj
+T*
+0 Tw
+-0.080758 Tw
+(ano\054\040contado\040a\040partir\040da\040data\040de\040sua\040vigência\054\040pelo\040a\040ou\040por\040outro\040índice\040oficial\040que\040apura\040a\040inflação) Tj
+T*
+0 Tw
+(anual\040acumulada\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 336.8898 cm
+Q
+q
+1 0 0 1 78 288.8898 cm
+q
+BT
+1 0 0 1 0 38 Tm
+2.676828 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040RESPONSABILIDADE\040SUBJETIVA\072\040A\040CONTRATADA\040responsabiliza\055se\040pelos\040danos) Tj
+T*
+0 Tw
+2.702966 Tw
+(causados\040ao\040CONTRATANTE\040decorrentes\040de\040sua\040culpa\040ou\040dolo\040na\040prestação\040dos\040serviços\054) Tj
+T*
+0 Tw
+(conforme\040estabelecido\040nos\040artigos\040186\040e\040927\040do\040Código\040Civil\040Brasileiro\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 277.8898 cm
+Q
+q
+1 0 0 1 78 245.8898 cm
 q
 BT
 1 0 0 1 0 22 Tm
-1.914076 Tw
+0.272852 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -273,22 +371,27 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040A\040seguir\054\040serão\040apresentadas\040as\040análises\040da\040carga\040tributária\040total\040em\040cada\040regime\040de) Tj
+(\040\040) Tj
+/F2 10 Tf
+(VIGÊNCIA) Tj
+/F1 10 Tf
+(\072\040O\040prazo\040de\040vigência\040do\040presente\040contrato\040é\040de\040a\054\040contados\040a\040partir\040da\040assinatura) Tj
 T*
 0 Tw
-(tributação\072) Tj
+(deste\040instrumento\054\040podendo\040ser\040prorrogado\040mediante\040acordo\040entre\040as\040partes\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 448.8898 cm
+1 0 0 1 78 234.8898 cm
 Q
 q
-1 0 0 1 78 432.8898 cm
+1 0 0 1 78 170.8898 cm
 q
 BT
-1 0 0 1 0 6 Tm
+1 0 0 1 0 54 Tm
+2.057136 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -298,46 +401,31 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040a\051\040Lucro\040Real\072) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 421.8898 cm
-Q
-q
-1 0 0 1 78 389.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.856933 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040Descrição\040do\040Regime\072\040O\040Lucro\040Real\040é\040obrigatório\040para\040empresas\040com\040faturamento\040anual) Tj
+(\040\040RESCISÃO\072\040O\040presente\040contrato\040poderá\040ser\040rescindido\040por\040qualquer\040uma\040das\040partes\054) Tj
 T*
 0 Tw
-(superior\040a\040R\044\04078\040milhões\040e\040para\040algumas\040atividades\040específicas\056) Tj
+1.243971 Tw
+(mediante\040notificação\040a\040outra\054\040por\040escrito\054\040com\040prazo\040mínimo\040de\04007\040\050sete\051\040dias\040de\040antecedência\054) Tj
+T*
+0 Tw
+2.277353 Tw
+(ressalvada\040a\040hipótese\040da\040parte\040denunciante\040indenizar\040a\040outra\040do\040valor\040correspondente\040ao\040da) Tj
+T*
+0 Tw
+(prestação\040dos\040serviços\040referente\040ao\040período\040restante\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 378.8898 cm
+1 0 0 1 78 159.8898 cm
 Q
 q
-1 0 0 1 78 346.8898 cm
+1 0 0 1 78 127.8898 cm
 q
 BT
 1 0 0 1 0 22 Tm
-0.250678 Tw
+0.95528 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -347,127 +435,11 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040\055\040Carga\040Tributária\040Estimada\072\040A\040carga\040tributária\040total\040no\040regime\040de\040Lucro\040Real\040para\040a\040empresa) Tj
+(\040\040REGIME\040JURÍDICO\072\040As\040partes\040declaram\040não\040haver\040entre\040si\040vínculo\040empregatício\054\040tendo\040a) Tj
 T*
 0 Tw
-(a\040é\040de\040INSERIR\040PERCENTUAL\040\045\040sobre\040o\040faturamento\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 335.8898 cm
-Q
-q
-1 0 0 1 78 239.8898 cm
-q
-BT
-1 0 0 1 0 86 Tm
-0.216066 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040A\040carga\040tributária\040do\040Lucro\040Real\040varia\040de\040acordo\040com\040a\040legislação\040vigente\040e\040com\040as\040alíquotas) Tj
-T*
-0 Tw
-0.421039 Tw
-(aplicáveis\040a\040cada\040tributo\056\040No\040Lucro\040Real\054\040a\040empresa\040paga\040imposto\040de\040renda\040\050IRPJ\051\040e\040Contribuição) Tj
-T*
-0 Tw
--0.094651 Tw
-(Social\040sobre\040o\040Lucro\040Líquido\040\050CSLL\051\040sobre\040o\040lucro\040líquido\040do\040período\054\040após\040a\040dedução\040de\040despesas) Tj
-T*
-0 Tw
-2.644373 Tw
-(e\040custos\040permitidos\040pela\040legislação\056\040Além\040disso\054\040há\040a\040incidência\040de\040PIS\040e\040COFINS\040sobre\040o) Tj
-T*
-0 Tw
-2.716373 Tw
-(faturamento\054\040com\040alíquotas\040que\040variam\040de\040acordo\040com\040o\040tipo\040de\040atividade\040da\040empresa\040e\040a) Tj
-T*
-0 Tw
-(legislação\040específica\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 228.8898 cm
-Q
-q
-1 0 0 1 78 196.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.53889 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Para\040calcular\040a\040carga\040tributária\040total\040do\040Lucro\040Real\054\040é\040necessário\040considerar\040as\040alíquotas\040de) Tj
-T*
-0 Tw
-(IRPJ\054\040CSLL\054\040PIS\040e\040COFINS\054\040bem\040como\040as\040despesas\040e\040custos\040dedutíveis\040da\040empresa\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 185.8898 cm
-Q
-q
-1 0 0 1 78 169.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040b\051\040Lucro\040Presumido\072) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 158.8898 cm
-Q
-q
-1 0 0 1 78 126.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.751219 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040Descrição\040do\040Regime\072\040O\040Lucro\040Presumido\040é\040uma\040opção\040para\040empresas\040com\040faturamento) Tj
-T*
-0 Tw
-0.381039 Tw
-(anual\040de\040até\040R\044\04078\040milhões\054\040exceto\040aquelas\040obrigadas\040ao\040Lucro\040Real\040ou\040enquadradas\040no\040Simples) Tj
+0.875963 Tw
+(CONTRATADA\040plena\040autonomia\040na\040prestação\040dos\040serviços\054\040desde\040queoais\040e\057ou\040dados\040pessoais) Tj
 T*
 0 Tw
 ET
@@ -488,7 +460,7 @@ endobj
 /F1 6 0 R
 /F2 7 0 R
 >>
-/ProcSet [ /Text /ImageB /ImageC /ImageI /PDF ]
+/ProcSet [ /Text /ImageI /PDF /ImageC /ImageB ]
 >>
 /MediaBox [ 0 0 595.5 841.92 ]
 /Contents 10 0 R
@@ -498,7 +470,452 @@ endobj
 endobj
 10 0 obj
 <<
-/Length 6482
+/Length 6081
+>>
+stream
+q
+q
+0 0 595.5 841.92 re
+W
+n
+0.23999999 0 0 -0.23999999 0 841.91998 cm
+q
+0 115.625 2481.25 3278.125 re
+W*
+n
+q
+3.125 0 0 3.125 0 115.625 cm
+1 1 1 RG
+1 1 1 rg
+/G3 gs
+0 0 794 99 re
+f
+0 0 794 99 re
+f
+Q
+Q
+Q
+Q
+q
+0 0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1 12 Tf
+14.4 TL
+ET
+q
+1 0 0 1 78 695.8898 cm
+q
+BT
+1 0 0 1 0 22 Tm
+1.393507 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(sensíveis\040\050\042Dados\040Pessoais\042\051\054\040aplicáveis\040a\040este\040Contrato\054\040de\040acordo\040com\040as\040disposições\040da\040Lei) Tj
+T*
+0 Tw
+(Geral\040de\040Proteção\040de\040Dados\040\050\042LGPD\042\051\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 684.8898 cm
+Q
+q
+1 0 0 1 78 556.8898 cm
+q
+BT
+1 0 0 1 0 118 Tm
+0.110917 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040ASSINATURA\040ELETRÔNICA\072\040Reconhecem\040o\040valor\040probatório\040do\040instrumento\040contratual\040caso) Tj
+T*
+0 Tw
+0.192373 Tw
+(firmado\040por\040meio\040eletrônico\054\040nos\040termos\040do\040\2472º\040do\040artigo\04010\040da\040Medida\040Provisória\040nº\0402\056200\0552\0572001\054) Tj
+T*
+0 Tw
+0.311969 Tw
+(assentindo\054\040portanto\054\040que\040foram\040observados\040todos\040os\040requisitos\040legais\040exigidos\040para\040a\040validade\040do) Tj
+T*
+0 Tw
+2.08869 Tw
+(documento\054\040assumindo\040a\040responsabilidade\040por\040adotar\040as\040medidas\040necessárias\040para\040garantir\040a) Tj
+T*
+0 Tw
+0.31869 Tw
+(autoria\054\040autenticidade\040e\040a\040preservação\040do\040seu\040conteúdo\054\040declarando\054\040estarem\040completamente\040livre) Tj
+T*
+0 Tw
+0.895466 Tw
+(dos\040vícios\040de\040consentimento\054\040com\040manifestação\040espontânea\040de\040vontade\040em\040firmar\040o\040instrumento) Tj
+T*
+0 Tw
+3.14869 Tw
+(contratual\054\040através\040do\040módulo\040de\040assinatura\040eletrônica\054\040cujo\040conteúdo\040declaram\040conhecer\040e) Tj
+T*
+0 Tw
+(consentir\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 545.8898 cm
+Q
+q
+1 0 0 1 78 481.8898 cm
+q
+BT
+1 0 0 1 0 54 Tm
+1.229314 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040FORO\040OU\040ARBITRAGEM\072\040Fica\040eleito\040o\040foro\040da\040comarca\040de\040Brasil\040para\040dirimir\040quaisquer) Tj
+T*
+0 Tw
+1.312966 Tw
+(controvérsias\040oriundas\040do\040presente\040contrato\054\040com\040renúncia\040expressa\040a\040qualquer\040outro\054\040por\040mais) Tj
+T*
+0 Tw
+2.101299 Tw
+(privilegiado\040que\040seja\056\040Alternativamente\054\040as\040partes\040elegem\040a\040arbitragem\040como\040meio\040privado\040de) Tj
+T*
+0 Tw
+(solução\040de\040controvérsias\054\040nos\040termos\040da\040Lei\040de\040Arbitragem\040\050Lei\040nº\0409\056307\0571996\051\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 470.8898 cm
+Q
+q
+1 0 0 1 78 438.8898 cm
+q
+BT
+1 0 0 1 0 22 Tm
+0.6148 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040E\054\040por\040estarem\040assim\040justas\040e\040contratadas\054\040as\040partes\040assinam\040o\040presente\040contrato\040em\040duas) Tj
+T*
+0 Tw
+(vias\040de\040igual\040teor\040e\040forma\054\040na\040presença\040de\040duas\040testemunhas) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 427.8898 cm
+Q
+q
+1 0 0 1 78 395.8898 cm
+q
+BT
+1 0 0 1 0 22 Tm
+1.355031 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040) Tj
+1 0 0 rg
+(TesteDeMudanças\040no\040documento\040e\040vermos\040se\040conseguimos\040atualizar\040os\040dados\040de\040cada) Tj
+T*
+0 Tw
+(modelo\040de\040contrato\040no\040db) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 384.8898 cm
+Q
+q
+1 0 0 1 78 368.8898 cm
+q
+0 0.501961 0 rg
+n
+22.24 0 173.41 16 re
+f*
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040) Tj
+(Dados\040sendo\040atualizados\040normalmente) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 357.8898 cm
+Q
+q
+1 0 0 1 78 341.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040aaa) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 330.8898 cm
+Q
+q
+1 0 0 1 78 330.8898 cm
+Q
+q
+1 0 0 1 78 325.8898 cm
+Q
+q
+1 0 0 1 78 309.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 298.8898 cm
+Q
+q
+1 0 0 1 78 282.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040a) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 271.8898 cm
+Q
+q
+1 0 0 1 78 271.8898 cm
+Q
+q
+1 0 0 1 78 266.8898 cm
+Q
+q
+1 0 0 1 78 250.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 239.8898 cm
+Q
+q
+1 0 0 1 78 223.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040a) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 212.8898 cm
+Q
+q
+1 0 0 1 78 212.8898 cm
+Q
+q
+1 0 0 1 78 207.8898 cm
+Q
+q
+1 0 0 1 78 191.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040TESTEMUNHAS\072) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 180.8898 cm
+Q
+q
+1 0 0 1 78 180.8898 cm
+Q
+q
+1 0 0 1 78 175.8898 cm
+Q
+q
+1 0 0 1 78 159.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\0401\056\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 148.8898 cm
+Q
+q
+1 0 0 1 78 132.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040Nome\072) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 121.8898 cm
+Q
+Q
+
+endstream
+endobj
+11 0 obj
+<<
+/Type /Page
+/Resources <<
+/ExtGState <<
+/G3 5 0 R
+>>
+/Font <<
+/F1 6 0 R
+/F2 7 0 R
+>>
+/ProcSet [ /Text /ImageI /PDF /ImageC /ImageB ]
+>>
+/MediaBox [ 0 0 595.5 841.92 ]
+/Contents 12 0 R
+/Annots [ ]
+/Parent 1 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 1808
 >>
 stream
 q
@@ -541,7 +958,13 @@ BT
 16 TL
 /F1 10 Tf
 0 0 0 rg
-(Nacional\056) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040CPF\072) Tj
 T*
 ET
 Q
@@ -550,97 +973,7 @@ q
 1 0 0 1 78 700.8898 cm
 Q
 q
-1 0 0 1 78 668.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.91889 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040Carga\040Tributária\040Estimada\072\040A\040carga\040tributária\040total\040no\040regime\040de\040Lucro\040Presumido\040para\040a) Tj
-T*
-0 Tw
-(empresa\040a\040é\040de\040INSERIR\040PERCENTUAL\040\045\040sobre\040o\040faturamento\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 657.8898 cm
-Q
-q
-1 0 0 1 78 577.8898 cm
-q
-BT
-1 0 0 1 0 70 Tm
-0.491547 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040A\040carga\040tributária\040do\040Lucro\040Presumido\040varia\040de\040acordo\040com\040a\040atividade\040da\040empresa\054\040pois\040as) Tj
-T*
-0 Tw
-1.604373 Tw
-(alíquotas\040são\040aplicadas\040sobre\040uma\040base\040presumida\040de\040lucro\054\040que\040pode\040variar\040de\0401\0546\045\040a\04032\045\054) Tj
-T*
-0 Tw
-0.526828 Tw
-(dependendo\040da\040atividade\056\040No\040Lucro\040Presumido\054\040a\040empresa\040paga\040uma\040alíquota\040fixa\040de\040Imposto\040de) Tj
-T*
-0 Tw
-1.681828 Tw
-(Renda\040da\040Pessoa\040Jurídica\040\050IRPJ\051\040e\040Contribuição\040Social\040sobre\040o\040Lucro\040Líquido\040\050CSLL\051\040sobre\040a) Tj
-T*
-0 Tw
-(receita\040bruta\054\040sem\040considerar\040as\040despesas\040dedutíveis\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 566.8898 cm
-Q
-q
-1 0 0 1 78 534.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
--0.08435 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Além\040do\040IRPJ\040e\040CSLL\054\040no\040Lucro\040Presumido\054\040a\040empresa\040também\040está\040sujeita\040ao\040PIS\040e\040COFINS) Tj
-T*
-0 Tw
-(sobre\040o\040faturamento\054\040com\040alíquotas\040que\040variam\040de\040acordo\040com\040a\040atividade\040da\040empresa\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 523.8898 cm
-Q
-q
-1 0 0 1 78 507.8898 cm
+1 0 0 1 78 684.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -653,351 +986,22 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040c\051\040Simples\040Nacional\072) Tj
+(\040\040RG\072) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 496.8898 cm
+1 0 0 1 78 673.8898 cm
 Q
 q
-1 0 0 1 78 464.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
--0.089746 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040Descrição\040do\040Regime\072\040O\040Simples\040Nacional\040é\040um\040regime\040simplificado\040de\040tributação\040para\040micro) Tj
-T*
-0 Tw
-(e\040pequenas\040empresas\054\040com\040faturamento\040anual\040de\040até\040R\044\0404\0548\040milhões\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 453.8898 cm
-Q
-q
-1 0 0 1 78 421.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.843436 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040Carga\040Tributária\040Estimada\072\040A\040carga\040tributária\040total\040no\040regime\040do\040Simples\040Nacional\040para\040a) Tj
-T*
-0 Tw
-(empresa\040a\040é\040de\040INSERIR\040PERCENTUAL\040\045\040sobre\040o\040faturamento\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 410.8898 cm
-Q
-q
-1 0 0 1 78 346.8898 cm
-q
-BT
-1 0 0 1 0 54 Tm
-0.817072 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040No\040Simples\040Nacional\054\040a\040carga\040tributária\040é\040calculada\040com\040base\040em\040uma\040tabela\040de\040alíquotas) Tj
-T*
-0 Tw
-1.203971 Tw
-(progressivas\054\040que\040varia\040de\040acordo\040com\040o\040faturamento\040anual\040da\040empresa\040e\040a\040atividade\040exercida\056) Tj
-T*
-0 Tw
-2.655466 Tw
-(Essa\040tabela\040engloba\040vários\040tributos\040federais\054\040estaduais\040e\040municipais\040em\040uma\040única\040alíquota\054) Tj
-T*
-0 Tw
-(simplificando\040o\040pagamento\040de\040impostos\040para\040micro\040e\040pequenas\040empresas\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 335.8898 cm
-Q
-q
-1 0 0 1 78 287.8898 cm
-q
-BT
-1 0 0 1 0 38 Tm
-2.130254 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040A\040carga\040tributária\040efetiva\040no\040Simples\040Nacional\040pode\040variar\040de\0404\0545\045\040a\04030\0545\045\040sobre\040o) Tj
-T*
-0 Tw
-0.223507 Tw
-(faturamento\054\040dependendo\040da\040faixa\040de\040faturamento\040anual\040e\040da\040atividade\040da\040empresa\056\040Essa\040alíquota) Tj
-T*
-0 Tw
-(inclui\040o\040IRPJ\054\040CSLL\054\040PIS\054\040COFINS\054\040ICMS\040e\040ISS\054\040conforme\040aplicável\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 276.8898 cm
-Q
-q
-1 0 0 1 78 212.8898 cm
-q
-BT
-1 0 0 1 0 54 Tm
-3.0824 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040É\040importante\040ressaltar\040que\054\040no\040Simples\040Nacional\054\040a\040empresa\040não\040precisa\040calcular) Tj
-T*
-0 Tw
-2.921969 Tw
-(separadamente\040cada\040um\040desses\040impostos\054\040pois\040eles\040são\040recolhidos\040em\040uma\040única\040guia\040de) Tj
-T*
-0 Tw
--0.114185 Tw
-(pagamento\056\040A\040simplificação\040tributária\040e\040a\040redução\040da\040carga\040burocrática\040são\040algumas\040das\040vantagens) Tj
-T*
-0 Tw
-(desse\040regime\040para\040micro\040e\040pequenas\040empresas\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 201.8898 cm
-Q
-q
-1 0 0 1 78 185.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(4\056\040Lista\040de\040Atividades\040e\040CNAE\040Obrigatórios\040ao\040Lucro\040Real) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 174.8898 cm
-Q
-q
-1 0 0 1 78 158.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Segue\040abaixo\040a\040lista\040de\040atividades\040e\040CNAE\040obrigatórios\040ao\040regime\040de\040Lucro\040Real\072) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 147.8898 cm
-Q
-q
-1 0 0 1 78 115.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-1.397981 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040A\040lista\040de\040atividades\040obrigatórias\040ao\040Lucro\040Real\040pode\040variar\040de\040acordo\040com\040a\040legislação) Tj
-T*
-0 Tw
-0.850466 Tw
-(vigente\040e\040com\040as\040atualizações\040das\040normas\040tributárias\056\040Geralmente\054\040atividades\040que\040possuem\040uma) Tj
-T*
-0 Tw
-ET
-Q
-Q
-Q
-
-endstream
-endobj
-11 0 obj
-<<
-/Type /Page
-/Resources <<
-/ExtGState <<
-/G3 5 0 R
->>
-/Font <<
-/F1 6 0 R
-/F2 7 0 R
->>
-/ProcSet [ /Text /ImageB /ImageC /ImageI /PDF ]
->>
-/MediaBox [ 0 0 595.5 841.92 ]
-/Contents 12 0 R
-/Annots [ ]
-/Parent 1 0 R
->>
-endobj
-12 0 obj
-<<
-/Length 5836
->>
-stream
-q
-q
-0 0 595.5 841.92 re
-W
-n
-0.23999999 0 0 -0.23999999 0 841.91998 cm
-q
-0 115.625 2481.25 3278.125 re
-W*
-n
-q
-3.125 0 0 3.125 0 115.625 cm
-1 1 1 RG
-1 1 1 rg
-/G3 gs
-0 0 794 99 re
-f
-0 0 794 99 re
-f
-Q
-Q
-Q
-Q
-q
-0 0 595.2756 841.8898 re
-W
-n
-1 0 0 1 0 0 cm
-BT
-/F1 12 Tf
-14.4 TL
-ET
-q
-1 0 0 1 78 679.8898 cm
-q
-BT
-1 0 0 1 0 38 Tm
-1.94043 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(complexidade\040maior\054\040margens\040de\040lucro\040mais\040elevadas\040ou\040que\040necessitam\040de\040maior\040controle\040e) Tj
-T*
-0 Tw
-1.405466 Tw
-(detalhamento\040contábil\040são\040mais\040propensas\040a\040serem\040obrigadas\040ao\040Lucro\040Real\056\040Alguns\040exemplos) Tj
-T*
-0 Tw
-(comuns\040de\040atividades\040que\040costumam\040ser\040obrigatórias\040ao\040Lucro\040Real\040são\072) Tj
-T*
-ET
-Q
+1 0 0 1 78 673.8898 cm
 Q
 q
 1 0 0 1 78 668.8898 cm
 Q
 q
-1 0 0 1 78 620.8898 cm
-q
-BT
-1 0 0 1 0 38 Tm
-2.822682 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0401\056\040Bancos\040comerciais\054\040bancos\040de\040investimento\054\040bancos\040de\040desenvolvimento\054\040caixas) Tj
-T*
-0 Tw
-5.022843 Tw
-(econômicas\054\040sociedades\040de\040crédito\054\040financiamento\040e\040investimento\054\040sociedades\040de\040crédito) Tj
-T*
-0 Tw
-(imobiliário\054\040sociedades\040corretoras\040de\040títulos\054\040valores\040mobiliários\040e\040câmbio\073) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 609.8898 cm
-Q
-q
-1 0 0 1 78 593.8898 cm
+1 0 0 1 78 652.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -1010,16 +1014,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\0402\056\040Empresas\040de\040arrendamento\040mercantil\073) Tj
+(\040\0402\056\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 582.8898 cm
+1 0 0 1 78 641.8898 cm
 Q
 q
-1 0 0 1 78 566.8898 cm
+1 0 0 1 78 625.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -1032,285 +1036,75 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\0403\056\040Empresas\040de\040seguros\040privados\040e\040de\040capitalização\073) Tj
+(\040\040Nome\072) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 614.8898 cm
+Q
+q
+1 0 0 1 78 598.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040CPF\072) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 587.8898 cm
+Q
+q
+1 0 0 1 78 571.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040RG\072) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 560.8898 cm
+Q
+q
+1 0 0 1 78 560.8898 cm
 Q
 q
 1 0 0 1 78 555.8898 cm
 Q
 q
-1 0 0 1 78 539.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0404\056\040Empresas\040de\040factoring\040\050fomento\040mercantil\051\073) Tj
-T*
-ET
-Q
+1 0 0 1 78 555.8898 cm
 Q
 q
-1 0 0 1 78 528.8898 cm
+1 0 0 1 78 550.8898 cm
 Q
 q
-1 0 0 1 78 496.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.50978 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0405\056\040Empresas\040de\040construção\040civil\040que\040se\040utilizam\040de\040contratos\040de\040empreitada\054\040subempreitada) Tj
-T*
-0 Tw
-(ou\040administração\040de\040obras\073) Tj
-T*
-ET
-Q
+1 0 0 1 78 550.8898 cm
 Q
 q
-1 0 0 1 78 485.8898 cm
-Q
-q
-1 0 0 1 78 437.8898 cm
-q
-BT
-1 0 0 1 0 38 Tm
-0.881695 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0406\056\040Empresas\040que\040explorem\040a\040atividade\040de\040prestação\040cumulativa\040e\040contínua\040de\040serviços\040de) Tj
-T*
-0 Tw
-0.423236 Tw
-(assessoria\040creditícia\054\040mercadológica\054\040gestão\040de\040crédito\054\040seleção\040e\040riscos\054\040administração\040de\040contas) Tj
-T*
-0 Tw
-(a\040pagar\040e\040a\040receber\073) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 426.8898 cm
-Q
-q
-1 0 0 1 78 394.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-1.530294 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0407\056\040Empresas\040que\040explorem\040atividades\040de\040compra\040e\040venda\054\040loteamento\054\040incorporação\040ou) Tj
-T*
-0 Tw
-(construção\040de\040imóveis\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 383.8898 cm
-Q
-q
-1 0 0 1 78 367.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(5\056\040Recomendações) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 356.8898 cm
-Q
-q
-1 0 0 1 78 308.8898 cm
-q
-BT
-1 0 0 1 0 38 Tm
-0.511695 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Com\040base\040na\040análise\040realizada\054\040recomenda\055se\040à\040empresa\040a\040optar\040pelo\040regime\040de\040tributação) Tj
-T*
-0 Tw
-2.614633 Tw
-(INSERIR\040REGIMA\040RECOMENDADO\054\040pois\040apresenta\040a\040menor\040carga\040tributária\040total\040e\040é\040mais) Tj
-T*
-0 Tw
-(adequado\040às\040características\040e\040atividades\040da\040empresa\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 297.8898 cm
-Q
-q
-1 0 0 1 78 281.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(6\056\040Conclusão) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 270.8898 cm
-Q
-q
-1 0 0 1 78 206.8898 cm
-q
-BT
-1 0 0 1 0 54 Tm
-0.166933 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040O\040planejamento\040tributário\040é\040uma\040ferramenta\040fundamental\040para\040a\040redução\040da\040carga\040tributária\040e) Tj
-T*
-0 Tw
-5.474145 Tw
-(o\040aumento\040da\040competitividade\040das\040empresas\056\040Recomenda\055se\040que\040a\040empresa\040a\040avalie) Tj
-T*
-0 Tw
--0.091441 Tw
-(cuidadosamente\040as\040informações\040apresentadas\040neste\040relatório\040para\040tomar\040decisões\040estratégicas\040em) Tj
-T*
-0 Tw
-(relação\040ao\040regime\040de\040tributação\040mais\040vantajoso\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 195.8898 cm
-Q
-q
-1 0 0 1 78 163.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.221219 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Este\040relatório\040é\040válido\040até\040INSERIR\040DATA\040DE\040VALIDADE\054\040devendo\040ser\040revisado\040e\040atualizado) Tj
-T*
-0 Tw
-(periodicamente\040conforme\040as\040mudanças\040na\040legislação\040tributária\040e\040nas\040condições\040da\040empresa\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 152.8898 cm
-Q
-q
-1 0 0 1 78 152.8898 cm
-Q
-q
-1 0 0 1 78 147.8898 cm
-Q
-q
-1 0 0 1 78 147.8898 cm
-Q
-q
-1 0 0 1 78 142.8898 cm
-Q
-q
-1 0 0 1 78 142.8898 cm
-Q
-q
-1 0 0 1 78 137.8898 cm
-Q
-q
-1 0 0 1 78 137.8898 cm
-Q
-q
-1 0 0 1 78 132.8898 cm
-Q
-q
-1 0 0 1 78 132.8898 cm
-Q
-q
-1 0 0 1 78 127.8898 cm
+1 0 0 1 78 545.8898 cm
 Q
 Q
 
@@ -1327,10 +1121,10 @@ xref
 0000000445 00000 n 
 0000000552 00000 n 
 0000000664 00000 n 
-0000006744 00000 n 
-0000006975 00000 n 
-0000013510 00000 n 
-0000013742 00000 n 
+0000007058 00000 n 
+0000007289 00000 n 
+0000013423 00000 n 
+0000013655 00000 n 
 trailer
 <<
 /Size 13
@@ -1338,5 +1132,5 @@ trailer
 /Info 2 0 R
 >>
 startxref
-19631
+15516
 %%EOF
