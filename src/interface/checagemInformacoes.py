@@ -323,6 +323,23 @@ class checagemInformacoes(ctk.CTkFrame):
         self.selectboxR.grid(row=6, column=2, columnspan=2, padx=20, pady=(0, 30), sticky="ew")
         self.selectboxR.set("Selecione a Receita Anual")
 
+        if not self.camposPersonalizados:
+            self._checkboxPDF_var = ctk.BooleanVar()
+            self._checkboxPDF = ctk.CTkCheckBox(self, text="Template Branco", variable=self._checkboxPDF_var)
+            self._checkboxPDF.pack(side=ctk.TOP, pady=(30, 0), padx=(500, 0), anchor="w")
+            self.button_frame.destroy()
+            # Frame para agrupar os botões
+            self.button_frame = ctk.CTkFrame(self)
+            self.button_frame.pack(pady=(30, 0), padx=(500, 0))
+
+            # Botão Voltar
+            self.voltar = ctk.CTkButton(self.button_frame, text="Voltar", command=partial(self.voltar_funcao, False), height=30)
+            self.voltar.pack(padx=10,side=ctk.LEFT)
+
+            # Botão Prosseguir
+            self.buttonContinue = ctk.CTkButton(self.button_frame, text="Prosseguir", command=self.prosseguir_funcao, height=30, width=300)
+            self.buttonContinue.pack(side=ctk.LEFT, padx=(0, 10))
+
 
 
 
@@ -469,6 +486,23 @@ class checagemInformacoes(ctk.CTkFrame):
         self.selectboxCM.grid(row=4, column=4, columnspan=3, padx=(20, 40), pady=(0, 30), sticky="ew")
         #self.contratoPseudoPreenchido.getInformacaoPseudo("correcao_monetaria")
         self.selectboxCM.set("Correção Monetária")
+
+        if not self.camposPersonalizados:
+            self._checkboxPDF_var = ctk.BooleanVar()
+            self._checkboxPDF = ctk.CTkCheckBox(self, text="Template Branco", variable=self._checkboxPDF_var)
+            self._checkboxPDF.pack(side=ctk.TOP, pady=(30, 0), padx=(500, 0), anchor="w")
+            self.button_frame.destroy()
+            # Frame para agrupar os botões
+            self.button_frame = ctk.CTkFrame(self)
+            self.button_frame.pack(pady=(30, 0), padx=(500, 0))
+
+            # Botão Voltar
+            self.voltar = ctk.CTkButton(self.button_frame, text="Voltar", command=partial(self.voltar_funcao, False), height=30)
+            self.voltar.pack(padx=10,side=ctk.LEFT)
+
+            # Botão Prosseguir
+            self.buttonContinue = ctk.CTkButton(self.button_frame, text="Prosseguir", command=self.prosseguir_funcao, height=30, width=300)
+            self.buttonContinue.pack(side=ctk.LEFT, padx=(0, 10))
 
     def informacoesPersonalizadas(self):
         self.frame.destroy()
