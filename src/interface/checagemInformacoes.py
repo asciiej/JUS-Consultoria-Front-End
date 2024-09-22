@@ -96,7 +96,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
         # Botão Voltar
-        self.voltar = ctk.CTkButton(self.button_frame, text="\u2190 Voltar", command=partial(self.voltar_funcao, contratoNaoEncontrado), height=30)
+        self.voltar = ctk.CTkButton(self.button_frame, text="Voltar", command=partial(self.voltar_funcao, contratoNaoEncontrado), height=30)
         self.voltar.pack(padx=10,side=ctk.LEFT)
 
         # Botão Prosseguir
@@ -197,24 +197,25 @@ class checagemInformacoes(ctk.CTkFrame):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
             not self.erroTodosOsCampos(self.get_informacoesEmpresariais())
             retorno = self.get_informacoesEmpresariais()
-        elif self.titulo == "Consultoria Empresarial":
+        elif self.tipo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
                     not self.erroTodosOsCampos(self.get_informacoesContratado("Contratante"))
+                    self.contratoPseudoPreenchido.addInformacaoPseudo(self.get_informacoesContratado("Contratante"),"Contratante")
                     retorno = None
                 case 1:
                     not self.erroTodosOsCampos(self.get_informacoesContratado("Contratada"))
+                    self.contratoPseudoPreenchido.addInformacaoPseudo(self.get_informacoesContratado("Contratada"),"Contratada")
                     retorno = None
                 case 2:
                     not self.erroTodosOsCampos(self.get_informacoesNegocio())
                     retorno = self.get_informacoesNegocio()
-
         self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
         self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
 
-        if self.titulo == "Consultoria Empresarial":
+        if self.tipo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
                     self.informacoesContratante("Contratada")

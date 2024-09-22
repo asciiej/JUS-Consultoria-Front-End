@@ -112,7 +112,8 @@ class ContratanteControler(Controler):
       "$$profissãocontratante$$": contratante_data['profissao'],
       "$$cpfoucnpjcontratante$$": contratante_data['cpf'],
       "$$endereçoresidêncial/comercialcontratante$$": contratante_data['endereco'],
-      }
+      "$$qualificacaodapartecontratante$$": contratante_data['qualificaco_da_parte']
+    }
     return dictContratante
 
 class ContratadoControler(Controler):
@@ -139,7 +140,7 @@ class ContratadoControler(Controler):
       "$$profissãocontratado$$": contratante_data['profissao'],
       "$$cpfoucnpjcontratado$$": contratante_data['cpf'],
       "$$endereçoresidêncial/comercialcontratado$$":  contratante_data['endereco'],
-      "": contratante_data['qualificaco_da_parte']
+      "$$qualificacaodapartecontratado$$": contratante_data['qualificaco_da_parte']
     }
     return contratadoDict
 
