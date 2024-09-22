@@ -47,7 +47,7 @@ class telaAssinaturaDocumento(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text=f"Assinatura do documento", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao,width=200)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar", command=self.voltar_funcao,width=200)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 40))
 
         

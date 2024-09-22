@@ -83,6 +83,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Preencha suas informações", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
+
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
@@ -95,7 +96,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
         # Botão Voltar
-        self.voltar = ctk.CTkButton(self.button_frame, text="\u2190 Voltar", command=partial(self.voltar_funcao, contratoNaoEncontrado), height=30)
+        self.voltar = ctk.CTkButton(self.button_frame, text="Voltar", command=partial(self.voltar_funcao, contratoNaoEncontrado), height=30)
         self.voltar.pack(padx=10,side=ctk.LEFT)
 
         # Botão Prosseguir
@@ -171,6 +172,7 @@ class checagemInformacoes(ctk.CTkFrame):
                     self.informacoesPersonalizadas()
                 case 3:
                     self.clear_check_screen()
+                    print(self.finalDict)
                     self.contract.setContractData(self.finalDict)
                     self.formPdf()
                     self.parent.addContratoPseudoPreenchido(self.contratoPseudoPreenchido)
@@ -195,24 +197,25 @@ class checagemInformacoes(ctk.CTkFrame):
         if self.tipo == "Consultoria Tributária" or self.tipo == "Câmara de Arbitragem":
             not self.erroTodosOsCampos(self.get_informacoesEmpresariais())
             retorno = self.get_informacoesEmpresariais()
-        elif self.titulo == "Consultoria Empresarial":
+        elif self.tipo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
                     not self.erroTodosOsCampos(self.get_informacoesContratado("Contratante"))
+                    self.contratoPseudoPreenchido.addInformacaoPseudo(self.get_informacoesContratado("Contratante"),"Contratante")
                     retorno = None
                 case 1:
                     not self.erroTodosOsCampos(self.get_informacoesContratado("Contratada"))
+                    self.contratoPseudoPreenchido.addInformacaoPseudo(self.get_informacoesContratado("Contratada"),"Contratada")
                     retorno = None
                 case 2:
                     not self.erroTodosOsCampos(self.get_informacoesNegocio())
                     retorno = self.get_informacoesNegocio()
-
         self.contratoPseudoPreenchido.addInformacaoPseudo(retorno)
         self.finalDict = combine_dicts(self.finalDict,retorno)
         for widget in self.frame.winfo_children():
             widget.destroy()
 
-        if self.titulo == "Consultoria Empresarial":
+        if self.tipo == "Consultoria Empresarial":
             match self.pagina:
                 case 0:
                     self.informacoesContratante("Contratada")
@@ -389,9 +392,6 @@ class checagemInformacoes(ctk.CTkFrame):
         self.Qualificacao = ctk.CTkLabel(self.frame, text="Qualificação da Parte", fg_color="#6EC1E4")
         self.Qualificacao.grid(row=5, column=2, padx=30, pady=5, sticky="w")
 
-        # Entry dentro do frame filho
-        self.QualificacaoEntry = ctk.CTkEntry(self.frame, height=30)
-        # self.QualificacaoEntry.grid(row=6, column=2, columnspan=2, padx=20, pady=(0,30),sticky="ew")
 
         qualiContratante = ["Contratante de Serviços", "Arrendador", "Outorgante", "Cedente", "Vendedor", "Locador",
                             "Franqueador", "Empregador"]
@@ -552,7 +552,8 @@ class checagemInformacoes(ctk.CTkFrame):
                 'estadocivil': self.EstadoCivilEntry.get(),
                 'cpf': self.CpfOuCnpjEntry.get(),
                 'profissao': self.ProfissaoEntry.get(),
-                'endereco': self.EnderecoEntry.get()
+                'endereco': self.EnderecoEntry.get(),
+                'qualificaco_da_parte' : self.selectbox.get()
             }
             return self.contratante_data
         elif contratante == "Contratada":
@@ -562,7 +563,8 @@ class checagemInformacoes(ctk.CTkFrame):
                 'estadocivil': self.EstadoCivilEntry.get(),
                 'cpf': self.CpfOuCnpjEntry.get(),
                 'profissao': self.ProfissaoEntry.get(),
-                'endereco': self.EnderecoEntry.get()
+                'endereco': self.EnderecoEntry.get(),
+                'qualificaco_da_parte' : self.selectbox.get()
             }
             return self.contratado_data
 

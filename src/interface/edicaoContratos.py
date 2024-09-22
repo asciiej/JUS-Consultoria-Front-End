@@ -212,6 +212,8 @@ class telaEdicaoContrato(ctk.CTkFrame):
             "Profissãocontratado": "$$profissãocontratado$$",
             "CPF ou CNPJcontratado": "$$cpfoucnpjcontratado$$",
             "Endereço Residêncial/Comercialcontratado": "$$endereçoresidêncial/comercialcontratado$$",
+            "Qualificação da Partecontratante" : "$$qualificacaodapartecontratante$$",
+            "Qualificação da Partecontratado" : "$$qualificacaodapartecontratado$$"
         }
 
         for tagType in self.tagTypes:
@@ -272,7 +274,7 @@ class telaEdicaoContrato(ctk.CTkFrame):
         nrow += 1
 
         business_part_information = [
-            "Nome Completo", "Nacionalidade", "Estado Civil", "Profissão", "CPF ou CNPJ", "Endereço Residêncial/Comercial"
+            "Nome Completo", "Nacionalidade", "Estado Civil", "Profissão", "CPF ou CNPJ", "Endereço Residêncial/Comercial", "Qualificação da Parte"
         ]
 
         for i, part in enumerate(business_part_information):
