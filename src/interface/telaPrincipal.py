@@ -424,7 +424,7 @@ class telaPrincipal(ctk.CTkFrame):
             self.img_label1_3 = ctk.CTkLabel(self.square1_3, image=self.img1_3, text="")
             self.img_label1_3.pack(side=ctk.TOP, pady=(20, 0))
             #Título
-            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Contrato Editável", font=("Calibri", 15))
+            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Minutas Tributária", font=("Calibri", 15))
             self.h2_1_3.pack(side=ctk.TOP, pady=(12, 0))
             #Botão
             self.button1_3 = ctk.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,"Consultoria Tributária","Contrato Editável Tributária"), **botao)
@@ -479,7 +479,7 @@ class telaPrincipal(ctk.CTkFrame):
             self.img_label1_3 = ctk.CTkLabel(self.square1_3, image=self.img1_3, text="")
             self.img_label1_3.pack(side=ctk.TOP, pady=(20, 0))
             #Título
-            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Contrato Editável", font=("Calibri", 15))
+            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Minutas Arbitral", font=("Calibri", 15))
             self.h2_1_3.pack(side=ctk.TOP, pady=(12, 0))
             #Botão
             self.button1_3 = ctk.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,"Câmara de Arbitragem","Contrato Editável Arbitragem"), **botao)
