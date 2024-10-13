@@ -37,48 +37,8 @@ if __name__ == "__main__":
 		'usuario': UsuarioControler(managers['usuario'])
 	}
 
-	contratante_data = {
-		'nome': 'AMARAL PWI',
-		'nacionalidade': 'angolano',
-		'estadocivil': 'solteiro',
-		'cpf': '111',
-		'profissao': 'roupeiro',
-		'endereco': 'Rua dos Peneira'
-	}
-
-	contratado_data = {
-		'nome': 'ARAUJO PWI',
-		'nacionalidade': 'brasileiro',
-		'estadocivil': 'casado',
-		'cpf': '222',
-		'profissao': 'faxineiro',
-		'endereco': 'Rua dos Paes'
-	}
-
-	contract_data = {
-		'valor': '15.99',
-		'forma_pagamento': 'CARTAO',
-		'multa_mora': '150.00',
-		'juros_mora': '25.00',
-		'correcao_monetaria': '10.0',
-		'prazo_duracao': '10',
-		'contratante': contratante_data,
-		'contratado': contratado_data
-	}
-
-	# controlers['contract'].empresarial(contract_data=contract_data).create()
-	# controlers['contract'].empresarial(contract_data=contract_data).update(8)
-
-	# con = controlers['contract'].empresarial().get_by_id(8)
-	# print(con.str())
-	# controlers['usuario'].login('araujomat@pwi.com', '111')
-	# print(controlers['usuario'].get_all_users())
-
-
-	#MainApp(controlers)
 	app = MainApp(controlers)
 	app.mainloop()
-	# AtualizaCad(controlers)
 
 if config.DEBUG:
 	pass

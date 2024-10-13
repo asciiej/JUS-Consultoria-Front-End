@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 import customtkinter as ctk
 from pathlib import Path
 from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox, Toplevel, Label, Menu
@@ -226,10 +227,18 @@ class telaCadastro(ctk.CTkFrame):
         resized_image = image.resize(size, Image.LANCZOS)
         return ImageTk.PhotoImage(resized_image)
 
-    def relative_to_assets(self, path: str) -> Path:
-        ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
-        return ASSETS_PATH / Path(path)
+    def relative_to_assets(self,path: str) -> Path:
+        # Determine if the script is running as a standalone executable
+        if hasattr(sys, '_MEIPASS'):
+            # When running from the PyInstaller bundle, use the _MEIPASS attribute
+            ASSETS_PATH = Path(sys._MEIPASS) / 'image_files'
+        else:
+            # When running from the script, use the script's directory
+            ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
 
+        final_path = ASSETS_PATH / Path(path)    
+        return final_path
+    
     def buttonOnClick(self):
         fields = {
             'nome' : self.entry_1.get(),

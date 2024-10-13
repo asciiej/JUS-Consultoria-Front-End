@@ -1,5 +1,6 @@
 import tkinter as tk
 import customtkinter as ctk
+import os
 
 from src.interface.login import TelaLogin
 from src.interface.telaPrincipal import telaPrincipal
@@ -18,11 +19,15 @@ class MainApp(tk.Tk):
     ContratosPseudoPreenchidos = []
     def __init__(self, controlers):
         super().__init__()
-        self.title("Navegação entre Telas")
+        self.title("JUS Consultorias e Arbitragem")
         largura_tela = self.winfo_screenwidth()
         altura_tela = self.winfo_screenheight()
         self.geometry(f"{largura_tela}x{altura_tela}")
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
+        # Determine the base path for assets
+
+        # Example of loading an image
+        caminho_absoluto = os.path.abspath("lib/temaTkinterCustom.json")
+        ctk.set_default_color_theme(caminho_absoluto)
         ctk.set_appearance_mode("light")
         
 
