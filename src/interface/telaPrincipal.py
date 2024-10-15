@@ -115,14 +115,18 @@ class telaPrincipal(ctk.CTkFrame):
             self.botao_consultoria_tributaria.pack(side=ctk.LEFT, padx=(25,0))
 
         if USER_SESSION.has_role('arbitragem'):
-            self.botao_camara_arbitragem = ctk.CTkButton(self.cabecalho, text="Câmara de Arbitragem", command=self.click_camara_arbitragem, **opcao_menu)
+            self.botao_camara_arbitragem = ctk.CTkButton(self.cabecalho, text="Arbitragem e Perícia", command=self.click_camara_arbitragem, **opcao_menu)
             self.botao_camara_arbitragem.pack(side=ctk.LEFT, padx=(25,0))
 
         # Nome do usuario no cabeçalho
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
-        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Editar", command=self.click_editar_dados, **opcao_menu)
+        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Dados Pessoais", command=self.click_editar_dados, **opcao_menu)
+        self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
+
+
+        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Sair", command=partial(self.parent.show_frame,"TelaLogin"), **opcao_menu)
         self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
 
         # Calcular a altura do "body"
@@ -435,7 +439,7 @@ class telaPrincipal(ctk.CTkFrame):
             #Câmara de Arbitragem
 
             #Título
-            self.H1_camara_arbitragem = ctk.CTkLabel(self.body_frame, text="Câmara de Arbitragem", font=("Consolas", 40))
+            self.H1_camara_arbitragem = ctk.CTkLabel(self.body_frame, text="Arbitragem e Perícia", font=("Consolas", 40))
             self.H1_camara_arbitragem.pack(side=ctk.TOP, pady=(90 ,0))
             #Frame
             self.frame_camara_arbitragem = ctk.CTkFrame(self.body_frame, height=280, width=950,**self.framePrincipal)
@@ -479,7 +483,7 @@ class telaPrincipal(ctk.CTkFrame):
             self.img_label1_3 = ctk.CTkLabel(self.square1_3, image=self.img1_3, text="")
             self.img_label1_3.pack(side=ctk.TOP, pady=(20, 0))
             #Título
-            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Minutas Arbitral", font=("Calibri", 15))
+            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Minuta de Perícia", font=("Calibri", 15))
             self.h2_1_3.pack(side=ctk.TOP, pady=(12, 0))
             #Botão
             self.button1_3 = ctk.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,"Câmara de Arbitragem","Contrato Editável Arbitragem"), **botao)

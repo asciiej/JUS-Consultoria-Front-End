@@ -521,7 +521,7 @@ class checagemInformacoes(ctk.CTkFrame):
         self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
         # Botão Voltar
-        self.voltar = ctk.CTkButton(self.button_frame, text="\u2190 Voltar", command=partial(self.voltar_funcao, False), height=30)
+        self.voltar = ctk.CTkButton(self.button_frame, text="Voltar", command=partial(self.voltar_funcao, False), height=30)
         self.voltar.pack(padx=10,side=ctk.LEFT)
 
         # Botão Prosseguir

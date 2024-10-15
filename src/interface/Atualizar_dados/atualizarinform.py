@@ -180,7 +180,7 @@ class AtualizaCad(ctk.CTkFrame):
 
          # Texto menu e Botão de VOLTAR
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar", command=self.voltar_funcao, **voltar_menu)
         self.voltar.pack(side=ctk.RIGHT, padx=(80, 0), pady = 50)
 
 

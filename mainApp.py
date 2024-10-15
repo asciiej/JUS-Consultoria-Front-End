@@ -23,6 +23,7 @@ class MainApp(tk.Tk):
         largura_tela = self.winfo_screenwidth()
         altura_tela = self.winfo_screenheight()
         self.geometry(f"{largura_tela}x{altura_tela}")
+        self.iconbitmap("imagens/Logomarca-JUS.ico")
         # Determine the base path for assets
 
         # Example of loading an image
@@ -78,6 +79,7 @@ class MainApp(tk.Tk):
 
         # Exibir a tela solicitada
         frame = self.frames.get(page_name)
+        print(f"Frames: {self.frames}")
         if frame:
             frame.pack(fill="both", expand=True)
         else:

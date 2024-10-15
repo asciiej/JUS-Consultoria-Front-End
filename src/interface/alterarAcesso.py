@@ -3,13 +3,15 @@ import customtkinter as ctk
 from PIL import Image
 from functools import partial
 from ..utilitarios.user_session import USER_SESSION
+import os
 
 class alterarAcesso(ctk.CTkFrame):
     def __init__(self,parent,controlers : dict):
         super().__init__(parent)
         self.parent = parent
         self.controlers = controlers
-        ctk.set_default_color_theme("lib/temaTkinterCustom.json")
+        caminho_absoluto = os.path.abspath("lib/temaTkinterCustom.json")
+        ctk.set_default_color_theme(caminho_absoluto)
 
     def show_contentALTERAR(self):
         #self.janela = janela
@@ -53,7 +55,7 @@ class alterarAcesso(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Mudar nível de acesso de usuário", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar", command=self.voltar_funcao, **voltar_menu)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
         # Nome do usuario no cabeçalho
