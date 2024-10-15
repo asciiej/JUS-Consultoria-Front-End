@@ -54,7 +54,7 @@ class redirecionaGOV(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text="Assinatura de um Documento", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar", command=self.voltar_funcao, **voltar_menu)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
         
         # Nome do usuario no cabeçalho
@@ -83,7 +83,7 @@ class redirecionaGOV(ctk.CTkFrame):
         self.frame.pack_propagate(False)
 
         # Texto
-        self.h2 = ctk.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias e arbitragens, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
+        self.h2 = ctk.CTkLabel(self.frame, text="Obrigado por escolher a JUS Consultorias Arbitragem, sua\nminuta está pronta para ser assinada digitalmente.", font=("Helvetica", 25))
         self.h2.pack(side=ctk.TOP, padx=(0, 0), pady=(100, 50))
         #self.h2.place(x=120, y=120)
 

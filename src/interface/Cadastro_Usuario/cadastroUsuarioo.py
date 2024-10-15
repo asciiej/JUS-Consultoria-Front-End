@@ -42,7 +42,7 @@ class telaCadastro(ctk.CTkFrame):
 
          # Texto menu e Botão de VOLTAR
 
-        self.voltar = ctk.CTkButton(self.canvas, text="Voltar \u2192", command=self.voltar_funcao, **voltar_menu)
+        self.voltar = ctk.CTkButton(self.canvas, text="Voltar", command=self.voltar_funcao, **voltar_menu)
         self.voltar.pack(side=ctk.TOP, padx=(700, 0))
 
         self.canvas.place(x=0, y=0)
@@ -173,23 +173,15 @@ class telaCadastro(ctk.CTkFrame):
 
         self.cargo_menu = Menu(self, tearoff=0, background="#FFFFFF", foreground="#000000")
         cargos = [
-    "Diretor de Conformidade e Regulação",
-    "Gerente de Contratos e Licitações",
-    "Especialista em Propriedade Intelectual e Patentes",
-    "Consultor de Fusões e Aquisições",
-    "Diretor de Relações Trabalhistas",
-    "Gestor de Compliance Financeiro",
-    "Coordenador de Projetos de Infraestrutura",
-    "Diretor de Privacidade e Proteção de Dados",
-    "Gerente de Compliance Ambiental",
-    "Consultor de Segurança e Conformidade em Tecnologia",
-    "Diretor de Governança Corporativa",
-    "Coordenador de Relações Governamentais e Assuntos Públicos",
-    "Especialista em Comércio Internacional e Regulações Aduaneiras",
-    "Gerente de Ética e Compliance",
-    "Consultor de Investimentos e Conformidade Financeira",
-    "Outro"
-]
+            "CEO",
+            "Diretor",
+            "Gerente",
+            "Coordenador",
+            "Especialista",
+            "Consultor",
+            "Analista",
+            "Outro"
+        ]
         for cargo in cargos:
             self.cargo_menu.add_command(label=cargo, command=lambda c=cargo: self.select_cargo(c))
 

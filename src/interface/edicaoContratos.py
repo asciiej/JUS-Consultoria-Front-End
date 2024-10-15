@@ -56,7 +56,7 @@ class telaEdicaoContrato(ctk.CTkFrame):
         self.h1_titulo = ctk.CTkLabel(self.cabecalho, text=f"Edição {self.tituloContrato}", font=self.titulo_font)
         self.h1_titulo.pack(side=ctk.LEFT, padx=(25, 0))
 
-        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar \u2192", command=self.voltar_funcao)
+        self.voltar = ctk.CTkButton(self.cabecalho, text="Voltar", command=self.voltar_funcao)
         self.voltar.pack(side=ctk.LEFT, padx=(700, 0))
 
          # Nome do usuario no cabeçalho
