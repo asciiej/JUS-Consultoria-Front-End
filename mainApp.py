@@ -3,6 +3,7 @@ import customtkinter as ctk
 import os
 
 from src.interface.login import TelaLogin
+from src.interface.logout import TelaLogout
 from src.interface.telaPrincipal import telaPrincipal
 from src.interface.telaPrincipalAdm import telaPrincipalAdm
 from src.interface.Cadastro_Usuario.cadastroUsuarioo import telaCadastro
@@ -59,6 +60,9 @@ class MainApp(tk.Tk):
         self.tela_atualizaInform = AtualizaCad(self, controlers)
         self.frames["AtualizaCad"] = self.tela_atualizaInform
 
+        self.tela_logout = TelaLogout(self, controlers)
+        self.frames["TelaLogout"] = self.tela_logout
+
         self.tela_checaInfo = checagemInformacoes(self, controlers)
         self.frames["checagemInformacoes"] = self.tela_checaInfo
 
@@ -96,6 +100,12 @@ class MainApp(tk.Tk):
         self.tela_cadastro.pack_forget()
 
         self.tela_login.pack(fill="both", expand=True)
+
+    def show_logout(self):
+        """Exibe a tela de logout e esconde a tela de registro."""
+        self.tela_cadastro.pack_forget()
+
+        self.tela_logout.pack(fill="both", expand=True)
 
     def show_principal(self):
         """Exibe a tela princpal e esconde a tela de login"""

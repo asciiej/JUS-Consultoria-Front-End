@@ -38,7 +38,12 @@ class telaPrincipal(ctk.CTkFrame):
         self.parent.show_frame("AtualizaCad")
         self.parent.frames["AtualizaCad"].show_contentATUALIZAR()
 
-
+    def click_sair(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("TelaLogout")
+        self.parent.frames["TelaLogout"].show_logout()
 
     def on_frame_configure(self, event):
 
@@ -67,7 +72,6 @@ class telaPrincipal(ctk.CTkFrame):
         self.parent.frames["checagemInformacoes"].show_contentCHECA(id, tipo, titulo, self.controlers)
 
     def show_content(self):
-
         
         #self.janela = janela
         self.font = ctk.CTkFont('Helvetica',14)
@@ -126,8 +130,8 @@ class telaPrincipal(ctk.CTkFrame):
         self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
 
 
-        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Sair", command=partial(self.parent.show_frame,"TelaLogin"), **opcao_menu)
-        self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
+        self.botao_sair = ctk.CTkButton(self.cabecalho, text="Sair", command=self.click_sair, **opcao_menu)
+        self.botao_sair.pack(side=ctk.LEFT, padx=(25,0))
 
         # Calcular a altura do "body"
         window_width = self.winfo_width()
