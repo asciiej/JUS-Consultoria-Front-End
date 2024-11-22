@@ -141,6 +141,5 @@ class redirecionaGOV(ctk.CTkFrame):
                 print(f"Erro ao copiar o arquivo: {e}")
                 
     def func_gov(self):
-        self.parent.getContrato().create()
         webbrowser.open("http://assinador.iti.br/")
         
