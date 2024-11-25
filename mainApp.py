@@ -79,7 +79,6 @@ class MainApp(tk.Tk):
 
         # Exibir a tela solicitada
         frame = self.frames.get(page_name)
-        print(f"Frames: {self.frames}")
         if frame:
             frame.pack(fill="both", expand=True)
         else:
