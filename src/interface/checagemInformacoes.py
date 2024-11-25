@@ -87,12 +87,15 @@ class checagemInformacoes(ctk.CTkFrame):
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
 
+        self.frameScroll = ctk.CTkScrollableFrame(self)
+        self.frameScroll.pack(fill="both", expand=True)
+
         # Frame
-        self.frame = ctk.CTkFrame(self,height=480,width=900,**self.framePrincipal)
+        self.frame = ctk.CTkFrame(self.frameScroll,height=480,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
         # Frame para agrupar os botões
-        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame = ctk.CTkFrame(self.frameScroll)
         self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
         # Botão Voltar
@@ -509,15 +512,15 @@ class checagemInformacoes(ctk.CTkFrame):
         self.buttonContinue.destroy()
         self.voltar.destroy()
         self.button_frame.destroy()
-        self.frame = ctk.CTkScrollableFrame(self,height=400,width=900,**self.framePrincipal)
+        self.frame = ctk.CTkScrollableFrame(self.frameScroll,height=400,width=900,**self.framePrincipal)
         self.frame.pack(pady=(80, 0))
 
         self._checkboxPDF_var = ctk.BooleanVar()
-        self._checkboxPDF = ctk.CTkCheckBox(self, text="Template Branco", variable=self._checkboxPDF_var)
+        self._checkboxPDF = ctk.CTkCheckBox(self.frameScroll, text="Template Branco", variable=self._checkboxPDF_var)
         self._checkboxPDF.pack(side=ctk.TOP, pady=(30, 0), padx=(500, 0), anchor="w")
 
         # Frame para agrupar os botões
-        self.button_frame = ctk.CTkFrame(self)
+        self.button_frame = ctk.CTkFrame(self.frameScroll)
         self.button_frame.pack(pady=(30, 0), padx=(500, 0))
 
         # Botão Voltar
