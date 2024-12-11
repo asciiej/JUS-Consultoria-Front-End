@@ -109,6 +109,9 @@ class telaPrincipalAdm(ctk.CTkFrame):
         self.botao_camara_arbitragem = ctk.CTkButton(self.cabecalho, text="Câmara de Arbitragem", command=self.click_camara_arbitragem, **opcao_menu)
         self.botao_camara_arbitragem.pack(side=ctk.LEFT, padx=(25,0))
 
+        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Sair", command=partial(self.voltar_login), **opcao_menu)
+        self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
+
         # Nome do usuario no cabeçalho
         self.nome_usuario_label = ctk.CTkLabel(self.cabecalho, text=f"{USER_SESSION.get_user_data().nome} {USER_SESSION.get_user_data().sobrenome}", font=self.font)
         self.nome_usuario_label.pack(side=ctk.RIGHT, padx=(0, 25))
@@ -487,4 +490,10 @@ class telaPrincipalAdm(ctk.CTkFrame):
 
         # Adiciona evento de redimensionamento da janela
         self.bind("<Configure>", self.on_window_resize)
+
+    def voltar_login(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("TelaLogin")
     

@@ -66,6 +66,12 @@ class telaPrincipal(ctk.CTkFrame):
         self.parent.show_frame("checagemInformacoes")
         self.parent.frames["checagemInformacoes"].show_contentCHECA(id, tipo, titulo, self.controlers)
 
+    def voltar_login(self):
+        self.unbind("<Configure>")
+        for widget in self.winfo_children():
+            widget.destroy()
+        self.parent.show_frame("TelaLogin")
+
     def show_content(self):
 
         
@@ -126,7 +132,7 @@ class telaPrincipal(ctk.CTkFrame):
         self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
 
 
-        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Sair", command=partial(self.parent.show_frame,"TelaLogin"), **opcao_menu)
+        self.botao_editar_dados = ctk.CTkButton(self.cabecalho, text="Sair", command=partial(self.voltar_login), **opcao_menu)
         self.botao_editar_dados.pack(side=ctk.LEFT, padx=(25,0))
 
         # Calcular a altura do "body"
@@ -483,7 +489,7 @@ class telaPrincipal(ctk.CTkFrame):
             self.img_label1_3 = ctk.CTkLabel(self.square1_3, image=self.img1_3, text="")
             self.img_label1_3.pack(side=ctk.TOP, pady=(20, 0))
             #Título
-            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Minuta de Perícia", font=("Calibri", 15))
+            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Perícia Judicial", font=("Calibri", 15))
             self.h2_1_3.pack(side=ctk.TOP, pady=(12, 0))
             #Botão
             self.button1_3 = ctk.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,"Câmara de Arbitragem","Contrato Editável Arbitragem"), **botao)

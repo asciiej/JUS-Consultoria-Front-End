@@ -1,5 +1,7 @@
 from ...utilitarios.excecoes import UsuarioOuSenhaInvalido
 import config
+import mysql.connector
+
 class UsuarioModel:
 	def __init__(self, nome: str, sobrenome: str, cpf:str, nomeEmpresa:str, cargo:str, email: str, telefone: str, pais: str, senha:str, roles:tuple):
 		self.nome = nome
@@ -49,10 +51,8 @@ class UsuarioManager:
 			print(f"Erro ao buscar usuário por email {email}: {str(e)}")
 			return None  # Propaga a exceção para cima, se necessário
 
-		if usuario is None:
-			raise UsuarioOuSenhaInvalido()
 
-		if usuario.senha != senha:
+		if usuario and usuario.senha != senha:
 			raise UsuarioOuSenhaInvalido()
 
 		return usuario
@@ -61,7 +61,7 @@ class UsuarioManager:
 
 	def create(self, nome: str, sobrenome: str, cpf: str, nomeEmpresa: str, cargo: str, email: str, telefone: str, pais: str, senha: str):
 		try:
-			if self.get_by_cpf(cpf) is not None:
+			if cpf != '' and self.get_by_cpf(cpf) is not None:
 				raise Exception(f"CPF {cpf} ja existe")
 
 			query = """
@@ -230,3 +230,76 @@ class UsuarioManager:
 					return None
 
 		return user
+	
+
+
+
+class DatabaseConselt:
+    def __init__(self):
+        """Inicializa a conexão com o banco de dados."""
+        self.host = "198.12.237.126"
+        self.user = "i9797188_brfe1"
+        self.password = "Lapidar#diamantes2024"
+        self.database = "i9797188_brfe1"
+        self.connection = None
+
+    def connect(self):
+        """Estabelece a conexão com o banco de dados."""
+        try:
+            self.connection = mysql.connector.connect(
+                host=self.host,
+                user=self.user,
+                password=self.password,
+                database=self.database
+            )
+            if self.connection.is_connected():
+                print("Conexão bem-sucedida com o banco de dados!")
+        except mysql.connector.Error as erro:
+            print(f"Erro ao conectar ao banco de dados: {erro}")
+            self.connection = None
+
+    def disconnect(self):
+        """Encerra a conexão com o banco de dados."""
+        if self.connection and self.connection.is_connected():
+            self.connection.close()
+            print("Conexão ao banco de dados encerrada.")
+
+    def login(self, email):
+        """
+        Retorna uma instância de UsuarioModel com os campos obtidos do banco de dados
+        para o usuário identificado pelo e-mail.
+        """
+        if not self.connection or not self.connection.is_connected():
+            print("Conexão com o banco de dados não estabelecida.")
+            return None
+        
+        try:
+            cursor = self.connection.cursor()
+            query = """
+                SELECT nome, sobrenome, email, senha, cargo, telefone, pais, cpf, nome_empresa
+                FROM usuarios
+                WHERE email = %s;
+            """
+            cursor.execute(query, (email,))
+            resultado = cursor.fetchone()
+			
+
+            if resultado:
+                return UsuarioModel(
+                    nome=resultado[0],
+                    sobrenome=resultado[1],
+                    cpf=resultado[7],
+                    nomeEmpresa=resultado[8],
+                    cargo=resultado[4],
+                    email=resultado[2],
+                    telefone=resultado[5],
+                    pais=resultado[6],
+                    senha=resultado[3],
+                    roles= tuple()
+                )
+            else:
+                print("Usuário não encontrado.")
+                return None
+        except mysql.connector.Error as erro:
+            print(f"Erro ao consultar o usuário por e-mail: {erro}")
+            return None

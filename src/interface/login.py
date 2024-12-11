@@ -96,15 +96,12 @@ class TelaLogin(ctk.CTkFrame):
 
     def on_register(self):
         """Função para o link de cadastro."""
-        #self.clear_login_screen()
         self.parent.show_frame("telaCadastro")
-        #telaCadastro(self,self.controlers)
 
     def clear_login_screen(self):
-        """Função para limpar a tela de login."""
-        # Remove todos os widgets do root
-        for widget in self.winfo_children():
-            widget.destroy()
+        """Função para limpar a tela de login. Retirando a mensagem de erro"""
+        if self.added == 1:
+            self.errorMessage.destroy()
 
     def show_error_message(self, message):
         """Função para mostrar uma mensagem de erro."""

@@ -1,6 +1,7 @@
+from .UsuarioModel import DatabaseConselt
 from ...utilitarios.excecoes import (
     CargoInvalido, EmailInvalido, NomeInvalido, PaisInvalido,
-    CPFInvalido, NomeEmpresaInvalido, SenhaInvalido, TelefoneInvalido
+    CPFInvalido, NomeEmpresaInvalido, SenhaInvalido, TelefoneInvalido, UsuarioOuSenhaInvalido
 )
 from ...utilitarios.check import Check
 from ...utilitarios.user_session import USER_SESSION
@@ -10,6 +11,7 @@ import hashlib
 class UsuarioControler:
     def __init__(self, usuario_manager):
         self.usuario_manager = usuario_manager
+        self.conselt_manager =  DatabaseConselt()
 
     def login(self, email: str, senha: str):
         try:
@@ -23,6 +25,8 @@ class UsuarioControler:
 
             # Realiza o login através do manager
             usuario = self.usuario_manager.login(email, senha_hash)
+            if usuario is None:
+                usuario = self.get_user_by_email_conselt(email,senha)
             USER_SESSION.set_user_info(usuario)
 
             return True
@@ -201,3 +205,21 @@ class UsuarioControler:
         texto_codificado = texto.encode('utf-8')
         sha256_hash = hashlib.sha256(texto_codificado)
         return sha256_hash.hexdigest()
+    
+    def get_user_by_email_conselt(self, email,senha):
+        self.conselt_manager.connect()
+    
+        usuario = self.conselt_manager.login(email)
+        
+        if usuario:
+            if usuario.senha != senha:
+                raise UsuarioOuSenhaInvalido()
+            try:
+                self.usuario_manager.create(usuario.nome, usuario.sobrenome, usuario.cpf, usuario.nomeEmpresa, usuario.cargo, usuario.email, usuario.telefone, usuario.pais, self._calcular_sha256(usuario.senha))
+            except Exception as e:
+                print(f"Erro ao criar usuário vindo da conselt: {str(e)}")
+        else:
+            print(f"Usuário '{email}' não encontrado.")
+
+        self.conselt_manager.disconnect()
+        return usuario
