@@ -19,7 +19,7 @@ class MainApp(tk.Tk):
     ContratosPseudoPreenchidos = []
     def __init__(self, controlers):
         super().__init__()
-        self.title("JUS Consultorias e Arbitragem")
+        self.title("JUS Consultorias")
         largura_tela = self.winfo_screenwidth()
         altura_tela = self.winfo_screenheight()
         self.geometry(f"{largura_tela}x{altura_tela}")

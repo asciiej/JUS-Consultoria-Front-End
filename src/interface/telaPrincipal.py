@@ -485,14 +485,14 @@ class telaPrincipal(ctk.CTkFrame):
             self.square1_3.grid(row = 0,column=2,padx = 20,pady = 20)
             self.square1_3.pack_propagate(False)
             #Imagem
-            self.img1_3 = ctk.CTkImage(Image.open('imagens/Editar.png'), size=(200, 72))
+            self.img1_3 = ctk.CTkImage(Image.open('imagens/pericia.jpg'), size=(200, 72))
             self.img_label1_3 = ctk.CTkLabel(self.square1_3, image=self.img1_3, text="")
             self.img_label1_3.pack(side=ctk.TOP, pady=(20, 0))
             #Título
-            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="Perícia Judicial", font=("Calibri", 15))
+            self.h2_1_3 = ctk.CTkLabel(self.square1_3, text="PERÍCIA JUDICIAL", font=("Calibri", 15))
             self.h2_1_3.pack(side=ctk.TOP, pady=(12, 0))
             #Botão
-            self.button1_3 = ctk.CTkButton(self.square1_3, text="Contratar", command=partial(self.choose_contract,"Câmara de Arbitragem","Contrato Editável Arbitragem"), **botao)
+            self.button1_3 = ctk.CTkButton(self.square1_3, text="Contrate", command=partial(self.choose_contract,"Câmara de Arbitragem","Contrato Editável Arbitragem"), **botao)
             self.button1_3.pack(side=ctk.BOTTOM, pady=(0, 45))
 
 
