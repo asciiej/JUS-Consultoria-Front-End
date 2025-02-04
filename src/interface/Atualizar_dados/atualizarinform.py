@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 from tkinter import Canvas, Entry, Button, PhotoImage, Toplevel, Label, messagebox
 import tkinter as tk
 from ...utilitarios.user_session import USER_SESSION
-import customtkinter
+import sys
 
 class AtualizaCad(ctk.CTkFrame):
     def __init__(self, parent, controlers):
@@ -98,9 +98,17 @@ class AtualizaCad(ctk.CTkFrame):
         return ImageTk.PhotoImage(resized_image)
 
 
-    def relative_to_assets(self, path: str) -> Path:
-        ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
-        return ASSETS_PATH / Path(path)
+    def relative_to_assets(self,path: str) -> Path:
+        # Determine if the script is running as a standalone executable
+        if hasattr(sys, '_MEIPASS'):
+            # When running from the PyInstaller bundle, use the _MEIPASS attribute
+            ASSETS_PATH = Path(sys._MEIPASS) / 'image_files_atl'
+        else:
+            # When running from the script, use the script's directory
+            ASSETS_PATH = Path(os.path.dirname(os.path.abspath(__file__))) / 'assets' / 'frame0'
+
+        final_path = ASSETS_PATH / Path(path)    
+        return final_path
         
 
     def show_cargo_menu(self):

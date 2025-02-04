@@ -3,8 +3,8 @@
 1 0 obj
 <<
 /Type /Pages
-/Count 3
-/Kids [ 4 0 R 9 0 R 11 0 R ]
+/Count 2
+/Kids [ 4 0 R 9 0 R ]
 >>
 endobj
 2 0 obj
@@ -29,7 +29,7 @@ endobj
 /F1 6 0 R
 /F2 7 0 R
 >>
-/ProcSet [ /ImageB /Text /ImageC /PDF /ImageI ]
+/ProcSet [ /PDF /ImageC /ImageB /ImageI /Text ]
 >>
 /MediaBox [ 0 0 595.5 841.92 ]
 /Contents 8 0 R
@@ -63,7 +63,7 @@ endobj
 endobj
 8 0 obj
 <<
-/Length 5572
+/Length 5480
 >>
 stream
 q
@@ -106,7 +106,7 @@ BT
 1 0 0 1 0 4 Tm
 /F2 12 Tf
 16 TL
-(MINUTA\040DE\040LAUDO\040PERICIAL\040CONTÁBIL\040PODER\040JUDICIÁRIO) Tj
+(SENTENÇA\040ARBITRAL) Tj
 T*
 ET
 Q
@@ -128,7 +128,7 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040aaa) Tj
+(\040\040Processo\040nº) Tj
 T*
 ET
 Q
@@ -150,7 +150,9 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Processo\040nº\040aaaaaaa) Tj
+(\040\040) Tj
+/F2 10 Tf
+(Vistos\054\040etc\056) Tj
 T*
 ET
 Q
@@ -159,101 +161,11 @@ q
 1 0 0 1 78 646.8898 cm
 Q
 q
-1 0 0 1 78 630.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040PERITO\040CONTÁBIL\072aaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 619.8898 cm
-Q
-q
-1 0 0 1 78 603.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040REQUERENTE\072aaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 592.8898 cm
-Q
-q
-1 0 0 1 78 576.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040REQUERIDO\072aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 565.8898 cm
-Q
-q
-1 0 0 1 78 549.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(1\056\040INTRODUÇÃO) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 538.8898 cm
-Q
-q
-1 0 0 1 78 458.8898 cm
+1 0 0 1 78 566.8898 cm
 q
 BT
 1 0 0 1 0 70 Tm
-0.975895 Tw
+0.032981 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -263,31 +175,31 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Nos\040termos\040da\040Norma\040Brasileira\040de\040Contabilidade\040\226\040NBC\040TP\04001\040\050R1\051\054\040que\040dispõe\040sobre\040a) Tj
+(\040\040Trata\055se\040de\040procedimento\040arbitral\040instaurado\040a\040pedido\040da\040parte\040\054\040representada\040por\040\054\040inscrita\040no) Tj
 T*
 0 Tw
-0.687542 Tw
-(perícia\040contábil\054\040apresento\040o\040presente\040laudo\040pericial\040contábil\054\040elaborado\040a\040fim\040de\040subsidiar\040a\040justa) Tj
+2.282849 Tw
+(CNPJ\040sob\040o\040nº\040\054\040com\040endereço\040na\040\054\040doravante\040denominada\040Requerente\054\040em\040face\040da\040parte\040\054) Tj
 T*
 0 Tw
-0.089685 Tw
-(solução\040do\040litígio\040ou\040constatar\040fatos\040relacionados\040ao\040objeto\040da\040presente\040demanda\056\040Este\040trabalho\040foi) Tj
+2.991706 Tw
+(representada\040por\040\054\040inscrita\040no\040CNPJ\040sob\040o\040nº\040\054\040com\040endereço\040na\040\054\040doravante\040denominada) Tj
 T*
 0 Tw
-8.768559 Tw
-(realizado\040com\040base\040nos\040documentos\040disponibilizados\040nos\040autos\040do\040processo\040nº) Tj
+1.129599 Tw
+(Requerida\054\040com\040fundamento\040na\040cláusula\040compromissória\040constante\040no\040contrato\040firmado\040entre\040as) Tj
 T*
 0 Tw
-(aaaaaaaaaaaaaaaaaaa\040e\040outros\040eventualmente\040arrecadados\040em\040diligências\056) Tj
+(partes\040e\040de\040acordo\040com\040a\040Lei\040nº\0409\056307\05796\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 447.8898 cm
+1 0 0 1 78 555.8898 cm
 Q
 q
-1 0 0 1 78 431.8898 cm
+1 0 0 1 78 539.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -302,20 +214,20 @@ BT
 (\040) Tj
 (\040\040) Tj
 /F2 10 Tf
-(2\056\040OBJETO\040DA\040PERÍCIA) Tj
+(RELATÓRIO) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 420.8898 cm
+1 0 0 1 78 528.8898 cm
 Q
 q
-1 0 0 1 78 388.8898 cm
+1 0 0 1 78 496.8898 cm
 q
 BT
 1 0 0 1 0 22 Tm
-0.73128 Tw
+1.14778 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -325,19 +237,19 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040O\040objeto\040da\040perícia\040consiste\040na\040análise\040e\040delimitação\040dos\040documentos\040disponibilizados\040nos) Tj
+(\040\040A\040Requerente\040alegou\040\056\040Em\040contrapartida\054\040a\040Requerida\040apresentou\040\056\040Foram\040produzidas\040as) Tj
 T*
 0 Tw
-(autos\054\040com\040o\040objetivo\040de\040aaaaaaaaaaaaaaaaaaa\056) Tj
+(provas\040requeridas\040pelas\040partes\040e\040apresentadas\040as\040respectivas\040alegações\040finais\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 377.8898 cm
+1 0 0 1 78 485.8898 cm
 Q
 q
-1 0 0 1 78 361.8898 cm
+1 0 0 1 78 469.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -352,20 +264,117 @@ BT
 (\040) Tj
 (\040\040) Tj
 /F2 10 Tf
-(3\056\040LEGISLAÇÃO\040E\040NORMAS\040APLICÁVEIS) Tj
+(FUNDAMENTAÇÃO) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 350.8898 cm
+1 0 0 1 78 458.8898 cm
+Q
+q
+1 0 0 1 78 410.8898 cm
+q
+BT
+1 0 0 1 0 38 Tm
+0.06578 Tw
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\0401\056\040Da\040competência\040do\040Juízo\040Arbitral\072\040Conforme\040estabelecido\040na\040cláusula\040compromissória\040e\040de) Tj
+T*
+0 Tw
+0.291828 Tw
+(acordo\040com\040o\040Regimento\040Interno\040da\040Câmara\040de\040Arbitragem\054\040este\040Juízo\040Arbitral\040é\040competente\040para) Tj
+T*
+0 Tw
+(julgar\040a\040presente\040controvérsia\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 399.8898 cm
+Q
+q
+1 0 0 1 78 383.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\0402\056\040Do\040mérito\072\040\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 372.8898 cm
+Q
+q
+1 0 0 1 78 356.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040) Tj
+/F2 10 Tf
+(DISPOSITIVO) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 345.8898 cm
+Q
+q
+1 0 0 1 78 329.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040Diante\040do\040exposto\054\040o\040Juízo\040Arbitral\040decide\054\040por\040unanimidade\040de\040votos\072) Tj
+T*
+ET
+Q
 Q
 q
 1 0 0 1 78 318.8898 cm
+Q
+q
+1 0 0 1 78 302.8898 cm
 q
 BT
-1 0 0 1 0 22 Tm
-0.842072 Tw
+1 0 0 1 0 6 Tm
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -375,23 +384,19 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040A\040legislação\040aplicável\040ao\040objeto\040da\040presente\040perícia\040inclui\054\040mas\040não\040se\040limita\054\040às\040seguintes) Tj
-T*
-0 Tw
-(disposições\072) Tj
+(\040\0401\056\040\073) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 307.8898 cm
+1 0 0 1 78 291.8898 cm
 Q
 q
 1 0 0 1 78 275.8898 cm
 q
 BT
-1 0 0 1 0 22 Tm
-0.074076 Tw
+1 0 0 1 0 6 Tm
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -401,10 +406,7 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040\055\040Código\040Civil\040\050Lei\040nº\04010\056406\0572002\051\040\226\040Disposições\040gerais\040sobre\040obrigações\040e\040contratos\040\050artigos) Tj
-T*
-0 Tw
-(relevantes\040ao\040caso\051\056) Tj
+(\040\0402\056\040\073) Tj
 T*
 ET
 Q
@@ -413,33 +415,7 @@ q
 1 0 0 1 78 264.8898 cm
 Q
 q
-1 0 0 1 78 232.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-0.195233 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040Normas\040Brasileiras\040de\040Contabilidade\040\050NBC\051\040\226\040Em\040especial\054\040a\040NBC\040TP\04001\040\050R1\051\054\040que\040regula\040a) Tj
-T*
-0 Tw
-(atividade\040pericial\040contábil\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 221.8898 cm
-Q
-q
-1 0 0 1 78 205.8898 cm
+1 0 0 1 78 248.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -452,16 +428,60 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040\055Leis\040tributárias\040ou\040regulatórias\040específicas\054\040como\040a\040aaaaaaaaaaaaaaaaaaa\056) Tj
+(\040\0403\056\040\056) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 194.8898 cm
+1 0 0 1 78 237.8898 cm
 Q
 q
-1 0 0 1 78 178.8898 cm
+1 0 0 1 78 221.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040Prazo\040para\040Cumprimento) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 210.8898 cm
+Q
+q
+1 0 0 1 78 194.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\040A\040parte\040vencida\040deverá\040cumprir\040a\040presente\040sentença\040no\040prazo\040de\040\056) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 183.8898 cm
+Q
+q
+1 0 0 1 78 167.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -476,20 +496,20 @@ BT
 (\040) Tj
 (\040\040) Tj
 /F2 10 Tf
-(4\056\040METODOLOGIA\040E\040PLANO\040DE\040TRABALHO) Tj
+(Intimações) Tj
 T*
 ET
 Q
 Q
 q
-1 0 0 1 78 167.8898 cm
+1 0 0 1 78 156.8898 cm
 Q
 q
-1 0 0 1 78 135.8898 cm
+1 0 0 1 78 124.8898 cm
 q
 BT
 1 0 0 1 0 22 Tm
-0.140266 Tw
+1.118838 Tw
 16 TL
 /F1 10 Tf
 0 0 0 rg
@@ -499,16 +519,13 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040O\040trabalho\040foi\040realizado\040de\040acordo\040com\040o\040plano\040pericial\040previamente\040apresentado\054\040aprovado\040e) Tj
+(\040\040As\040partes\040e\040seus\040advogados\040são\040intimados\040da\040presente\040decisão\054\040que\040será\040arquivada\040nos) Tj
 T*
 0 Tw
-(executado\040conforme\040descrito\040a\040seguir\072) Tj
+(autos\040do\040processo\040arbitral\056) Tj
 T*
 ET
 Q
-Q
-q
-1 0 0 1 78 124.8898 cm
 Q
 Q
 
@@ -525,7 +542,7 @@ endobj
 /F1 6 0 R
 /F2 7 0 R
 >>
-/ProcSet [ /ImageB /Text /ImageC /PDF /ImageI ]
+/ProcSet [ /PDF /ImageC /ImageB /ImageI /Text ]
 >>
 /MediaBox [ 0 0 595.5 841.92 ]
 /Contents 10 0 R
@@ -535,7 +552,7 @@ endobj
 endobj
 10 0 obj
 <<
-/Length 5513
+/Length 3446
 >>
 stream
 q
@@ -571,31 +588,10 @@ BT
 14.4 TL
 ET
 q
-1 0 0 1 78 711.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(4\0561\040Planejamento) Tj
-T*
-ET
-Q
+1 0 0 1 78 716.8898 cm
 Q
 q
 1 0 0 1 78 700.8898 cm
-Q
-q
-1 0 0 1 78 684.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -608,16 +604,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Levantamento\040dos\040quesitos\040formulados\040pelas\040partes\040e\040pelo\040juízo\056) Tj
+(\040\040Publique\055se\056\040Registre\055se\056\040Cumpra\055se\056) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 689.8898 cm
 Q
 q
 1 0 0 1 78 673.8898 cm
-Q
-q
-1 0 0 1 78 657.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -630,16 +626,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Análise\040preliminar\040dos\040documentos\040disponibilizados\056) Tj
+(\040\040\054\040\056) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 662.8898 cm
 Q
 q
 1 0 0 1 78 646.8898 cm
-Q
-q
-1 0 0 1 78 630.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -652,16 +648,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Identificação\040de\040diligências\040necessárias\056) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 635.8898 cm
 Q
 q
 1 0 0 1 78 619.8898 cm
-Q
-q
-1 0 0 1 78 603.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -674,18 +670,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(4\0562\040Procedimentos\040Executados) Tj
+(\040) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 608.8898 cm
 Q
 q
 1 0 0 1 78 592.8898 cm
-Q
-q
-1 0 0 1 78 576.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -698,16 +692,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040aaaaaaaaaaaaaaaaaaa) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 581.8898 cm
 Q
 q
 1 0 0 1 78 565.8898 cm
-Q
-q
-1 0 0 1 78 549.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -720,16 +714,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Coleta\040de\040elementos\040de\040prova\040por\040meio\040de\040diligências\054\040se\040aplicável\056) Tj
+(\040) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 554.8898 cm
 Q
 q
 1 0 0 1 78 538.8898 cm
-Q
-q
-1 0 0 1 78 522.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -742,18 +736,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(4\0563\040Documentação\040Utilizada) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 527.8898 cm
 Q
 q
 1 0 0 1 78 511.8898 cm
-Q
-q
-1 0 0 1 78 495.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -766,16 +758,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040\055\040aaaaaaaaaaaaaaaaaaa\056) Tj
+(\040) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 500.8898 cm
 Q
 q
 1 0 0 1 78 484.8898 cm
-Q
-q
-1 0 0 1 78 468.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -788,18 +780,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(4\0564\040Instrumentos\040e\040Ferramentas) Tj
+(\040\040Testemunhas\072) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 473.8898 cm
 Q
 q
 1 0 0 1 78 457.8898 cm
-Q
-q
-1 0 0 1 78 441.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -812,16 +802,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040Aplicação\040de\040cálculos\040contábeis\040e\040financeiros\040conforme\040literatura\040contábil\040e\040normas\040técnicas\056) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 446.8898 cm
 Q
 q
 1 0 0 1 78 430.8898 cm
-Q
-q
-1 0 0 1 78 414.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -834,18 +824,16 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(5\056\040DESENVOLVIMENTO\040E\040ANÁLISE) Tj
+(\040\0401\056\040Nome\072) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 419.8898 cm
 Q
 q
 1 0 0 1 78 403.8898 cm
-Q
-q
-1 0 0 1 78 387.8898 cm
 q
 BT
 1 0 0 1 0 6 Tm
@@ -858,585 +846,77 @@ BT
 (\040) Tj
 (\040) Tj
 (\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(5\0561\040Análise\040dos\040Documentos) Tj
+(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
 T*
 ET
 Q
+Q
+q
+1 0 0 1 78 392.8898 cm
 Q
 q
 1 0 0 1 78 376.8898 cm
+q
+BT
+1 0 0 1 0 6 Tm
+16 TL
+/F1 10 Tf
+0 0 0 rg
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040) Tj
+(\040\0402\056\040Nome\072) Tj
+T*
+ET
+Q
+Q
+q
+1 0 0 1 78 365.8898 cm
+Q
+q
+1 0 0 1 78 365.8898 cm
 Q
 q
 1 0 0 1 78 360.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 349.8898 cm
-Q
-q
-1 0 0 1 78 333.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(5\0562\040Apuração\040de\040Valores) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 322.8898 cm
-Q
-q
-1 0 0 1 78 306.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 295.8898 cm
-Q
-q
-1 0 0 1 78 279.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(5\0563\040Resultados\040Observados) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 268.8898 cm
-Q
-q
-1 0 0 1 78 252.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 241.8898 cm
-Q
-q
-1 0 0 1 78 225.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(6\056\040CONCLUSÃO) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 214.8898 cm
-Q
-q
-1 0 0 1 78 182.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
--0.018305 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Com\040base\040nos\040elementos\040de\040prova\040constantes\040nos\040autos\040e\040nas\040diligências\040realizadas\054\040concluo) Tj
-T*
-0 Tw
-(que\072) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 171.8898 cm
-Q
-q
-1 0 0 1 78 155.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\055\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 144.8898 cm
-Q
-q
-1 0 0 1 78 128.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Resultado\040Final\072\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 117.8898 cm
-Q
-Q
-
-endstream
-endobj
-11 0 obj
-<<
-/Type /Page
-/Resources <<
-/ExtGState <<
-/G3 5 0 R
->>
-/Font <<
-/F1 6 0 R
-/F2 7 0 R
->>
-/ProcSet [ /ImageB /Text /ImageC /PDF /ImageI ]
->>
-/MediaBox [ 0 0 595.5 841.92 ]
-/Contents 12 0 R
-/Annots [ ]
-/Parent 1 0 R
->>
-endobj
-12 0 obj
-<<
-/Length 3349
->>
-stream
-q
-q
-0 0 595.5 841.92 re
-W
-n
-0.23999999 0 0 -0.23999999 0 841.91998 cm
-q
-0 115.625 2481.25 3278.125 re
-W*
-n
-q
-3.125 0 0 3.125 0 115.625 cm
-1 1 1 RG
-1 1 1 rg
-/G3 gs
-0 0 794 99 re
-f
-0 0 794 99 re
-f
-Q
-Q
-Q
-Q
-q
-0 0 595.2756 841.8898 re
-W
-n
-1 0 0 1 0 0 cm
-BT
-/F1 12 Tf
-14.4 TL
-ET
-q
-1 0 0 1 78 711.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040) Tj
-/F2 10 Tf
-(7\056\040ANEXO) Tj
-T*
-ET
 Q
-Q
-q
-1 0 0 1 78 700.8898 cm
-Q
-q
-1 0 0 1 78 684.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Anexo\040ao\040presente\040laudo\040os\040seguintes\040documentos\040que\040subsidiaram\040a\040conclusão\072) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 673.8898 cm
-Q
-q
-1 0 0 1 78 657.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0401\056\040Tabela\040com\040os\040cálculos\040realizados\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 646.8898 cm
-Q
-q
-1 0 0 1 78 630.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0402\056\040Cópias\040de\040documentos\040analisados\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 619.8898 cm
-Q
-q
-1 0 0 1 78 603.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\0403\056\040Relatórios\040das\040diligências\040realizadas\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 592.8898 cm
-Q
-q
-1 0 0 1 78 560.8898 cm
-q
-BT
-1 0 0 1 0 22 Tm
-1.64928 Tw
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Termo\040Final\072\040Este\040laudo\040foi\040elaborado\040com\040estrita\040observância\040das\040normas\040contábeis\040e) Tj
-T*
-0 Tw
-(judiciais\040aplicáveis\054\040dentro\040dos\040princípios\040éticos\040e\040técnicos\040que\040regem\040a\040profissão\040contábil\056) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 549.8898 cm
-Q
-q
-1 0 0 1 78 533.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040aaaaaaaaaaaaaaaaaaa\054\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 522.8898 cm
-Q
-q
-1 0 0 1 78 506.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040Perito\040Judicial) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 495.8898 cm
-Q
-q
-1 0 0 1 78 479.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137\137) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 468.8898 cm
-Q
-q
-1 0 0 1 78 452.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 441.8898 cm
-Q
-q
-1 0 0 1 78 425.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040CRC\040nº\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
-Q
-q
-1 0 0 1 78 414.8898 cm
-Q
 q
-1 0 0 1 78 398.8898 cm
-q
-BT
-1 0 0 1 0 6 Tm
-16 TL
-/F1 10 Tf
-0 0 0 rg
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040) Tj
-(\040\040CPF\040nº\040aaaaaaaaaaaaaaaaaaa) Tj
-T*
-ET
-Q
+1 0 0 1 78 360.8898 cm
 Q
 q
-1 0 0 1 78 387.8898 cm
+1 0 0 1 78 355.8898 cm
 Q
 q
-1 0 0 1 78 387.8898 cm
+1 0 0 1 78 355.8898 cm
 Q
 q
-1 0 0 1 78 382.8898 cm
+1 0 0 1 78 350.8898 cm
 Q
 Q
 
 endstream
 endobj
 xref
-0 13
+0 11
 0000000000 65535 f 
 0000000015 00000 n 
-0000000087 00000 n 
-0000000127 00000 n 
-0000000176 00000 n 
-0000000406 00000 n 
-0000000445 00000 n 
-0000000552 00000 n 
-0000000664 00000 n 
-0000006288 00000 n 
-0000006519 00000 n 
-0000012085 00000 n 
-0000012317 00000 n 
+0000000080 00000 n 
+0000000120 00000 n 
+0000000169 00000 n 
+0000000399 00000 n 
+0000000438 00000 n 
+0000000545 00000 n 
+0000000657 00000 n 
+0000006189 00000 n 
+0000006420 00000 n 
 trailer
 <<
-/Size 13
+/Size 11
 /Root 3 0 R
 /Info 2 0 R
 >>
 startxref
-15719
+9919
 %%EOF
